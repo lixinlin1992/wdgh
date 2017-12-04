@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_STAFF_SERVICE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_staff_service(id,title,type,content,view_times,create_user,create_time)
+            values(bi_staff_service_seq.nextval,[title],[type],[content],0,[var(RU.CUR_USER.id)],sysdate)
+            ]]>
+        </stmt>
+    </query>
+</query-config>

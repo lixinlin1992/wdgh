@@ -1,0 +1,28 @@
+@charset "utf-8";
+/*main定下位看效果图Begin*/
+body{
+	background:#fcfcfc;
+	}
+.SR_mainTable{
+		width:100%;
+		height:800px;
+		overflow:hidden;
+	}
+.SR_mainLeft{
+		width:200px;
+		vertical-align:top;
+		background:#e7eff1;
+	}
+.SR_mainModule{
+		width:15px;
+		background-color:#e3e3e3;
+		vertical-align:top;
+	}
+.SR_mainRight{
+		vertical-align:top;
+	}
+.SR_Space{
+	overflow:hidden;
+	padding:10px;
+	}
+/*main定下位看效果图End*/

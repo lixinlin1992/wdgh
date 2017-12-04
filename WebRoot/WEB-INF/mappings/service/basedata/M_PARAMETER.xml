@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- 系统参数 -->
+<datasources>
+
+    <!-- 获取参数值 -->
+    <ds name="DS_GET_PARAMETER" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/basedata/Q_PARAMETER.xml&_id=Q_GET_PARAMETER]]></url>
+    </ds>
+
+    <!-- 设置参数 -->
+    <ds name="DS_SET_PARAMETER" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/basedata/Q_PARAMETER.xml&_id=Q_SET_PARAMETER]]></url>
+    </ds>
+
+</datasources>

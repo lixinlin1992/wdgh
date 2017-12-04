@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <query id="Q_LOAD_DetailContent" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+		select t.id,t.title,t.content,spu.name create_user,to_char(create_time,'yyyy-mm-dd') create_time
+		from ${table_name} t
+		left join sys_p_user spu on t.create_user=spu.id
+		where t.id=[id]
+        ]]></stmt>
+    </query>
+</query-config>

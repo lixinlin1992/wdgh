@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 数据库设计表列表 -->
+	<query id="Q_DES_TABLE_LIST" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[ 
+		SELECT A.ID       AS ID,
+		       B.NAME     AS SYS_NAME,
+		       A.SYS_CODE AS SYS_CODE,
+		       A.NAME     AS NAME,
+		       A.CODE     AS CODE
+		  FROM RDC_DES_TABLE A, SYS_BI_SYSTEM B
+		 WHERE A.SYS_CODE = B.CODE
+		 	   AND A.STATUS = 0
+		 
+			   <#if sysName4ser??>
+				AND B.NAME [Like(sysName4ser)]				 			   
+			   </#if>
+			   <#if sysCode4ser??>
+			   	AND A.SYS_CODE [Like(sysCode4ser)]
+			   </#if>	   
+			   <#if tableName4ser??>
+			   AND A.NAME [Like(tableName4ser)]
+			   </#if>
+			   <#if tableCode4ser??>
+			   AND A.CODE  [Like(tableCode4ser)]
+			   </#if>
+    	 ]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+	
+	
+	
+	<!-- 数据库表添加/修改 -->
+	<query id="Q_BASE_DATA_TABLE_EDIT" type="auto-update">
+		<!-- 权限判断 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">edit</param>
+		</processor>		
+        <!--进行数据的校验-->
+        <processor name="check-count" type="before" break="true" seq="2">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM rdc_des_table WHERE NAME =[name]
+		  		AND SYS_CODE = [sys_code]
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前系统已存在相同的名字"${name}",请重命名!]]></param>
+        </processor>		
+		<param name="insert-tables"><![CDATA[<#if id??><#else>rdc_des_table s</#if>]]></param>	
+		<param name="update-tables"><![CDATA[<#if id??>rdc_des_table s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=rdc_des_table_seq.NEXTVAL,s.CREATE_TIME=SYSDATE,s.CREATE_USER= [_CurrUser.id long]</#if>]]></param>
+		<param name="trans">true</param>
+	</query>	
+	
+	<!-- 初始数据库表修改弹出框 -->
+	<query id="Q_BASE_DATA_TEBLE_EDIT_INIT" type="form_map" result="ftl">
+		<stmt>
+			<![CDATA[ 
+			SELECT ID,SYS_CODE, CODE, NAME FROM RDC_DES_TABLE WHERE ID =[id]  
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>		
+		<param name="ftl">
+			template/rdcp/dbdesign/T_DATA_BASE_TABLE.ftl
+		</param>		
+	</query>   	
+	 <!-- 删除数据库表 -->
+	<query id="Q_DATA_BASE_TABLE_DELETE" type="auto-update">
+		<!-- 权限判断 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">delete</param>
+		</processor>
+		<param name="delete-tables">RDC_DES_TABLE s</param>
+		<param name="key-cols">s.id</param>
+	</query>	
+	
+
+	<!-- 数据库表树 -->
+	<query id="Q_SYSTEM_TABLE_TREE" type="pagelist" result="ftl">
+		<stmt>
+			<![CDATA[
+           
+            <#if type?exists && type=='-1'> <#-- 表 -->   
+	            select * from(
+					SELECT TO_CHAR(id) AS ID,
+					       TO_CHAR(sys_code) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR('') AS TYPE,
+					       TO_CHAR('') AS PARENT_ID,
+					       TO_CHAR('-1') AS nodeType,
+					       TO_CHAR('') AS ISPARENT
+					  FROM rdc_des_table
+					  where 1=1 
+					  and [RdcpSecurity(id)]				
+		        )tt WHERE tt.sys =[id]
+		    <#elseif type?exists && type='-2'><#-- 序列 -->
+ 	            select * from(
+			          SELECT TO_CHAR(id) AS ID,
+			                   TO_CHAR(SYS_CODE) AS SYS,
+		                       TO_CHAR(NAME) AS NAME,
+		                       TO_CHAR('') AS TYPE,
+		                       TO_CHAR('') AS PARENT_ID,
+		                       TO_CHAR('-2') AS nodeType,
+		                       TO_CHAR('') AS ISPARENT
+            			FROM RDC_DES_SEQUENCE
+					  where 1=1 
+					  and [RdcpSecurity(id)]				
+		        )tt WHERE tt.sys =[id]			    
+ 			<#elseif type?exists && type=='-3'><#-- 存储过程/程序对象 -->    
+ 	            select * from(
+			          SELECT TO_CHAR(id) AS ID,
+			                 TO_CHAR(SYS_CODE) AS SYS,
+			                 TO_CHAR(NAME) AS NAME,
+			                 TO_CHAR(TYPE) AS TYPE,
+			                 TO_CHAR('') AS PARENT_ID,
+			                 TO_CHAR('-3') AS nodeType,
+			                 TO_CHAR('') AS ISPARENT
+					  FROM RDC_DES_PROGRAM
+					  where 1=1 
+					  and [RdcpSecurity(id)]				
+		        )tt WHERE tt.sys =[id]					        
+			<#elseif type?exists &&type=='0'><#-- 三个固定节点 -->
+		            SELECT CODE AS ID,
+	                -1 AS SYS,
+	       			'表' AS NAME,
+	       			TO_CHAR('-1') AS TYPE,
+	       			TO_CHAR('') AS PARENT_ID,
+	       			 to_char('true') as isParent
+	 	 			FROM SYS_BI_SYSTEM 
+	 	 			where CODE = [id]	
+ 	 			union
+	 				SELECT CODE AS ID, 				
+	                -2 AS SYS,
+	       			'序列' AS NAME,
+	       			TO_CHAR('-2') AS TYPE,
+	       			TO_CHAR('') AS PARENT_ID,
+	       			 to_char('true') as isParent
+	 	 			FROM SYS_BI_SYSTEM 
+	 	 			where CODE = [id]	
+ 	 			union
+	 				SELECT CODE AS ID, 				
+	                -3 AS SYS,
+	       			'存储过程' AS NAME,
+	       			TO_CHAR('-3') AS TYPE,
+	       			TO_CHAR('') AS PARENT_ID,
+	       			 to_char('true') as isParent
+	 	 			FROM SYS_BI_SYSTEM 
+	 	 			where CODE = [id]	
+            <#else>
+	            SELECT CODE AS ID,
+                CODE AS SYS,
+       			NAME AS NAME,
+       			TO_CHAR('0') AS TYPE,
+       			TO_CHAR('') AS PARENT_ID,
+       			 to_char('true') as isParent
+ 	 			FROM SYS_BI_SYSTEM
+ 	 			where 1=1
+ 	 			and [RdcpSecurity(CODE)]
+             </#if>
+             ]]>
+		</stmt>
+		<param name="paging">false</param>
+		<param name="format">text</param>
+		<param name="ftl">
+			template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl
+		</param>
+	</query>	
+	
+		
+	<!-- 数据库字段展示列表 -->
+	<query id="Q_DES_TABLE_COLS_LIST" type="pagelist" result="json">
+		<stmt>
+		<![CDATA[ 
+			SELECT B.NAME          AS TABLE_NAME,
+			       B.CODE          AS TABLE_CODE,
+			       A.CODE          AS CODE,
+			       A.NAME          AS NAME,
+			       A.TYPE          AS TYPE,
+			       A.LENGTH        AS LENGTH,
+			       A.PRECISION     AS PRECISION,
+			       A.KEY_FLAG      AS KEY_FLAG,
+			       A.NULL_FLAG     AS NULL_FLAG,
+			       A.DEFAULT_VALUE AS DEFAULT_VALUE,
+			       A.NOTE          AS NOTE,
+			       A.CREATE_TIME   AS CREATE_TIME,
+			       C.NAME          AS CREATE_USER_NAME,
+			       A.ID            AS ID,
+			       B.ID            AS TABLE_ID,
+			       A.CREATE_USER  AS CREATE_USER
+			  FROM RDC_DES_TABLE_COLUMN A, RDC_DES_TABLE B, SYS_P_USER C
+			 WHERE A.TABLE_ID = B.ID
+			   AND A.CREATE_USER = C.ID
+    	 ]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+		
+</query-config>

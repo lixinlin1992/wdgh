@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_USERGROUP_RESOURCE_ADD" type="batch">
+        <stmt><![CDATA[
+        <@aslist name="res_path"/>
+        <@aslist name="module_path"/>
+        <#list res_path as r>
+        INSERT INTO SYS_P_USERGROUP_RESOURCE(GROUP_CODE,MODULE_PATH,RES_PATH)
+        VALUES([group_code],${func(array(module_path,r_index),"string")},${func(r,"string")});
+        </#list>
+                ]]></stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

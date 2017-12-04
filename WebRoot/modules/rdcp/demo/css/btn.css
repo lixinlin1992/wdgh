@@ -1,0 +1,67 @@
+@charset "utf-8";
+/*表格按钮的样式Begin*/
+.SR_btn{
+	margin-top:10px;
+	width:100%;
+	height:30px;
+	}
+.SR_btn .SR_btnSpace{
+	width:200px;
+	height:30px;
+	margin:0px auto;
+	}
+.SR_btn .SR_btnSpace .SR_conserve{
+	width:95px;
+	height:30px;
+	float:left;
+	}
+.SR_btn .SR_btnSpace .SR_conserve a{
+	display:block;
+	width:95px;
+	height:30px;
+	background:#f2601d;
+	text-decoration:none;
+	text-align:center;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	}
+.SR_btn .SR_btnSpace .SR_conserve a:hover{
+	display:block;
+	width:95px;
+	height:30px;
+	background:#de5313;
+	text-decoration:none;
+	text-align:center;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	}
+.SR_btn .SR_btnSpace .SR_concel{
+	width:95px;
+	height:30px;
+	float:right;
+	}
+.SR_btn .SR_btnSpace .SR_concel a{
+	display:block;
+	width:95px;
+	height:30px;
+	background:#c1bfbf;
+	text-decoration:none;
+	text-align:center;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	}
+.SR_btn .SR_btnSpace .SR_concel a:hover{
+	display:block;
+	width:95px;
+	height:30px;
+	background:#cccccc;
+	text-decoration:none;
+	text-align:center;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	}
+/*表格按钮的样式End*/

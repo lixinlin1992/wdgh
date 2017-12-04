@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+	<!-- 查询已部署流程定义 -->
+	<query id="Q_PROCESS_LIST" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+			-- 查询流程部署及定义信息
+			select d.id_ as deployId,
+			       d.name_ as deployName,
+			       d.deploy_time_ as deployTime,
+			       p.id_ as procDefId,
+			       p.name_ as procDefName,
+			       p.key_ as procDefKey,
+			       p.version_ as procDefVersion,
+			       p.resource_name_ as xmlName,
+			       p.dgrm_resource_name_ as pngName,
+			       count(t.proc_def_id_) as unfinishTaskCount
+			  from act_re_procDef p, act_re_deployment d, act_ru_task t
+			 where d.id_ = p.deployment_id_
+			   and p.id_ = t.proc_def_id_(+)
+			   <#if deployId??>
+               AND d.id_ = [deployId]
+               </#if>
+			   <#if procDefName??>
+               AND p.name_ [like(procDefName)]
+               </#if>
+			   <#if procDefKey??>
+               AND p.key_ [like(procDefKey)]
+               </#if>
+			 group by d.id_,
+			          d.name_,
+			          d.deploy_time_,
+			          p.id_,
+			          p.name_,
+			          p.key_,
+			          p.version_,
+			          p.resource_name_,
+			          p.dgrm_resource_name_
+			 order by p.version_ desc
+			]]>
+		</stmt>
+	</query>
+	<!-- 查询运行中任务 -->
+	<query id="Q_RUNNING_LIST" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+			--查询运行中任务
+			select d.id_ as deployId,
+			       t.id_ as taskId,
+			       t.proc_inst_id_ as procInstId,
+			       p.id_ as procDefId,
+			       p.name_ as procDefName,
+			       t.name_ as curNode,
+			       nvl(u.name, '待签收') as assignee,
+			       p.dgrm_resource_name_ as pngName,
+			       t.create_time_ as startTime,
+			       t.due_date_ deadline,
+			       t.due_date_ - t.create_time_ overdue
+			  from act_ru_task t, act_re_procDef p, act_re_deployment d, act_hi_procinst procInst, sys_p_user u
+			 where t.proc_def_id_ = p.id_
+			   and p.deployment_id_ = d.id_
+			   and t.proc_inst_id_ = procInst.Proc_Inst_Id_
+			   AND t.assignee_ = u.id(+)
+			   
+			   <#if isDraft??>
+			   --草稿箱专用片段,business_key为空则为草稿，并只查发属于自己的草稿。
+               AND procInst.business_Key_ is null
+               AND t.assignee_ = [_CurrUser.id]
+               </#if>
+               
+			   <#if procDefName??>
+               AND p.name_ [like(procDefName)]
+               </#if>
+               <#if procDefId??>
+               AND p.id_ [like(procDefId)]
+               </#if>
+			 order by t.create_time_ desc
+			]]>
+		</stmt>
+	</query>
+
+	<!-- 根据任务ID更新流程的businessKey -->
+	<query id="Q_UPDATE_BUSINESSKEY_BY_TASKID" type="update" result="json">
+		<stmt>
+            <![CDATA[
+			update act_hi_procinst procInst
+			  set procInst.business_key_ = [businessKey]
+			where procInst.id_ = (select t.proc_inst_id_ from act_ru_task t where t.id_ = [taskId])
+			]]>
+		</stmt>
+	</query>
+
+	<!-- 根据流程实例ID更新流程的businessKey -->
+	<query id="Q_UPDATE_BUSINESSKEY_BY_PROCINSTID" type="update"
+		result="json">
+		<stmt>
+            <![CDATA[
+			update act_hi_procinst procInst
+			  set procInst.business_key_ = [businessKey]
+			where procInst.id_ = [procInstid]
+			]]>
+		</stmt>
+	</query>
+
+
+	<!-- 查询运行中任务 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST" type="pagelist"
+		result="json">
+		<stmt>
+            <![CDATA[
+			select t.selector_id    selectorId,
+			       t.selector_code  selectorCode,
+			       t.selector_name  selectorName,
+			       t.org_show_type  orgShowType,
+			       t.org_tree_ds    orgTreeDS,
+			       t.org_list_ds    orgListDS,
+			       t.user_show_type userShowType,
+			       t.user_tree_ds   userTreeDS,
+			       t.user_list_ds   userListDS
+			  from bpm_assignee_selector_view t
+			 where 1 = 1
+			<#if selectorId??>
+			  AND t.selector_id = [selectorId]
+			</#if>
+			]]>
+		</stmt>
+	</query>
+
+	<!-- 选人视图-部门结构-部门树 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_TREE_DEPT" type="tree" result="">
+		 <stmt>
+      <![CDATA[
+  select d.id ,d.name,d.parent_id,1 as typecol from sys_p_department d
+      ]]>
+    </stmt>
+    <param name="paging">false</param>
+    <param name="id-col">id</param>
+    <param name="name-col">name</param>
+    <param name="parent-col">parent_id</param>
+    <param name="type-col">typecol</param>
+    <param name="parent-type-col">typecol</param>
+    <param name="root-flag">${parent_id!""}</param>
+	</query>
+	<!-- 选人视图-部门结构-用户树 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT_USER" type="pagelist"
+		result="json">
+		<processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">_orgId</param>
+            <param name="sql"><![CDATA[select t.id from sys_p_department t where t.parent_id is not null and t.parent_id <> 0 and t.id=[orgId]]]></param>
+        </processor>
+		<stmt>
+            <![CDATA[
+			select t.id, t.name from sys_p_user t where 1=1
+			<#if _orgId??>
+			  and t.dept_id in (
+select d.id from sys_p_department d start with d.id=[orgId] connect by prior d.id=d.parent_id
+)
+			</#if>
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+	
+	<!-- 选人视图-部门结构-部门列表 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT" type="pagelist"
+		result="json">
+		<stmt>
+            <![CDATA[
+			select t.id, t.name from sys_p_department t
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+
+	<!-- 选人视图-用户组结构-用户组列表 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP" type="pagelist"
+		result="json">
+		<stmt>
+            <![CDATA[
+			select t.code, t.name from sys_p_user_group t
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+	<!-- 选人视图-用户组结构-用户列表 -->
+	<query id="Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP_USER" type="pagelist"
+		result="json">
+		<stmt>
+            <![CDATA[
+			select u.id, u.name
+			  from sys_p_user u, sys_p_user_group g, sys_p_user_ug ug
+			 where 1 = 1
+			   and u.id = ug.user_id
+			   and ug.user_group_code = g.code
+			<#if orgId??>
+			  AND g.code = [orgId]
+			</#if>
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+
+</query-config>

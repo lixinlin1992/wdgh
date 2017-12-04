@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+<!-- 任务流程列表 -->
+<ds name="DS_PROCESS_MONITOR_LIST" type="url">
+    <url><![CDATA[/_commonQuery.action?_file=bpm/monitor/Q_BPM_TASK_MONITOR.xml&_id=Q_PROCESS_MONITOR_LIST]]></url>
+</ds>
+
+<!--流程撤销-->
+<ds name="DS_PROCESS_REVOKE" type="url">
+    <url>/_processMonitorAction.action?method=processRevoke</url>
+</ds>
+
+<!--流程环节监控-->
+<ds name="DS_PROCESS_DETAIL_MONITOR_LIST" type="url">
+    <url><![CDATA[/_commonQuery.action?_file=bpm/monitor/Q_BPM_TASK_MONITOR.xml&_id=Q_PROCESS_DETAIL_MONITOR_LIST]]></url>
+</ds>
+
+<!--流程环节监控-->
+<ds name="DS_PROCESS_TASK_MONITOR_LIST" type="url">
+    <url><![CDATA[/_commonQuery.action?_file=bpm/monitor/Q_BPM_TASK_MONITOR.xml&_id=Q_PROCESS_TASK_MONITOR_LIST]]></url>
+</ds>
+</datasources>

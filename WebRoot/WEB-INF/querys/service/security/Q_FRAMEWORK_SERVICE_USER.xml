@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+
+     <!--查询用户列表-->
+    <query id="Q_USER_MANAGER_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+		select ID,ACCOUNT,NAME,
+		       replace(ltrim(max(sys_connect_by_path(GROUP_NAME, '#')), '#'),'#',',') as GROUP_NAME,
+		       MOBILE_PHONE,STATUS_ID,DEPT_NAME
+		  from (select 
+		               ID,ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME,
+		               rnFirst, 
+		               lead(rnFirst) over(partition by ID order by rnFirst) rnNext 
+		          from (select 
+		                  u.ID,u.ACCOUNT, u.NAME,ug.name as GROUP_NAME, u.MOBILE_PHONE,
+				              (CASE WHEN u.STATUS_ID=1 THEN '有效' ELSE '已注销' END) STATUS_ID,
+				              d.NAME AS DEPT_NAME,
+		                  row_number() over(order by u.ID desc) rnFirst 
+		                  from sys_p_user u 
+                  		  LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=u.DEPT_ID
+		                  LEFT JOIN sys_p_user_ug r ON r.user_id = u.id
+		                  LEFT JOIN sys_p_user_group ug ON ug.code = r.user_group_code
+		                  where 1=1
+		                    <#if username?exists>
+							and u.name [like(username)]
+						    </#if>
+							<#if useraccount?exists>
+							and u.account [like(useraccount)]
+							</#if>
+							<#if mobilephone?exists>
+							and u.mobile_phone [like(mobilephone)]
+							</#if>
+							<#if statusid?exists>
+							and u.status_id=[statusid]
+							</#if>
+							<#if dept_id??> 
+							AND u.DEPT_ID IN (SELECT ID FROM SYS_P_DEPARTMENT START WITH ID=[dept_id long] CONNECT BY PRIOR ID=PARENT_ID)
+							</#if>
+							order by status_id desc,id
+		               ) tmpTable1) tmpTable2 
+		start with rnNext is null 
+		connect by rnNext = prior rnFirst 
+		group by ID,ACCOUNT,NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME
+		]]></stmt>
+		<param name="id">id</param>
+		<param name="list-cols">ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME,ID</param>
+		<param name="exp-cols">ID,ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME</param>
+		<param name="exp-names">用户ID,帐号,姓名,角色,手机,状态,部门</param>
+		<param name="exp-file">用户信息</param>
+	</query>
+
+
+
+    <!--用户编辑-->
+    <query id="Q_USER_MANAGER_EDIT" type="form_data" result="">
+		<stmt><![CDATA[
+		 	SELECT u.*,d.NAME AS DEPT_NAME FROM SYS_P_USER u
+		 	LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=u.DEPT_ID
+		 	WHERE u.ID = [id]
+		]]></stmt>
+	</query>
+
+	<!-- 返回未有的角色 -->
+	<query id="Q_P_USER_GROUP_LEFTLIST" type="pagelist" result="ftl">
+		<stmt><![CDATA[
+			select g.name from sys_p_user_group g where g.code not in
+			(select u.user_group_code from sys_p_user_ug u where u.user_id=[id])
+		]]></stmt>
+		<param name="_ftl">template/service/security/T_USER_GROUP_NAME.ftl</param>
+        <param name="paging">false</param>
+	</query>
+
+	<!-- 返回已有的角色 -->
+	<query id="Q_P_USER_GROUP_RIGHTLIST" type="pagelist" result="ftl">
+		<stmt><![CDATA[
+			select g.name from sys_p_user_group g where g.code  in
+			(select u.user_group_code from sys_p_user_ug u where u.user_id=[id])
+		]]></stmt>
+		<param name="_ftl">template/service/security/T_USER_GROUP_NAME.ftl</param>
+        <param name="paging">false</param>
+	</query>
+
+    <!--注销用户-->
+	<query id="Q_P_USER_DEL" type="update" result="json">
+		<stmt><![CDATA[
+		 	 update sys_p_user set status_id=2 where id = [userid long]
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">注销用户：id为[${userid}]</param>
+        </processor>
+        <param name="trans">true</param>
+	</query>
+
+	<!-- 修改用户信息 -->
+	<query id="Q_P_UPDATE_USER" type="batch" result="json">
+		<stmt><![CDATA[
+		 	 update sys_p_user set name = [name],mobile_phone=[mobile_phone],email=[email],status_id=[status_id]
+		 	 where account=[account];
+		 	 delete from sys_p_user_ug t where t.user_id=[id];
+			<@aslist name="rightBox"/>
+			<#list rightBox as f>
+			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+				((select g.code from sys_p_user_group g where g.name=${func(f)}),[id long]);
+			</#list>
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改用户（批量）</param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.UserFunctionUpdateProcessor" type="after" seq="2">
+            <param name="user">${id}</param>
+        </processor>
+        <param name="trans">true</param>
+	</query>
+
+	<!-- 还原密码 -->
+	<query id="Q_P_PASSWORD_RESET" type="update" result="json">
+		<stmt><![CDATA[
+			update sys_p_user set password='21218cca77804d2ba1922c33e0151105' where id=[id]
+		]]></stmt>
+	</query>
+
+	<!-- 返回所有的角色 -->
+	<query id="Q_P_USER_GROUP_NAMELIST" type="pagelist" result="ftl">
+		<stmt><![CDATA[
+			select t.name from sys_p_user_group t
+		]]></stmt>
+		<param name="ftl">template/service/security/T_USER_GROUP_NAME.ftl</param>
+		<param name="_ftl">template/service/security/T_USER_GROUP_NAME.ftl</param>
+		
+		<param name="paging">false</param>
+	</query>
+
+	<!-- 修改用户信息 -->
+	<query id="Q_P_USER_UPDATE_USER" type="batch" result="json">
+		<stmt><![CDATA[
+		 	 update sys_p_user set name = [name],mobile_phone=[mobile_phone],email=[email],status_id=[status_id],DEPT_ID=[dept_id long]
+		 	 where account=[account];
+		 	 delete from sys_p_user_ug t where t.user_id=[id];
+			<@aslist name="rightBox"/>
+			<#list rightBox as f>
+			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+				((select g.code from sys_p_user_group g where g.name='${f}'),[id]);
+			</#list>
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改用户（批量）</param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.UserFunctionUpdateProcessor" type="after" seq="2">
+            <param name="user">${id}</param>
+        </processor>
+        <param name="trans">true</param>
+	</query>
+
+    <!--添加用户-->
+    <query id="Q_P_USER_ADD_USER" type="batch" result="">
+        <stmt>
+            <![CDATA[
+            INSERT INTO SYS_P_USER(ID,ACCOUNT,NAME,MOBILE_PHONE,TYPE_ID,STATUS_ID,PASSWORD,EMAIL,DEPT_ID)
+            VALUES(SYS_P_USER_SEQ.nextval,[account],[name],[mobile_phone],0,[status_id],[encrypt(password,MD5)],[email],[dept_id]);
+			<@aslist name="rightBox"/>
+			<#list rightBox as f>
+			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+				((select g.code from sys_p_user_group g where g.name='${f}'),(select to_number(t.id) from sys_p_user t where t.id=(select ID from SYS_P_USER where ACCOUNT=[account])));
+			</#list>
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">select count(1) from SYS_P_USER where ACCOUNT=[account]</param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[你输入工号${account}已经存在！]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+	<!-- 添加用户的所属的用户组 -->
+	<query id="Q_P_USER_ADDGROUPUSER" type="batch" result="json">
+		<stmt><![CDATA[
+			<@aslist name="rightBox"/>
+			<#list rightBox as f>
+			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+				((select g.code from sys_p_user_group g where g.name='${f}'),(select to_number(t.id) from sys_p_user t where t.id=[temp]));
+			</#list>
+            insert into  sys_p_user_f (function_id,user_id,source)
+            select distinct  g.function_id,[temp],0 from sys_p_user_group_f g where g.user_group_code in(
+            select u.user_group_code from sys_p_user_ug u where u.user_id=[temp]);
+		]]></stmt>
+		<param name="trans">true</param>
+	</query>
+
+    <query id="Q_P_MODIFY_USER_PASS" type="update" result="">
+        <stmt>
+            <![CDATA[
+                <#assign user_id=_session.attrs._com_sunrise_UserSesion.id>
+                update sys_p_user set password=[encrypt(newPassword,MD5)] where id=${user_id}
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                <#assign user_id=_session.attrs._com_sunrise_UserSesion.id>
+                select count(*) from SYS_P_USER where password=[encrypt(oldPassword,MD5)] and id=${user_id}
+                ]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[你输入旧密码不正确！]]></param>
+        </processor>
+    </query>
+</query-config>

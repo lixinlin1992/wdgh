@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<query id="Q_PAY_ELEC_PRINT_INFO_BY_WO_ID" type="pagelist" result="template">
+		<stmt><![CDATA[
+                SELECT O.PAY_WORK_ORDER_ID,PAREA.NAME AREA_NAME,O.ORDER_CODE,U.NAME CREATE_USER,COUNT(*) APP_COUNT,SUM(A.MONEY_PAYABLE) SUM_PAYABLE,SUM(A.MONEY_ACTUAL_PAY) SUM_ACT_PAY,O.CREATE_DATE
+                FROM PAY_WORK_ORDER O,PAY_ELECRICITY_APPLY A,BI_ELECTRICITY_ACCOUNT AC,BI_PROPERTY B,SYS_BI_COMM_ORG AREA,SYS_BI_COMM_ORG PAREA,SYS_P_USER U
+                WHERE     A.PAY_WORK_ORDER_ID=O.PAY_WORK_ORDER_ID
+                      AND O.CREATE_USER_ID = U.ID(+)
+                      AND A.ELECTRICITY_ACCOUNT_ID = AC.ELECTRICITY_ACCOUNT_ID(+)
+                      AND AC.PROPERTY_ID = B.PROPERTY_ID(+)
+                      AND B.AREA_ID = AREA.ID(+)
+                      AND AREA.PARENT_ID = PAREA.ID(+)
+                      and O.PAY_WORK_ORDER_ID = [woId]
+                      GROUP BY PAREA.NAME,O.ORDER_CODE,U.NAME,O.CREATE_DATE,O.PAY_WORK_ORDER_ID
+		]]></stmt>
+        <param name="template" freemarker="false">
+            <![CDATA[
+            <#list resultSet.rows as r>
+					{
+						"AREA_NAME":"${r.AREA_NAME!}","ORDER_CODE":"${r.ORDER_CODE!}","CREATE_USER":"${r.CREATE_USER!}","CREATE_DATE":"${r.CREATE_DATE!}","APP_COUNT":"${r.APP_COUNT!}",
+						"SUM_PAYABLE":"${r.SUM_PAYABLE!}","SUM_ACT_PAY":"${r.SUM_ACT_PAY!}"
+					}
+		    </#list>
+		]]></param>
+        <param name="paging">false</param>
+	</query>
+
+    <query id="Q_PAY_ELEC_LIST_BY_WO_ID" type="pagelist" result="json">
+        <stmt><![CDATA[
+                select
+                        org.name area_name,
+                        CO3.NAME PROPERTY_TYPE,
+                        p.property_name,
+                        ea.ACC_PAYEE,
+                        ea.ACC_BANK,
+                        ea.ACC_NUMBER,
+                        replace(VR.PRE_DATE_READING,':',' ') PRE_DATE_READING,replace(VR.DATE_READING,':',' ') DATE_READING,replace(VR.PRE_DATA_READING,':',' ') PRE_DATA_READING,replace(VR.DATA_READING,':',' ') DATA_READING,
+                        ea.power_reading,
+                        ea.ELECTRICITY_PRICE,
+                        ea.money_payable,
+                        ea.money_actual_pay,
+                        nvl(ea.money_balance,0) money_balance,
+                        ea.MONEY_ADDITIONAL,
+                        ea.MONEY_LOSS,
+
+                        decode(ea.is_have_ticket,1,'有',0,'无') is_have_ticket,
+                        decode(ea.is_exception,0,'是',1,'否') is_exception,
+                        ea.NOTE,
+                        (pbt.property_type_name||'_'||bt.property_type_name) property_type_name,
+                        eo.ORDER_CODE
+
+		        from   (select * from pay_elecricity_apply where PAY_WORK_ORDER_ID = [woId]) ea,
+		        		(select * from v$pay_app_reads where pay_electricity_apply_id in (select pay_electricity_apply_id from pay_elecricity_apply where PAY_WORK_ORDER_ID = [woId] ) ) vr,
+		        	   bi_electricity_account e,bi_property p,sys_bi_comm_org org,
+		               bi_property_type bt,bi_property_type pbt,
+		        	   (select * from sys_pa_code where code_table='BI_PROPERTY' and  code_field='NET_ID') co3,
+		        	   (select * from pay_work_order where order_type=1) eo
+		        where     ea.electricity_account_id=e.electricity_account_id(+)
+		              and ea.pay_electricity_apply_id = vr.pay_electricity_apply_id(+)
+		              and e.property_id=p.property_id(+)
+		              and p.property_type_id = bt.property_type_id(+)
+		              and bt.parent_id = pbt.property_type_id(+)
+		              AND P.NET_ID = co3.CODE_NUM(+)
+		              and org.id(+)=p.area_id
+		              and ea.PAY_WORK_ORDER_ID = eo.PAY_WORK_ORDER_ID
+                       
+                      order by ea.pay_electricity_apply_id asc
+		]]></stmt>
+        <param name="paging">false</param>
+        <param name="exp-cols">
+            area_name,ORDER_CODE,PROPERTY_TYPE,property_type_name,property_name,ACC_PAYEE,ACC_BANK,ACC_NUMBER,PRE_DATE_READING,DATE_READING,PRE_DATA_READING,DATA_READING,power_reading,ELECTRICITY_PRICE,money_payable,money_actual_pay,money_balance,MONEY_ADDITIONAL,MONEY_LOSS,is_have_ticket,is_exception,note
+        </param>
+        <param name="exp-names">
+            维护片区,单据号,站点类别,基站类型,站点名称,帐户名称,开户行,帐号,起付日期,止付日期,起码,止码,用电量,单价,应付,实付,结余,附加,损耗,发票,异常,备注
+        </param>
+        <param name="exp-file">电费支付申请台账.xls</param>
+    </query>
+    
+    <!-- 房租支付打印页面的查询或下载：房租管理费的信息，基站信息，合同信息，付款账号信息 -->
+    <query id="Q_PAY_RENT_APPLY_DOWN_BY_WO" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[
+				select 
+						bpt.property_type_name||'-'||bt.property_type_name property_type_name,
+						p.property_name,c.name,c.acc_payee,c.acc_bank,c.acc_number,
+						to_char(r.date_start,'yyyy-mm-dd') date_start,to_char(r.date_end,'yyyy-mm-dd') date_end,
+						r.money_actual_pay,r.R_MONEY_ACTUAL_PAY + r.M_MONEY_ACTUAL_PAY money_actual_pay1,
+						r.r_money_year , r.r_money_this , r.r_tax_rate ,r.r_money_tax , r.r_money_actual_pay , r.r_money_adjust ,
+						decode(r.r_is_have_tax,1,'是',0,'否') r_is_have_tax,r.r_money_payable_sum ,
+						r.m_money_year  ,r.m_money_this ,r.m_tax_rate ,r.m_money_tax ,r.m_money_actual_pay ,r.m_money_adjust ,
+						decode(r.m_is_have_tax,1,'是',0,'否') m_is_have_tax,r.m_money_payable_sum ,co1.name note_name,wo.ORDER_CODE
+					from pay_rent_apply r , bi_contact c,bi_property p,bi_property_type bt,bi_property_type bpt,
+					sys_pa_code co1,pay_work_order wo
+					where r.pay_work_order_id is not null
+						and c.contact_id=r.contact_id
+						and c.property_id=p.property_id
+						and bt.property_type_id(+)=p.property_type_id
+						and bpt.property_type_id=bt.parent_id
+						and co1.code_num(+)=r.note_type_id and co1.code_table(+)='BI_ELECTRICITY_ACCOUNT' and co1.code_field(+)='NOTE_TYPE_ID'
+						and wo.pay_work_order_id = r.pay_work_order_id and wo.order_type=2
+						and wo.pay_work_order_id = [woId]
+
+			]]>
+		</stmt>
+        <param name="paging">false</param>
+		<param name="exp-cols">
+            order_code,property_type_name,property_name,name,acc_payee,acc_bank,acc_number,date_start,date_end,money_actual_pay,money_actual_pay1,r_money_year,r_money_this,r_tax_rate,r_money_tax,r_money_actual_pay,r_money_adjust,r_is_have_tax,r_money_payable_sum,m_money_year,m_money_this,m_tax_rate,m_money_tax,m_money_actual_pay,m_money_adjust,m_is_have_tax,m_money_payable_sum,note_name
+        </param>
+        <param name="exp-names">
+            单据号,站点类别,站点名称,合同名称,收款单位,开行户,收款账号,起付日期,止付日期,应付费,实付费,合同年租金, 本期租金,本期房租税率,本期房租税金,本期实付业主房租,本期房租调整,是否我方代扣,本期应付房租,合同年管理费,本期管理费,本期管理费税率,本期管理费税金,本期实付业主管理费,本期管理费调整,是否我方代扣,本期应付管理费,票据类型
+        </param>
+        <param name="exp-file">房租支付申请台账.xls</param>
+	</query>
+    
+    <!-- 房租打印页面的打印统计信息：发起人，总金额 -->
+    <query id="Q_PAY_RENT_APPLY_PRINT_INFO_BY_WO" type="pagelist" result="template">
+		<stmt>
+			<![CDATA[
+				select wo.pay_work_order_id,org.name area_name,wo.order_code,count(*) rent_num,sum(r.R_MONEY_ACTUAL_PAY + r.M_MONEY_ACTUAL_PAY) reality_pay,
+					sum(r.money_actual_pay) money_actual_pay,u.name creat_man,wo.create_date 
+				from pay_rent_apply r,bi_contact c,bi_property p,sys_p_user u,sys_bi_comm_org org,pay_work_order wo
+				where r.contact_id=c.contact_id
+				and c.property_id=p.property_id
+				and org.id = p.area_id
+				and wo.pay_work_order_id = r.pay_work_order_id and wo.order_type=2
+				and wo.create_user_id=u.id(+)
+				and wo.pay_work_order_id=[woId]
+				
+				group by org.name,wo.order_code,u.name,wo.create_date,wo.pay_work_order_id
+				ORDER BY WO.PAY_WORK_ORDER_ID DESC
+			]]>
+		</stmt>
+        <param name="paging">false</param>
+		<param name="template" freemarker="false">
+            <![CDATA[
+            <#list resultSet.rows as r>
+					{
+						"AREA_NAME":"${r.AREA_NAME!}","ORDER_CODE":"${r.ORDER_CODE!}","CREATE_USER":"${r.CREAT_MAN!}",
+						"CREATE_DATE":"${r.CREATE_DATE!}","APP_COUNT":"${r.RENT_NUM!}",
+						"SUM_PAYABLE":"${r.MONEY_ACTUAL_PAY!}","SUM_ACT_PAY":"${r.REALITY_PAY!}"
+					}
+		    </#list>
+		]]></param>
+	</query>
+    
+</query-config>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_TRADE_MANAGE_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+			select bti.account,bti.name,spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,
+			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会') trade_status,leaguer_no
+			from bi_trade_info bti
+			left join sys_p_department spd on bti.dept_id=spd.id
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

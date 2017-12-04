@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_GET_ELECTRONIC_PHOTO_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+            select id,title,type,content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time from bi_electronic_photo
+            where id=[photo_id]
+		]]></stmt>
+    </query>
+</query-config>

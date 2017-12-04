@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LEGAL_AID_DETAIL_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select blad.id,blad.content,blad.like_times,spu.name create_user,to_char(blad.create_date,'yyyymmdd') create_time
+				from bi_legal_aid_detail blad
+				left join sys_p_user spu on blad.create_user=spu.id
+				where aid_id=[aid_id]
+				order by blad.create_date desc
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 系统菜单树 -->
+	<ds name="DS_SYSTEM_MENU_TREE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM_MENU.xml&_id=Q_SYSTEM_MENU_TREE]]></url>
+	</ds>
+	<!-- 系统菜单列表 -->
+	<ds name="DS_SYSTEM_MENU_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM_MENU.xml&_id=Q_SYSTEM_MENU_LIST]]></url>
+	</ds>
+	<!-- 系统菜单添加/修改 -->
+	<ds name="DS_SYS_MENU_EDIT" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM_MENU.xml&_id=Q_SYS_MENU_EDIT]]></url>
+	</ds>
+	<!-- 初始化菜单修改弹出框 --> 
+	<ds name="DS_SYSTEM_MENU_TEBLE_INIT" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM_MENU.xml&_id=Q_SYSTEM_MENU_TEBLE_INIT]]></url>
+	</ds>
+	<!-- 初始化菜单修改弹出框 --> 
+	<ds name="DS_SYSTEM_MENU_DELETE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM_MENU.xml&_id=Q_SYSTEM_MENU_DELETE]]></url>
+	</ds>
+</datasources>

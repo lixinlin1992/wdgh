@@ -1,0 +1,241 @@
+@charset "UTF-8";
+/**
+ * 
+ * @pang cong
+ * @date    2014-04-08 14:30:21
+ * @version $V1.0$
+ */
+
+/*样式初始化Begin----------------------------------------------------*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px "宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;}
+a{color:#2d374b;text-decoration:none}
+a:hover{color:#cd0200;}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;}
+table{border-collapse:collapse;border-spacing:0}
+p{word-wrap:break-word}
+ /*样式初始化End*/
+
+/*btn.css样式Begin-----------------------------------------------------*/
+.SR_btn{ margin-top:10px; width:100%; height:30px; }
+.SR_btn .SR_btnSpace{ width:200px; height:30px; margin:0px auto; }
+.SR_btn .SR_btnSpace .SR_conserve{ width:95px; height:30px; float:left; }
+.SR_btn .SR_btnSpace .SR_conserve a{ display:block; width:95px; height:30px; background:#f2601d; text-decoration:none; text-align:center; line-height:30px; color:#fff; font-size:12px; }
+.SR_btn .SR_btnSpace .SR_conserve a:hover{ display:block; width:95px; height:30px; background:#de5313; text-decoration:none; text-align:center; line-height:30px; color:#fff; font-size:12px; }
+.SR_btn .SR_btnSpace .SR_concel{ width:95px; height:30px; float:right; }
+.SR_btn .SR_btnSpace .SR_concel a{ display:block; width:95px; height:30px; background:#c1bfbf; text-decoration:none; text-align:center; line-height:30px; color:#fff; font-size:12px; }
+.SR_btn .SR_btnSpace .SR_concel a:hover{ display:block; width:95px; height:30px; background:#cccccc; text-decoration:none; text-align:center; line-height:30px; color:#fff; font-size:12px; }
+/*搜索按钮样式*/
+.SR_moduleSearch{ float:left; width:55px; height:25px; display:block; background:url(../images/btn/indexSearchBtn.png) top no-repeat; margin-right:10px; margin-top:2px; }
+.SR_moduleSearchHover{ float:left; width:55px; height:25px; display:block; background:url(../images/btn/indexSearchBtn.png) bottom no-repeat; margin-right:10px; margin-top:2px; }
+/*表格按钮的样式End*/
+.SR_longBtnSpace{ height:30px; margin:0px auto; width:340px; }
+.SR_longBtnSpace li{ overflow:hidden; height:30px; float:left; margin:0px 5px; }
+.SR_longBtnSpace li a{ height:30px; line-height:30px; overflow:hidden; padding:10px 20px; color:#ffffff; font-size:12px; }
+.SR_longBtnSpace .SR_conserve a{ background:#f2601d; }
+.SR_longBtnSpace .SR_conserve a:hover{ background:#de5313; }
+.SR_longBtnSpace .SR_concel a{ background:#c1bfbf; }
+.SR_longBtnSpace .SR_concel a:hover{ background:#cccccc; } 
+.SR_longBtnSpace .SR_other a{ background:#f2601d; }
+.SR_longBtnSpace .SR_other a:hover{ background:#de5313; } 
+
+.floatBtn{ width: 100%; background:#eeeeee; height: 50px; position: fixed; bottom: 0px; border-top: 1px #cccccc;
+ _POSITION: absolute;/*兼容IE6*/
+ _TOP: expression(offsetParent.scrollTop+document.documentElement.clientHeight-this.offsetHeight);/*兼容IE6*/
+ overflow:hidden;}
+.floatSmallBtn{ width: 140px; height: 20px; margin:15px auto;  }
+.floatSmallBtn a{ margin-left: 10px;}
+
+/*按钮组样式*/
+.SR_btnBox{overflow: hidden; text-align: center;}
+.btn1{height: 30px; line-height: 30px; padding: 8px 20px; margin:0px;}
+.redBtn{background: #db3634; color: #ffffff;}
+.blueBtn{background: #235da7; color: #ffffff;}
+.orangeBtn{background: #f58521; color: #ffffff;}
+.greenBtn{background: #64ad42; color: #ffffff;}
+.grayBtn{background: #dbdbdb; color: #444444;}
+.blackBtn{background: #222222; color: #ffffff;}
+.purpleBtn{background: #7a47c8; color: #ffffff;}
+
+.redBtn:hover{background: #7c040b; color: #ffffff;}
+.blueBtn:hover{background: #0b4d8f; color: #ffffff;}
+.orangeBtn:hover{background: #ec5f09; color: #ffffff;}
+.greenBtn:hover{background: #20780f; color: #ffffff;}
+.grayBtn:hover{background: #c3c3c3; color: #444444;}
+.blackBtn:hover{background: #444444; color: #ffffff;}
+.purpleBtn:hover{background: #6629c3; color: #ffffff;}
+/*btn.css样式End*/
+
+/*floatchart.css样式Begin----------------------------------------------*/
+.disposeTable{ width:640; margin:0px auto; }
+.disposeTd{ width:126px; }
+.disposeBox{ font-size:12px; width:126px; height:176px; color:#444444; background:url(../images/flowchart/disposeBg.png) no-repeat; }
+.disposeBox .statusPic1{ background:url(../images/flowchart/disposeHead1.png) no-repeat center; width:110px; height:55px; margin:0px auto; }
+.disposeBox .statusPic2{ background:url(../images/flowchart/disposeHead2.png) no-repeat center; width:110px; height:55px; margin:0px auto; }
+.disposeBox .statusPic3{ background:url(../images/flowchart/disposeHead3.png) no-repeat center; width:110px; height:55px; margin:0px auto; }
+.disposeBox .disposeContent{ height:22px; border-bottom:1px solid #c9c6c6; width:110px; line-height:22px; margin:0px auto; }
+.disposeMarkRight{ width:40px; background:url(../images/flowchart/disposeMarkRight.png) no-repeat center; }
+.disposeMarkLeft{ width:40px; background:url(../images/flowchart/disposeMarkLeft.png) no-repeat center; }
+.disposeMarkUp{ height:40px; background:url(../images/flowchart/disposeMarkUp.png) no-repeat center; }
+.disposeMarkDown{ height:40px; background:url(../images/flowchart/disposeMarkDown.png) no-repeat center; }
+/*floatchart.css样式End*/
+
+/*form.css样式Begin----------------------------------------------------*/
+/*单纯的输入框Begin*/
+.SR_pureInput{ border:1px solid #ccc; color:#444444; height:20px; width:150px; }
+.SR_pureInputLong{ border:1px solid #ccc; color:#444444; height:20px; width:90%; }
+/*单纯的输入框End*/
+
+/*带有提示的输入框Begin*/
+.SR_tipsInput{ border:1px solid #ccc; color:#444444; }
+/*带有提示的输入框End*/
+
+/*下拉菜单Begin*/
+.SR_select{ border:#900 1px solid; width:200px; background-color:#fff; }
+/*下拉菜单End*/
+/*form.css样式End*/
+
+/*header.css样式Begin-----------------------------------------------------*/
+.SR_headerBox { height: 64px; width: 100%; min-width: 1003px; background: url(../images/header/header_bg.png) repeat-x; }
+.SR_headerBox .SR_headerLeft { float: left; overflow: hidden; }
+.SR_headerBox .SR_headerLeft .SR_logo { background: url(../images/header/logo.png) no-repeat ; width: 635px; height: 64px; }
+
+
+.SR_headerBox .SR_headerRight { float: right; font-size: 13px; color: #666; line-height: 64px; margin-right: 5px; text-align: left; }
+.SR_headerBox .SR_headerRight table { float: right; font-size: 13px; color: #666; line-height: 64px; margin-right: 5px; text-align: left; overflow: hidden; }
+.SR_headerBox .SR_headerRight a { text-overflow: ellipsis; overflow: hidden; }
+
+
+.SR_headerBox .SR_headerRight table tr td .topLink1 { background-image: url(../images/header/icon_top_1_1.png); background-repeat: no-repeat; background-position:5px center; display: block; height: 64px; padding-left: 30px; padding-right: 10px; color: #444444; background-color:transparent; }
+.SR_headerBox .SR_headerRight table tr td .topLink1:hover { background-repeat: no-repeat; background-position: 5px center; color: #f47603; }
+
+.SR_headerBox .SR_headerRight table tr td .topLink2 { background-image: url(../images/header/icon_top_2_1.png); background-repeat: no-repeat; background-position: 5px center; display: block; height: 64px; padding-left: 30px; padding-right: 10px; color: #444444; background-color:transparent; }
+.SR_headerBox .SR_headerRight table tr td .topLink2:hover { background-repeat: no-repeat; background-position: 5px center; color: #f47603; }
+.SR_headerBox .SR_headerRight table tr td .topLink3 { background-image: url(../images/header/icon_top_3_1.png); background-repeat: no-repeat; background-position: 5px center; display: block; height: 64px; padding-left: 30px; padding-right: 10px; color: #444444; background-color:transparent; }
+.SR_headerBox .SR_headerRight table tr td .topLink3:hover { background-repeat: no-repeat; background-position: 5px center; color: #f47603; }
+.SR_headerBox .SR_headerRight table tr td .topLink4 { background-image: url(../images/header/icon_top_4_1.png); background-repeat: no-repeat; background-position: 5px center; display: block; height: 64px; padding-left: 30px; padding-right: 10px; color: #444444; background-color:transparent; }
+.SR_headerBox .SR_headerRight table tr td .topLink4:hover { background-repeat: no-repeat; background-position: 5px center; color: #f47603; }
+/*header.css样式End*/
+
+/*inputtable.css样式Begin---------------------------------------------------*/
+.SR_inputTable{ overflow:hidden; border:1px #dddddd solid; padding:10px; background: #f4f4f4;  }
+.SR_inputTable .SR_inputTableTitle{ width:100%; font-size:14px; font-weight:700; text-align:left; height:30px; border-bottom:1px solid #cccccc; line-height:30px; text-indent:10px; }
+.SR_inputTableContent{ overflow:hidden; }
+.SR_inputTableContent table{ width:99%; margin:0px auto; }
+.SR_inputTableContent table td{ height:30px; }
+.SR_inputTitle{ text-align:right; width:120px; font-size: 12px; }
+.SR_textarea{ width:80%; height:100px; border:1px solid #ccc; }
+/*inputtable.css样式End*/
+
+/*leftnav.css样式Begin-------------------------------------------------------*/
+.SR_mainLeftNav {width:200px; font-size:12px; background:#f00; float:left; display:block;background:#e8e8e8 ;  }
+.SR_mainLeftNav ul {width:200px; overflow:hidden;  }
+.SR_mainLeftNav .SR_navTitle   { width: 200px; height: 40px; border-top:#FFF solid 1px;  background:url(../images/leftnav/listBg.png) repeat-x; font-weight:700; color:#444444;}
+.SR_mainLeftNav .SR_navTitleContent{display:none; }
+.SR_mainLeftNav .SR_navTitle .aNormal   {width: 200px; display: block; height: 40px; line-height: 35px; text-indent: 50px; text-decoration: none; color:#444; font-size:12px; background:url(../images/leftnav/down.gif) 180px center no-repeat;}
+/*点击变化样式Begin*/
+.SR_mainLeftNav .SR_navTitle .aHover   {width: 200px; display: block; height: 40px; line-height: 35px; text-indent: 50px; text-decoration: none; color:#444; font-size:12px; background:url(../images/leftnav/up.gif) 180px center no-repeat;}
+/*点击变化样式End*/
+.SR_mainLeftNav .SR_navSecondTitle    { width: 200px; height: 40px; border-bottom:1px solid #ebeaea;}
+
+.SR_mainLeftNav .SR_navSecond    {width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f4f4f4;}
+
+.SR_mainLeftNav .SR_navSecondTitle a    {width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background: url(../images/leftnav/secondNavMarknormal.gif) no-repeat 40px; }
+.SR_mainLeftNav .SR_navSecondTitle a:hover{ width: 200px; height: 40px; line-height:40px; color:#ffffff; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f47603;}
+/*当前页面样式Begin*/
+.SR_mainLeftNav .SR_navSecondTitle .aSecondHover{ width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f5fcfe; }
+.controlBtn{ width:12px; height:63px; background:url(../images/leftnav/controlHide.png.png) no-repeat center;; position:absolute; top:60px; right:5px; margin-top:100px; cursor:pointer;}
+/*当前页面样式Begin*/
+
+.leftBg{ background:#e8e8e8 url(../images/leftnav/line.gif) repeat-y  200px 0px; }
+/*点击变化样式Begin*/
+
+/*leftnav.css样式End*/
+
+/*main.css样式Begin------------------------------------------------------------*/
+.SR_mainTable{ width:100%; height:800px; overflow:hidden; }
+.SR_mainLeft{ width:200px; vertical-align:top; background:#e7eff1; }
+.SR_mainModule{ width:15px; background-color:#e3e3e3; vertical-align:top; }
+.SR_mainRight{ vertical-align:top; }
+.SR_Space{ overflow:hidden; padding:10px; }
+/*main.css样式End*/
+
+/*module.css模块Begin-----------------------------------------------------------*/
+.SR_moduleBox{ height:35px; width: 100%; }
+.SR_moduleTitle{ height:35px; overflow:hidden; float:left; background: url(../images/common/mark.gif) left center no-repeat; text-indent:10px; line-height:35px; padding:0px 10px; color:#444444; font-size:14px; font-weight:700; }
+.SR_moduleTitle a{ padding-right:20px; background:url(../images/common/up.png) right center no-repeat; color: #444444; text-decoration: none; }
+.SR_moduleTitle a:hover{ padding-right:20px; background:url(../images/common/down.png) right center no-repeat; color: #444444; text-decoration: underline; }
+.SR_moduleRight{ height:25px; overflow:hidden; float:right; line-height:25px; font-size:12px; cursor:pointer; margin-top:6px; }
+.SR_moduleRight a{ margin-right:10px; }
+.SR_moduleRight a:hover{ margin-right:10px; color:#ff7a00; }
+.SR_moduleContent{ height:35px; width:600px; float:left; line-height:35px; font-size:12px; }
+/*module.css模块End*/
+
+/*navigation.css样式Begin-------------------------------------------------------*/
+.SR_navBox{ width: 100%; height: 36px; background:#f47e12; overflow: hidden; }
+
+.SR_navBox .SR_nav { float: left; overflow: hidden; width: 900px; }
+
+.SR_navBox .SR_nav ul{ width:100%; overflow:hidden; }
+.SR_navBox .SR_nav li{ float: left; overflow: hidden; line-height: 36px; height: 36px; display: block; }
+.SR_navBox .SR_nav ul li a { height: 36px; font-size: 12px; font-weight: 700; display: block; text-align: center; color: #fff; text-decoration: none; padding-right: 15px; padding-left: 15px; overflow: hidden; float: left; }
+.SR_navBox .SR_nav ul li a:hover { color: #fff; height: 36px; display: block; text-align: center; background-color: #ff8a0d; float: left; }
+.SR_navBox .SR_navRight { display: block; float: right; overflow: hidden; }
+
+
+.navRightBtn { display: block; height: 36px; width: 36px; background-image: url(../images/navigation/icon_right_menunormal.png); background-repeat: no-repeat; float: right; cursor: pointer; }
+.navRightBtnHover { display: block; height: 36px; width: 36px; background-image: url(../images/navigation/icon_right_menupressed.png); background-repeat: no-repeat;float: right; cursor: pointer; }
+.navSwitchTip{ float:right; width:110px; height:36px; background:url(../images/navigation/swithTip.gif) no-repeat right; line-height:36px; color:#ffffff; font-size:12px; }
+/*navigation.css样式End*/
+
+/*projectbuttom.css样式Begin-----------------------------------------------------*/
+.projectbuttom { background:#f5f5f5 ; height: 40px; width: 159px; border-bottom: 1px #dddddd solid; }
+.projectbuttom_hover { background:#f78326 ; height: 40px; width: 159px;border-bottom: 1px #f78326 solid; }
+.projectbuttom a { line-height: 40px; color: #999; font-size: 14px; font-weight: 700; text-decoration: none; margin-left: 5px; float: left; }
+.projectbuttom_hover a { line-height: 40px; color: #FFF; font-size: 14px; font-weight: 700; text-decoration: none; margin-left: 5px; float: left; }
+.projectbuttom .close { height: 12px; background:url(../images/projecbutton/closeNormal.png) no-repeat; width: 12px; margin-top: 14px; margin-right: 5px; display: block; float: right; }
+
+.projectbuttom_hover .close { height: 12px; background:url(../images/projecbutton/closePass.png) no-repeat; width: 12px; margin-top: 14px; margin-right: 5px; display: block; float: right; }
+.pageFrame{ border: 0px; width: 100%; height: 100%; }
+/*projectbuttom.css样式End*/
+
+/*report.css样式Begin-------------------------------------------------------------*/
+.SR_moduleContent{ overflow:hidden; width:600px; float:left; font-size:12px; }
+.SR_moduleContent table{ text-align:right; }
+.SR_moduleContent .SR_dateInput{ border:1px solid #ccc; color:#444444; height:20px; width:100px; text-align:center; }
+.SR_moduleContent .SR_searchInput{ border:1px solid #ccc; color:#444444; height:20px; width:180px; text-align:center; font-size:12px; line-height:20px; color:#ccc; text-align:left; text-indent:10px; }
+.SR_reportRight{ height:25px; width:160px; float:right; line-height:31px; font-size:12px; margin-top:3px; }
+.SR_reportRight a{ margin-left:10px; }
+/*标题搜索模块End*/
+
+/*正文Begin*/
+.reportContent{ background:#ffffff url(../images/report/reportContentBg.png) no-repeat bottom; width:617px; overflow:hidden; padding-left:20px; padding-right:20px; padding-top:20px; padding-bottom:40px; margin:10px auto; color:#222222; }
+.reportContent h3{ text-align:center; line-height:50px; border-bottom:solid 1px #dfe1e1; }
+.reportContent p{ line-height:34px; font-size:14px; text-indent:34px; }
+.reportContent h4{ line-height:34px; }
+/*report.css样式End*/
+
+/*searcntable.css样式Begin------------------------------------------------------*/
+.SR_searchTableBox { margin-top:5px; overflow:hidden; font-size:12px; border:1px solid #dddddd; padding: 10px; }
+.SR_searchTableBox table{ width:99%; margin:0px auto; }
+.SR_searchTableBox table td{ height:30px; }
+.SR_searchTableBox .SR_searchTitle{ text-align:right; width:120px; font-size: 12px; }
+/*searcntable.css样式End*/
+
+/*tablecontent.css样式Begin-----------------------------------------------------*/
+.SR_tableContentBox{ overflow: hidden; }
+.SR_tableContentBox .SR_tableContentFooter{ background:#f5f5f5; }
+.SR_inputTable{overflow:hidden; font-size:12px; color:#444444; }
+
+/*和EASYUI的表格冲突，嵌套easyui表格注释掉，仅作展示用*/
+/*
+.SR_tableContentBox table{ width:100%; text-align:center; border-left:#e5e4e4 1px solid; border-top:#e5e4e4 1px solid; border-bottom:none; border-right:none; margin:0px auto; font-size:12px; }
+.SR_tableContentBox table td{ border-bottom:#e5e4e4 1px solid; border-right:#e5e4e4 1px solid; border-top:none; border-left:none; height:30px; line-height:30px; }
+.SR_tableContentBox table th{ border-bottom:#e5e4e4 1px solid; border-right:#e5e4e4 1px solid; border-top:none; border-left:none; height:30px; background:#f5f5f5; line-height:30px; }
+*/
+
+
+/*tablecontent.css样式End*/
+

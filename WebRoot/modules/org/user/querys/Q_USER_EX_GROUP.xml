@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 返回未有的角色 -->
+    <query id="Q_USER_EX_GROUP" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+			select g.name from sys_p_user_group g where g.code not in
+			(select u.user_group_code from sys_p_user_ug u where u.user_id=[id])
+		]]></stmt>
+        <!--<param name="_ftl">!org/user/~/ftl/T_USER_GROUP_NAME.ftl</param>-->
+        <param name="paging">false</param>
+    </query>
+</query-config>

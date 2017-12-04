@@ -1,0 +1,64 @@
+		<script type="text/javascript" src="System/Base/scripts/baseCtrl.js"></script>
+		<!--背景-->
+		<div class="loginBg" ng-controller="BaseCtrl">
+			<img src="Style/images/login/loginbg.png" />
+		</div>
+		<!--背景end-->
+		<!--注销、退出菜单-->
+		<div class="loginExit">
+			<span class="active" onclick="showandhide()"></span>
+			<ul class="loginExitMenu" id="exit" style="display:none">
+				<li onclick="logout()">注销登录</li>
+				<li onclick="exit()">安全退出</li>
+			</ul>
+		</div>
+		<!--注销、退出菜单end-->
+		<!--logo-->
+		<div class="funcLogo">
+			<img src="Style/images/login/logo.png" />
+		</div>
+		<!--logo end-->
+		<div class="funcBtnGroup" >
+			<a href="javascript://" class="funcBtn" onclick="hrefJump('cellmessage')">
+				<img src="Style/images/login/iconBase.png"/>
+				<span >基站管理</span>
+			</a>
+			<a href="javascript://" class="funcBtn" onclick="hrefJump('compirmessage')">
+				<img src="Style/images/login/iconTable.png"/>
+				<span >抄表管理</span>
+			</a>
+		</div>
+		<script>
+			var ishide=true;
+
+			function showandhide(){
+				if(ishide){
+					$("#exit").show();
+					ishide=false;
+				}else{
+					$("#exit").hide();
+					ishide=true;
+				}
+			}
+			function logout(){
+				if(confirm("是否注销当前用户？")){
+					$.ajax({
+						url:APP_CONFIG.SERVER_URL+"framework.do?ds=DS_USER_LOGOUT",
+						type:"post",
+						data:{
+							__resultType:"json"
+						},
+						success:function(data){
+							console.info(data);
+							window.location.href = APP_CONFIG.LOGIN_PAGE;
+						}
+					});
+				}
+			}
+
+			function exit(){
+				if(confirm("是否退出？")){
+					navigator.app.exitApp();
+				}
+			}
+		</script>

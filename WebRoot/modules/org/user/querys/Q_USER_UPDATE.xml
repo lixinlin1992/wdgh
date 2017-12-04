@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 修改用户信息 -->
+    <query id="Q_USER_UPDATE" type="batch" result="json">
+        <stmt><![CDATA[
+   		 	 update sys_p_user set name = [name],mobile_phone=[mobile_phone],email=[email],status_id=[status_id],dept_id=[dept_id]
+   		 	 where account=[account];
+   		 	 delete from sys_p_user_ug t where t.user_id=[id];
+   			<@aslist name="rightBox"/>
+   			<#list rightBox as f>
+   			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+   				((select g.code from sys_p_user_group g where g.name=${func(f,"string")}),[id long]);
+   			</#list>
+   		]]></stmt>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改用户（批量）</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

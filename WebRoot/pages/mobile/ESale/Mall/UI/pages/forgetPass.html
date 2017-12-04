@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="esaleb" ng-controller="AppCtrl">
+
+	<head>
+		<base href="../../../../">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="Style/css/bootstrap.min.css">
+		<link rel="stylesheet" href="Style/css/style.css">
+		<script type="text/javascript" src="System/Base/scripts/local.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/jquery/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/config.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/app.js"></script>
+		<script type="text/javascript" src="ESale/Mall/UI/scripts/login.js"></script>
+		<script type="text/javascript" src="ESale/Mall/UI/scripts/forgetPass.js"></script>
+
+		<title>登录易售宝客户端</title>
+
+	</head>
+
+	<body ng-controller="MyForgetPass" class="bgcolor">
+
+		<!--头部-->
+		<header>
+			<!--顶部导航：nav_top-->
+			<!--顶部导航Begin-->
+			<div class="nav_top">
+				<h1 class="title">找回密码</h1>
+				<a class="btn_left icon_left" href="javascript://" ng-click="back()"></a>
+				<!--<a class="btn_right icon_home" href="#/home"></a>-->
+			</div>
+			<!--顶部导航End-->
+			<!--装饰线-->
+			<div class="com_decoration_line">
+				<img src="Style/images/common/decoration.png" alt="" />
+			</div>
+			<!--END装饰线-->
+		</header>
+		<!--头部End-->
+		<!--主体内容Begin-->
+		<section style="bottom: 0;">
+
+			<div class="layout_centent" style="padding-top: 1px;">
+
+				<div id="inputVerCode">
+					<!--特殊表单排版Begin-->
+					<div class="formlist longformlist">
+						<div class="form_left">
+							<p class="form_title">发展人编码&nbsp;|</p>
+						</div>
+						<div class="form_right" style="margin-right: 100px;">
+							<input style="border:none;" type="text" class="input_normal" ng-model="form.userId" />
+						</div>
+					</div>
+					<!--特殊排版End-->
+					<!--特殊表单排版Begin-->
+					<div class="formlist longformlist">
+						<div class="form_left">
+							<p class="form_title">短信验证码&nbsp;|</p>
+						</div>
+						<div class="form_right" style="margin-right: 100px;">
+							<input style="border:none;" ng-model="form.SMSCode" type="tel" class="input_normal" />
+						</div>
+						<div class="form_last">
+							<a class="com_btn normal_btn" id="SmsCodeSendBtn" href="javascript://" ng-click="reSendSms()">获取验证码</a>
+						</div>
+					</div>
+					<!--特殊排版End-->
+					<!--表单排版Begin-->
+					<div class="formlist">
+						<!--可点击状态是theme_btn-->
+						<a class="com_btn theme_btn" href="javascript://" ng-click="showCodeMain()">
+                确定
+            </a>
+						<!--常用btn-->
+					</div>
+					<!--表单排版End-->
+				</div>
+
+				<div id="showVerCodeMain" style="display: none;">
+					<!--特殊表单排版Begin-->
+					<!--<div class="formlist longformlist">
+						<div class="form_left">
+							<p class="form_title">旧密码&nbsp;|</p>
+						</div>
+						<div class="form_right">
+							<input style="border:none;" type="text" class="input_normal" />
+						</div>
+					</div>-->
+					<!--特殊排版End-->
+
+					<!--特殊表单排版Begin-->
+					<div class="formlist longformlist">
+						<div class="form_left">
+							<p class="form_title">新密码&nbsp;|</p>
+						</div>
+						<div class="form_right">
+							<input style="border:none;" ng-model="form.newPassword" type="password" class="input_normal" />
+						</div>
+					</div>
+					<!--特殊排版End-->
+
+					<!--特殊表单排版Begin-->
+					<div class="formlist longformlist">
+						<div class="form_left">
+							<p class="form_title">确认密码&nbsp;|</p>
+						</div>
+						<div class="form_right">
+							<input style="border:none;" type="password" ng-model="form.reNewPassword" class="input_normal" />
+						</div>
+					</div>
+					<!--特殊排版End-->
+
+					<!--表单排版Begin-->
+					<div class="formlist">
+						<!--可点击状态是theme_btn-->
+						<a class="com_btn theme_btn" ng-click="confirmPassword()" href="javascript://">
+                确定
+            </a>
+						<!--常用btn-->
+					</div>
+					<!--表单排版End-->
+				</div>
+			</div>
+			<!--100%布局End-->
+		</section>
+		<!--主体内容End-->
+	</body>
+
+</html>

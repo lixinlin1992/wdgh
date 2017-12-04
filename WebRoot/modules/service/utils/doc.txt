@@ -1,0 +1,6 @@
+模块资源说明
+
+查询资源
+!service/utils~query/GEN_IMPORT_TEMP                    获取一个导出模板
+            参数说明：
+                config              JSON格式字符串，格式：   {cols:{a:'姓名', b:'年龄', c:'性别'},file:'导出文件名'}

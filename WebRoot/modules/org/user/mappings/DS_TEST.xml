@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <ds name="DS_1" type="url">
+        <url><![CDATA[  ]]></url>
+    </ds>
+</datasources>

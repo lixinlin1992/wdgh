@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LEGALAID_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select b.ID,b.CREATE_DATE,s.NAME,b.TITLE from BI_LEGAL_AID b, SYS_P_USER s
+				where b.CREATE_USER = s.ID
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

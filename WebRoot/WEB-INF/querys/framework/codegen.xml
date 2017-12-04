@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+    <!-- 数据库表格下拉框获取 -->
+    <query id="Q_TABLES" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+			select ID,NAME from core_b_obj_info 
+			]]>
+        </stmt>
+        <param name="l-col">NAME</param>
+        <param name="v-col">ID</param>
+    </query>
+    <!-- 数据表字段获取 -->
+    <query id="Q_TABLE_FIELDS" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+			select attr.name,attr.code,attr.type from core_b_obj_info obj,core_b_obj_attr_info attr where obj.id = attr.obj_id and obj.id = [Id] and attr.key = 1
+			order by attr.id asc
+			]]>
+        </stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/framework/T_Fields_Handle.ftl
+		</param>
+    </query>    
+</query-config>

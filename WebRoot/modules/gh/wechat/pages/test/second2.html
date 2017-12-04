@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<link type="text/css" rel="stylesheet" href="right/css/css.css">
+<link type="text/css" rel="stylesheet" href="right/css/Pages.css">
+<script type="text/javascript" src="right/js/jquery.js"></script>
+<script type="text/javascript" src="right/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="right/js/common.js"></script>
+<script type="text/javascript">
+    function dourl(url) {
+        location.href = url;
+    }
+</script></head>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>武大工会提案</title>
+    <link href="css/main2.css" rel="stylesheet" type="text/css">
+    <link href="css/style2.css" rel="stylesheet" type="text/css">
+    <link href="css/shake2.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/wo.js"></script>
+    <script>
+        $(document).ready(function(){
+            //跳骚分类
+            $("#second_btn01").click(function(){
+                $("#secondlist").toggle();
+            });
+            $("#second_btn02").click(function(){
+                $("#secondlist2").toggle();
+            });
+        });
+    </script>
+	<script>
+        $(document).ready(function(){
+            //添加场景
+            $("#scene_bth").click(function(){
+                $(".reveal-modal-bg").fadeIn(500);
+                $(".scene_modal").fadeIn(500);
+            });
+            $(".reveal-modal-bg,.closed").click(function(){
+                $(".modal_img,.reveal-modal-bg").fadeOut(500);
+                $(".scene_modal").fadeOut(500);
+            });
+            //展开悬浮菜单
+            $("#side_bth",this).toggle(function(){
+                $(".g-tian-nav").fadeIn(200);
+            },function(){
+                $(".g-tian-nav").fadeOut(200);
+            });
+			
+			$('.return1').on('click',function(){
+		$('body').addClass('animate')
+	});	
+	$('.close').on('click',function(){
+		$('body').removeClass('animate');	
+	});
+
+        });
+    </script>
+	
+	
+   
+    
+    
+</head>
+<body style="background-color: #fff !important;">
+<div class="warpe">
+    <!--<div class="head">
+        <a href="#" class="return"><i class="icon-chevron-left"></i> </a>
+        武汉大学
+        
+		<a href="automation_add.html" class="search" id="dateinput3"><i class="icon-plus"></i> </a>
+		<a href="#" class="search" id="side_bth"><i class="icon-plus"></i> </a>
+    </div>-->
+	
+	<div class="head" style="position: relative;">
+	    
+        <a href="#" class="return"><i class="icon-chevron-left"></i> </a>
+        武汉大学
+        <a href="#" class="search" id="side_bth"><i class="icon-plus"></i> </a>
+        <ul class="g-tian-nav">
+            <li>
+                <a href="add_proposals.html">
+                    新增提案
+                </a>
+            </li>
+            <li>
+                <a href="my_proposals.html">
+                    我的提案
+                </a>
+            </li>
+
+        </ul>
+	
+    </div>
+	
+	
+	
+	<div class="banner">
+        <div class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
+            <ul id="slider" style="position: relative; overflow: hidden; transition: left 600ms ease;left: 0px;">
+                <li style="float: left; display: block;">
+                    <a href="#"><img src="img/banner_01.jpg" alt=""></a>
+                </li>
+                
+            </ul>
+           
+        </div>
+		
+	
+        
+    </div>
+	
+	<div class="title">
+        <a href="announcement_list.html"> <span class="puff_left"><i class="icon-volume-down color_y"></i> 公告 五一放假通知</span></a>
+        <span class="puff_right">18:30</span>
+    </div>
+	
+    <div class="my_tab">
+        <a href="#" hidefocus="true" id="second_btn01" class="return1">类型切换<span class="icon-chevron-down"></span></a>
+            <!--<div class="secondlist animated fadeInRight dis_none" id="secondlist">
+                <ul>
+                    <li>
+                        <a href="#" class="animated rubberBand">类别一</a>
+                    </li>
+                    <li>
+                        <a href="#" class="animated rubberBand">类别一</a>
+                    </li>
+                    <li>
+                        <a href="#" class="animated rubberBand">类别一</a>
+                    </li>
+                </ul>
+            </div>-->
+        <a href="#" hidefocus="true" id="second_btn02">提案状态<span class="icon-chevron-down"></span></a>
+        <div class="secondlist secondlist2 animated fadeInRight dis_none g-tianzt" id="secondlist2">
+            <ul>
+                <li>
+                    <a href="#" class="animated rubberBand">&nbsp;&nbsp;已完结<span>1</span></a>
+                </li>
+                <li>
+                    <a href="#" class="animated rubberBand">&nbsp;&nbsp;待处理<span style="background: green">1</span></a>
+                </li>
+                <li>
+                    <a href="#" class="animated rubberBand">&nbsp;&nbsp;存争议<span style="background: orange">1</span></a>
+                </li>
+				<li>
+                    <a href="#" class="animated rubberBand">&nbsp;&nbsp;已转承办方<span style="background: red">1</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+	
+	
+
+	<div class="main">
+        
+		
+		
+		<div class="postall margin_top clear_border">
+            <a href="second_xq.html">
+                
+                <div class="post_t">
+                    <img src="img/banner.jpg">
+                    <span>程炜</span>
+                    <label class="puff_right post_m">11：53 AM</label>
+                </div>
+                <div class="post_m">
+                    <p title="将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基础学科振兴计划中...">将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基...</p>
+                </div>
+                <div class="second">
+                    
+                    <span class="puff_right" style="font-size: 16px;"><i class="icon-comments-alt color_y"></i>&nbsp;&nbsp;<i class="icon-thumbs-up-alt color_y"></i></span>
+                </div>
+                
+            </a>
+        </div>
+		<div class="postall margin_top clear_border">
+            <a href="second_xq.html">
+                
+                <div class="post_t">
+                    <img src="img/banner.jpg">
+                    <span>程炜</span>
+                    <label class="puff_right post_m">11：53 AM</label>
+                </div>
+                <div class="post_m">
+                    <p title="将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基础学科振兴计划中...">将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基...</p>
+                </div>
+                <div class="second">
+
+                    <span class="puff_right" style="font-size: 16px;"><i class="icon-comments-alt color_y"></i>&nbsp;&nbsp;<i class="icon-thumbs-up-alt color_y"></i></span>
+                </div>
+                
+            </a>
+        </div>
+		<div class="postall margin_top clear_border">
+            <a href="second_xq.html">
+                
+                <div class="post_t">
+                    <img src="img/banner.jpg">
+                    <span>程炜</span>
+                    <label class="puff_right post_m">11：53 AM</label>
+                </div>
+                <div class="post_m">
+                    <p title="将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基础学科振兴计划中...">将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基...</p>
+                </div>
+                <div class="second">
+
+                    <span class="puff_right" style="font-size: 16px;"><i class="icon-comments-alt color_y"></i>&nbsp;&nbsp;<i class="icon-thumbs-up-alt color_y"></i></span>
+                </div>
+                
+            </a>
+        </div>
+		<div class="postall margin_top clear_border">
+            <a href="second_xq.html">
+                
+                <div class="post_t">
+                    <img src="img/banner.jpg">
+                    <span>程炜</span>
+                    <label class="puff_right post_m">11：53 AM</label>
+                </div>
+                <div class="post_m">
+                    <p title="将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基础学科振兴计划中...">将外语学院各小语种专业纳入学校基础学科振兴计划中将外语学院各小语种专业纳入学校基...</p>
+                </div>
+                <div class="second">
+
+                    <span class="puff_right" style="font-size: 16px;"><i class="icon-comments-alt color_y"></i>&nbsp;&nbsp;<i class="icon-thumbs-up-alt color_y"></i></span>
+                </div>
+                
+            </a>
+        </div>
+		
+    </div>
+
+
+    <div class="er_btn">
+        <a href="second2.html" class="bg_03" style=" background-color: #d7534e !important;"><i class=" icon-save"></i> 提案信息</a>
+        <a href="Information_xq3.html"><i class="icon-cogs"></i> 关于我们</a>
+    </div>
+	
+	
+	
+	
+	<div class="menu">
+    	<div class="menu_zl">
+        	<p><img src="image/head.jpg" width="100%" /></p>
+            <p style="float: left; width: 175px; font-size: 18px; text-align: left; margin-left: 5px; padding-top: 16px;">黄建设</p>
+       	</div>
+    	<ul>
+        	<li>
+            	<a href="#">
+                	<span><img src="image/tian_icon01.png" /></span>
+                	<span>人才培养</span>
+                    <span class="g-menu-num">10</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/tian_icon02.png" /></span>
+                	<span>校园文化</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/tian_icon03.png" /></span>
+                	<span>行政管理</span>
+                    <span class="g-menu-num red">10</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/tian_icon04.png" /></span>
+                	<span>师资队伍</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/tian_icon05.png" /></span>
+                	<span>后勤服务</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/tian_icon06.png" /></span>
+                	<span>民生工程</span>
+                </a>
+            </li>
+			<li>
+            	<a href="#">
+                	<span><img src="image/tian_icon07.png" /></span>
+                	<span>科学研究</span>
+                </a>
+            </li>
+			<li>
+            	<a href="#">
+                	<span><img src="image/tian_icon08.png" /></span>
+                	<span>其他</span>
+                </a>
+            </li>
+            <!--<li>
+            	<a href="#">
+                	<span><img src="image/snacks.png" /></span>
+                	<span>零食类</span>
+                </a>
+            </li>
+            <li>
+            	<a href="#">
+                	<span><img src="image/smoke.png" /></span>
+                	<span>烟酒类</span>
+                </a>
+            </li>-->
+            <span class="close" style="margin-left: 20px; left: 0; color: #7D7D7D; margin-top: 30px; font-size: 16px;">
+                <i class="icon-power-off"></i> 退出
+            	<!--<img src="image/close.png" />-->
+            </span>
+        </ul>
+    </div>
+	
+</div>
+
+
+<script type="text/javascript" src="js/idangerous.swiper.min.js"></script>
+<script type="text/javascript">
+    var tabsSwiper = new Swiper('.swiper-container',{
+        speed:500,
+        onSlideChangeStart: function(){
+            $(".tabs .active").removeClass('active');
+            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+        }
+    });
+    $(".tabs a").on('touchstart mousedown',function(e){
+        e.preventDefault()
+        $(".tabs .active").removeClass('active')
+        $(this).addClass('active')
+        tabsSwiper.slideTo( $(this).index() )
+    })
+    $(".tabs a").click(function(e){
+        e.preventDefault()
+    })
+</script>
+</body>
+</html>

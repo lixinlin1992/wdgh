@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<query id="Q_LOAD_CUST_LIST" type="pagelist"	result="easyui">
+		<stmt><![CDATA[
+select distinct
+bci.cust_code CUST_CODE,
+bci.cust_name CUSTOMER_NAME,
+bci.cus_id CUST_ID,
+bci.cus_manager CUST_MGR,
+nvl(cvr.id,0) VRID,
+cvr.visit_time_s visitstart
+from b_cus_info bci
+left join cus_visit_rec cvr on bci.cus_id=cvr.cust_id and cvr.visit_time_s is not null and cvr.visit_time is null
+where bci.cus_manager_id=${_CurrUser.id}
+        ]]></stmt>
+	</query>
+</query-config>

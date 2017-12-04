@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!-- 角色管理列表 -->
+    <query id="Q_USERGROUP_LIST" type="pagelist" result="easyui">
+        <stmt>
+            <![CDATA[
+            SELECT t.CODE,t.NAME,t.TYPE_ID,t.NOTE,t.SUPER_ADMIN FROM SYS_P_USER_GROUP t WHERE 1=1
+             <#if code??>
+             AND t.CODE [like(code)]
+             </#if>
+             <#if name??>
+             AND t.NAME [like(name)]
+             </#if>
+             <#if user_id??>
+             AND t.CODE IN (SELECT USER_GROUP_CODE FROM SYS_P_USER_UG WHERE USER_ID=[user_id long])
+             </#if>
+             <#if super_admin??>
+             AND t.SUPER_ADMIN=[super_admin]
+             </#if>
+            ]]>
+        </stmt>
+        <param name="list-cols">code,name,note,type_id</param>
+    </query>
+</query-config>

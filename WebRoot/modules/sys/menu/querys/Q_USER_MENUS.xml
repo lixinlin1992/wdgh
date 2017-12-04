@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_USER_MENUS" type="pagelist" result="ftl">
+        <stmt><![CDATA[
+                SELECT ORA_HASH(PARENT_MENU||MENU_NAME||'/') AS ID, MENU_NAME AS NAME, RES_URL AS URL, ORA_HASH(PARENT_MENU) AS PARENT_ID
+                FROM SYS_BI_MENUS
+                WHERE 1=1
+                <#if parent_id??>
+                AND ORA_HASH(PARENT_MENU)=[parent_id]
+                <#else>
+                AND PARENT_MENU='/'
+                </#if>
+                ORDER BY MENU_ORDER ASC
+                ]]></stmt>
+        <param name="ftl">!sys/menu/~/ftl/T_USER_MENUS.ftl</param>
+        <param name="format">json</param>
+        <param name="paging">false</param>
+        <param name="exp-cols">id,name</param>
+    </query>
+
+</query-config>

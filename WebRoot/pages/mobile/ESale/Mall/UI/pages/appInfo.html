@@ -1,0 +1,26 @@
+<input type="hidden" value="3" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+<p style="text-align: center;padding-top: 10px;"><span id="version"></span></p>
+<!--版权信息End-->
+
+<!--按钮选择蓝牙设备-->
+<div class="formlist">
+	<a class="com_btn theme_btn" onclick="check()" href="javascript://">选择设备</a>
+</div>
+
+<!--按钮选择蓝牙设备-->
+<script type="text/javascript" src="ESale/Mall/UI/scripts/checkVersion.js"></script>
+<script>
+	//底部导航样式变化
+	replaceClass('myESaleB');
+	localStorage.updateNow = 0;
+	checkedUpdate();
+</script>
+<div id="checkHtml"></div>
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

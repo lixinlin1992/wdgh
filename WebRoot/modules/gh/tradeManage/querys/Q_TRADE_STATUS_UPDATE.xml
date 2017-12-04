@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_TRADE_STATUS_UPDATE" type="update" result="easyui">
+        <stmt>
+        <![CDATA[
+        <#if trade_memo??>
+          update bi_trade_info set trade_status=2,trade_memo=[trade_memo]
+          where account=[account]
+        <#else>
+          update bi_trade_info set trade_status=1,trade_memo='恢复入会' where account=[account]
+        </#if>
+        ]]>
+        </stmt>
+    </query>
+</query-config>

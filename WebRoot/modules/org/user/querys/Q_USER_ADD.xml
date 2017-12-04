@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--添加用户-->
+    <query id="Q_USER_ADD" type="batch" result="json">
+        <stmt>
+            <![CDATA[
+             INSERT INTO SYS_P_USER(ID,ACCOUNT,NAME,MOBILE_PHONE,TYPE_ID,STATUS_ID,PASSWORD,EMAIL,DEPT_ID)
+            VALUES(SYS_P_USER_SEQ.nextval,[account],[name],[mobile_phone],0,[status_id],[encrypt(password,MD5)],[email],[dept_id]);
+			<@aslist name="rightBox"/>
+			<#list rightBox as f>
+			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+				((select g.code from sys_p_user_group g where g.name='${f}'),(select to_number(t.id) from sys_p_user t where t.id=(select ID from SYS_P_USER where ACCOUNT=[account])));
+			</#list>
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">select count(1) from SYS_P_USER where ACCOUNT=[account]</param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[你输入工号${account}已经存在！]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

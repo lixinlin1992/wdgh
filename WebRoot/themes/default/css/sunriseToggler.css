@@ -1,0 +1,22 @@
+.sunrise_toggler_header{
+	border: 1px solid #4297d7; 
+	background: #5c9ccc url(../images/jquery-ui/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
+	color: #fff; 
+	font-weight: bold;
+	line-height: 18px;	
+}
+.sunrise_title_icon{
+	float:right;
+	vertical-align:bottom;
+	display:inline-block;
+	height:16px;
+	min-width:16px;
+	cursor:pointer;
+	margin:0 3px;
+	background:url(../images/common/buttons.png) no-repeat 0px -160px;
+}
+.sunrise_toggler_title{
+	padding-left:3px;
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; 
+	font-size:14px; 
+}

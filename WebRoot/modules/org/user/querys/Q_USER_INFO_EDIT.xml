@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_USER_INFO_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update sys_p_user t set t.name=[name],t.mobile_phone=[mobile_phone],t.email=[email] where t.id=[var(RU.CUR_USER.id)]
+
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">select count(1) from sys_p_user where (name in [name]) and (id not in [var(RU.CUR_USER.id)])
+            </param>
+            <param name="exp-count">0</param>
+            <param name="min-count">0</param>
+            <param name="max-count">1</param>
+            <param name="break-message"><![CDATA[已经有用户名称为[${name}]，请输入其他进行操作！]]></param>
+        </processor>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改用户信息[${account}]</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- 公用组织机构相关查询配置 -->
+<query-config>
+
+    <!-- 查询组织机构树 -->
+    <query id="Q_COMMORG_TREE" type="tree" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT * FROM SYS_BI_COMM_ORG
+                    WHERE 1=1
+                    <#if id?exists>
+                    AND PARENT_ID IN(
+                    SELECT ID FROM SYS_BI_COMM_ORG START WITH ID=[id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    <#if !load_invalid?exists>
+                    AND STATUS_ID=1
+                    </#if>
+                    ORDER BY PARENT_ID ASC NULLS FIRST, ID ASC
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col"></param>
+        <param name="parent-type-col"></param>
+        <param name="root-flag">${id!""}</param>
+    </query>
+
+    <!-- 查询组织机构列表数据 -->
+    <query id="Q_COMMORG_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT o.ID,o.CODE,o.NODE_LEVEL,o.PARENT_ID,o.NOTE,o.NAME,p.NAME AS PARENT_NAME,o.EXT_DATA
+                    FROM SYS_BI_COMM_ORG o,SYS_BI_COMM_ORG p
+                    WHERE p.ID(+)=o.PARENT_ID AND o.STATUS_ID=1
+                    <#if parent_id?exists>
+                    AND o.ID IN(
+                    SELECT ID FROM SYS_BI_COMM_ORG START WITH ID=[parent_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    <#if name?exists>
+                    AND o.NAME [like(name)]
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="id">id</param>
+        <param name="list-cols">id,name,code,node_level,parent_name,ext_data</param>
+    </query>
+
+    <!-- 添加/修改组织机构 -->
+    <query id="Q_COMMORG_EDIT" type="batch" result="json">
+        <stmt>
+            <![CDATA[
+                    <#-- 判断是修改还是添加 -->
+                    <#if id?exists>
+                    UPDATE SYS_BI_COMM_ORG SET
+                        NAME=[name],NOTE=[note],CODE=[code],EXT_DATA=[ext_data]
+                    WHERE ID=[id long]
+                    <#else>
+                    INSERT INTO SYS_BI_COMM_ORG(
+                    ID,PARENT_ID,TYPE_ID,STATUS_ID,CODE,NAME,NOTE,NODE_LEVEL,EXT_DATA
+                    ) VALUES(
+                    SYS_BI_COMM_ORG_SEQ.NEXTVAL,[parent_id long],0,1,[code],[name],[note],3,[ext_data]
+                    );
+                    <#--将父节点更新为普通节点-->
+                    UPDATE SYS_BI_COMM_ORG SET NODE_LEVEL=2 WHERE ID=[parent_id long];
+                    </#if>
+                    ]]>
+        </stmt>
+        <!-- 检查相同父机构下是否存在相同名称的有效的机构 -->
+        <processor name="check-count" seq="1" type="before" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_BI_COMM_ORG WHERE PARENT_ID=[parent_id] AND NAME=[name] AND STATUS_ID=1 <#if id?exists>AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[机构名称 [${name}] 已经被占用，请使用其它名称]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 删除组织机构 -->
+    <query id="Q_COMMORG_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    UPDATE SYS_BI_COMM_ORG SET STATUS_ID=0 WHERE ID [in(id)]
+                    ]]>
+        </stmt>
+        <processor name="check-count" seq="1" type="before" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_BI_COMM_ORG WHERE PARENT_ID [in(id)] AND STATUS_ID=1]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[由于存在下级机构，不能删除指定的机构]]></param>
+        </processor>
+    </query>
+
+    <!-- 获取组织机构信息 -->
+    <query id="Q_COMMORG_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT o.*,p.NAME AS PARENT_NAME FROM SYS_BI_COMM_ORG o,SYS_BI_COMM_ORG p
+                    WHERE p.ID(+)=o.PARENT_ID AND o.ID=[id]
+                    ]]>
+        </stmt>
+    </query>
+</query-config>

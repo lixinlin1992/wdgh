@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_USER_TRADE_INFO_UPDATE" type="update" result="easyui">
+        <stmt><![CDATA[
+        update bi_trade_info set memo=[memo]
+        where account=[account]
+		]]></stmt>
+    </query>
+</query-config>

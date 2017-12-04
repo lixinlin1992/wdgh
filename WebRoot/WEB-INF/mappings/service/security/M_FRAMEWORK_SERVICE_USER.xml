@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+
+    <!--用户信息列表-->
+    <ds name="DS_SYS_SESSION_MAP" type="url" func="">
+		<url><![CDATA[/userLog.getSessionMap]]></url>
+		<file></file>
+	</ds>
+	
+    <!--用户信息列表-->
+    <ds name="DS_USER_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&id=Q_USER_MANAGER_LIST]]></url>
+		<file></file>
+	</ds>
+
+    <!--编辑用户信息-->
+    <ds name="DS_USER_EDIT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_USER_MANAGER_EDIT]]></url>
+		<file></file>
+	</ds>
+
+    <!--返回已没有的角色-->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_USER_GROUP_LEFTLIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_GROUP_LEFTLIST]]></url>
+		<file></file>
+	</ds>
+
+    <!-- 返回已有的角色 -->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_GROUP_RIGHTLIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_GROUP_RIGHTLIST]]></url>
+		<file></file>
+	</ds>
+
+    <!--注销用户-->
+    <ds name="DS_USER_DEL" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_DEL]]></url>
+		<file></file>
+	</ds>
+
+    <!--更新用户信息-->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_USER_UPDATEUSER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_UPDATE_USER]]></url>
+		<file></file>
+	</ds>
+
+    <!--密码还原-->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_USER_PSWRESET" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_PASSWORD_RESET]]></url>
+		<file></file>
+	</ds>
+
+	<!-- 返回所有的角色 -->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_USER_GROUP_NAMELIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_GROUP_NAMELIST]]></url>
+		<file></file>
+	</ds>
+
+    <!--更新用户-->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_UPDATEUSER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_UPDATE_USER]]></url>
+		<file></file>
+	</ds>
+
+    <!--添加用户-->
+    <ds name="DS_FRAMEWORK_SERVICE_SECURITY_ADDUSER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_ADD_USER]]></url>
+		<file>/</file>
+	</ds>
+
+    <!-- 添加用户的所属的用户组 -->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_ADDGROUPUSER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_USER_ADDGROUPUSER]]></url>
+		<file></file>
+	</ds>
+
+        <!-- 添加用户的所属的用户组 -->
+	<ds name="DS_FRAMEWORK_SERVICE_SECURITY_MODIFY_USER_PASS" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_USER.xml&_id=Q_P_MODIFY_USER_PASS]]></url>
+		<file></file>
+	</ds>
+</datasources>

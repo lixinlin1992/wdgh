@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="SYS_P_MENU" name="系统菜单" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>菜单名称</name>
+            <constraint>100</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入菜单名称</null-message>
+            <invalid-message>请输入正确的系统名称，最长50个汉字或者100个英文字母</invalid-message>
+        </field>
+        <field id="sName" validate="true" null="false" type="string">
+            <name>上级菜单</name>
+            <null-message>请选择上级菜单</null-message>
+        </field>
+        <field id="order_id" validate="true" null="true" type="int">
+            <name>菜单排序</name>
+            <pattern><![CDATA[([0-9]){1,40}]]></pattern>
+            <null-message>请填写数字</null-message>
+        </field>
+    </form>
+</rules>

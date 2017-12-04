@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 添加用户的所属的用户组 -->
+    <query id="Q_USERGROUP_ADDUSER" type="batch" result="json">
+        <stmt><![CDATA[
+   			<@aslist name="rightBox"/>
+   			<#list rightBox as f>
+   			   INSERT INTO sys_p_user_ug  (user_group_code,user_id)VALUES
+   				((select g.code from sys_p_user_group g where g.name='${f}'),(select to_number(t.id) from sys_p_user t where t.id=[temp]));
+   			</#list>
+               insert into  sys_p_user_f (function_id,user_id,source)
+               select distinct  g.function_id,[temp],0 from sys_p_user_group_f g where g.user_group_code in(
+               select u.user_group_code from sys_p_user_ug u where u.user_id=[temp]);
+   		]]></stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

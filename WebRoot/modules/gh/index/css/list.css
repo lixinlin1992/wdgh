@@ -1,0 +1,76 @@
+/*列表页*/
+.g-list-main { margin-bottom: 50px;}
+.f-l { float: left; display: block;}
+.f-r { float: right; display: block;}
+.g-list-mbx { color: #797979; margin: 15px 0;}
+.g-list-mbx a{ display: inline; color: #797979;}
+.g-list-main .menu { width: 244px;}
+.g-list-main .menu a:hover { text-decoration: none;}
+.g-list-main .menu h3 { background: #DC0E0A; height: 43px; line-height: 43px;}
+.g-list-main .menu h3 a { color: #FFFFFF; padding: 0 10px;}
+.g-list-main .menu h3 img { display: inline-block; margin-right: 5px; position: relative; top: 7px;}
+.g-list-main .menu ul li { border: 1px solid #DDDDDD; border-top: none;}
+.g-list-main .menu ul li.on { background: url("../images/g-icon-redjiantou.jpg") left center no-repeat;}
+.g-list-main .menu ul li.on a { color: #DC0E0A;}
+.g-list-main .menu ul li.on a i.jiantou { background-position: -9px top;}
+.g-list-main .menu ul li a { display: block; text-align: center; height: 43px; line-height: 43px;}
+.g-list-main .menu ul li a i { display: inline-block; background: url("../images/g-icon-jiantou.png") no-repeat; width: 7px; height: 12px; margin-right: 20px; position: relative; top: 1px;}
+
+.g-list-main .content {margin-left: 30px; width: 825px;}
+.g-list-main .content h3 { font-size: 18px; color: #B50C09; height: 40px; line-height: 40px; border-bottom: 2px solid #DDDDDD;}
+.g-list-main .content h3 a { color: #999999; font-size: 12px;}
+.g-list-main .content h3 a:hover { text-decoration: none;}
+.g-list-main .content h3 span { position: relative; display: inline-block; padding: 0 10px;}
+.g-list-main .content h3 span i.hr { position: absolute; left: 0; bottom: -2px; height: 2px; background: #DB0D0A; display: block; width: 100%;}
+.g-list-main .content ul li { border-bottom: 1px solid #EEEEEE; height: 50px; line-height: 50px;}
+.g-list-main .content ul li a { display: block; color: #333333;}
+.g-list-main .content ul li a .tit { width: 640px; overflow: hidden; color: #737373; height: 50px;}
+.g-page { margin: 20px 0;}
+.g-page a { margin: 0 5px;}
+.g-page a , .g-page .red { display: inline; color: #CC0000;}
+
+.g-article-con>h1 { font-size: 20px; color: #1E1E1E; text-align: center; margin: 30px 0 0; line-height: 1.5;}
+.g-article-data { text-align: center; font-size: 12px; color: #797979; margin-bottom: 10px;}
+
+/*20170804新增*/
+ul.yuanxilist li { width: 33.3333%; text-align: center; border-bottom: none !important; margin: 10px 0;}
+ul.yuanxilist li a { color: #000000; font-size: 14px;}
+ul.yuanxilist li a:hover { color:#DC0E0A;}
+.yuanxi-item .tit { background: #FBFBFB; border-left: 5px solid #DC0E0A; padding-left: 10px; height: 40px; line-height: 40px; margin-top: 20px; cursor: pointer;}
+
+
+/*鼠标经过联系方式出现电话号码*/
+
+/*content*/
+#phone_content{border-radius:4px;margin:0 auto;position:relative;margin:0 auto;}
+/*help-tip*/
+.help-tip{position:absolute;top:7px;left:17px;text-align:center;width:78px;height:24px;font-size:14px;line-height:26px;cursor:default;z-index:100;}
+.help-tip:before{content:'联系我们';color:#fff;}
+.help-tip:hover p{display:block;transform-origin:100% 0%;-webkit-animation:fadeIn 0.3s ease-in-out;animation:fadeIn 0.3s ease-in-out;}
+.help-tip p{display:none;text-align:left;background-color:#fff;padding:10px;width:300px;position:absolute;border-radius:3px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2);right:-4px;color:#FFF;font-size:13px;line-height:1.4;}
+.help-tip p:before{position:absolute;content:'';width:0;height:0;border:6px solid transparent;border-bottom-color:#fff;right:40px;top:-12px;}
+.help-tip p:after{width:100%;height:40px;content:'';position:absolute;top:-40px;left:0;}
+
+p:last-child{margin-bottom:0;}
+
+
+
+
+
+
+@-webkit-keyframes fadeIn {
+	0% { 
+		opacity:0; 
+		transform:scale(0.6);
+	}
+
+	100% {
+		opacity:100%;
+		transform:scale(1);
+	}
+}
+
+@keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:100%; }
+}

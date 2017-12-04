@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!--容器列表-->
+    <ds name="DS_PAGE_CONTAINER_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_CONTAINER.xml&_id=Q_CONTAINER_LIST]]></url>
+    </ds>
+
+
+    <!--查询容器详细信息-->
+    <ds name="DS_PAGE_CONTAINER_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_CONTAINER.xml&_id=Q_CONTAINER_INFO]]></url>
+    </ds>
+
+    <!--添加修改容器-->
+    <ds name="DS_PAGE_CONTAINER_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_CONTAINER.xml&_id=Q_CONTAINER_EDIT]]></url>
+    </ds>
+
+    <!--删除容器-->
+    <ds name="DS_PAGE_CONTAINER_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_CONTAINER.xml&_id=Q_CONTAINER_DELETE]]></url>
+    </ds>
+</datasources>

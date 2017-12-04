@@ -1,0 +1,4 @@
+<#assign nodes=roots>
+<#assign idx=0>
+[{<#list nodes as n><#if idx&gt;0>,</#if>"id":"${n.id}","name":"${unicode(n.name)}","type":"${n.type}","icon":"themes/default/images/service/security/<#if n.type=="1">function.gif<#else>module.gif</#if>"<#list n.datas as data>,"${data.key?lower_case}":"${unicode(data.value)}"</#list><#if n.children?exists><@subTree childNodes=n.children></@subTree></#if><#assign idx=idx+1></#list>}]
+<#macro subTree childNodes><#assign index=0>,"nodes":[<#list childNodes as child><#if index&gt;0>,</#if>{"id":"${child.id}","name":"${unicode(child.name)}","type":"${child.type}","icon":"themes/default/images/service/security/<#if child.type=="1">function.gif<#else>module.gif</#if>"<#list child.datas as data>,"${data.key?lower_case}":"${unicode(data.value)}"</#list><#if  child.children?exists><@subTree childNodes=child.children></@subTree></#if>}<#assign index=index+1></#list>]</#macro>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_DEMO_INFO_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bdi.id,bdi.title,spc.name type,view_times,spu.name create_user,bdi.create_time
+				from bi_demo_info bdi
+				left join sys_pa_code spc on bdi.type=spc.code_num and spc.code_table='BI_DEMO_INFO' and spc.code_field='TYPE'
+				left join sys_p_user spu on bdi.create_user=spu.id
+				where 1=1 order by create_time desc
+				<#if title??>
+				  and bdi.title [like(title)]
+				</#if>
+				<#if content??>
+				  and dbms_lob.instr(bdi.content, [content], 1, 1) > 0
+				</#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LEGAL_QUESTION_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_legal_aid(id,title,content,create_user,create_date,view_times)
+            values(bi_legal_aid_seq.nextval,[title],[content],[var(RU.CUR_USER.id)],sysdate,0)
+            ]]>
+        </stmt>
+    </query>
+</query-config>

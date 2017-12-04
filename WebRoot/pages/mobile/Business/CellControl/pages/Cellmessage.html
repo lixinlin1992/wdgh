@@ -1,0 +1,107 @@
+<script src="Business/CellControl/scripts/Cellmessage.js"></script>
+
+<!--坐标信息-->
+<div class="appLocate">
+	<span class="locateItem">当前位置：</span>
+	<span class="locateLon" id="Longitude">经度</span>
+	<span class="locateLat" id="Latitude">纬度</span>
+</div>
+<!--坐标信息end-->
+<!--主体部分-->
+<div class="appMain">
+	<div class="searchInput">
+		<div class="searchUnit">
+		<input type="text" class="form-control searchIpt" placeholder="请输入基站编码或基站名称" id="spropertycode" />
+		<a href="javascript:void(0);" class="searchBtn" ng-click="g_query()"></a>
+		</div>
+	</div>
+	<h4 class="mainTitle">基站信息</h4>
+	<!--基站信息列表-->
+	<div class="baseList" ng-repeat="row in mylist">
+		<div class="baseUnit" >
+			<div class="baseItem">
+				<span>基站编码：</span>
+				<p>{{row.PROPERTYCODE}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站名称：</span>
+				<p>{{row.PROPERTYNAME}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站地址：</span>
+				<p>{{row.PROPERTYADDR}}</p>
+			</div>
+			<div class="baseItem">
+				<span>经度：</span>
+				<p>{{row.LONGITUDE}} 纬度：{{row.LATITUDE}}</p>
+			</div>
+			<a href="javascript:void(0);" class="btn btnEdit"  attr1="{{row.PROPERTYCODE}}" attr2="{{row.PROPERTYNAME}}" attr3="{{row.PROPERTYADDR}}" attr4="{{row.PROPERTYID}}" ng-click="g_edit($event)">修改</a>
+		</div>
+	</div>
+	<div class="bmLoad" id="g1" style="display:block">
+		<span class="bmLoadMore" ng-click="getmoredata()">下拉加载更多信息……</span>
+	</div>
+	<div class="bmLoad" id="g2" style="display:none">
+		<span class="bmLoading">正在加载更多信息……</span>
+	</div>
+	<div class="bmLoad" id="g3" style="display:none">
+		<span>无更多信息</span>
+	</div>
+	<!--基站信息列表end-->
+</div>
+<!--主体部分end-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--		<div class="bmTitle">
+			<span class="bmTitleGrey">基站管理</span>
+		</div>
+		<div class="bmMain">
+			<div class="bmForm">
+				<form action="" method="">
+					<input type="text" id="spropertycode" class="form-control" placeholder="基站编码" />
+					<input type="text" id="spropertyname" class="form-control" placeholder="基站名称" />
+					<button type="submit" class="btn bmSearch pull-right" ng-click="g_query()">
+					<span>查询</span>
+				</button>
+				</form>
+			</div>
+			<div class="bmTable">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>操作</th>
+							<th>基站编码</th>
+							<th>基站名称</th>
+							<th>基站地址</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  ng-repeat="row in mylist">
+							<td><button type="button" attr1="{{row.PROPERTYCODE}}" attr2="{{row.PROPERTYNAME}}" attr3="{{row.PROPERTYADDR}}" attr4="{{row.PROPERTYID}}" class="btn bmBtn" ng-click="g_edit($event)">修改</button></td>
+							<td>{{row.PROPERTYCODE}}</td>
+							<td>{{row.PROPERTYNAME}}</td>
+							<td>{{row.PROPERTYADDR}}</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+<div class="bmLoad" id="g1" style="display:block">
+	<span class="bmLoadMore" ng-click=""><a href="javascript://" ng-click="getmoredata()">点击加载更多信息……</a></span>
+</div>
+<div class="bmLoad" id="g2" style="display:none">
+	<span class="bmLoading"><a href="javascript://">正在加载更多信息……</a></span>
+</div>-->
+

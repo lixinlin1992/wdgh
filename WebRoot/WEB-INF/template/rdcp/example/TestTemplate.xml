@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GBK"?>
+<Template class="com.sunrise.rdcp.template.FreeMarkerTemplate" id="FTL_Template" name="FreeMarker模板" orientation="vertical">
+	<param name="ftlFile">template/rdcp/example/FtlSampleTemplate.ftl</param>
+	<param name="scripts">scripts/rdcp/plugins/formField.js</param>
+	<Sector class="com.sunrise.rdcp.sector.FreeMarkerSector" id="NAV_SECTOR" orientation="vertical" name="导航区域">
+		<param name="ftlFile">template/rdcp/example/NavSector.ftl</param>
+		<property name="导航路径" code="navpath" type="text"/>
+	</Sector>
+	<Sector class="com.sunrise.rdcp.sector.FreeMarkerSector" id="QUERY_SECTOR" orientation="vertical" name="查询区域">
+		<param name="ftlFile">template/rdcp/example/QuerySector.ftl</param>
+		<property name="查询条件" code="query_conditions" type="text" editor="form_field" />
+		<property name="表单名称" code="formname" type="text"/>
+		<property name="表单提交事件" code="submitevent" type="text" editor="html"/>
+		<property name="绑定列表" code="gridid" type="text"/>
+		<property name="每行条件数" code="linecount" type="integer"/>
+	</Sector>
+	<Sector class="com.sunrise.rdcp.sector.FreeMarkerSector" id="GRID_SECTOR" orientation="vertical" name="数据列表区域">
+		<param name="ftlFile">template/rdcp/example/GridSector.ftl</param>
+		<property name="数据源" code="datasource" type="text"/>
+		<property name="表单名称" code="formname" type="text"/>
+		<property name="列表名称" code="gridid" type="text" editor="select" options="a:'AAA',b:'B'"/>
+	</Sector>
+</Template>

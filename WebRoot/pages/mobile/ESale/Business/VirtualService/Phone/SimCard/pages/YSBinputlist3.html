@@ -1,0 +1,456 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+    $("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+<article class="com_mainbox" style="margin-bottom: 60px;" >
+    <!--进度条Begin-->
+    <div class="com_progress">
+        <img src="Style/images/progress/third.png" alt=""/>
+    </div>
+    <!--进度条End-->
+
+    <!--100%布局Begin-->
+    <div class="layout_full">
+        <!--标题一Begin-->
+        <div class="com_title first_title">
+            <span>首月资费</span>
+        </div>
+        <!--标题一End-->
+        <!--选择按钮Begin-->
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-4 col-xs-4 list">
+                    <!--常用btn-->
+                    <a id="zf0" name="zfBtn" class="com_selectbtn" href="javascript://" ng-click="selectZf(0);"
+                       zftype="0">套外资费</a>
+                    <!--常用btn-->
+                </div>
+                <div class="col-md-4 col-xs-4 list">
+                    <!--常用btn-->
+                    <a id="zf1" name="zfBtn" class="com_selectbtn" href="javascript://" ng-click="selectZf(1);"
+                       zftype="1">半月资费</a>
+                    <!--常用btn-->
+                </div>
+                <div class="col-md-4 col-xs-4 list">
+                    <!--常用btn-->
+                    <a id="zf2" name="zfBtn" class="com_selectbtn" href="javascript://" ng-click="selectZf(2);"
+                       zftype="2">全月资费</a>
+                    <!--常用btn-->
+                </div>
+            </div>
+        </div>
+        <!--选择按钮End-->
+        <!--单行选择Begin-->
+        <div class="com_select" style="border-top: 1px solid #eeeeee; margin-top: 10px;clear:both">
+            <a id="jmkfCheckBox" class="com_checkox com_checkoxon" ng-click="jmkfCheck()"></a>
+            <input id="jmkfStatus" type="hidden" value="0">
+            <span class="title">减免活动</span>
+            <span class="content">减免SIM/USM卡费</span>
+        </div>
+        <!--单行选择End-->
+    </div>
+    <!--100%布局End-->
+
+    <!--100%布局Begin-->
+    <div class="layout_centent">
+        <!--标题一Begin-->
+        <div class="com_title first_title">
+            <span>身份资料(必填)</span>
+        </div>
+        <!--标题一End-->
+        <!--正常外框Begin-->
+        <div class="com_normalbox">
+            <!--提示文字Begin-->
+            <div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+                上传身份证正，反面及手持照片
+            </div>
+            <!--提示文字End-->
+
+            <!--身份证图片列表Begin-->
+            <div class="container-fluid goods_show_list">
+                <div class="row">
+                    <div id="frontDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+                        <div id="frontDiv_img"
+                             style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                            <input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;"
+                                   data-param="front" id="front" onchange="uploadImg('front');" single>
+
+                            <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"
+                                 onclick="takePhoto('front')"></div>
+                            <span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+                        </div>
+                    </div>
+
+                    <div id="contraryDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+                        <div id="contraryDiv_img"
+                             style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                            <input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;"
+                                   data-param="contrary" id="contrary" onchange="uploadImg('contrary');" single>
+
+                            <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"
+                                 onclick="takePhoto('contrary')"></div>
+                            <span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-md-4 goods_box">
+                        <div style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                            <input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;"
+                                   data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+
+                            <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_hand"
+                                 onclick="takePhoto('hand')"></div>
+                            <span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+                        </div>
+                    </div>
+                </div>
+                <!--进度条begin-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="upload_text"
+                           style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+                    </div>
+                    <div class="progress">
+                        <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped"
+                             role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+                <!--进度条end-->
+            </div>
+            <!--身份证图片列表End-->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-xs-6 list" id="bluetoothDiv" style="display: none;">
+                        <!--常用btn-->
+                        <button style="width: 100%;" class="com_btn theme_btn" id="bluetooth_read_btn"
+                                data-loading-text="读取中...." autocomplete="off">
+                            蓝牙读取
+                        </button>
+                        <!--常用btn-->
+                    </div>
+                    <div class="col-md-6 col-xs-6 list" id="ocrDiv" style="display: none;">
+                        <!--常用btn-->
+                        <button style="width: 100%;" class="com_btn theme_btn" id="ocr_btn" ng-click="imageShiBie()"
+                                data-loading-text="识别中...." autocomplete="off">
+                            图片识别
+                        </button>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+
+            <!--提示文字Begin-->
+            <div class="small_font gray_font" style="line-height: 20px;">
+                <span class="red_font">*</span>请尽量在光线较亮的环境下拍摄以提高照片的清晰度,清晰度越高, 图片的识别效果将越好
+            </div>
+            <!--提示文字End-->
+
+            <form>
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>客户姓名</p>
+                    </div>
+                    <div class="form_right">
+                        <input name="name" type="text" class="input_normal" ng-model="orderList.customName"
+                               id="customer_name" placeholder="客户姓名" readonly="readonly"/>
+                    </div>
+                </div>
+                <!--表单排版End-->
+
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>性别</p>
+                    </div>
+                    <div class="form_right">
+                        <!--单选按钮Begin-->
+                        <a href="javascript://" id="man" class="radiobtn">男</a>
+                        <a href="javascript://" id="woman"  class="radiobtn  radiobtnon">女</a>
+                        <input id="gender" type="text" style="display: none;" ng-model="form.GENDER"/>
+                        <!--<input name="gender" type="radio" value="男" style="display: none;"/>
+                        <input name="gender" type="radio" value="女" style="display: none;"/>-->
+                        <!--单选按钮End-->
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--表单排版End-->
+
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>证件类型</p>
+                    </div>
+                    <div class="form_right">
+                        <select class="input_normal" id="cert_type" ng-click="certTypeChange()">
+                            <option ng-repeat="cert in certs" value="{{cert.id}}">{{cert.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!--表单排版End-->
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>证件号码</p>
+                    </div>
+                    <div class="form_right">
+                        <input name="paper_num" type="text" id="cert_number" maxLength="18" ng-model="orderList.certNum"
+                               class="input_normal"
+                               pattern="^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|[xX])$"
+                               required="required" readonly="readonly"/>
+                    </div>
+                </div>
+                <!--表单排版End-->
+                <!--表单排版Begin-->
+                <div class="formlist" style="background: #ffffff;">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>证件有效期</p>
+                    </div>
+                    <div class="form_right">
+                        <div class="dateblock">
+                            <input type="text" name="paper_stime" class="input_normal" id="cert_valid_from"
+                                   ng-model="orderList.certValidFrom" required="required"readonly="readonly"/>
+                        </div>
+                        <p class="middleblock">至</p>
+
+                        <div class="dateblock">
+                            <input type="text" name="paper_time" class="input_normal" id="cert_valid_to"
+                                   ng-model="orderList.certValidTo" required="required"readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--表单排版End-->
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>签发机关</p>
+                    </div>
+                    <div class="form_right">
+                        <input name="str_office" type="text" class="input_normal" id="iss_using"
+                               ng-model="orderList.issuing"readonly="readonly" />
+                    </div>
+                </div>
+                <!--表单排版End-->
+                <!--表单排版Begin-->
+                <div class="formlist">
+                    <div class="form_left">
+                        <p class="form_title"><font color="red">*</font>证件地址</p>
+                    </div>
+                    <div class="form_right">
+                        <input name="paper_addr" type="text" class="input_normal" id="cert_address"
+                               ng-model="orderList.certAddress"readonly="readonly" />
+                    </div>
+                </div>
+                <!--表单排版End-->
+                <input type="text" style="display: none;" id="nation" ng-model="orderList.NATION" />
+            </form>
+        </div>
+        <!--正常外框End-->
+    </div>
+    <!--100%布局End-->
+    <!--100%布局Begin-->
+    <div class="layout_centent">
+        <!--标题一Begin-->
+        <div class="com_title first_title">
+            <span>联系资料（必填）</span>
+        </div>
+        <!--标题一End-->
+        <!--表单排版Begin-->
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title"><font color="red">*</font>联系电话</p>
+            </div>
+            <div class="form_right">
+                <input placeholder="必填项" type="tel" class="input_normal" id="phoneNumber" ng-model="form.CONTACT_PHONE" maxlength="11"/>
+            </div>
+        </div>
+        <!--表单排版End-->
+        <!--表单排版Begin-->
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">通讯地址</p>
+            </div>
+            <div class="form_right">
+                <input placeholder="非必填项" type="text" class="input_normal" id="postal_address" ng-model="form.POSTAL_ADDRESS"/>
+            </div>
+        </div>
+        <!--表单排版End-->
+
+        <!--表单排版Begin-->
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">备注</p>
+            </div>
+            <div class="form_right">
+                <!--多行文本框Begin-->
+                <textarea class="textarea_normal" style="height: 62px;" cols="30" rows="10" id="note" ng-model="form.NOTE"
+                          placeholder="请输入少于100的字符"></textarea>
+                <!--多行文本框End-->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--表单排版End-->
+    </div>
+    <!--100%布局End-->
+</article>
+
+<!--底部导航：nav_buttom-->
+<!--底部导航Begin-->
+<div class="nav_bottom" style="border-top:1px solid #dddddd; height: 52px;margin-bottom: 59px">
+    <div class="box">
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-6 col-xs-6 list">
+                    <!--常用btn-->
+                    <a class="com_btn theme_btn" href="javascript://" ng-click="back();">
+                        上一步
+                    </a>
+                    <!--常用btn-->
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <!--常用btn-->
+                    <a class="com_btn theme_btn" href="javascript://" ng-click="next();">
+                        下一步
+                    </a>
+                    <!--常用btn-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--底部导航End-->
+<script type="text/javascript">
+    /*ysb_shade1("正在加载插件...");*/
+    if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+        $("#front").css("display", "block");
+        $("#new_img_front").css("display", "none");
+        $("#new_img_hand").hide().prevAll().show();
+        $("#contrary").css("display", "block");
+        $("#new_img_contrary").css("display", "none");
+    }
+
+    /*loadZF();
+
+     loadBtnAccess();
+
+     loadIDcardNumReviseAccess();
+
+     saveParameter();
+
+     loadPaperData();*/
+
+    function saveParameter() {
+
+    }
+
+    function next() {
+        var firstMonthFeeId = $("a[name='zfBtn'].com_selectbtn.com_selectbtnon").attr("zftype")
+        == undefined ? "" : $("a[name='zfBtn'].com_selectbtn.com_selectbtnon").attr("zftype");//首月资费ID
+        var firstMonthFeeName = $("a[name='zfBtn'].com_selectbtn.com_selectbtnon").text()
+        == undefined ? "" : $("a[name='zfBtn'].com_selectbtn.com_selectbtnon").text();//首月资费名称
+        if (firstMonthFeeId == "") {
+            ysb_alert("提示", "请选择首月资费");
+            return;
+        }
+
+        var jmkfStatus = $("#jmkfStatus").val();
+
+        var frontPicId = $("#SFZZMTPID").val() == undefined ? "" : $("#SFZZMTPID").val();//身份证正面图片ID
+        if (frontPicId == "") {
+            ysb_alert("提示", "请上传身份证正面照片");
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        var backPicId = $("#SFZBMTPID").val() == undefined ? "" : $("#SFZBMTPID").val();//身份证背面图片ID
+        if (backPicId == "") {
+            ysb_alert("提示", "请上传身份证背照片");
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        var handPicId = $("#SFZSCTPID").val() == undefined ? "" : $("#SFZSCTPID").val();//身份证手持图片ID
+        if (handPicId == "" && $("#btnAccess").val() != "2" && $("#btnAccess").val() != "3") {//蓝牙读取时，不用身份证手持上传
+            ysb_alert("提示", "请上传手持身份证照片");
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        var customName = $("input[name='name']").val() == undefined ? "" : $("input[name='name']").val();//身份证上的名字
+        if (customName == "") {
+            ysb_alert("提示", "请输入姓名");
+            return;
+        }
+        var sex = "";//身份证上的性别
+        if ($("#inlineRadio1").is(":checked")) {
+            sex = "男";
+        } else {
+            sex = "女";
+        }
+        var certTypeId = $("#paper_type").find("option:selected").val();//证件类型ID
+        var certType = $("#paper_type").find("option:selected").text();//证件类型(一般都是18位身份证)
+        var certNum = $("input[name='paper_num']").val()
+        == undefined ? "" : $("input[name='paper_num']").val();//证件号码
+        if (certNum == "") {
+            ysb_alert("提示", "请输入证件号码");
+            return;
+        }
+        if (!/^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X|x)?$/.test(certNum)) {
+            ysb_alert("提示", "证件号码有误，请检查");
+            return;
+        }
+        var certValidFrom = $("input[name='paper_stime']").val()
+        == undefined ? "" : $("input[name='paper_stime']").val();//证件有效期开始时间
+        if (certValidFrom == "") {
+            ysb_alert("提示", "请输入证件有效期开始时间");
+            return;
+        }
+        var certValidTo = $("input[name='paper_time']").val()
+        == undefined ? "" : $("input[name='paper_time']").val();//证件有效期结束
+        if (certValidTo == "") {
+            ysb_alert("提示", "请输入证件有效期截止时间");
+            return;
+        }
+        var issuing = $("input[name='str_office']").val()
+        == undefined ? "" : $("input[name='str_office']").val();//发证机关
+        if (issuing == "") {
+            ysb_alert("提示", "请输入发证机关");
+            return;
+        }
+
+        var certAddress = $("input[name='paper_addr']").val()
+        == undefined ? "" : $("input[name='paper_addr']").val();//证件地址
+        if (certAddress == "") {
+            ysb_alert("提示", "请输入证件地址");
+            return;
+        }
+
+
+        var contactPhoneNum = $("input[name='telephone']").val()
+        == undefined ? "" : $("input[name='telephone']").val();//联系电话
+        if (contactPhoneNum == "") {
+            ysb_alert("提示", "请输入联系电话");
+            return;
+        }
+        var postalAddress = $("input[name='address']").val()
+        == undefined ? "" : $("input[name='address']").val();//通信地址
+        var note = $("textarea[name='note']").val()
+        == undefined ? "" : $("textarea[name='note']").val();//备注
+        note = note.replace(/(\r\n|\n|\r)/gm, "");
+
+    }
+</script>
+
+<div id="checkHtml"></div>
+
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/YSBinputlist3.js"></script>
+
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

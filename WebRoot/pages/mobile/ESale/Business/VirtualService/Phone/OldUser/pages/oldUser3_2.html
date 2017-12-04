@@ -1,0 +1,192 @@
+﻿<script src="ESale/Business/VirtualService/Phone/OldUser/scripts/oldUser3_2.js"></script>
+<style>
+.list {
+    margin-top: 10px
+}
+</style>
+<div class="layout_centent">
+    <!--标题一Begin-->
+    <div class="com_title first_title" ng-show="acti.length!=1">
+        <span>套餐类型</span>
+        <!--<a class="morebtn" href="javascript://">更多选择</a>-->
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid" ng-show="acti.length!=1" display="none">
+        <div class="row com_selectbox" id="acti">
+            <div class="col-md-4 col-xs-4 list" ng-repeat="ac in acti" ng-click="event.btnon($event);event.acti()">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" actiId="{{ac.ID}}">{{ac.NAME}}</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+    <div class="layout_secondbox">
+        <!--标题一Begin-->
+        <div class="com_title second_title" ng-hide="acti_name.length==1||!acti_name">
+            <span>活动名称</span>
+            <!--<a class="btn_add" href="javascript://"></a>-->
+        </div>
+        <!--标题一End-->
+        <!--选择按钮Begin-->
+        <div class="container-fluid" ng-hide="acti_name.length==1||!acti_name">
+            <div class="row com_selectbox" id="acti_name">
+                <div class="col-md-6 col-xs-6 list" ng-repeat="an in acti_name" ng-click="event.btnon($event);event.acti_name()">
+                    <!--常用btn-->
+                    <a class="com_selectbtn" href="javascript://" acti_nameId="{{an.ID}}">{{an.NAME}}</a>
+                    <!--常用btn-->
+                </div>
+            </div>
+        </div>
+        <!--选择按钮End-->
+        <!--选择按钮End-->
+        <div class="layout_secondbox">
+            <!--标题一Begin-->
+            <div class="com_title second_title" ng-show="type.length!=1" display="none">
+                <span>套餐名称</span>
+                <!--<a class="btn_add" href="javascript://"></a>-->
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+            <div class="container-fluid" ng-show="type.length!=1" display="none">
+                <div class="row com_selectbox" id="type">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="ty in type" ng-click="event.btnon($event);event.type()">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" typeId="{{ty.ID}}">{{ty.NAME}}</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+            <!--选择按钮End-->
+            <!--标题一Begin-->
+            <div class="com_title second_title" ng-show="name.length!=1">
+                <span>套餐名称</span>
+                <!--<a class="btn_add" href="javascript://"></a>-->
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+            <div class="container-fluid" ng-show="name.length!=1">
+                <div class="row com_selectbox" id="name">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="na in name" ng-click="event.btnon($event);event.name()">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" first_fee="{{na.FIRST_FEE}}" nameId="{{na.ID}}">{{na.NAME}}</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+            <!--选择按钮End-->
+            <!--标题一Begin-->
+            <div class="com_title second_title" ng-show="plan.length!=1" display="none">
+                <span>套餐计划</span>
+                <!--<a class="btn_add" href="javascript://"></a>-->
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+            <div class="container-fluid" ng-show="plan.length!=1" display="none">
+                <div class="row com_selectbox" id="plan">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="pl in plan" ng-click="event.btnon($event);event.plan()">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" planId="{{pl.ID}}">{{pl.NAME}}</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+                <!--<div id="fee" feeId="{{fee[0].ID}}" style="font-size: 0.9em;-->
+                <!--vertical-align: top;padding: 5px 0px;word-break: break-all; color: #666">-->
+                <!--{{fee[0].NOTE}}-->
+                <!--</div>-->
+            </div>
+            <!--选择按钮End-->
+            <!--&lt;!&ndash;标题一Begin&ndash;&gt;-->
+            <div class="com_title second_title" ng-hide="fee.length<=1">
+                <span>办合约</span>
+                <!--<a class="btn_add" href="javascript://"></a>-->
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+            <div class="container-fluid" ng-hide="fee.length<=1">
+                <div class="row com_selectbox" id="feeVal">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="fe in fee" ng-click="event.btnon($event);event.fee($index)">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" LLB="{{fe.LLB}}" YYB="{{fe.YYB}}" ZFB="{{fe.ZFB}}" feeId="{{fe.ID}}" fee_init="{{fe.FEE_INIT}}" fee_Val="{{fe.NAME}}" PERIODS="{{na.PERIODS}}" fee_config="{{fe.FEE}}" first_fee="{{fe.FIRST_FEE}}">{{fe.BNAME}}</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+            <!--选择按钮End-->
+            <div class="com_title second_title" ng-show="show.zhongduancuanhao">
+                <span>终端串号</span>
+            </div>
+            <div class="formlist" style="margin-top: 5px;" ng-show="show.zhongduancuanhao">
+                <input type="text" class="input_normal" ng-model="form.TERMINAL_SN" ng-blur="interface.checkImei()">
+            </div>
+            <!--选择按钮End-->
+            <div class="com_title second_title" ng-show="show.zhongduancuanhao">
+                <span>备注</span>
+            </div>
+            <div class="formlist" style="margin-top: 5px;" ng-show="show.zhongduancuanhao">
+                <!-- <textarea class="textarea_normal" cols="30" rows="10" id="note" ng-model="form.NOTE" placeholder="请输入机型颜色，型号合约价等"></textarea> -->
+                <input type="text" class="input_normal" ng-model="form.NOTE">
+            </div>
+            <div class="com_title second_title" ng-show="imei_cbss_check">
+                <span>终端信息</span>
+            </div>
+            <div class="container-fluid" id="checkIsArray" style="display:none">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="terminal in terminals">
+                        <a href="javascript://" class="com_selectbtn" ng-click="event.terminal($index)" id="terminal_{{$index}}"><span ng-bind="terminal.mobileinfo"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="com_table" ng-show="imei_cbss_check">
+                <table>
+                    <tr>
+                        <td class="summarize" style="width: 180px">终端品牌</td>
+                        <td ng-bind="form.TerminalBrandName"></td>
+                    </tr>
+                    <tr>
+                        <td class="summarize" style="width: 180px">终端型号</td>
+                        <td ng-bind="form.TerminalModelName"></td>
+                    </tr>
+                    <tr>
+                        <td class="summarize" style="width: 180px">终端款</td>
+                        <td ng-bind="form.MOBILESALEPRICE"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="layout_secondbox">
+                <!--标题一Begin-->
+                <div class="com_title second_title">
+                    <span>套餐详细</span>
+                    <!--<a class="btn_add" href="javascript://"></a>-->
+                </div>
+                <!--标题一End-->
+                <!--信息列表Begin-->
+                <div class="com_table">
+                    <table>
+                        <tbody>
+                            <tr ng-if="dinner.length>0" ng-repeat="list in dinner">
+                                <td class="summarize" style="width: 180px">{{list.KEY_AS}}:</td>
+                                <td>{{list.VAL}}</td>
+                            </tr>
+                            <tr ng-if="dinner.length<=0">
+                                <td>抱歉！此计划没有套餐详细，请选择其他计划~！</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--信息列表End-->
+                <div id="fee" feeId="{{fee[index].ID}}" style="font-size: 0.7em;
+                vertical-align: top;padding: 15px 0px;word-break: break-all; color: #666">
+                    {{fee[index].NOTE}}
+                </div>
+            </div>
+        </div>
+        <div class="formlist">
+            <a class="com_btn theme_btn" href="javascript://" ng-click="event.next()">下一步</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="System/Base/scripts/passwd/core-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/enc-base64-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/sha1.js"></script>

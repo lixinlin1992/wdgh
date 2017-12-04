@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_MANU" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_manu(id,company,job_num,content,state,create_user,create_time,author_one,
+            author_two,author_three,dept_id)
+            select bi_manu_seq.nextval,[company],[var(RU.CUR_USER.id)],[content],0,[var(RU.CUR_USER.id)],
+            sysdate,[author_one],[author_two],[author_three],dept_id
+            from sys_p_user
+            where id=[var(RU.CUR_USER.id)]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

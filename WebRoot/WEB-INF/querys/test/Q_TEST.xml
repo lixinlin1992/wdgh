@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- labelvalue查询器样例，result暂时只支持json -->
+    <query id="example" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+			select id,name from sys_p_user where 1=1
+			<#if username?exists>
+			and name [like(username)]
+			</#if>
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <!-- label的字段名，作为option的标签值。必需 -->
+        <param name="v-col">id</param>
+        <!-- value的字段名，作为option的value。必需 -->
+        <param name="date-fmt">yyyyMMddkkmmss</param>
+        <!-- 日期输出格式。可选（不提供将采用默认的 yyyy-MM-dd） -->
+        <param name="num-fmt">#,##0.##</param>
+        <!-- 数字输出格式。可选（不提供将采用默认的 #.#） -->
+    </query>
+
+    <query id="netQueryList" type="pagelist" result="json">
+        <stmt><![CDATA[
+		select id,
+	       name,
+	       (select t1.name from sys_bi_org_area t1 where t1.id =
+	       		(select t1.parent_id from sys_bi_org_area t1 where t1.id = area_id))areaname,
+	       (case when market_type_id = 1 then '自有' else '社会' end) markettype,
+	       (select t2.name from sys_bi_net_type t2 where t2.id = type_id)typename,
+	       (case when status_id = 1 then '有效' else '已注销' end) statusid,
+	       (select t3.name from sys_p_user t3 where t3.id = ddy_user_id)ddyname,
+	       (select t4.name from sys_p_user t4 where t4.id = pky_user_id)pkyname,LONGITUDE,LATITUDE,code
+  		from sys_bi_net
+  		where 1=1
+		<#if keywords?exists>
+		and (name [like(keywords)] or id[like(keywords)])
+		</#if>
+		<#if nettype?exists>
+		and type_id=[nettype]
+		</#if>
+		<#if statusid?exists>
+		and status_id=[statusid]
+		</#if>
+		<#if areaid?exists>
+		and area_id in (
+			select ia.id from sys_bi_org_area ia start with ia.id=[areaid] connect by prior ia.id=ia.parent_id )
+		</#if>
+		<#if netid?exists>
+		and id = [netid]
+		</#if>
+		 order by status_id asc,id
+
+
+		]]></stmt>
+        <param name="id">id</param>
+        <param name="list-cols">name,areaname,markettype,typename,statusid,ddyname,pkyname,id,LONGITUDE,LATITUDE,code
+        </param>
+        <param name="exp-cols">id,name,areaname,markettype,typename,statusid,ddyname,pkyname</param>
+        <param name="exp-names">网点ID , 网点名称, 所属网格,所属渠道,网点类型,网点状态,网格经理,代理商</param>
+        <param name="exp-file">网点搜索数据导出</param>
+    </query>
+
+    <!-- 测试JavaBean取值 -->
+    <query id="BEAN_PROPERTY" type="update" result="sequence">
+        <processor name="sncode" type="before" seq="1">
+            <param name="type">Contract</param>
+            <param name="var">_sncode</param>
+        </processor>
+        <stmt>
+            <![CDATA[
+                    UPDATE SYS_P_USER SET
+
+                    NAME=[user.name],ID=[user.id]
+                    WHERE 1=2
+                    AND name [like(user.name string)] AND ID [like(user.id long)]
+                    AND sn_code=[_sncode]
+                    ]]>
+        </stmt>
+        <param name="sequence">XXX_SEQ</param>
+        <processor name="" break="false" seq="1" type="after">
+            <param name="procInstId">${procInstId}</param>
+            <param name="businessKey">${_sncode}</param>
+        </processor>
+    </query>
+
+
+    <!-- 测试FreeMarker与查询框架函数整合的功能 -->
+    <query id="FTL_FUNC" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    <#list rows as row>
+                    select 1 from dual where 1=[row long]
+                    </#list>
+                    update xxx
+                    set a=[inf.name],new_row=[new_row double]
+                    ]]>
+        </stmt>
+        <processor name="set-value" type="before" seq="1">
+            <param name="var">info</param>
+            <param name="type">map,bean,single</param>
+            <param name="sql">SELECT XXX.CURRVAL FROM DUAL</param>
+            <param name="rows">all,1,2</param>
+        </processor>
+        <processor name="script" type="before" seq="2">
+            <param name="var">new_row</param>
+            <param name="script"><![CDATA[java.lang.System.out.println("");]]></param>
+        </processor>
+    </query>
+
+    <!-- 测试自动更新语句执行器 -->
+    <query id="Q_TEST_AUTO_UPDATE" type="auto-update" result="">
+        <param name="update-tables">KINZ_TEST b</param>
+        <param name="col-vals">b.col_c=${func(unicode("测试"),"string")}</param>
+        <param name="update-cols">b.col_a,b.col_b,b.col_c</param>
+        <param name="key-cols">b.col_a</param>
+    </query>
+
+    <!-- setvalue 和 script 处理器测试-->
+    <query id="Q_SCRIPT_PROCESSOR" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT *
+                    FROM SYS_P_USER
+                    WHERE 1=1
+                    <#if script_val??>
+                    AND ID=[script_val]
+                    </#if>
+                    ]]>
+        </stmt>
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">list</param>
+            <param name="sql">
+                <![CDATA[
+                        select * from sys_p_user where 1=2 <#if name??> or name=[name]</#if>
+                        ]]>
+            </param>
+            <param name="type">map</param>
+            <param name="rows">3</param>
+        </processor>
+        <processor name="script" type="before" seq="2" break="false">
+            <param name="var">script_val</param>
+            <param name="script"><![CDATA[
+                    try{
+                    for(var i=0;i<list.size();i++){
+                        var m = list.get(i);
+                        m.get("name");
+                    }
+                    if(name=="admin"){
+                        "1";
+                    }else{
+                        "2";
+                    }
+                    }catch(e){println("没有传入name参数");}
+                    ]]></param>
+        </processor>
+        <param name="paging">false</param>
+    </query>
+	
+	<query id="Q_TEST_TREE" type="pagelist" result="ftl">
+		<stmt>
+			<![CDATA[
+			SELECT code as id,NAME as name,-1 as parent_id,1 as type  from SYS_BI_SYSTEM
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+		<param name="format">text</param>
+		<param name="ftl">template/test/TEST_TREE.ftl</param>
+	</query>
+	
+	
+	<!-- 属性数据保存执行器测试 -->
+	<query id="Q_PROPERTY_TEST" type="property-save">
+		<param name="table">SYS_P_MENU m</param>
+		<param name="data-key">property</param>
+		<param name="col-vals">m.ID=SYS_P_MENU_SEQ.NEXTVAL,m.LEVEL_ID=[level_id int]</param>
+	</query>
+	
+	<query id="Q_TEST_AUTO" type="auto-update">
+		<param name="insert-tables">SYS_P_MENU p</param>
+		<param name="update-tables">SYS_P_USER q</param>
+		<param name="update-cols">q.name</param>
+		<param name="col-vals">q.ID=[_queryId long],p.id=1,p.QUERY_ID=[_queryId long],p.NAME=[paramName]</param>
+		<param name="batch-tables">q=id</param>
+	</query>
+
+    <query id="Q_TEST_TREES" type="trees" result="easyui-tree">
+        <stmt>
+            <![CDATA[
+			select t.id as id, t.parent_id as pid, t.name as text, '1' as typeId, '1' as ptypeId, 'true' as checked, 'true' as opened, 'test' as testCol, 'test2' as testCol2 from sys_p_menu t where 1=1 and t.sys_code = 'RDCP'
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+        <param name="parent-col">pid</param>
+        <param name="type-col">typeId</param>
+        <param name="parent-type-col">ptypeId</param>
+        <param name="checked-col">checked</param>
+        <param name="opened-col">opened</param>
+        <param name="root-flag">${parent_id!0}</param>
+    </query>
+
+    <query id="Q_TEST_COMBOS" type="combos" result="easyui-combobox">
+        <stmt>
+            <![CDATA[
+			select t.id as id, t.name as text, decode(t.status, 1, '有效', '无效') as status from sys_p_menu t where 1=1 and t.sys_code = 'RDCP'
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+    </query>
+
+</query-config>

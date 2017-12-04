@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--查询已给指定用户授权的资源-->
+    <query id="Q_GET_USER_RESOURCE" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT r.*, ORA_HASH(r.MODULE_PATH||'/'||r.RES_PATH) AS ID
+                FROM SYS_P_USER_RESOURCE r
+                WHERE r.USER_ID=[user_id]
+                ]]></stmt>
+        <param name="paging">false</param>
+</query>
+</query-config>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <query id="Q_DEMO_GRID" type="pagelist" result="easyui">
+        <stmt>
+            <![CDATA[
+            select u.id as USERID, u.name as USERNAME, u.account as ACCOUNT, u.password as PASSWORD, u.mobile_phone as MOBILEPHONE, email as EMAIL from SYS_P_USER u
+            where 1=1
+              <#if userId??>
+                   and u.id = [userId]
+              </#if>
+              <#if userAccount??>
+                   and u.account [like(userAccount)]
+              </#if>
+              <#if userEmail??>
+                   and u.email = [userEmail]
+              </#if>
+              <#if mobilePhoneComboBox??>
+                  <#if mobilePhoneComboBox!='-1'>
+                       and u.id = [mobilePhoneComboBox]
+                  </#if>
+              </#if>
+              <#if userNameComboBox??>
+                  <#if userNameComboBox!='-1'>
+                       and u.id = [userNameComboBox]
+                  </#if>
+              </#if>
+            ]]>
+        </stmt>
+    </query>
+
+
+    <query id="Q_DEMO_COMBO_USERNAME" type="combos" result="easyui-combobox">
+        <stmt>
+            <![CDATA[
+            select -1 as id, '--请选择--' as text, 'true' as checked
+              from dual
+            union all
+            select u.id as id, to_char(u.name) as text, 'false' as checked
+              from sys_p_user u
+             where u.name is not null
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+        <param name="checked-col">checked</param>
+    </query>
+
+    <query id="Q_DEMO_COMBO_PHONE" type="combos" result="easyui-combobox">
+        <stmt>
+            <![CDATA[
+            select -1 as id, '--请选择--' as text, 'true' as checked
+              from dual
+            union all
+            select u.id as id, to_char(u.mobile_phone) as text, 'false' as checked
+              from sys_p_user u
+             where u.mobile_phone is not null
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+        <param name="checked-col">checked</param>
+    </query>
+</query-config>

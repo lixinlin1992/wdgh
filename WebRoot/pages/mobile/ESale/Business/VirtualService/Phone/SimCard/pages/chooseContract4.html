@@ -1,0 +1,205 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+    $("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+
+
+<!--主体内容-->
+<div>
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>客户资料</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--正常外框Begin-->
+		<div class="com_normalbox">
+
+			<!--身份证图片列表Begin-->
+			<div class="container-fluid goods_show_list">
+				<div class="row">
+					<div id="frontDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+						<div id="frontDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+							<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"></div>
+							<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+						</div>
+					</div>
+
+					<div id="contraryDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+						<div id="contraryDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+							<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"></div>
+							<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--身份证图片列表End-->
+
+			<div class="container-fluid" style="margin-top:20px;margin-bottom: 15px;">
+				<div class="row">
+					<div class="col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3 list" id="bluetoothDiv" style="display: block;">
+						<button style="width: 100%;" class="com_btn gary_btn" id="bluetooth_read_btn" data-loading-text="读取中...." autocomplete="off" ng-click="bluetoothRead()">
+							蓝牙读取
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!--提示文字Begin-->
+			<div class="small_font gray_font" style="line-height: 20px;">
+				<span class="red_font">*</span>请尽量在光线较亮的环境下拍摄以提高照片的清晰度,清晰度越高, 图片的识别效果将越好
+			</div>
+			<!--提示文字End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">机主姓名</p>
+				</div>
+				<div class="form_right">
+					<input type="text" class="input_normal" ng-model="form.CUSTOMER_NAME" id="customer_name" readonly="readonly" />
+				</div>
+			</div>
+			<!--表单排版End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">证件信息</p>
+				</div>
+				<div class="form_right">
+					<input type="text" class="input_normal" ng-model="form.CERT_NUMBER" id="cert_number" readonly="readonly" />
+				</div>
+			</div>
+			<!--表单排版End-->
+			<input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS" />
+			<input type="text" style="display: none;" id="iss_using" ng-model="form.ISS_USING" />
+			<input type="text" style="display: none;" id="gender" ng-model="form.GENDER" />
+			<input type="text" style="display: none;" id="cert_valid_from" ng-model="form.CERT_VALID_FROM" />
+			<input type="text" style="display: none;" id="cert_valid_to" ng-model="form.CERT_VALID_TO" />
+			<input type="text" style="display: none;" id="nation" ng-model="form.NATION" />
+
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐资料</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--正常外框Begin-->
+		<div class="com_normalbox">
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">首月资费</p>
+				</div>
+				<div class="form_right" id="monthSelect">
+					<!--单选按钮Begin-->
+					<a class="radiobtn radiobtnon" ng-click="select_zf('全月')">全月</a>
+					<a class="radiobtn" ng-click="select_zf('半月')">半月</a>
+					<a class="radiobtn" ng-click="select_zf('套餐外资费')">套餐外资费</a>
+					<!--单选按钮End-->
+					<p style="clear: both;" id="ff_message">全月:适合10号前购买的用户,套餐即时生效,入网当月即按照用户所选套餐收取套餐费,套餐包含内容不变</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!--表单排版End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist" id="snDiv" style="display: none;">
+				<div class="form_left">
+					<p class="form_title">卡版串号</p>
+				</div>
+				<div class="form_right">
+					<input class="input_normal" id="cardNumber" type="text" />
+					<div class="form_select_centent" style="display:none; z-index:10" id="card_tip_auto">
+						<a class="select_centent" href="javascript://">选择一</a>
+						<a class="select_centent" href="javascript://">选择二</a>
+						<a class="select_centent" href="javascript://">选择三</a>
+						<a class="select_centent" href="javascript://">选择三</a>
+					</div>
+				</div>
+			</div>
+			<!--表单排版End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">预存款</p>
+				</div>
+				<div class="form_right">
+					<input type="tel" class="input_normal" ng-model="form.money"/>
+				</div>
+			</div>
+			<!--表单排版End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">终端串号</p>
+				</div>
+				<div class="form_right">
+					<input type="tel" class="input_normal" ng-model="form.TERMINAL_SN" />
+				</div>
+			</div>
+			<!--表单排版End-->
+
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">联系电话</p>
+				</div>
+				<div class="form_right">
+					<input type="tel" class="input_normal" ng-model="form.CONTACT_PHONE" />
+				</div>
+			</div>
+			<!--表单排版End-->
+
+			<!--底部导航Begin-->
+			<div class="box">
+				<div class="container-fluid">
+					<div class="row com_selectbox">
+						<div class="col-md-6 col-xs-6 list">
+							<!--常用btn-->
+							<a class="com_btn green_btn" href="javascript://" onclick="hrefJump('chooseContract3')">
+                            上一步
+                        </a>
+							<!--常用btn-->
+						</div>
+						<div class="col-md-6 col-xs-6 list">
+							<!--常用btn-->
+							<a class="com_btn green_btn" href="javascript://" ng-click="createAndPay()">
+                            提交
+                        </a>
+							<!--常用btn-->
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--底部导航End-->
+
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--主体内容End-->
+
+<div id="checkHtml"></div>
+
+<script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/chooseContractCtrl4.js"></script>
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

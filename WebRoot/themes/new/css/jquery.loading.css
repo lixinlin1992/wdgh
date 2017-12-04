@@ -1,0 +1,24 @@
+.loading-indicator {
+	height: 22px;
+	width: 70px;
+    /*border: 1px solid #000000;*/
+    padding-left: 20px;
+    background-color: #ffffff;
+    vertical-align: middle;
+	background: url( '../images/core/loading_small.gif' );
+	background-repeat: no-repeat;
+	background-position: left center;
+	opacity: 255;
+}
+
+.loading-indicator-overlay {
+	background-color: #FFFFFF;
+	opacity: 0;
+	filter: alpha(opacity = 5);
+}
+/*
+.loading-indicator-bars {
+		background-image: url('../images/loading-bars.gif');
+		width: 150px;
+}
+*/

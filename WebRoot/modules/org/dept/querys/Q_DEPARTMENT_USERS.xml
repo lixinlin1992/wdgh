@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 组织结构关联下的用户 -->
+    <query id="Q_DEPARTMENT_USERS" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+		<#assign DEPT_ID_TEMP=1/>
+		select u.ID,u.ACCOUNT,u.NAME,u.MOBILE_PHONE,(case when u.STATUS_ID=0 then '未开通' when u.STATUS_ID=1 then '有效' when STATUS_ID=2 then '注销' end)STATUS_ID,u.EMAIL,DEPT_ID,u.NOTE,
+		d.NAME AS DEPT_NAME
+		from SYS_P_USER u
+		LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=u.DEPT_ID
+  		where 1=1
+		<#if !(DEPT_ID??)>
+		    <#if isPermissions=="true">
+		        <#assign DEPT_ID_TEMP=depId/>
+		        <#else>
+		            <#assign DEPT_ID_TEMP=1/>
+		    </#if>
+		    <#else>
+		        <#assign DEPT_ID_TEMP=DEPT_ID/>
+		</#if>
+
+        and u.DEPT_ID in (select dep_tree.id from (select ia.id,ia.name,ia.dept_type from SYS_P_DEPARTMENT ia start with ia.id=${DEPT_ID_TEMP} connect by prior ia.id=ia.parent_id) dep_tree where 1=1
+        <#if nqDEPT_TYPE?exists>
+            and dep_tree.dept_type=[nqDEPT_TYPE]
+        </#if>
+        <#if nqname?exists>
+            and dep_tree.name=[nqname]
+        </#if>
+        )
+		]]></stmt>
+        <param name="list-cols">ACCOUNT,NAME,MOBILE_PHONE,STATUS_ID,EMAIL,DEPT_NAME</param>
+        <processor name="script" type="before" seq="1" break="false">
+            <param name="var">isPermissions</param>
+            <param name="script">
+                <![CDATA[
+                        com.sunrise.framework.core.FrameworkConfig.getInstance().getParam("data-permissions","false");
+                    ]]>
+            </param>
+        </processor>
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">depId</param>
+            <param name="sql">
+                <![CDATA[
+                        select pu.dept_id from sys_p_user pu where pu.id=[_CurrUser.id]
+                    ]]>
+            </param>
+        </processor>
+    </query>
+</query-config>

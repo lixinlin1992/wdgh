@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="TEST_DISPATCH" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+        SELECT * FROM SYS_P_USER
+                ]]></stmt>
+        <param name="format">html</param>
+        <param name="template">${_template!}</param>
+    </query>
+</query-config>

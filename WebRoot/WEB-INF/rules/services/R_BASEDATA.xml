@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="SYS_PA_CODE" name="基础编码" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>编码名称</name>
+            <constraint>128</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入编码名称</null-message>
+            <invalid-message>请输入正确的编码名称，最长64个汉字或者128个英文字母</invalid-message>
+        </field>
+        <field id="code_num" validate="true" null="false" type="int">
+            <name>编码</name>
+            <constraint></constraint>
+            <pattern><![CDATA[\d{1,4}]]></pattern>
+            <null-message></null-message>
+            <invalid-message>请输入正确的编码，不能超过4位数</invalid-message>
+        </field>
+         <field id="edit_code_type" validate="true" null="false" type="int">
+            <name>编码类型</name>
+            <constraint></constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>所选系统没有编码类型，请重新选择</null-message>            
+            <invalid-message></invalid-message>
+        </field>       
+        
+    </form>
+</rules>

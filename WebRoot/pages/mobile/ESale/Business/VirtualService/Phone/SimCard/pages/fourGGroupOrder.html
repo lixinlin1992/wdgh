@@ -1,0 +1,66 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/fourGGroupOrder.js"></script>
+
+<!--选号码begin-->
+<div id="numberPanel" style="display: block;">
+
+	<div ng-controller="SelectNumberCtrl">
+		<!--商品选购搜索框begin-->
+		<div class="shop_search">
+			<div class="shop_search_container">
+				<input type="text" class="search_text" placeholder="请输入您想要搜索的内容" ng-model="title" />
+				<a href="javascript://" class="go_search" ng-click="NumSearch()">搜索</a>
+			</div>
+		</div>
+		<!--商品选购搜索框End-->
+
+		<!--区域选择Begin-->
+		<div class="com_area">
+			<div class="left">
+				<span>区域：</span>
+				<select onchange="addressChange()">
+					<option data="">全部</option>
+					<option ng-repeat="ad in address" data="{{ad.ID}}">{{ad.NAME}}</option>
+				</select>
+			</div>
+			<div class="right">
+				<a class="choice_btn choiceon_btn" href="javascript://" ng-click='cardChange(1)'>白卡</a>
+				<a class="choice_btn" href="javascript://" ng-click='cardChange(2)'>成卡</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!--区域选择End-->
+		
+		<!-- 列表 开始 -->
+		<div class="com_selectnumber">
+			<ul>
+				<li ng-repeat="order in orders">
+					<a href="javascript://" style="text-decoration:none" id="selectNumber_{{$index}}" data="{{order.ID}}" name="{{order.TITLE}}" ng-click="selectNumber($index)">
+						<div class="number_top">
+							<span class="normalcolor">{{order.TITLE.substring(start,3)}}</span>
+							<span class="importantcolor">{{order.TITLE.substring(3,7)}}</span>
+							<span class="normalcolor">{{order.TITLE.substring(7,end)}}</span>
+						</div>
+						<div class="number_bottom">
+							<p>
+								<img class="hot" src="Style/images/common/hot.png" alt="" />
+								<span class="price">{{order.FEE | currency : '￥'}}</span>
+								<span class="tips">区域：{{order.AREA_NAME}}</span>
+								<!--<span class="tips">{{order.BUSI_NAME}}</span>-->
+							</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+
+			<div class="clear"></div>
+		</div>
+		<!-- 列表 结束 -->
+
+		<!--点击加载更多Begin-->
+		<div class="com_showmore">
+			<a class="more_btn" href="javascript://" ng-click="listShowAdd()">点击加载更多</a>
+		</div>
+		<!--点击加载更多End-->
+	</div>
+</div>
+<!--选号码end-->

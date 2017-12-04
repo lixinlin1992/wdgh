@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!--当前用户所负责的业务系统-->
+	<query id="Q_DEV_UL_SYS" type="pagelist" result="ftl">
+		<stmt><![CDATA[
+		  select code,name from sys_bi_system
+			<#-- 是否超级管理员,是则不用判断是否项目负责人 -->
+			<#assign isSuperAdmin = "false"/>
+			<#list _CurrUser.userGroups as ug>
+				<#if ug.super_admin = 1>
+					<#assign isSuperAdmin = "true"/>					
+				</#if>
+			</#list>
+			<#if isSuperAdmin == "false">
+		    where master = [_CurrUser.id long]
+			</#if> 		  
+  		  ]]>
+		</stmt>
+        <param name="paging">false</param>
+		<param name="ftl">
+			template/rdcp/system/T_DEV_UL_SYS.ftl
+		</param>
+	</query>
+
+    <!--开发人员-业务系统-权限列表-->
+    <query id="Q_DEV_MANAGER_LIST" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+
+			select
+			t.sys_code,t.user_id,p.name as DEV_NAME,s.name as SYS_NAME,
+			t.view_flag,t.edit_flag,t.delete_flag
+			from rdc_sys_developer t,sys_bi_system s,sys_p_user p
+			where t.sys_code = s.code and t.user_id = p.id 
+			<#-- 是否超级管理员,是则不用判断是否项目负责人 -->
+			<#assign isSuperAdmin = "false"/>
+			<#list _CurrUser.userGroups as ug>
+				<#if ug.super_admin = 1>
+					<#assign isSuperAdmin = "true"/>					
+				</#if>
+			</#list>
+			<#if isSuperAdmin == "false">
+			 and s.MASTER = [_CurrUser.id long]
+			</#if>
+			
+			<#if devName??>
+			and p.name [like(devName)]
+			</#if>
+			<#if sysName??>
+			and s.name [like(sysName)]
+			</#if>
+			<#if sysCode??>
+			and s.code [like(sysCode)]
+			</#if>
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+		<param name="ftl">
+			template/rdcp/system/T_DEV_MANAGE_LIST.ftl
+		</param>
+    </query>
+
+	<!-- 添加开发人员 -->
+	<query id="Q_DEV_ADD" type="batch" result="json">
+	    <stmt><![CDATA[
+		<@aslist name="developer"/>
+		<#list developer as n>
+			insert into rdc_sys_developer (sys_code,user_id,module_id,view_flag,edit_flag,delete_flag) values
+			([sys_code],${n},null,[view_flag],[edit_flag],[delete_flag]);
+		</#list>
+	    ]]></stmt>
+       	<param name="trans">true</param>
+	   	<param name="paging">false</param>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql"><![CDATA[
+				select sum(a) from
+				(
+				   <#assign index=0>
+				   <@aslist name="developer"/>
+				   <#list developer as n>
+					   <#if index&gt;0>union all</#if>
+					   select count(1) a from rdc_sys_developer where sys_code = [sys_code] and user_id = ${n}
+					   <#assign index=index+1>
+				   </#list>
+				)
+            ]]>
+			</param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[部分用户已经为该系统的开发人员，请重新选择]]></param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+
+			<#-- 是否超级管理员,是则不用判断是否项目负责人 -->
+			<#assign isSuperAdmin = "false"/>
+			<#list _CurrUser.userGroups as ug>
+				<#if ug.super_admin = 1>
+					<#assign isSuperAdmin = "true"/>					
+				</#if>
+			</#list>
+			<#if isSuperAdmin == "false">
+				select count(1) from sys_bi_system s where s.master = [_CurrUser.id long] and s.code = [sys_code]
+			<#else>
+				select 1 from dual
+			</#if>            
+            ]]>
+			</param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[你不是该项目的负责人,无法分配权限]]></param>
+        </processor>
+	</query>
+
+
+    <!--移除开发人员-->
+	<query id="Q_DEV_DEL" type="update" result="">
+		<stmt><![CDATA[
+			delete from rdc_sys_developer where sys_code = [sys_code] and user_id = [user_id]
+  		  ]]>
+		</stmt>
+	</query>
+
+    <!--批量移除开发人员-->
+	<query id="Q_DEVS_DEL" type="batch" result="">
+		<stmt><![CDATA[
+		   <#assign index=0>
+		   <@aslist name="user_id"/>
+		   <#list user_id as n>
+				delete from rdc_sys_developer where sys_code = [array(sys_code,${index})]
+													and user_id = [array(user_id,${index})];
+                <#assign index=index+1>
+		   </#list>
+  		  ]]>
+		</stmt>
+	</query>
+
+    <!--开发人员授权-->
+	<query id="Q_DEV_FUN_SIGN" type="update" result="">
+		<stmt><![CDATA[
+			update rdc_sys_developer set
+			<#if type=="view">
+				view_flag = [flag]
+			<#elseif type=="edit">
+				edit_flag = [flag]
+			<#else>
+				delete_flag = [flag]
+			</#if>
+			where sys_code = [sys_code] and user_id = [user_id]
+  		  ]]>
+		</stmt>
+       	<param name="trans">true</param>
+	</query>
+</query-config>

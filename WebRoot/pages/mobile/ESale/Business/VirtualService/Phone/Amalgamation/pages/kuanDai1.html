@@ -1,0 +1,33 @@
+<script src="ESale/Business/VirtualService/Phone/Amalgamation/scripts/kuanDai1.js"></script>
+
+<!--大块商品Begin-->
+<div class="container-fluid com_biggoodslist" style="margin-bottom: 20px;">
+	<div class="row">
+		<div id="img_div" class="col-xs-6 col-md-3 list" ng-repeat="r in results" ng-if="$index<(page*pageSize)">
+			<a class="com_biggoods" id="product_{{$index}}" ng-click="nextPage(r.ID,r.NAME,r.TYPE)" packageId="{{r.PACKAGE_ID}}">
+				<!--图片显示Begin-->
+				<div class="goodsshow">
+					<!--如果没有图片,则按顺序显示系统默认图片-->
+					<img ng-src="Style/images/goods/bg{{$index%4+1}}.png" alt="" ng-if="r.PIC_ID==''" />
+					<!--有图片id的情况-->
+					<img ng-src="{{imgScr}}{{r.PIC_ID}}" ng-if="r.PIC_ID!=''" alt="" />
+				</div>
+				<!--图片显示End-->
+				<div class="introduce">
+					<p>{{r.NAME}}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var width=$("#img_div").width();
+		$("#img_div img").attr("height",width+"px");
+</script>
+<!--大块商品End-->
+
+<!--点击加载更多Begin-->
+<div class="com_showmore">
+	<a id="more" class="more_btn" href="javascript://" ng-click="more()">点击加载更多</a>
+</div>
+<!--点击加载更多End-->

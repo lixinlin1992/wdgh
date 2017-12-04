@@ -1,0 +1,11 @@
+﻿#菜单定义
+#可以使用变量 ${module_path}
+#
+# 格式：
+# 菜单路径          排序（小的在前）                                        菜单资源路径
+稿件管理          1
+稿件管理/稿件管理    1
+稿件管理/稿件管理/稿件管理                1   !gh/manu/~/pages/manuManage.jsp
+稿件管理/稿件管理/稿件审核                2   !gh/manu/~/pages/examineManu.jsp
+稿件管理/稿件管理/稿件审批                3   !gh/manu/~/pages/approveManu.jsp
+稿件管理/稿件管理/稿件统计                4   !gh/manu/~/pages/manuCount.jsp

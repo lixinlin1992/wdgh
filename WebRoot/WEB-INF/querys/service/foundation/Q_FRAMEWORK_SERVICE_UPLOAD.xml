@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<query id="Q_FRAMEWORK_SERVICE_FILE_ADD" type="update"
+		result="json">
+		<stmt><![CDATA[
+		insert into CORE_B_UPLOAD_FILE (id,name,file_path,upload_time,upload_user,file_size,file_type,update_type,note)
+		values ([ID],[FILE_NAME],[FILE_PATH],[TIME],[USER_ID],[SIZE],[FILE_TYPE],[TYPE],[NOTE])
+		]]></stmt>
+		<param name="trans">true</param>
+	</query>
+</query-config>

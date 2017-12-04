@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>首页</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+
+    <!-- Esale自定义样式 -->
+    <!--<link rel="stylesheet" type="text/css" href="../css/Esale.css">-->
+
+    <!-- 手机端自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="../js/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!--鼠标点击特效需要引入-->
+    <script type="text/javascript" src="../js/ripple.js"></script>
+
+</head>
+<body class="bgcolor">
+
+<!--头部-->
+<header>
+    <!--顶部导航：nav_top-->
+    <!--顶部导航Begin-->
+    <div class="nav_top app" >
+        <h1 class="title">中国移动</h1>
+        <a class="btn_left icon_left" href="javascript://"></a>
+        <a class="btn_right icon_home" href="javascript://"></a>
+    </div>
+    <!--顶部导航End-->
+    <!--装饰线-->
+    <div class="com_decoration_line">
+        <img src="../images/common/decoration.png" alt=""/>
+    </div>
+    <!--END装饰线-->
+</header>
+<!--头部End-->
+
+<!--主体内容-->
+<section>
+        <!--轮播Begin-->
+        <div class="slideContainer">
+            <div id="slides">
+                <img src="../images/show/example-slide-1.png">
+                <img src="../images/show/example-slide-2.png">
+                <img src="../images/show/example-slide-3.png">
+                <img src="../images/show/example-slide-4.png">
+                <!--<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>-->
+                <!--<a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>-->
+            </div>
+        </div>
+        <!--轮播End-->
+
+        <!--首页菜单Begin-->
+        <div class="container-fluid com_big_menu">
+            <div class="row">
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="leftmenu" href="javascript://">
+                        <p>家庭宽带</p>
+                        <img src="../images/index/menu1.png" alt=""/>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="rightmenu" href="javascript://">
+                        <p>身份登记</p>
+                        <img src="../images/index/menu2.png" alt=""/>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="leftmenu" href="javascript://">
+                        <p>套餐升级</p>
+                        <img src="../images/index/menu3.png" alt=""/>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="rightmenu" href="javascript://">
+                        <p>全球通4G入户</p>
+                        <img src="../images/index/menu4.png" alt=""/>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="leftmenu" href="javascript://">
+                        <p>流量套餐</p>
+                        <img src="../images/index/menu5.png" alt=""/>
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <a class="rightmenu" href="javascript://">
+                        <p>免费换卡</p>
+                        <img src="../images/index/menu6.png" alt=""/>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--首页菜单End-->
+</section>
+<!--主体内容End-->
+
+<!--底部-->
+<footer>
+    <!--底部导航begin-->
+    <div class="bottom_menu">
+        <div class="bottombtn btn1">
+            <a href="javascript://">
+                待处理
+            </a>
+        </div>
+        <div class="bottombtn btn2">
+            <a href="javascript://">
+                订单
+            </a>
+        </div>
+        <div class="bottombtn btn3">
+            <a class="active" href="javascript://">
+                首页
+            </a>
+        </div>
+        <div class="bottombtn btn4">
+            <a href="javascript://">
+                写卡
+            </a>
+        </div>
+        <div class="bottombtn btn5">
+            <a href="javascript://">
+                我的
+            </a>
+        </div>
+    </div>
+    <!--底部导航End-->
+</footer>
+<!--底部End-->
+
+<!-- SlidesJS Required: Link to jquery.slides.js -->
+<script src="../js/jquery.slides.min.js"></script>
+<!-- End SlidesJS Required -->
+<!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+<script>
+    $(function() {
+        $('#slides').slidesjs({
+            width: 940,
+            height: 450,
+            navigation: false,
+            generateNextPrev: false,
+            play: {
+                active: false,
+                auto: true,
+                interval: 4000,
+                swap: true
+            }
+        });
+    });
+</script>
+<!-- End SlidesJS Required -->
+
+</body>
+</html>

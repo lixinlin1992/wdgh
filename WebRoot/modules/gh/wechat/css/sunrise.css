@@ -1,0 +1,1222 @@
+@charset "utf-8";
+/** 统一的按钮样式，2011-11-04 后所有按钮使用以下样式 ***/
+/**图标大小 24×24 **/
+/* 按钮样式 */
+.btn_edit24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px 0px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+	margin-right:5px;
+}
+.btn_delete24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -34px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+
+}
+.btn_commit24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position: 0px -68px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_calendar24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -102px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_fav24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -136px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_document24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -170px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_folder_close24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -204px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_folder_open24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -238px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_form24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -272px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_history24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -306px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_processor24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -340px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_add24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -374px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_word24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -408px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+	}
+.btn_exp_excel24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -442px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_ppt24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -476px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_up24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -510px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_down24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -544px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_left24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -578px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_right24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -612px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_warn24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -646px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_save24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -680px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_undo24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -714px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_cancel24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -748px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_ok24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -782px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+
+}
+.btn_refresh24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -816px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_auth24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -850px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_help24 {
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -884px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exclude24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -918px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_copy24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -952px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_config24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -986px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_menu24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1020px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_package24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1054px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_param24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1088px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_run24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1122px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_sync24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1156px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_browse24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1190px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_view24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1224px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+
+.btn_password24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1258px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_txt24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1292px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_stamp24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1326px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_leading_in24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1360px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_leading_out24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1394px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_examine24{
+	background-image: url(../images/common/buttons24.png);
+	background-repeat: no-repeat;
+	background-position:0px -1428px;
+	height: 24px;
+	min-width: 24px;
+	text-indent: 26px;
+	line-height: 24px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 14px;
+	color: #344348;
+	text-decoration: none;
+}
+
+
+/*================================================================================================================
+/**图标大小 16×16 **/
+/* 按钮样式 */ 
+.btn_edit,.btn_edit16 {
+	background: url(../images/common/buttons16.png) no-repeat 0px 0px ; 
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_delete,.btn_delete16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -34px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+	
+}
+.btn_commit,.btn_commit16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -68px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_calendar,.btn_calendar16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -102px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_fav,.btn_fav16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -136px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_document,.btn_document16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -170px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_folder_close,.btn_folder_close16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -204px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_folder_open,.btn_folder_open16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -238px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_form,.btn_form16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -272px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_history,.btn_history16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -306px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_processor,.btn_processor16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -340px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+/*.btn_edit{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px 0px;}*/
+.btn_add,.btn_add16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -374px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_word,.btn_exp_word16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -408px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+	}
+.btn_exp_excel,.btn_exp_excel16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -442px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_ppt,.btn_exp_ppt16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -476px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_up,.btn_arrow_up16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -510px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_down,.btn_arrow_down16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -544px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_left,.btn_arrow_left16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -578px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_arrow_right,.btn_arrow_right16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -612px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_warn,.btn_warn16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -646px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_save,.btn_save16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -680px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_undo,.btn_undo16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -714px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_cancel,.btn_cancel16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -748px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_ok,.btn_ok16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -782px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_refresh,.btn_refresh16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -816px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_auth,.btn_auth16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -850px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_help,.btn_help16 {
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -884px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exclude,.btn_exclude16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -918px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_copy,.btn_copy16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -952px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_config,.btn_config16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -986px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_menu,.btn_menu16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1020px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_package,.btn_package16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1054px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_param,.btn_param16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1088px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_run,.btn_run16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1122px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_sync,.btn_sync16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1156px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_browse,.btn_browse16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1190px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_view,.btn_view16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1224px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_password,.btn_password16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1258px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_exp_txt,.btn_exp_txt16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1292px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_stamp,.btn_stamp16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1326px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_leading_in,.btn_leading_in16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1360px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;;
+}
+.btn_leading_out,.btn_leading_out{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1394px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+.btn_examine,.btn_examine16{
+	background-image: url(../images/common/buttons16.png);
+	background-repeat: no-repeat;
+	background-position:0px -1428px;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+}
+/*================================================================================================================

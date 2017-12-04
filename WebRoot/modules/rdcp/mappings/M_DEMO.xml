@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <ds name="DS_DEMO_GRID" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_DEMO.xml&_id=Q_DEMO_GRID]]>
+        </url>
+    </ds>
+    <ds name="DS_DEMO_COMBO_USERNAME" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_DEMO.xml&_id=Q_DEMO_COMBO_USERNAME]]>
+        </url>
+    </ds>
+    <ds name="DS_DEMO_COMBO_PHONE" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_DEMO.xml&_id=Q_DEMO_COMBO_PHONE]]>
+        </url>
+    </ds>
+
+</datasources>

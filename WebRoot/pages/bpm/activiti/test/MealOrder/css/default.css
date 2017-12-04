@@ -1,0 +1,18 @@
+a:link {
+	margin-right: 10px;
+	color: red;
+	text-decoration: underline;
+}
+
+fieldset {
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.orderDetail {
+	padding-bottom: 10px;
+}
+
+#OrderDetail table tr {
+	height: 20px;
+}

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--查询区域树 当前用户 ${_CurrUser.id}-->
+    <query id="Q_LOAD_COMM_ORG_TREE" type="trees" result="easyui-tree">
+        <stmt>
+            <![CDATA[
+           	SELECT 
+			  t.id, t.name, nvl(t.parent_id,0) parent_id,
+			  'area' as typeid,
+			  'area' as ptypeid,
+			  'true' opened
+			FROM SYS_BI_COMM_ORG t
+			 WHERE 1=1  AND STATUS_ID=1
+			and [commorg(t.id)]
+			ORDER BY PARENT_ID ASC NULLS FIRST, ID ASC
+            ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="paging">true</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">typeId</param>
+        <param name="parent-type-col">ptypeId</param>
+        <param name="opened-col">opened</param>
+        <param name="root-flag">0</param>
+    </query>
+</query-config>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_USER_APPLY_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select to_char(apply_time,'yyyy-mm-dd') apply_time,apply_status,apply_type,apply_remarks
+				from bi_trade_apply
+				where account=[account1]
+				order by apply_time desc
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

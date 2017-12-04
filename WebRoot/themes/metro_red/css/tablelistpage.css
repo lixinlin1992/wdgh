@@ -1,0 +1,204 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,p,input{
+ list-style-type: none;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ outline: 0;
+ font-size: 100%;
+ background: transparent;
+ border-color: transprent;
+       background-color:  transprent;
+       border:0px
+
+}
+.gridTable {
+	height: 1000px;
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;
+	min-width: 1000px;
+     width: expression_r( document.body.clientWidth < 1001 ? "1000px" : "auto" );
+}
+hr {
+	color: #CCC;
+}
+
+a {
+	font-size: 12px;
+	color: #444;
+	text-decoration: none;
+}
+
+.guild {
+	height: 25px;
+	font-size: 12px;
+	background-color: #FFF;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.guild a {
+	line-height: 25px;
+}
+
+.guildLeft {
+	float: left;
+	width: 50%;
+}
+
+
+.guildLeft .home {
+	background-image: url(../images/content/home.png);
+	float: left;
+	background-repeat: no-repeat;
+	font-weight: normal;
+}
+.guildLeft .home a {
+	margin-left: 30px;
+}
+
+
+.guildRight {
+	float: right;
+}
+.guildRight .add {
+	background-image: url(../images/content/add.png);
+	background-position: left center;
+	height: 25px;
+	width: 55px;
+	background-repeat: no-repeat;
+}
+.guildRight .add a {
+	display: block;
+	float: right;
+	width: 35px;
+}
+.searchRowHeader {
+	background-color: #d60619;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+}
+.searchRowHeader table {
+	height: 25px;
+
+}
+.searchRowHeader .searchTitle {
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: bold;
+	color: #FFF;
+	text-align: right;
+	width: 70px;
+}
+.searchRowHeader .searchBtn  {
+	background-image: url(../images/content/searchbtn.png);
+	width: 25px;
+	background-repeat: no-repeat;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	height: 25px;
+}
+.searchRowHeader input {
+	background-color: #FFF;
+}
+.gridTableContent table {
+	width: 100%;
+	text-align: center;
+	line-height: 25px;
+	font-size: 12px;
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+}
+
+.gridTableContent th {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	background-color: #f1efef;
+}
+.gridTableContent td {
+	border-collapse: collapse;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCC;
+	border-right-color: #CCC;
+	border-bottom-color: #CCC;
+	border-left-color: #CCC;
+}.gridTableContent .tableDataRowEven td{
+	background-color: #f1efef;
+}
+.pageBarRow {
+	margin-bottom: 10px;
+	font-size: 12px;
+	background-color: #f1efef;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #CCC;
+	border-bottom-color: #CCC;
+	border-left-color: #CCC;
+}
+.pageBarRow table {
+
+}
+.gridTableContent .rowNumber {
+	width: 25px;
+	background-color: #f1efef;
+}
+
+
+.pageBarRow .refresh{
+	
+	background-image: url(../images/content/refresh.png);
+	width: 42px;
+	height: 15px;
+	background-position: center bottom;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-repeat: no-repeat;
+}
+.pageBarRow a {
+	color: #d60619;
+}
+.pageBarRow a:hover {
+	color: #a00311;
+}
+.explainRow {
+	font-size: 12px;
+	color: #666;
+}
+.fooder {
+	font-size: 12px;
+	text-align: center;
+	color: #999;
+	line-height: 40px;
+}

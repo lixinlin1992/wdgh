@@ -1,0 +1,591 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load(
+			"ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+<!--身份证信息begin-->
+<div class="layout_centent">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>身份资料</span>
+	</div>
+	<!--标题一End-->
+	<!--正常外框Begin-->
+	<div class="com_normalbox">
+		<!--提示文字Begin-->
+		<div id="picTitle" class="small_font gray_font"
+			style="line-height: 30px; padding: 0px 5px;">上传身份证正，反面及手持照片</div>
+		<!--提示文字End-->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 list" id="bluetoothDiv"
+					style="display: block;margin:10px 0;">
+					<!--常用btn-->
+					<button style="width: 100%;" class="com_btn gary_btn"
+						id="bluetooth_read_btn" onclick="bluetoothRead()"
+						data-loading-text="读取中...." autocomplete="off">蓝牙读取</button>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+
+		<!--身份证图片列表Begin-->
+		<div class="container-fluid goods_show_list">
+			<div class="row">
+				<div id="frontDiv" class="col-xs-4 col-md-4 goods_box"
+					style="display: block;">
+					<div id="frontDiv_img"
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="front" id="front" onchange="uploadImg('front');"
+							single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_front"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+					</div>
+				</div>
+
+				<div id="contraryDiv" class="col-xs-4 col-md-4 goods_box"
+					style="display: block;">
+					<div id="contraryDiv_img"
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="contrary" id="contrary"
+							onchange="uploadImg('contrary');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_contrary"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+					</div>
+				</div>
+
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_hand" onclick="takePhoto('hand')"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+					</div>
+				</div>
+			</div>
+			<!--进度条begin-->
+			<div class="row">
+				<div class="col-md-12">
+					<p id="upload_text"
+						style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+				</div>
+				<div class="col-md-12" style="display: none;">
+					<div class="progress" style="margin-bottom: 5px;">
+						<div id="progressBar"
+							class="progress-bar progress-bar-success progress-bar-striped"
+							role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+				</div>
+			</div>
+			<!--进度条end-->
+		</div>
+		<!--身份证图片列表End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">客户姓名</p>
+			</div>
+			<div class="form_right">
+				<input type="text" class="input_normal"
+					ng-model="form.CUSTOMER_NAME" id="customer_name"
+					readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">证件号码</p>
+			</div>
+			<div class="form_right">
+				<input type="text" id="cert_number" maxLength="18"
+					ng-model="form.CERT_NUMBER" class="input_normal"
+					readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<input type="text" style="display: none;" id="cert_address"
+			ng-model="form.CERT_ADDRESS" /> <input type="text"
+			style="display: none;" id="gov" ng-model="form.GOV" /> <input
+			type="text" style="display: none;" id="gender" ng-model="form.GENDER" />
+		<input type="text" style="display: none;" id="from"
+			ng-model="form.FROM" /> <input type="text" style="display: none;"
+			id="to" ng-model="form.TO" /> <input type="text"
+			style="display: none;" id="nation" ng-model="form.NATION" /> <input
+			type="text" style="display: none;" id="born" ng-model="form.BORN" />
+		<input type="text" style="display: none;" id="picture"
+			ng-model="form.PICTURE" />
+	</div>
+	<!--正常外框End-->
+</div>
+<!--身份证信息end-->
+
+<!--宽带选择begin-->
+<div id="AreaDiv" style="display: block;" ng-controller="AreaLayoutCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>选择宽带类型(<span class="text-danger">&nbsp;*&nbsp;</span>必选项)</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox " style="margin-bottom:0;">
+				<!-- 				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;"
+					ng-repeat="row in rows">
+					<a id="AreaDiv_{{$index}}" ng-click="select($index)"
+						class="com_selectbtn" href="javascript://" DataId="{{row.ID}}">{{row.NAME}}</a>
+					<span ng-if="$last&&$index==0"> <span
+						ng-init="select($index)"></span> </span>
+				</div> -->
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="new" ng-click="select('new','old')"
+						class="com_selectbtn ng-binding " href="javascript://">新宽带</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="old" ng-click="select('old','new')"
+						class="com_selectbtn ng-binding" href="javascript://">老宽带</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--宽带选择end-->
+
+<!--宽带账号填写begin-->
+<div id="CusInfoDiv" style="display: block;" ng-controller="CusInfoCtrl">
+	<!--100%布局Begin-->
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>资料填写(<span class="text-danger">&nbsp;*&nbsp;</span>必选填)</span>
+		</div>
+		<!--标题一End-->
+		<!--正常外框Begin-->
+		<div class="com_normalbox" id="old_num" style="display:none">
+			<form>
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">
+							<span class="text-danger">&nbsp;*&nbsp;</span>老宽带账号
+						</p>
+					</div>
+					<div class="form_right">
+						<input name="name" type="text" class="input_normal"
+							ng-model="form.OLDBAND_NUM" id="customer_name"
+							placeholder="老宽带账号" ng-focus="focuss()" ng-blur="blurs()" />
+					</div>
+				</div>
+				<!--表单排版End-->
+			</form>
+
+			<input type="text" style="display: none;" id="nation"
+				ng-model="form.NATION" />
+		</div>
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="ADSL" ng-click="select('ADSL','FTTH','LAN')"
+						class="com_selectbtn ng-binding" href="javascript://"
+						dataid="ACCOUNT_WHITE_CONTRACT">ADSL</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="FTTH" ng-click="select('FTTH','ADSL','LAN')"
+						class="com_selectbtn ng-binding" href="javascript://"
+						dataid="ACCOUNT_CARD_CONTRACT">FTTH</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="LAN" ng-click="select('LAN','FTTH','ADSL')"
+						class="com_selectbtn ng-binding" href="javascript://"
+						dataid="ACCOUNT_CARD_CONTRACT">LAN</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+		<div class="com_normalbox">
+			<form>
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">
+							<span class="text-danger">&nbsp;*&nbsp;</span>详细地址
+						</p>
+					</div>
+					<div class="form_right">
+						<textarea id="note"
+							class="textarea_normal ng-pristine ng-valid ng-touched"
+							placeholder="请输入少于100的字符" ng-model="form.DRESEE" rows="10"
+							style="height: 62px;" cols="30"></textarea>
+					</div>
+				</div>
+				<!--表单排版End-->
+			</form>
+
+			<input type="text" style="display: none;" id="nation"
+				ng-model="form.NATION" />
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--宽带账号填写end-->
+<!-- 选择手机卡和手机型号begin -->
+<div class="layout_centent"  ng-controller="CusInfoCtrl">
+	<div class="com_title first_title">
+		<span>选择手机卡和手机型号（非必填项）</span>  <a class="morebtn" href="javascript://" ng-click="unfold()" id="unfold">更多选择</a> 
+	</div>
+	<div class="layout_secondbox" style="display:none">
+		<div class="com_title second_title">
+			<span>手机1</span><a class="morebtn" href="javascript://" ng-click="addform1()" id="form1">展开</a>
+		</div>
+		<div class="formlist formlist1" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE1.NUM" id="num1">
+			</div>
+		</div> 
+		<div class="formlist formlist1" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title" >手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE1.IMEI" id="imei1" ng-blur="addform(1)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form1">
+		<div class="com_title second_title">
+			<span>手机2</span></span><a class="morebtn" href="javascript://" ng-click="addform2()" id="form2">展开</a>
+		</div>
+		<div class="formlist formlist2" style="background: #ffffff; display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE2.NUM" id="num2">
+			</div>
+		</div>
+		<div class="formlist formlist2" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE2.IMEI" id="imei2" ng-blur="addform(2)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form2">
+		<div class="com_title second_title">
+			<span>手机3</span></span><a class="morebtn" href="javascript://" ng-click="addform3()" id="form3">展开</a>
+		</div>
+		<div class="formlist formlist3" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE3.NUM" id="num3">
+			</div>
+		</div>
+		<div class="formlist formlist3" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE3.IMEI" id="imei3" ng-blur="addform(3)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form3">
+		<div class="com_title second_title">
+			<span>手机4</span></span><a class="morebtn" href="javascript://" ng-click="addform4()" id="form4">展开</a>
+		</div>
+		<div class="formlist formlist4" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE4.NUM" id="num4">
+			</div>
+		</div>
+		<div class="formlist formlist4" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE4.IMEI" id="imei4" ng-blur="addform(4)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form4">
+		<div class="com_title second_title">
+			<span>手机5</span></span><a class="morebtn" href="javascript://" ng-click="addform5()" id="form5">展开</a>
+		</div>
+		<div class="formlist formlist5" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE5.NUM" id="num5">
+			</div>
+		</div>
+		<div class="formlist formlist5" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE5.IMEI" id="imei5" ng-blur="addform(5)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form5">
+		<div class="com_title second_title">
+			<span>手机6</span></span><a class="morebtn" href="javascript://" ng-click="addform6()" id="form6">展开</a>
+		</div>
+		<div class="formlist formlist6" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE6.NUM" id="num6">
+			</div>
+		</div>
+		<div class="formlist formlist6" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE6.IMEI" id="imei6" ng-blur="addform(6)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form6">
+		<div class="com_title second_title">
+			<span>手机7</span></span><a class="morebtn" href="javascript://" ng-click="addform7()" id="form7">展开</a>
+		</div>
+		<div class="formlist formlist7" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE7.NUM" id="num7">
+			</div>
+		</div>
+		<div class="formlist formlist7" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE7.IMEI" id="imei7" ng-blur="addform(7)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form7">
+		<div class="com_title second_title">
+			<span>手机8</span></span><a class="morebtn" href="javascript://" ng-click="addform8()" id="form8">展开</a>
+		</div>
+		<div class="formlist formlist8" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE8.NUM" id="num8">
+			</div>
+		</div>
+		<div class="formlist formlist8" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE8.IMEI" id="imei8" ng-blur="addform(8)">
+			</div>
+		</div>
+	</div>
+		<div class="layout_secondbox" style="display:none" id="form8">
+		<div class="com_title second_title">
+			<span>手机9</span></span><a class="morebtn" href="javascript://" ng-click="addform9()" id="form9">展开</a>
+		</div>
+		<div class="formlist formlist9" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">选择号码</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE9.NUM" id="num9">
+			</div>
+		</div>
+		<div class="formlist formlist9" style="background: #ffffff;display:none">
+			<div class="form_left">
+				<p class="form_title">手机串号</p>
+			</div>
+			<div class="form_right">
+				<input class="input_normal" type="text" ng-model="form.PHONE9.IMEI" id="imei9" ng-blur="addform(9)">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 选择手机卡和手机型号end -->
+
+<!--宽带账号填写begin-->
+<div id="CusInfoDiv" style="display: block;" ng-controller="CusInfoCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>选择固话(<span class="text-danger">&nbsp;*&nbsp;</span>必选项)</span>
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="new1" ng-click="select1('new1','old1')"
+						class="com_selectbtn ng-binding" href="javascript://"
+						dataid="ACCOUNT_WHITE_CONTRACT">新用户</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="old1" ng-click="select1('old1','new1')"
+						class="com_selectbtn ng-binding" href="javascript://"
+						dataid="ACCOUNT_CARD_CONTRACT">老用户</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+		<div class="com_normalbox" id="old_num1" style="display:none">
+			<form>
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">
+							<span class="text-danger">&nbsp;*&nbsp;</span>老用户号码
+						</p>
+					</div>
+					<div class="form_right">
+						<input name="name" type="text" class="input_normal"
+							ng-model="form.OLDCUSTOMER_NUM" id="customer_name"
+							placeholder="老用户号码" ng-focus="focuss()" ng-blur="blurs()" />
+					</div>
+				</div>
+				<!--表单排版End-->
+			</form>
+
+			<input type="text" style="display: none;" id="nation"
+				ng-model="form.NATION" />
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--宽带账号填写end-->
+
+<!--备注begin-->
+<div id="CusInfoDiv" style="display: block;" ng-controller="CusInfoCtrl">
+	<!--100%布局Begin-->
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>备注（非必填项）<!-- (<span class="text-danger">&nbsp;*&nbsp;</span>为必填) --></span>
+		</div>
+		<!--标题一End-->
+		<!--正常外框Begin-->
+		<div class="com_normalbox" id="old_num" style="display:block">
+			<form>
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">
+							<!-- <span class="text-danger">&nbsp;*&nbsp;</span> -->备注
+						</p>
+					</div>
+					<div class="form_right">
+						<textarea id="note"
+							class="textarea_normal ng-pristine ng-valid ng-touched"
+							placeholder="备注框内填写需要什么套餐" ng-model="form.NOTE" rows="10"
+							style="height: 62px;" cols="30"></textarea>
+					</div>
+				</div>
+				<!--表单排版End-->
+			</form>
+
+			<input type="text" style="display: none;" id="nation"
+				ng-model="form.NATION" />
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--备注end-->
+
+<!--提交begin  -->
+<div class="com_normalbox" id="prev_and_nextPage"
+	style="display: block;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 col-xs-12 list">
+				<a class="com_btn theme_btn" id="submit_btn" href="javascript://"
+					ng-click="submit()">提交</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 提交 end-->
+
+<style>
+.com_form .message {
+	background: #fff;
+	position: relative;
+	display: block;
+	padding: 10px 0;
+	line-height: 30px;
+	text-indent: 5px;
+	height: 50px;
+}
+
+.com_form .right_btn {
+	position: absolute;
+	right: 14px;
+	top: 10px;
+	width: 100px;
+	height: 34px;
+	line-height: 34px;
+}
+</style>
+
+<div id="checkHtml"></div>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/gdh.js"></script>
+<script type="text/javascript">
+	$("#checkHtml")
+			.load(
+					"ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>
+<script type="text/javascript">
+	$("#checkHtml")
+			.load(
+					"ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

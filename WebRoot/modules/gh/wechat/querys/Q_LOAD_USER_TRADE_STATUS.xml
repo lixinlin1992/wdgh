@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_LOAD_USER_TRADE_STATUS" type="form_data" result="json">
+        <stmt><![CDATA[
+        select trade_status
+        from bi_trade_info
+        where account=[account]
+		]]></stmt>
+    </query>
+</query-config>

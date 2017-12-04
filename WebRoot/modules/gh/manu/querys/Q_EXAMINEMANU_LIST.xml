@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_EXAMINEMANU_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bm.id,bm.company,spu.name,bm.state,bm.remarks,bm.author_one,bm.author_two,bm.author_three,bm.create_user,bm.create_time,spd.name dept_name
+                from bi_manu bm
+				left join sys_p_user spu on bm.job_num=spu.id
+				left join sys_p_department spd on bm.dept_id=spd.id
+			    where bm.state = 0
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

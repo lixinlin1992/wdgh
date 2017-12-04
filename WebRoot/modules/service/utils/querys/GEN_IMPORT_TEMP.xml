@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="GEN_IMPORT_TEMP" type="pagelist" result="excel">
+        <stmt>
+            <![CDATA[
+                    <#assign colConfig=json(config,"$.cols")>
+                    SELECT<#list colConfig?keys as k>'' AS ${k}<#if k_has_next>,</#if></#list>
+                    FROM DUAL
+                    WHERE 1=2
+            ]]>
+        </stmt>
+        <param name="exp-cols"><![CDATA[<#assign colConfig=json(config,"$.cols")><#list colConfig?keys as k>${k}<#if k_has_next>,</#if></#list>]]></param>
+        <param name="exp-names"><![CDATA[<#assign colConfig=json(config,"$.cols")><#list colConfig?keys as k>${colConfig[k]}<#if k_has_next>,</#if></#list>]]></param>
+        <param name="exp-file">${json(config,"$.file")!""}</param>
+        <!--<param name="exp-names">${cols}</param>-->
+    </query>
+</query-config>

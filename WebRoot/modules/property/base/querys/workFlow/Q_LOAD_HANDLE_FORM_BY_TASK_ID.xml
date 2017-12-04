@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用电用户详细信息展示 -->
+<query-config>
+	<query id="Q_LOAD_HANDLE_FORM_BY_TASK_ID" type="form_data" result="easyui">
+		<stmt>
+			<![CDATA[
+            SELECT  P.NAME process_name,t.node_id curr_node_id,N.NODE_NAME curr_node_name,o.title work_order_title
+            FROM WF_RU_TASK T,WF_WORK_ORDER O,WF_PROCESS P,WF_NODE N
+            WHERE T.WORK_ORDER_ID = O.ID
+                  AND O.PROCESS_ID = P.ID
+                  AND T.NODE_ID = N.ID
+                  AND T.ID = [taskId]
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

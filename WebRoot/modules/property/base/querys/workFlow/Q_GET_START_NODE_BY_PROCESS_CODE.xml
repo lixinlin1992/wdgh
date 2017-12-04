@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用电用户详细信息展示 -->
+<query-config>
+	<query id="Q_GET_START_NODE_BY_PROCESS_CODE" type="form_data" result="easyui">
+		<stmt>
+			<![CDATA[
+
+                    SELECT EN.ID curr_node_id,EN.NODE_NAME curr_node_name FROM WF_NODE N ,WF_PROCESS P,WF_FLOW F,WF_NODE EN WHERE P.CODE = [processCode] AND N.NODE_TYPE=3
+                    AND N.PROCESS_ID = P.ID AND F.START_NODE_ID = N.ID AND F.END_NODE_ID = EN.ID
+
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

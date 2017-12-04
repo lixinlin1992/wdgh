@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_APPROVEMANU_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select b.id,b.company,spd.name dept_name,s.name,b.state,b.remarks,b.author_one,b.author_two,b.author_three,
+				s.name create_user,b.create_time
+				from bi_manu b
+				left join sys_p_user s on b.create_user=s.id
+				left join sys_p_department spd on b.dept_id=spd.id
+				where b.job_num = s.id
+				and b.state = 1
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

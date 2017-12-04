@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <query id="Q_FILE_UPLOAD" type="update" result="">
+        <stmt><![CDATA[
+            INSERT INTO SYS_FILE
+              (ID, BUSI_ID, BUSI_TYPE, NAME, PATH, THUMB_PATH, TYPE, CREATOR_ID)
+            VALUES
+              ([file.id], [file.busiId], [file.busiType], [file.name], [file.file.name], [file.thumbFile.name], [file.type], [var(RU.CUR_USER.id)])
+        ]]></stmt>
+    </query>
+
+</query-config>

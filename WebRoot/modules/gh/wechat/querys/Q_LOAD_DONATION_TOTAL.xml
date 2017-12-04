@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<query id="Q_LOAD_DONATION_TOTAL" type="form_data"	result="easyui">
+		<stmt><![CDATA[
+with a as (
+select name,fee,is_anonymous,rownum rn from (
+select name,fee,is_anonymous from bi_donation_order order by create_time desc))
+select count(1) cou,sum(fee) fee,replace(wm_concat(case when rn<8 and is_anonymous=0 then a.name else null end),',','、') names from a
+        ]]></stmt>
+	</query>
+</query-config>

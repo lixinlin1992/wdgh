@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<datasources>
+    <!-- 修改用户application值 -->
+    <ds name="DS_FRAMEWORK_SECURITY_USER_APPLICATION" type="url" func="">
+        <url>/application.action?method=eidtApplication</url>
+        <file>/</file>
+    </ds>
+</datasources>

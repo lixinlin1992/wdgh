@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!-- 插入模板 -->
+    <query id="Q_TEMPLATE_CONFIG_ADD" type="auto-update" result="">
+        <param name="insert-tables">RDC_CFG_TEMPLATE t</param>
+    </query>
+    
+    <!-- 删除模板 -->
+    <query id="Q_TEMPLATE_CONFIG_DEL" type="batch" result="">
+        <stmt>
+            <![CDATA[
+				delete from rdc_cfg_template where id = [id];
+				delete from rdc_cfg_page_property where page_id in (
+					select id from rdc_cfg_page where template_id = [id]
+				); 
+				delete from rdc_cfg_page where template_id = [id]
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>    
+
+    <!-- 查询模板列表 -->
+    <query id="Q_TEMPLATE_CONFIG_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT t.ID,t.NAME,t.CREATE_USER,t.CREATE_DATE,u.NAME AS CREATE_USER_NAME
+                    FROM RDC_CFG_TEMPLATE t
+                    LEFT JOIN SYS_P_USER u ON u.ID=t.CREATE_USER
+					<#if templateName??>
+					where t.NAME [like(templateName)]
+					</#if>
+                    ORDER BY t.CREATE_DATE DESC
+                    ]]>
+        </stmt>
+        <param name="id">ID</param>
+        <param name="list-cols">id,name,create_user_name,create_date,id</param>
+    </query>
+
+    <!-- 查询指定模板信息 -->
+    <query id="Q_TEMPLATE_CONFIG_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT *
+                    FROM RDC_CFG_TEMPLATE
+                    WHERE ID=[id]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 保存模板配置 -->
+    <query id="Q_TEMPLATE_CONFIG_SAVE" type="auto-update" result="">
+        <processor class="com.sunrise.rdcp.pro.TemplateSaveProcessor" type="before" break="true" seq="1"/>
+        <processor name="script" type="before" break="false" seq="2">
+            <param name="var">_id</param>
+            <param name="script"><![CDATA[com.sunrise.foundation.utils.StringUtil.generateGUID();]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if !id??>RDC_CFG_TEMPLATE t</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if id??>RDC_CFG_TEMPLATE t</#if>]]></param>
+        <param name="col-vals"><![CDATA[<#if !id??>t.ID=[_id],</#if>t.CREATE_USER=${_CurrUser.id},t.CREATE_DATE=SYSDATE,t.TEMPLATE_CONTENT=[TemplateContent]]]></param>
+        <param name="update-cols">t.NAME,t.TEMPLATE_CONTENT</param>
+        <param name="trans">true</param>
+    </query>
+</query-config>

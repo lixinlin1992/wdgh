@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_CONTRIBUTION" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_contribution(id,title,content,state,create_user,create_time,author_one,author_two,author_three)
+            values(bi_manu_seq.nextval,[title],[content],0,[var(RU.CUR_USER.id)],sysdate,[author_one],
+            [author_two],[author_three])
+            ]]>
+        </stmt>
+    </query>
+</query-config>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--记录登录信息-->
+    <query id="USER_LOGIN" type="auto-update">
+        <param name="insert-tables">SYS_L_LOGIN l</param>
+        <param name="col-vals"><![CDATA[
+            l.ID=SYS_L_LOGIN_SEQ.NEXTVAL ,
+            l.LOGIN_TIME=SYSDATE
+        ]]></param>
+    </query>
+
+    <!--更新注销时间-->
+    <query id="USER_LOGOUT" type="auto-update">
+        <param name="update-tables">SYS_L_LOGIN l</param>
+        <param name="update-cols">l.LOGOUT_TIME</param>
+        <param name="col-vals">l.LOGOUT_TIME=SYSDATE</param>
+        <param name="key-cols">l.SESSION_ID</param>
+    </query>
+</query-config>

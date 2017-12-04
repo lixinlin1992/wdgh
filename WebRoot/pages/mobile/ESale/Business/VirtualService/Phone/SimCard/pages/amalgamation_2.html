@@ -1,0 +1,449 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+    $("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+<div id="broadbandLayoutDiv" class="layout_centent" ng-controller="BroadbandCtrl">
+    <!--标题一Begin-->
+    <div id="broadbandTitleDiv" class="com_title first_title">
+        <span>宽带信息</span>
+    </div>
+    <!--标题一End-->
+    <!--宽带信息内容Begin-->
+    <div id="broadbandDIV" class="container-fluid">
+        <div class="row com_selectbox">
+            <div class="col-md-4 col-xs-4 list">
+                <span class="title" style="line-height: 34px;">用户类型:</span>
+            </div>
+            <div class="col-md-4 col-xs-4 list">
+                <a id="newUserBtn" name="userBtn" class="com_selectbtn" href="javascript:void(0)"
+                   ng-click="changeUserBtn('newUserBtn');"> 新用户</a>
+            </div>
+            <div class="col-md-4 col-xs-4 list">
+                <a id="oldUserBtn" name="userBtn" class="com_selectbtn " href="javascript:void(0)"
+                   ng-click="changeUserBtn('oldUserBtn');"> 老用户</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="newUserDiv_b" style="display: none;">
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-4 col-xs-4 list">
+                    <span class="title" style=" float:left;"><font color="red">*</font> 装机地址:</span>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <form id="newUserInfoform">
+                        <div><input  id="address" name="address" ng-model="second.address" class="form-control" type="text"/></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--宽带类型模块Begin-->
+        <div id="broadbandTypeLayoutDIV" class="layout_secondbox" style="display:block">
+            <!--标题一Begin-->
+            <div id="broadbandTypeTitleDiv" class="com_title second_title">
+                <span>宽带类型</span>
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+
+            <div id="broadbandTypeDIV" class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-4 col-xs-4 list" ng-repeat="row in broadbandType">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" broadbandTypeID="{{row.ID}}"
+                                id="broadbandTypeSelect_id_{{$index}}"ng-click="broadbandTypeSelect($index)">
+                            {{row.NAME}}
+                        </a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--宽带类型模块End-->
+
+        <!--速率模块Begin-->
+        <div id="speedLayoutDiv" class="layout_secondbox" style="display:block">
+            <!--标题一Begin-->
+            <div id="speedTitleDiv" class="com_title second_title">
+                <span>速率</span>
+            </div>
+            <!--标题一End-->
+            <!--选择按钮Begin-->
+            <input id="speedDivStatus" type="hidden" value="hidden"/>
+            <input id="speedRowsCount" type="hidden" value="0">
+            <div id="speedDIV" class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-4 col-xs-4 list" ng-repeat="row in speed">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" speedID="{{row.ID}}"
+                           id="speedSelect_id_{{$index}}"ng-click="speedSelect($index)">
+                            {{row.NAME}}
+                        </a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--速率模块End-->
+
+    </div>
+
+    <div id="oldUserDiv_b" style="display:none;">
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-4 col-xs-4 list">
+                    <span class="title" style=" float:left;"><font color="red">*</font>宽带账号:</span>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <input  id="netAccount" class="form-control" ng-model="second.netAccount" type="text"/>
+                </div>
+            </div>
+        </div>
+
+        <div id="needMoveLayoutDiv" class="layout_secondbox" >
+            <div id="packageTitleDiv" class="com_title second_title">
+                <span>是否需要移机</span>
+            </div>
+            <!--选择按钮Begin-->
+            <div id="needMoveDIV" class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needMoveBtn_YES" name="needMoveBtn" class="com_selectbtn " href="javascript:void(0)"
+                           onclick="selectNeedMove(this);"> 是</a>
+                    </div>
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needMoveBtn_NO" name="needMoveBtn" class="com_selectbtn " href="javascript:void(0)"
+                           onclick="selectNeedMove(this);"> 否</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="moveAddressDiv" class="formlist" style="display: none">
+            <div class="form_left">
+                <p class="form_title"><font color="red">*</font> 移机地址:</p>
+            </div>
+            <div class="form_right">
+                <input id="moveAddress" type="text" class="input_normal" ng-model="second.moveAddress">
+            </div>
+        </div>
+        <div id="needTransferLayoutDiv" class="layout_secondbox" style="display:none">
+            <div id="needTransferTitleDiv" class="com_title second_title">
+                <span>是否需要过户</span>
+            </div>
+            <!--选择按钮Begin-->
+            <div id="needTransferDIV" class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needTransferBtn_YES" name="needTransferBtn" class="com_selectbtn " href="javascript:void(0)" onclick="selectNeedTransfe(this);"> 是</a>
+                    </div>
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needTransferBtn_NO" name="needTransferBtn" class="com_selectbtn " href="javascript:void(0)" onclick="selectNeedTransfe(this);"> 否</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout_secondbox" id="oldUserIDReadLayoutDiv" style="display: none;">
+            <!--标题一Begin-->
+            <div class="com_title second_title">
+                <span>老用户身份证读取</span>
+            </div>
+            <!--标题一End-->
+            <!--正常外框Begin-->
+            <div class="com_normalbox">
+                <!--提示文字Begin-->
+                <div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+                    上传身份证正，反面及手持照片
+                </div>
+                <!--提示文字End-->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 list" id="bluetoothDiv" style="display: block;margin:10px 0;">
+                            <!--常用btn-->
+                            <button style="width: 100%;" class="com_btn theme_btn" id="bluetooth_read_btn"
+                                    onclick="bluetoothRead(true)" data-loading-text="读取中...." autocomplete="off">
+                                蓝牙读取
+                            </button>
+                            <!--常用btn-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--身份证图片列表Begin-->
+                <div class="container-fluid goods_show_list">
+                    <div class="row">
+                        <div id="frontDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+                            <div id="frontDiv_img"
+                                 style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                                <input type="file" accept="image/jpeg,image/png"
+                                       style="display: none; opacity:0;width:60px;height:60px" data-param="front"
+                                       id="front" onchange="uploadImg('front');" single>
+
+                                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"
+                                     ng-click="takePhoto('front')"></div>
+                                <span class="imgprice"
+                                      style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+                            </div>
+                        </div>
+
+                        <div id="contraryDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+                            <div id="contraryDiv_img"
+                                 style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                                <input type="file" accept="image/jpeg,image/png"
+                                       style="display: none; opacity:0;width:60px;height:60px" data-param="contrary"
+                                       id="back" onchange="uploadImg('contrary');" single>
+
+                                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"
+                                     ng-click="takePhoto('contrary')"></div>
+                                <span class="imgprice"
+                                      style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--进度条begin-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p id="upload_text"
+                               style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+                        </div>
+                        <div class="col-md-12" style="display: none;">
+                            <div class="progress" style="margin-bottom: 5px;">
+                                <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--进度条end-->
+                </div>
+                <!--身份证图片列表End-->
+
+                <form>
+                    <input name="name" type="hidden" class="input_normal" ng-model="form.CUSTOMER_NAME"
+                           id="customer_name" placeholder="客户姓名" readonly="readonly"/>
+                    <input name="paper_num" type="hidden" id="cert_number" maxLength="18" ng-model="form.CERT_NUMBER"
+                           placeholder="证件号码" class="input_normal" required="required" readonly="readonly"/>
+
+                    <input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS"/>
+                    <input type="text" style="display: none;" id="gov" ng-model="form.GOV"/>
+                    <input type="text" style="display: none;" id="gender" ng-model="form.GENDER"/>
+                    <input type="text" style="display: none;" id="from" ng-model="form.FROM"/>
+                    <input type="text" style="display: none;" id="to" ng-model="form.TO"/>
+                    <input type="text" style="display: none;" id="nation" ng-model="form.NATION"/>
+                </form>
+            </div>
+            <!--正常外框End-->
+        </div>
+
+    </div>
+    <!--选择按钮End-->
+</div>
+
+<div id="showBtnDiv" class="container-fluid" style="display: none">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 list">
+            <!--常用btn-->
+            <a id="showBtn" class="com_btn theme_btn" href="javascript:showTelephoneDiv()" noclick="showTelephoneDiv()">
+                录入固话信息
+            </a>
+            <!--常用btn-->
+        </div>
+    </div>
+</div>
+
+<div id="telephoneLayoutDiv" class="layout_centent" ng-controller="TelephoneCtrl" style="display: none">
+    <!--标题一Begin-->
+    <div id="telephoneTitleDiv" class="com_title first_title">
+        <span>固话信息</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div id="telephoneDIV" class="container-fluid">
+        <div class="row com_selectbox">
+            <div class="col-md-4 col-xs-4 list">
+                <span class="form_title" style=" float:left;">用户类型:</span>
+            </div>
+            <div class="col-md-4 col-xs-4 list">
+                <a id="newUserBtn_t" name="userBtn_t" class="com_selectbtn " href="javascript:void(0)"
+                   ng-click="selectUserBtn('newUserBtn_t');"> 新用户</a>
+            </div>
+            <div class="col-md-4 col-xs-4 list">
+                <a id="oldUserBtn_t" name="userBtn_t" class="com_selectbtn " href="javascript:void(0)"
+                   ng-click="selectUserBtn('oldUserBtn_t');"> 老用户</a>
+            </div>
+        </div>
+
+    </div>
+    <div id="newUserDiv_t" class="container-fluid" style="display: none">
+        <div class="row com_selectbox">
+            <div class="col-md-4 col-xs-4 list">
+                <span class="form_title" style=" float:left;">固话套餐:</span>
+            </div>
+            <div class="col-md-6 col-xs-6 list">
+                <a class="com_selectbtn com_selectbtnon" href="javascript://" id="guhuataocan">
+                    21.6元每月
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="oldUserDiv_t" style="display: none">
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-4 col-xs-4 list">
+                    <span class="form_title" style=" float:left;"><font color="red">*</font>固话号码:</span>
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <form id="newUserInfoform_t">
+                        <div>
+                            <input id="phoneNumber" name="name" class="input_normal" ng-model="second.phoneNumber"
+                                   style="border:1px solid #dddddd; background: none; width: 100%; float: left;"
+                                   type="text"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="needTransferLayoutDiv_t" class="layout_secondbox" style="display:block">
+            <div id="needTransferTitle_t" class="com_title second_title">
+                <span>是否需要过户</span>
+            </div>
+            <!--选择按钮Begin-->
+            <div id="needTransferDIV_t" class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needTransferBtn_t_YES" name="needTransferBtn_t" class="com_selectbtn "
+                           href="javascript:void(0)" onclick="selectNeedTransfer_t(this);"> 是</a>
+                    </div>
+                    <div class="col-md-6 col-xs-6 list">
+                        <a id="needTransferBtn_t_NO" name="needTransferBtn_t" class="com_selectbtn "
+                           href="javascript:void(0)" onclick="selectNeedTransfer_t(this);"> 否</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--100%布局Begin-->
+        <div class="layout_secondbox" id="oldUserIDReadLayoutDiv_t" style="display: none;">
+            <!--标题一Begin-->
+            <div class="com_title second_title">
+                <span>老用户身份证读取</span>
+            </div>
+            <!--标题一End-->
+            <!--正常外框Begin-->
+            <div class="com_normalbox">
+                <!--提示文字Begin-->
+                <div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+                    上传身份证正，反面及手持照片
+                </div>
+                <!--提示文字End-->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 list" id="bluetoothDiv" style="display: block;margin:10px 0;">
+                            <!--常用btn-->
+                            <button style="width: 100%;" class="com_btn theme_btn" id="bluetooth_read_btn"
+                                    onclick="bluetoothRead(false)" data-loading-text="读取中...." autocomplete="off">
+                                蓝牙读取
+                            </button>
+                            <!--常用btn-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--身份证图片列表Begin-->
+                <div class="container-fluid goods_show_list">
+                    <div class="row">
+                        <div id="frontDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+                            <div id="frontDiv_img1"
+                                 style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                                <input type="file" accept="image/jpeg,image/png"
+                                       style="display: none; opacity:0;width:60px;height:60px" data-param="front"
+                                       id="front_t" onchange="uploadImg('front');" single>
+
+                                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"
+                                     ng-click="takePhoto('front')"></div>
+                                <span class="imgprice"
+                                      style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+                            </div>
+                        </div>
+
+                        <div id="contraryDiv" class="col-xs-6 col-md-6 goods_box" style="display: block;">
+                            <div id="contraryDiv_img1"
+                                 style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                                <input type="file" accept="image/jpeg,image/png"
+                                       style="display: none; opacity:0;width:60px;height:60px" data-param="contrary"
+                                       id="back_t" onchange="uploadImg('contrary');" single>
+
+                                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"
+                                     ng-click="takePhoto('contrary')"></div>
+                                <span class="imgprice"
+                                      style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--进度条begin-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p id="upload_text"
+                               style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+                        </div>
+                        <div class="col-md-12" style="display: none;">
+                            <div class="progress" style="margin-bottom: 5px;">
+                                <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped"
+                                     role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--进度条end-->
+                </div>
+                <!--身份证图片列表End-->
+
+                <form>
+                    <input name="name" type="hidden" class="input_normal" ng-model="form.CUSTOMER_NAME"
+                           id="customer_name" placeholder="客户姓名" readonly="readonly"/>
+                    <input name="paper_num" type="hidden" id="cert_number" maxLength="18" ng-model="form.CERT_NUMBER"
+                           placeholder="证件号码" class="input_normal" required="required" readonly="readonly"/>
+
+                    <input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS"/>
+                    <input type="text" style="display: none;" id="gov" ng-model="form.GOV"/>
+                    <input type="text" style="display: none;" id="gender" ng-model="form.GENDER"/>
+                    <input type="text" style="display: none;" id="from" ng-model="form.FROM"/>
+                    <input type="text" style="display: none;" id="to" ng-model="form.TO"/>
+                    <input type="text" style="display: none;" id="nation" ng-model="form.NATION"/>
+                </form>
+            </div>
+            <!--正常外框End-->
+        </div>
+        <!--100%布局End-->
+
+    </div>
+    <!--选择按钮End-->
+</div>
+<div class="com_normalbox" id="prev_and_nextPage" style="display: none;margin-bottom: 20px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-xs-6 list">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="prevBtn" href="javascript://" ng-click="prevPage()">上一步</a>
+                <!--常用btn-->
+            </div>
+            <div class="col-md-6 col-xs-6 list">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="nextBtn" href="javascript://" ng-click="nextPage()">下一步</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="checkHtml"></div>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/amalgamation_2.js"></script>
+<script type="text/javascript">
+    $("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

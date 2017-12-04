@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_SUB_MENU_FILE_DATA" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+		select bgi.id,bgi.title,to_char(bgi.create_time,'yyyy-mm-dd hh24:mi:ss') create_time,sf.id file_id
+		from ${code_table} bgi
+		left join sys_file sf on sf.busi_type='BI_NOTICE' and sf.busi_id=to_char(bgi.id)
+		where bgi.type=[code_num]
+		order by bgi.create_time desc
+		]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

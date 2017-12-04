@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<JITAgentConfig>
+
+  <!--Agent自身相关配置－－-->
+  <AgentSettings>
+
+
+    <!-- *非开发人员慎改* 本地会话设置-->
+    <LocalSession>
+      <!--会话Cookie-->
+      <Cookie>
+        <!--应用服务器域名，可不配置，默认为空-->
+        <Domain></Domain>
+          <!-- cookie有效期（分钟），-1不失效 -->
+        <CookieMaxAge>10</CookieMaxAge>
+        <!--是否使用安全Cookie，需要应用服务器配置ssl-->
+        <Secure>true</Secure>
+        <!--cookie路径，默认为/-->
+        <Path>/</Path>
+      </Cookie>
+    </LocalSession>
+  </AgentSettings>
+
+
+  <!--Agent自身相关配置－－J2EE Agent专用配置项-->
+  <J2EEAgentSettings>
+    <!--当前Agent版本-->
+    <Version>2.2.0</Version>
+    <!--用户身份信息的键名-->
+    <UserInfoKeyName>_siant_userinfo</UserInfoKeyName>
+    <!--用户身份信息存放位置-->
+    <UserInfoScope>session</UserInfoScope>
+     <!-- 身份认证错误页面    同一跳转到身份认证错误页面 -->
+    <ErrorPage>https://172.16.133.132:8088/rsm/webpage/caslogin/warn.jsp</ErrorPage>
+    <!--调试日志-->
+    <DebugLog>
+      <!--是否输出调试日志-->
+      <OutputDebugLog>true</OutputDebugLog>
+    </DebugLog>
+    <!-- 不需要做身份认证的列表 -->
+	<NotAuthenticate>
+		<URI>servlet/userinfoservlet</URI>
+		<URI>/error2.jsp</URI>
+      <URI>pages/home.jsp</URI>
+	</NotAuthenticate>
+  </J2EEAgentSettings>
+ 
+
+  <!--网关服务器配置-->
+  <GatewayList>
+    <!--第一个网关服务器配置-->
+    <Gateway order="0">
+      <!--应用信任号-->
+	  <AppId>80100076</AppId>
+	   <!--重定向认证地址-->
+<!--      <LoginURL>https://10.113.4.24:8088/rsm/webpage/cas.jsp</LoginURL>-->
+<LoginURL>https://172.16.133.132:8088/rsm/webpage/cas.jsp</LoginURL>
+      
+      <!--SMAL查询的URL，如果是http地址则为明文传输，如果是https地址则为单向SSL传输-->
+      <IdpQuery>
+<!--      	<IdpUrl>https://10.113.4.24:8088/rsm/loginAction.do?query</IdpUrl>   -->
+      	<IdpUrl>https://172.16.133.132:8088/rsm/loginAction.do?query</IdpUrl>    	        
+      </IdpQuery>      
+    </Gateway>
+  </GatewayList>
+</JITAgentConfig>

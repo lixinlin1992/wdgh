@@ -1,0 +1,53 @@
+@charset "utf-8";
+.projectbuttom {
+	background-image: url(../images/projectbuttom-normal.gif);
+	background-repeat: repeat-x;
+	height: 40px;
+	width: 155px;
+}
+.projectbuttom_hover {
+	background-image: url(../images/projectbuttom-pass.gif);
+	background-repeat: repeat-x;
+	height: 40px;
+	width: 155px;
+}
+.projectbuttom a {
+	line-height: 40px;
+	color: #999;
+	font-size: 14px;
+	font-weight: 700;
+	text-decoration: none;
+    margin-left: 0px;
+    float: left;
+}
+.projectbuttom_hover a {
+	line-height: 40px;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: 700;
+	text-decoration: none;
+	margin-left: 0px;
+	float: left;
+}
+.projectbuttom .close {
+	height: 12px;
+	width: 12px;
+	background-image: url(../images/close-normal.png);
+	margin-top: 14px;
+	margin-right: 10px;
+	display: block;
+	background-repeat: no-repeat;
+	float: right;
+}
+
+.projectbuttom_hover .close {
+	height: 12px;
+	width: 12px;
+	background-image: url(../images/close-pass.png);
+	margin-top: 14px;
+	margin-right: 10px;
+	display: block;
+	background-repeat: no-repeat;
+	float: right;
+}
+

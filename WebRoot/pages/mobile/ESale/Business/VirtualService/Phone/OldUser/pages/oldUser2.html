@@ -1,0 +1,100 @@
+<script src="ESale/Business/VirtualService/Phone/OldUser/scripts/oldUser2.js"></script>
+<!--开户网络begin-->
+<!--100%布局Begin-->
+<div class="layout_centent" style="padding-bottom: 0;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>电信类型</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;">
+            <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in form.telecomTitles">
+                <a id="netLayoutDiv_select_id_{{$index}}" ng-click="event.telecomType_select($event)" class="com_selectbtn" href="javascript://" netid="{{row.code}}">{{row.name}}</a>
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!--100%布局End-->
+<!-- 号码填写 -->
+<div id="" class="layout_centent">
+    <div class="com_title first_title">
+        <span>填写号码信息</span>
+    </div>
+    <div class="formlist" style="padding-top: 15px;position:relative">
+        <div class="form_left" style="width:50px;">
+            <p class="form_title">号码</p>
+        </div>
+        <div class="form_right" style="margin-left:60px;">
+            <input name="name" type="tel" class="input_normal" ng-model="form.numTitle" ng-blur="event.check_NUM();" />
+        </div>
+        <!-- <a class="green_btn right_btn" href="javascript:void(0)" ng-click="event.check_NUM();" style="position:absolute;right:14px;top:15px;width: 80px;
+        height: 34px;line-height: 34px;">校验</a> -->
+    </div>
+    <div class="layout_secondbox" ng-show="num_check">
+        <div class="com_title second_title">
+            <span>号码信息</span>
+        </div>
+        <!-- 4G套餐 -->
+        <div class="com_table">
+            <table>
+                <tr>
+                    <td class="summarize" style="width: 100px">客户名称</td>
+                    <td ng-bind="form.CUSTOMER_NAME"></td>
+                </tr>
+                <tr>
+                    <td class="summarize" style="width: 100px">证件号码</td>
+                    <td ng-bind="form.CardID"></td>
+                </tr>
+                <tr ng-show="otherG">
+                    <td class="summarize" style="width: 100px">当前套餐</td>
+                    <td ng-bind="form.PRODUCT_NAME"></td>
+                </tr>
+            </table>
+        </div>
+        <!-- 其他套餐 -->
+        <!-- <div class="com_table" ng-show="otherG">
+            <table>
+                <tr>
+                    <td class="summarize" style="width: 100px">客户名称</td>
+                    <td ng-bind="form.CUSTOMER_NAME"></td>
+                </tr>
+                <tr>
+                    <td class="summarize" style="width: 100px">证件号码</td>
+                    <td ng-bind="form.CardID"></td>
+                </tr>
+                <tr>
+                    <td class="summarize" style="width: 100px">当前套餐</td>
+                    <td ng-bind="form.PRODUCT_NAME"></td>
+                </tr>
+            </table>
+        </div> -->
+    </div>
+</div>
+<!-- 卡处理类型 -->
+<!--100%布局Begin-->
+<div class="layout_centent" style="padding-bottom: 0;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>卡处理类型</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;">
+            <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in form.handleTitles">
+                <a id="netLayoutDiv_select_id_{{$index}}" ng-click="event.handleCard_select($event)" class="com_selectbtn" href="javascript://" handleid="{{row.code}}">{{row.name}}</a>
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+    <div class="formlist ng-scope">
+        <a class="com_btn theme_btn" href="javascript://" ng-click="event.next()">下一步</a>
+    </div>
+</div>
+<!--100%布局End-->
+<script type="text/javascript" src="System/Base/scripts/passwd/core-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/enc-base64-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/sha1.js"></script>

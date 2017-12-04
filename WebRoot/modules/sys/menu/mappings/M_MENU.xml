@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <ds name="DS_USER_MENUS" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=menu/querys/Q_MENU.xml&_id=Q_USER_MENUS]]>
+        </url>
+    </ds>
+
+</datasources>

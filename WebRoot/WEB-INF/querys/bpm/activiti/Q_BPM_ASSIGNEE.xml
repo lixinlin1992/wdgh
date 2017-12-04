@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+	<!-- 查询运行中任务 -->
+	<query id="Q_GET_ASSIGNEE_GROUP" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+			--查询运行中任务
+			select g.code as id, g.name as name from sys_p_user_group g
+			]]>
+		</stmt>
+	</query>
+
+</query-config>

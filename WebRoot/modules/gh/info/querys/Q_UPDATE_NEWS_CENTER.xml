@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_UPDATE_NEWS_CENTER" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_news_center set title=[title],type=[type],content=[content],
+            content_text=[content_text],create_time=to_date([create_time],'YYYY-MM-DD HH24:MI:SS')
+            where id=[news_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

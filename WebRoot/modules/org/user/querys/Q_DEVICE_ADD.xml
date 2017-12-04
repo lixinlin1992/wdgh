@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--添加用户-->
+    <query id="Q_DEVICE_ADD" type="update" result="json">
+        <stmt>
+            <![CDATA[
+            INSERT INTO BI_DEVICES(ID,DEVICE_NAME,URL,PLACE_ID)
+            VALUES(BI_DEVICES_SEQ.nextval,[name],[url],[place_id])
+            ]]>
+        </stmt>
+    </query>
+</query-config>

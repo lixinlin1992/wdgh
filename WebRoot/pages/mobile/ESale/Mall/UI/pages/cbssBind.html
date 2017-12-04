@@ -1,0 +1,138 @@
+<script type="text/javascript" src="ESale/Mall/UI/scripts/cbssBind.js"></script>
+<div class="layout_centent">
+    <div class="com_title first_title">
+        <span>cbss账户绑定</span>
+    </div>
+    <div class="formlist">
+        <div class="form_left">
+            <p class="form_title">
+                <font color="red">*</font>
+                CBSS工号：
+            </p>
+        </div>
+        <div class="form_right">
+            <input type="text" name="phonenumber" class="input_normal" ng-model="user">
+        </div>
+    </div>
+    <div class="formlist">
+        <div class="form_left">
+            <p class="form_title">
+                <font color="red">*</font>
+                CBSS密码：
+            </p>
+        </div>
+        <div class="form_right">
+            <input type="password" name="phonenumber" class="input_normal" ng-model="password.pwd1">
+        </div>
+    </div>
+    <div class="formlist">
+        <div class="form_left">
+            <p class="form_title">
+                <font color="red">*</font>
+                密码确认：
+            </p>
+        </div>
+        <div class="form_right">
+            <input type="password" name="phonenumber" class="input_normal" ng-model="password.pwd2">
+        </div>
+    </div>
+    <div class="layout_secondbox" ng-repeat="row in rows">
+        <div class="com_title second_title">
+            <span class="ng-binding">发展人信息</span>
+            <a ng-if="$index==0" class="btn_add" id="btn_add" href="javascript:void(0)" ng-click="addDevInfo()"></a>
+            <a ng-if="$index!=0" class="btn_add" id="btn_delete" style="background:url(Style/images/common/icon_delete.png)" href="javascript:void(0)" ng-click="delDevInfo($index)">
+            </a>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">
+                    <font color="red">*</font>
+                    发展人编码：
+                </p>
+            </div>
+            <div class="form_right">
+                <input type="tel" name="phonenumber" maxlength="10" class="input_normal" ng-model="row.DEV_CODE">
+            </div>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">
+                    <font color="red">*</font>
+                    发展人姓名：
+                </p>
+            </div>
+            <div class="form_right">
+                <input type="text" name="phonenumber" class="input_normal" ng-model="row.DEV_NAME">
+            </div>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">
+                    <font color="red">*</font>
+                    发展人手机：
+                </p>
+            </div>
+            <div class="form_right">
+                <input type="tel" name="phonenumber" maxlength="11" class="input_normal" ng-model="row.DEV_PHONE">
+            </div>
+        </div>
+    </div>
+    <div class="com_normalbox">
+        <div class="small_font gray_font" style="line-height: 20px;">
+            <span class="red_font">*</span> 如有在CBSS系统中更换过密码请及时重新绑定,避免cbss账户被锁
+        </div>
+    </div>
+    <div class="container-fluid">
+        <!--常用btn-->
+        <a class="com_btn theme_btn" id="submit_btn" href="javascript://" ng-click="event.saveCbss()">保存</a>
+        <!--常用btn-->
+    </div>
+    <!--遮罩层Begin-->
+    <div class="com_shade" id='shadeCbssBind' style="position:fixed;height: 100%;" ng-show="show.shadeShow"></div>
+    <!--遮罩层End-->
+    <!-- 弹框 Begin-->
+    <div class="com_alert" id="alertCbssBind" style="top: 150px;position: fixed;" ng-show="show.alertShow1">
+        <h2 class="title">
+            系统提示
+            <a class="closed" href="javascript://" ng-click="event.closeSaveCbss()"></a>
+        </h2>
+        <div class="content">
+            <div class="content">
+                <span style="margin-top: 15px;font-size:1.2em;">
+                    <span style='color:red;'>请确保该cbss信息能在cbss系统上正常登录使用</span>
+                <br/> 密码在cbss系统错误5次可能会把您的cbss账户锁定,发展人编码错误可能影响沃销售正常开户,请谨慎操作！"
+                </span>
+            </div>
+            <div class="bottom_btnbox">
+                <div class="left">
+                    <a class="normal_btn" href="javascript://" ng-click="event.saveCbssTit()">确定</a>
+                </div>
+                <div class="right">
+                    <a class="normal_btn" href="javascript://" ng-click="event.closeSaveCbss()">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹框 End-->
+    <!-- 弹框2 Begin-->
+    <div class="com_alert" id="alertCbssBind2" style="top: 150px;position: fixed;" ng-show="show.alertShow2">
+        <h2 class="title">
+            温馨提示
+            <a class="closed" href="javascript://" ng-click="event.closeSaveCbssTit()"></a>
+        </h2>
+        <div class="content">
+            <div class="content">
+                <span id="alertMessage2" style="margin-top: 15px;font-size:1.2em;">cbss密码在cbss系统有效期有限。如有在cbss系统更换密码，请及时在进行再次绑定，以免影响您的正常业务办理！</span>
+            </div>
+            <div class="bottom_btnbox">
+                <div class="left">
+                    <a class="normal_btn" href="javascript://" ng-click="event.saveCbssContent()">确定</a>
+                </div>
+                <div class="right">
+                    <a class="normal_btn" href="javascript://" ng-click="event.closeSaveCbssTit()">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹框2 End-->
+</div>

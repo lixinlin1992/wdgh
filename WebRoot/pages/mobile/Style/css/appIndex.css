@@ -1,0 +1,505 @@
+@media screen and (min-width: 1200px) {
+  .appIndexBtn {
+    width: 100%;
+    height: 200px;
+    background: #ff0000;
+    margin-top: 4px;
+    position: relative;
+    display: block;
+  }
+  .appIndexBigBtn {
+    width: 100%;
+    height: 400px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appLineBtn {
+    width: 100%;
+    height: 300px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+    position: relative;
+  }
+  .iconLinePlace {
+    display: block;
+    font-size: 8em;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 90px;
+    left: 27%;
+    position: absolute;
+  }
+  .fontLinePlace {
+    text-align: center;
+    font-size: 4em;
+    top: 110px;
+    left: 27%;
+    margin-left: 140px;
+    position: absolute;
+  }
+  .iconBigPlace {
+    display: block;
+    font-size: 10em;
+    text-align: center;
+    line-height: 300px;
+  }
+  .fontBigPlace {
+    text-align: center;
+    font-size: 3em;
+  }
+  .iconLongPlace {
+    display: block;
+    font-size: 70px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 70px;
+    left: 40px;
+    position: absolute;
+  }
+  .fontLongPlace {
+    text-align: center;
+    font-size: 3em;
+    top: 70px;
+    left: 130px;
+    position: absolute;
+  }
+  .iconSmallPlace {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+    line-height: 100px;
+  }
+  .fontSmallPlace {
+    text-align: center;
+    font-size: 2em;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .appIndexBtn {
+    width: 100%;
+    height: 180px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appIndexBigBtn {
+    width: 100%;
+    height: 360px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appLineBtn {
+    width: 100%;
+    height: 250px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+    position: relative;
+  }
+  .iconLinePlace {
+    display: block;
+    font-size: 6em;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 80px;
+    left: 34%;
+    position: absolute;
+  }
+  .fontLinePlace {
+    text-align: center;
+    font-size: 3em;
+    top: 90px;
+    left: 34%;
+    margin-left: 110px;
+    position: absolute;
+  }
+  .iconBigPlace {
+    display: block;
+    font-size: 10em;
+    text-align: center;
+    line-height: 300px;
+  }
+  .fontBigPlace {
+    text-align: center;
+    font-size: 3em;
+  }
+  .iconLongPlace {
+    display: block;
+    font-size: 70px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 70px;
+    left: 40px;
+    position: absolute;
+  }
+  .fontLongPlace {
+    text-align: center;
+    font-size: 3em;
+    top: 70px;
+    left: 130px;
+    position: absolute;
+  }
+  .iconSmallPlace {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+    line-height: 100px;
+  }
+  .fontSmallPlace {
+    text-align: center;
+    font-size: 2em;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 992px) {
+  .appIndexBtn {
+    width: 100%;
+    height: 130px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appIndexBigBtn {
+    width: 100%;
+    height: 260px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appLineBtn {
+    width: 100%;
+    height: 150px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+    position: relative;
+  }
+  .iconLinePlace {
+    display: block;
+    font-size: 5em;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 40px;
+    left: 20%;
+    position: absolute;
+  }
+  .fontLinePlace {
+    text-align: center;
+    font-size: 3em;
+    top: 50px;
+    left: 20%;
+    margin-left: 100px;
+    position: absolute;
+  }
+  .iconBigPlace {
+    display: block;
+    font-size: 6em;
+    text-align: center;
+    line-height: 170px;
+  }
+  .fontBigPlace {
+    text-align: center;
+    font-size: 3em;
+  }
+  .iconLongPlace {
+    display: block;
+    font-size: 40px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 50px;
+    left: 40px;
+    position: absolute;
+  }
+  .fontLongPlace {
+    text-align: center;
+    font-size: 2em;
+    top: 50px;
+    left: 100px;
+    position: absolute;
+  }
+  .iconSmallPlace {
+    display: block;
+    font-size: 2em;
+    text-align: center;
+    line-height: 80px;
+  }
+  .fontSmallPlace {
+    text-align: center;
+    font-size: 1.5em;
+  }
+}
+@media screen and (min-width: 400px) and (max-width: 500px) {
+  .appIndexBtn {
+    width: 100%;
+    height: 110px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appIndexBigBtn {
+    width: 100%;
+    height: 190px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appLineBtn {
+    width: 100%;
+    height: 120px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+    position: relative;
+  }
+  .iconLinePlace {
+    display: block;
+    font-size: 4em;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 30px;
+    left: 25%;
+    position: absolute;
+  }
+  .fontLinePlace {
+    text-align: center;
+    font-size: 2em;
+    top: 40px;
+    left: 25%;
+    margin-left: 60px;
+    position: absolute;
+  }
+  .iconBigPlace {
+    display: block;
+    font-size: 6em;
+    text-align: center;
+    line-height: 130px;
+  }
+  .fontBigPlace {
+    text-align: center;
+    font-size: 2em;
+  }
+  .iconLongPlace {
+    display: block;
+    font-size: 40px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 40px;
+    left: 30px;
+    position: absolute;
+  }
+  .fontLongPlace {
+    text-align: center;
+    font-size: 1.5em;
+    top: 45px;
+    left: 80px;
+    position: absolute;
+  }
+  .iconSmallPlace {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+    line-height: 70px;
+  }
+  .fontSmallPlace {
+    text-align: center;
+    font-size: 1em;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  .appIndexBtn {
+    width: 100%;
+    height: 70px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appIndexBigBtn {
+    width: 100%;
+    height: 130px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+  }
+  .appLineBtn {
+    width: 100%;
+    height: 60px;
+    background: #ff0000;
+    margin-top: 4px;
+    display: block;
+    position: relative;
+  }
+  .iconLinePlace {
+    display: block;
+    font-size: 2em;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 20px;
+    left: 24%;
+    position: absolute;
+  }
+  .fontLinePlace {
+    text-align: center;
+    font-size: 1.3em;
+    top: 20px;
+    left: 24%;
+    margin-left: 35px;
+    position: absolute;
+  }
+  .iconBigPlace {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+    line-height: 80px;
+  }
+  .fontBigPlace {
+    text-align: center;
+    font-size: 1.5em;
+  }
+  .iconLongPlace {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    top: 30px;
+    left: 10px;
+    position: absolute;
+  }
+  .fontLongPlace {
+    text-align: center;
+    font-size: 1em;
+    top: 30px;
+    left: 45px;
+    position: absolute;
+  }
+  .iconSmallPlace {
+    display: block;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 45px;
+  }
+  .fontSmallPlace {
+    text-align: center;
+    font-size: 1em;
+  }
+}
+.appIndexBox {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.appBtnColor1 {
+  background: #ffc000 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor1:hover {
+  background: #e99b04 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor2 {
+  background: #92ca05 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor2:hover {
+  background: #e83e03 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor3 {
+  background: #f16528 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor3:hover {
+  background: #d70c0c padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor4 {
+  background: #00aff2 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor4:hover {
+  background: #0ebf82 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor5 {
+  background: #5a36b4 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor5:hover {
+  background: #0d7ebe padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor6 {
+  background: #f1394e padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appBtnColor6:hover {
+  background: #7725f3 padding-box;
+  text-decoration: none;
+  color: #fff;
+}
+.appHeaderMark {
+  height: 50px;
+  width: 30px;
+  display: block;
+  float: left;
+  margin-left: 3px;
+}
+.writecardlink {
+  background: url(../images/tips/writecardlink.png) no-repeat center;
+}
+.computerlink {
+  background: url(../images/tips/computerlink.png) no-repeat center;
+}
+.writecardbreak {
+  background: url(../images/tips/writecardbreak.png) no-repeat center;
+}
+.computerbreak {
+  background: url(../images/tips/computerbreak.png) no-repeat center;
+}
+.appHeaderTxt {
+  color: #ffffff;
+  line-height: 50px;
+  text-indent: 5px;
+  float: left;
+  width: 150px;
+  padding: 0px;
+  margin: 0px;
+}
+.headerRightBtn {
+  display: block;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 45px;
+  color: #ffffff;
+  float: right;
+  font-size: 1.5em;
+  background: url(../images/tips/checkCard.png) #14a775 no-repeat center;
+}
+.headerRightBtn:hover {
+  background: url(../images/tips/checkCard.png) #005739 no-repeat center;
+}
+.topHeightBox {
+  height: 50px;
+}

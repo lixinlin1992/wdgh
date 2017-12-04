@@ -1,0 +1,75 @@
+#菜单定义
+#可以使用变量 ${module_path}
+#
+# 格式：
+# 菜单路径          排序（小的在前）                                        菜单资源路径
+
+
+#开发平台/配置管理/业务系统安装                        0                       pages/rdcp/system/systemInstall.jsp
+#模块功能管理	pages/rdcp/system/moduleFunctionManage.jsp
+#系统菜单管理	pages/rdcp/system/systemMenuList.jsp
+#校验规则管理	pages/rdcp/config/validateRuleList.jsp
+#编码管理	pages/service/basedata/codeList.jsp
+#页面模板容器管理	pages/rdcp/page/pageContainerList.jsp
+#页面模板区域管理	pages/rdcp/page/pageSectorList.jsp
+#模板管理	pages/rdcp/page/templateManage.jsp
+#开发平台/配置管理/页面管理                          0                   pages/rdcp/page/pageManage.jsp
+#开发平台/配置管理/开发人员管理                    0                   pages/rdcp/system/devManage.jsp
+#开发平台/配置管理/业务系统管理                    1                   pages/rdcp/system/systemList.jsp
+#开发平台/配置管理/执行器管理                         2                   pages/rdcp/query/executorManage.jsp
+#开发平台/配置管理/处理器管理                         3                   pages/rdcp/query/processorManage.jsp
+#开发平台/配置管理/版本信息                          4                   pages/rdcp/version/versionsInfo.jsp
+
+
+#数据源管理	pages/rdcp/datasource/dataSourceList.jsp
+#查询管理	pages/rdcp/query/queryManage.jsp
+#菜单管理	pages/service/security/menuList.jsp
+
+#系统管理/参数设置/登录IP规则管理                  0                   pages/service/security/ipRulesList.jsp
+
+#系统功能维护	pages/service/security/functionList.jsp
+#业务数据库配置	pages/rdcp/system/dbConfigList.jsp
+#编码类型管理	pages/service/basedata/codeTypeList.jsp
+#对话框测试页面	framework.do?ds=DS_RDCP_RUN_PAGE&page_code=DHKCSYM
+
+#一级菜单1           0
+#一级菜单2           1
+#一级菜单3           2
+
+#一级菜单1/二级菜单1_1         0
+#一级菜单1/二级菜单1_2         1
+#一级菜单1/二级菜单1_3         2
+
+#一级菜单2/二级菜单2_1         0
+#一级菜单2/二级菜单2_2         1
+#一级菜单2/二级菜单2_3         2
+
+#一级菜单3/二级菜单3_1         0
+#一级菜单3/二级菜单3_2         1
+#一级菜单3/二级菜单3_3         2
+
+#一级菜单1/二级菜单1_1/三级菜单1_1_1           0         pages/123.jsp
+#一级菜单1/二级菜单1_1/三级菜单1_1_2           1         pages/123.jsp
+
+#一级菜单1/二级菜单1_2/三级菜单1_2_1         0           page/123.jsp
+#一级菜单1/二级菜单1_2/三级菜单1_2_2         1           page/123.jsp
+
+#一级菜单1/二级菜单1_3/三级菜单1_3_1         0           page/123.jsp
+#一级菜单1/二级菜单1_3/三级菜单1_3_2         1           page/123.jsp
+
+
+#一级菜单2/二级菜单2_1/三级菜单2_1_1         0           page/123.jsp
+#一级菜单2/二级菜单2_1/三级菜单2_1_2         1           page/123.jsp
+
+
+#一级菜单2/二级菜单2_2/三级菜单2_2_1         0           page/123.jsp
+#一级菜单2/二级菜单2_2/三级菜单2_2_2         1           page/123.jsp
+
+
+#一级菜单3/二级菜单3_1/三级菜单3_1_1         0           page/123.jsp
+#一级菜单3/二级菜单3_1/三级菜单3_1_2         1           page/123.jsp
+
+
+#菜单定义
+#可以使用变量 ${module_path}
+#

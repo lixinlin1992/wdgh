@@ -1,0 +1,138 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/amalgamation_4.js"></script>
+  <!--进度条Begin-->
+  <div class="com_progress">
+    <img src="!ESale/Mobile/Business/VirtualService/Phone/Amalgamation/~/images/1.png" alt=""/>
+  </div>
+  <!--进度条End-->
+
+  <div id="businessLayoutDiv" class="layout_centent">
+    <!--标题一Begin-->
+    <div id="businessTitleDiv" class="com_title first_title" >
+      <span>业务类型</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <input id="businessDivStatus" type="hidden" value="hidden"/>
+    <input id="businessRowsCount" type="hidden" value="0">
+    <div id="businessDIV" class="container-fluid" style="height: 0px;overflow: hidden">
+    </div>
+    <div id="businessChildDIV" class="container-fluid" style="height: 44px;overflow: hidden;">
+
+    </div>
+
+    <!--选择按钮End-->
+  </div>
+
+  <!--费用类型模块 begin-->
+  <div id="feeLayoutDiv" class="layout_centent">
+    <!--标题一Begin-->
+    <div id="feeTitleDiv" class="com_title first_title" >
+      <span>费用类型</span>
+      <a id="feeMoreBtn" class="morebtn" href="javascript:void(0)" onclick="">更多选择</a>
+    </div>
+    <!--标题一End-->
+    <!--费用类型一级按钮Begin-->
+    <input id="feeOnlyOne" type="hidden" value="false"/>
+    <input id="feeDivStatus" type="hidden" value="hidden"/>
+    <input id="feeRowsCount" type="hidden" value="0">
+    <div id="feeDIV" class="container-fluid" ></div>
+    <!--费用类型一级按钮end-->
+
+    <!--费用类型二级按钮Begin-->
+    <input id="feeChildOnlyOne" type="hidden" value="false"/>
+    <input id="feeChildDivStatus" type="hidden" value="hidden"/>
+    <input id="feeChildRowsCount" type="hidden" value="0">
+    <div id="feeChildDIV" class="container-fluid"></div>
+    <!--费用类型二级按钮end-->
+  </div>
+  <!--费用类型模块 end-->
+
+  <!--身份证信息模块Begin-->
+  <div id="IDCard" class="layout_centent">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+      <span>身份证信息</span>
+    </div>
+    <!--标题一End-->
+
+    <!--常用btn-->
+    <div id="bluetoothDiv">
+      <a id="bluetooth_read_btn" class="com_btn gary_btn" href="javascript://" onclick="bluetoothRead();">蓝牙读取</a>
+    </div>
+    <!--常用btn-->
+    <!--提示文字Begin-->
+    <div class="small_font gray_font" style="line-height: 30px;">
+      请上传身份证正、反面以及手持照片
+    </div>
+    <!--提示文字End-->
+
+    <div id="ocrDiv" style="display: block">
+      <!--提示文字Begin-->
+      <a id="ocr_btn" class="com_btn gary_btn" href="javascript://" style="margin-top: 15px;" onclick="pictureRead(this);">
+       读取身份证
+      </a>
+      <!--提示文字End-->
+    </div>
+    <!--读取身份证模块Begin-->
+    <div class="container-fluid goods_show_list">
+      <div id="frontDiv" class="col-md-2 col-sm-3 col-xs-4" style="display:block">
+        <div style="width:60px; height:60px; margin:5px; background:url('!ESale/Mobile/Mall/UI/~/images/form/front.png');
+                                    background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+          <input type="file" accept="image/jpeg,image/png"
+                 style=" width:60px; height:60px; opacity:0;"
+                 data-param="front" id="front" onchange="uploadImg('front');" single>
+          <div style="width: 100%;height: 100%;display: block;opacity:0;" id="new_img_front" onclick="takePhoto('front')"></div>
+        </div>
+        <input type="hidden" id="SFZZMTPID">
+      </div>
+      <div id="contraryDiv" class="col-md-2 col-sm-3 col-xs-4" style="display:block">
+        <div style="width:60px; height:60px; margin:5px; background:url('!ESale/Mobile/Mall/UI/~/images/form/contrary.png');
+                                    background-size:60px 60px;-moz-background-size:60px 60px;-webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+          <input type="file" accept="image/jpeg,image/png"
+                 style=" width:60px; height:60px; opacity:0;"
+                 data-param="contrary" id="contrary" onchange="uploadImg('contrary');" single>
+          <div style="width: 100%;height: 100%;display: block;opacity:0;" id="new_img_contrary" onclick="takePhoto('contrary')"></div>
+        </div>
+        <input type="hidden" id="SFZBMTPID">
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4">
+        <div style="width:60px; height:60px; margin:5px; background:url('!ESale/Mobile/Mall/UI/~/images/form/handhold.png');
+                                    background-size:60px 60px;-moz-background-size:60px 60px;-webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+          <input type="file" accept="image/jpeg,image/png"
+                 style=" width:60px; height:60px; opacity:0;"
+                 data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+          <div style="width: 100%;height: 100%;display: block;opacity:0;" id="new_img_hand" onclick="takePhoto('hand')"></div>
+        </div>
+        <input type="hidden" id="SFZSCTPID">
+      </div>
+      <div class="progress" style="width: 100%">
+        <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped"
+             role="progressbar"
+             aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+
+    </div>
+    <!--读取照片模块End-->
+
+    <!--联系人信息模块begin-->
+    <form id="form">
+      <div class="formlist">
+        <div class="form_left">
+          <p class="form_title"><font color="red">*</font>联系人:</p>
+        </div>
+        <div class="form_right">
+          <input id="name" class="input_normal" type="text"/>
+        </div>
+      </div>
+      <div class="formlist">
+        <div class="form_left">
+          <p class="form_title"><font color="red">*</font>联系电话:</p>
+        </div>
+        <div class="form_right">
+          <input id="telephone" class="form-control"  type="text"/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!--身份证信息模块End-->

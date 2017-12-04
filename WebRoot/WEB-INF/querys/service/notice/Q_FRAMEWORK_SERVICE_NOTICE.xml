@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<!-- 信息公告 -->
+	<!-- 
+		列名：录入时间,主题,浏览次数
+	-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_LIST" type="pagelist"
+		result="json">
+		<stmt><![CDATA[
+		select t.notice_date,t.title,t.visit_number ,t.id from sys_n_notice t where t.status_id=1
+		]]></stmt>
+		<param name="id">id</param>
+	</query>
+	<!-- 公告显示 -->
+	<!-- 
+		列名：标题，发布人，开始时间，内容
+	-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_DETAIL_LIST" type="pagelist"
+		result="ftl">
+		<stmt><![CDATA[
+		select t.title,p.name,t.start_date,t.content,t.status_id from sys_n_notice t,sys_p_user p where p.id=t.publish_user_id and t.id=[noticeId]
+		]]></stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/service/notice/T_FRAMEWORK_SERVICE_NOTICE_EDIT.ftl
+		</param>
+	</query>
+	<!-- 附件展示 -->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_ATTACHMENT_LIST" type="pagelist"
+		result="ftl">
+		<stmt><![CDATA[
+			select files.name as name,files.id as ids from core_b_upload_file files
+			where files.ref_obj = [noticeId]
+		]]></stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/service/notice/T_FRAMEWORK_SERVICE_NOTICE_ATTACHMENT_EDIT.ftl
+		</param>
+	</query>	
+	<!--公告访问次数统计-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_VISIT" type="batch" 
+		result="json">
+		<stmt><![CDATA[
+		update sys_n_notice t set t.visit_number=t.visit_number+1 where t.id=[noticeId];
+		insert into sys_n_visit (id,NOTICE_ID,USER_ID,VISIT_DATE) values 
+		(SYS_N_VISIT_SEQ.nextval,[noticeId],0,(select to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd')as time from dual));
+		]]></stmt>
+		<param name="trans">true</param>
+	</query>
+</query-config>

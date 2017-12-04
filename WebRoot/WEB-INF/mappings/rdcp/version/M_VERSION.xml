@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!--版本信息列表-->
+    <ds name="DS_VERSION_INFO_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/version/Q_VERSION.xml&_id=Q_VERSION_INFO_LIST]]></url>
+    </ds>
+
+    <!--版本控制，提交操作-->
+    <ds name="DS_VERSION_COMMIT" type="url">
+        <url>_rdcpVersionControl.action</url>
+    </ds>
+
+    <!--版本控制，操作权限检查-->
+    <ds name="DS_VERSION_CONTROL_PERMISSIONS_CHECK" type="url">
+        <url>/_rdcpVersionControl.action?method=permissionsCheck</url>
+    </ds>
+
+    <!--版本控制，版本撤销-->
+    <ds name="DS_VERSION_REVOCATION" type="url">
+        <url>/_rdcpVersionControl.action?method=revocationAction</url>
+    </ds>
+
+    <!--版本控制，版本回滚-->
+    <ds name="DS_VERSION_ROLLBACK" type="url">
+        <url>/_rdcpVersionControl.action?method=rollBackAction</url>
+    </ds>
+
+    <!--版本控制，版本批量提交-->
+    <ds name="DS_VERSION_COMMIT_BATCH" type="url">
+        <url>/_rdcpVersionControl.action?method=versionCommitBatch</url>
+    </ds>
+
+    <!--版本控制，版本批量撤销-->
+    <ds name="DS_VERSION_REVOCATION_BATCH" type="url">
+        <url>/_rdcpVersionControl.action?method=versionRevocationBatch</url>
+    </ds>
+</datasources>

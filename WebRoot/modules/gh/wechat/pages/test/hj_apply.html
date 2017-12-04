@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>入会申请</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/shake.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/wo.js"></script>
+    <!-- 日期插件js -->
+    <script src="js/datetime/jquery-1.11.1.min.js"></script>
+    <script src="js/datetime/mobiscroll.core.js"></script>
+    <script src="js/datetime/mobiscroll.widget.js"></script>
+    <script src="js/datetime/mobiscroll.scroller.js"></script>
+    <script src="js/datetime/mobiscroll.util.datetime.js"></script>
+    <script src="js/datetime/mobiscroll.datetimebase.js"></script>
+    <script src="js/datetime/mobiscroll.widget.ios.js"></script>
+    <script src="js/datetime/mobiscroll.i18n.zh.js"></script>
+    <link href="css/datetime/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.widget.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.widget.ios.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(function () {
+            var nowData=new Date();
+            var opt= {
+                theme:'ios', //设置显示主题
+                mode:'scroller', //设置日期选择方式，这里用滚动
+                display:'bottom', //设置控件出现方式及样式
+                preset : 'datetime', //日期:年 月 日 时 分
+                minDate: nowData,
+                // maxDate:new Date(nowData.getFullYear(),nowData.getMonth(),nowData.getDate()+7,22,00),
+                dateFormat: 'yy-mm', // 日期格式,显示小时分钟加上dd
+                dateOrder: 'yymm', //面板中日期排列格式,显示小时分钟加上dd
+                stepMinute: 5, //设置分钟步长
+                yearText:'年',
+                monthText:'月',
+                dayText:'日',
+                hourText:'时',
+                minuteText:'分',
+                lang:'zh' //设置控件语言};
+            };
+            $('#dateinput').mobiscroll(opt);
+            $('#dateinput2').mobiscroll(opt);
+        });
+    </script>
+    <style>
+        .inter_add ul li , .inter_add ul li a span input, .inter_add ul li a span select { font-size: 1.6rem !important;}
+    </style>
+   
+</head>
+<body style="background-color: #fff !important;">
+<div class="warpe">
+    <div class="head">
+        <a href="#" class="return"><i class="icon-chevron-left"></i> 返回</a>
+        入会申请
+        <a href="#" class="search animated fadeInRight" style="font-size: 1.4rem;">提交</a>
+    </div>
+    <div class="inter_add">		
+		<ul>
+            <li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">工号：</span>
+					<span class="puff_right">
+						<input  type="text" id="account" name="account" readonly/>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">姓名：</span>
+					<span class="puff_right">
+						<input  type="text" id="name" name="name"  readonly/>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">性别：</span>
+					<span class="puff_right">
+						<select id="sex" name="sex">
+                                <option value="-1">--请选择--</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                        </select>					
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">出生年月：</span>
+					<span class="puff_right">
+						<input  type="text" id="birthday" name="birthday" onfocus="WdatePicker({dateFmt : 'yyyy-MM-dd'})" class="Wdate"/>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">政治面貌：</span>
+					<span class="puff_right">
+						<select id="political_status" name="political_status"  >
+							 <option value="-1">--请选择--</option>
+						</select>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">民族：</span>
+					<span class="puff_right">
+						<input  type="text" id="nation" name="nation" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">证件类型：</span>
+					<span class="puff_right">						
+						<select id="card_type" name="card_type">
+							<option value="-1">--请选择--</option>
+							<option value="1">身份证</option>
+							<option value="2">一卡通</option>
+						</select>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">证件号：</span>
+					<span class="puff_right">
+						<input  type="text"id="card_no" name="card_no" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li><li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">学历：</span>
+					<span class="puff_right">
+						<select id="qualifications" name="qualifications"  >
+							<option value="-1">--请选择--</option>
+						</select>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li><li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">学位：</span>
+					<span class="puff_right">
+						<select id="degree" name="degree"  >
+							<option value="-1">--请选择--</option>
+						</select>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li><li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">岗位名称：</span>
+					<span class="puff_right">
+						<input  type="text" id="post" name="post" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li><li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">职务职称：</span>
+					<span class="puff_right">
+						<input  type="text" id="duties" name="duties" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">手机号：</span>
+					<span class="puff_right">
+						<input  type="text" id="tele_phone" name="tele_phone"  />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">电子邮箱：</span>
+					<span class="puff_right">
+						<input  type="text" id="email" name="email" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">备注：</span>
+					<span class="puff_right">
+						<input  type="text" id="memo" name="memo" />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+		</ul>
+	</div>
+	<div class="inter_add">	
+		<ul>		
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">所属工会：</span>
+					<span class="puff_right">
+						<select id="dept_id" name="dept_id" >
+							<option value="-1">--请选择--</option>
+						</select>
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>						
+			<li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_left">会籍状态备注：</span>
+					<span class="puff_right">
+						<input  type="text" d="trade_memo" name="trade_memo"  />
+					</span>                  
+                   <i class="icon-angle-right"></i>
+                </a>
+            </li>
+            <li class="animated bounceInLeft">
+                <a href="javascript:;">
+                    <span class="puff_right"><input  type="checkbox" id="is_agree" />同意《中华全总工会入会申请书》</span>
+					<!--<span class="puff_left">-->
+						<!--<input  type="checkbox" id="is_agree" />-->
+					<!--</span>                  -->
+                   <!--<i class="icon-angle-right"></i>-->
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

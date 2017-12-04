@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 查询已部署流程定义 -->
+	<ds name="DS_PROCESS_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_PROCESS_LIST]]></url>
+	</ds>
+	<!-- 查询运行中任务 -->
+	<ds name="DS_RUNNING_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_RUNNING_LIST]]></url>
+	</ds>
+
+
+	<!--根据任务ID更新流程的businessKey -->
+	<ds name="DS_UPDATE_BUSINESSKEY_BY_TASKID" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_UPDATE_BUSINESSKEY_BY_TASKID]]></url>
+	</ds>
+	<!--根据流程实例ID更新流程的businessKey -->
+	<ds name="DS_UPDATE_BUSINESSKEY_BY_PROCINSTID" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_UPDATE_BUSINESSKEY_BY_PROCINSTID]]></url>
+	</ds>
+
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST]]></url>
+	</ds>
+
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT]]></url>
+	</ds>
+	
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_TREE_DEPT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_TREE_DEPT]]></url>
+	</ds>
+	
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT_USER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_DEPT_USER]]></url>
+	</ds>
+	
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP]]></url>
+	</ds>
+	<ds name="DS_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP_USER" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/Q_BPM_QUERY.xml&_id=Q_BPM_ASSIGNEE_SELECTOR_VIEW_LIST_GROUP_USER]]></url>
+	</ds>
+</datasources>

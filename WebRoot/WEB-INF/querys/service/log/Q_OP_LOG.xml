@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<!-- 用户管理日志查询 -->
+	<query id="Q_OP_LOG_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+		SELECT l.*,u.NAME AS USER_NAME,f.NAME AS FUNCTION_NAME,m.NAME AS MODULE_NAME
+		FROM SYS_L_OP l,SYS_P_USER u,SYS_P_FUNCTION f,SYS_P_MODULE m
+		WHERE u.ID(+)=l.USER_ID AND f.ID(+)=l.FUNCTION_ID AND m.ID(+)=f.MODULE_ID
+		<#if module_name?exists>
+		AND m.NAME [like(module_name)]
+		</#if>
+		<#if function_name?exists>
+		AND f.NAME [like(function_name)]
+		</#if>
+		<#if start_op_time?exists>
+		AND TO_CHAR(l.OP_TIME,'YYYY-MM-DD')>=[start_op_time]
+		</#if>
+		<#if end_op_time?exists>
+		AND TO_CHAR(l.OP_TIME,'YYYY-MM-DD')<=[start_op_time]
+		</#if>
+		<#if user_name?exists>
+		AND u.NAME [like(user_name)]
+		</#if>
+		ORDER BY l.OP_TIME DESC
+		]]></stmt>
+		<param name="list-cols">ID,USER_NAME,OP_TIME,MODULE_NAME,FUNCTION_NAME,MESSAGE</param>
+		<param name="exp-cols">ID,USER_NAME,OP_TIME,MODULE_NAME,FUNCTION_NAME,MESSAGE</param>
+		<param name="exp-names">日志ID,操作人,操作时间,模块,功能,详细信息</param>
+        <param name="exp-file">日志数据导出</param>
+	</query>
+
+    <!-- 插入操作日志 -->
+    <query id="Q_OP_LOG_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    INSERT INTO SYS_L_OP(ID,USER_ID,TYPE_ID,OP_TIME,FUNCTION_ID,MESSAGE)
+                    VALUES(SYS_L_OP_SEQ.NEXTVAL,[user_id long],[type_id int],SYSDATE,[function_id long],[message])
+                    ]]>
+        </stmt>
+    </query>
+	
+	<!-- 删除单条日志 -->
+	<query id="Q_OP_LOG_DEL#" type="update" result="">
+		<stmt><![CDATA[
+        delete from sys_l_op where id=[log_id]
+		]]></stmt>
+        <param name="trans">true</param>
+	</query>
+	
+	<!-- 根据条件删除日志 --><!--[logop(3,删除日志，根据条件)]-->
+	<query id="Q_OP_LOG_DEL" type="update" result="">
+		<stmt><![CDATA[
+		<#if id?exists><#-- 删除单条日志 -->
+		    DELETE FROM SYS_L_OP WHERE ID=[id long]
+		<#else>
+            DELETE FROM SYS_L_OP slop WHERE 1 = 1
+            <#if ModuleName?exists>
+            AND FUNCTION_ID IN (SELECT ID FROM SYS_P_MENU WHERE PARENT_ID =(SELECT ID FROM SYS_P_MODULE WHERE
+            PARENT_ID=(SELECT ID FROM SYS_P_MODULE WHERE NAME [like(ModuleName)])))
+            </#if>
+            <#if keywords?exists>
+            AND slop.FUNCTION_ID=(SELECT spf.id from sys_p_function spf where name [like(keywords)])
+            or  slop.user_id in(select spu.id from sys_p_user spu where spu.account [like(keywords)])
+            or slop.message [like(keywords)]
+            </#if>
+            <#if start_date?exists>
+            and to_char(slog.OP_TIME,'yyyymmdd')=replace([start_date],'-')
+            </#if>
+    	</#if>
+		]]></stmt>
+        <param name="trans">true</param>
+	</query>
+</query-config>

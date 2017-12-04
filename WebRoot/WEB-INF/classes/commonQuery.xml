@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<common-query>
+    <!-- 执行器配置，需要执行器实现类完整名称 -->
+    <executors>
+        <exe>com.sunrise.service.report.impl.ReportDataQueryExecutor</exe>
+        <exe>com.sunrise.service.security.exe.AccessTreeExecutor</exe>
+		<exe>com.sunrise.rdcp.executor.PropertySaveExecutor</exe>
+    </executors>
+
+    <!-- 函数配置，需要函数实现类完整名称 -->
+    <functions>
+        <!--<func>java.query.function.CommOrgSecurityFunction</func>-->
+        <func>com.sunrise.rdcp.func.RdcpSecurityFunction</func>
+    </functions>
+
+    <!-- 查询预/后处理器配置，需要处理器实现类完整名称 -->
+    <processors>
+        <processor>com.sunrise.service.log.OpLogProcessor</processor>
+        <processor>com.sunrise.rdcp.pro.RdcpSecurityProcessor</processor>
+        <processor>com.sunrise.rdcp.version.VersionLockProcessor</processor>
+        <processor>com.sunrise.rdcp.pro.DBConfigEditProcessor</processor>
+    </processors>
+</common-query>

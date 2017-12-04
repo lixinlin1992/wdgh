@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_SUB_MENU_DATA" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+		  <#if code_table=="BI_SCHOOL_CULTURE">
+		  with a as (
+		    select max(id) file_id,busi_id from sys_file where busi_type=[code_table] group by busi_id
+		  )
+		  select bgi.id,bgi.title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,
+		  movie_type,to_char(play_time,'yyyy-mm-dd hh24:mi') play_time,play_place,actors,a.file_id
+		  from ${code_table} bgi
+		  left join a on to_char(bgi.id)=busi_id
+		  where type=[code_num]
+		  order by create_time desc
+
+		  <#elseif code_table=="BI_ADVANCED_PEOPLE">
+		    select bgi.id,bgi.title,dept,spd.name as dept_name,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		  from ${code_table} bgi
+		  left join sys_p_department spd on bgi.dept=spd.id
+		  where type=[code_num]
+		  order by create_time desc
+
+		  <#else>
+		    select bgi.id,bgi.title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		  from ${code_table} bgi
+		  where type=[code_num]
+		  order by create_time desc
+		  </#if>
+		]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

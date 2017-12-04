@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_SUBMENU_LIST" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+		select id,substr(title,0,20)||'....' title,type,[header_title] header_title from ${code_table}
+		where type=${code_num}
+		]]>
+		</stmt>
+		<param name="paging">true</param>
+		<processor name="set-value" type="before" seq="1" break="false">
+			<param name="var">header_title</param>
+			<param name="sql"><![CDATA[
+			  select bim2.menu_name||'>'||bim.menu_name from bi_index_menu bim
+ join bi_index_menu bim2 on bim.p_menu_id=bim2.menu_id
+where bim.code_table=[code_table] and bim.menu_code=${code_num}
+			]]></param>
+		</processor>
+	</query>
+</query-config>

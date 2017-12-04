@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_ONLINEUSER_LIST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                select l.ID as loginid,u.account,u.name,to_char(l.login_time,'YYYY-MM-DD HH24:MI:SS')as ltime,l.LOGIN_IP as IP,
+                l.SESSION_ID,l.USER_ID
+				from sys_l_login l 
+				left join sys_p_user u on u.id=l.user_id
+				where l.logout_time is null
+				<#if user_account??>
+                and u.account [like(user_account)]
+                </#if>
+                <#if user_name??>
+                and u.name [like(user_name)]
+                </#if>
+                ORDER BY l.LOGIN_TIME DESC
+              ]]>
+        </stmt>
+    </query>
+</query-config>

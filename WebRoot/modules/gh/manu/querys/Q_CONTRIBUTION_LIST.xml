@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_CONTRIBUTION_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select c.id,c.title,c.state,c.remark1,c.remark2,c.author_one,c.author_two,c.author_three,c.create_time,u.name as create_user_name,u.account,d.name as dept_name
+				from bi_contribution c
+				left join sys_p_user u ON c.create_user=u.id
+                left join sys_p_department d on u.dept_id=d.id
+		        where 1=1
+				<#if dept_id??>
+				  and  d.id=[dept_id]
+				</#if>
+				<#if title??>
+				 and c.title [like(title)]
+				</#if>
+				<#if create_user??>
+				  and u.name [like(create_user)]
+				</#if>
+
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

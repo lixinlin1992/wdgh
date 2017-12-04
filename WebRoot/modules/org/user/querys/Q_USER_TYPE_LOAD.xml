@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 加载用户类型下拉选项 -->
+    <!--返回所有的角色-->
+    <query id="Q_USER_TYPE_LOAD" type="combos" result="easyui-combobox">
+        <stmt><![CDATA[
+            SELECT
+                '-1' AS value, N'请选择' AS text, N'true' AS checked FROM DUAL
+            UNION ALL
+            SELECT
+                code_num AS value, NAME AS text,
+                <#if code_num??>
+                CASE WHEN CODE_NUM=[code_num] THEN N'true' ELSE  N'false'  END AS checked
+                <#else>
+                N'false' AS checked
+                </#if>
+            FROM SYS_PA_CODE
+            WHERE code_table = 'SYS_P_USER' AND code_field = 'TYPE_ID'
+            <#if var("MODULE_CONFIG.org/user.params.manage_able_types")??>
+            AND CODE_NUM IN (${var("MODULE_CONFIG.org/user.params.manage_able_types")})
+            </#if>
+            ]]></stmt>
+        <param name="paging">false</param>
+        <param name="id-col">value</param>
+        <param name="name-col">text</param>
+        <param name="checked-col">checked</param>
+    </query>
+</query-config>

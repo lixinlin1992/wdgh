@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="TEST_UPDATE" type="auto-update" result="">
+        <param name="update-tables">sys_p_user u</param>
+        <!--<param name="col-vals"><![CDATA[u.account='admin']]></param>-->
+        <param name="key-cols">u.account</param>
+        <param name="update-cols">u.name</param>
+    </query>
+</query-config>

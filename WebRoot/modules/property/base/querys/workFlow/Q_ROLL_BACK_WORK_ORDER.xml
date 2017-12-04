@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <!-- 公共填充下拉框 -->
+    <query id="Q_ROLL_BACK_WORK_ORDER" type="batchQuery" result="template">
+        <stmt>
+            <![CDATA[
+
+                select ds_for_exe from wf_flow wf where wf.start_node_id =
+                       (select node_id from wf_ru_task where id = [task_id])
+                       and wf.up_or_down = 'HISTORY' and id <> 103;
+                --当前处理任务标志为已处理
+            UPDATE WF_RU_TASK SET END_TIME = SYSDATE,HANDLE_ID='149',note='撤回',handle_man_id=${_CurrUser.id},node_id = '134' WHERE ID = [task_id];
+            --插入结束节点任务
+            INSERT INTO WF_RU_TASK (ID , WORK_ORDER_ID , NODE_ID , HANDLE_MAN_ID , START_TIME , END_TIME,HANDLE_ID)
+                                   SELECT WF_RU_TASK_SEQ.NEXTVAL , T.WORK_ORDER_ID , [nextNodeId]  , ${_CurrUser.id}  ,SYSDATE , SYSDATE,'149' FROM WF_RU_TASK T WHERE T.ID = [task_id];
+            --将流程实例标记为死亡
+            UPDATE WF_WORK_ORDER SET STATUS = 0 WHERE ID IN ( SELECT WORK_ORDER_ID FROM WF_RU_TASK WHERE ID = [task_id] );
+
+
+            ]]>
+        </stmt>
+
+        <param name="trans">true</param>
+        <param name="template" freemarker="false">
+            <![CDATA[
+				{
+                    <#list resultSet_0.rows as i>
+                    "ds_for_exe":"${i.ds_for_exe!}"
+                    </#list>
+                }
+		    ]]>
+        </param>
+
+        <processor name="check-count" type="before" seq="0" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) FROM WF_RU_TASK T WHERE T.END_TIME IS NULL AND T.ID = [task_id]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[该工单已处理，请及时刷新历史工单列表！]]></param>
+        </processor>
+
+
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">handle_result</param>
+            <param name="sql">
+                <![CDATA[
+					select id from wf_flow wf where wf.start_node_id =
+                       (select node_id from wf_ru_task where id = [task_id])
+                       and wf.up_or_down = 'HISTORY' and id <> 103
+				]]>
+            </param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">nextNodeId</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT F.END_NODE_ID AS nextNodeId FROM WF_FLOW F WHERE F.ID = [handle_result]
+				]]>
+            </param>
+        </processor>
+    </query>
+</query-config>

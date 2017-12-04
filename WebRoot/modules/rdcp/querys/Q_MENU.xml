@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 获取当前用户是否管理员，如果是isAdmin返回一个大于等于1的数值，否则返回0 -->
+    <query id="Q_USER_MENUS" type="trees" result="easyui-tree">
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">isAdmin</param>
+            <param name="sql">
+                <![CDATA[
+                    select count(1) from sys_p_user u, sys_p_user_group g, sys_p_user_ug ug where 1 = 1 and ug.user_group_code = g.code(+) and ug.user_id = u.id and g.code = 'ADMIN' and u.id = ${var("RU.CUR_USER").id}
+				]]>
+            </param>
+        </processor>
+
+        <stmt>
+            <![CDATA[
+
+            select m.id as id,
+                   m.name as text,
+                   m.parent_id as pid,
+                   (select f.code from sys_p_function f where f.id = m.function_id) as menuurl,
+                   '1' as typeid,
+                   '1' as ptypeid,
+                   'false' as checked,
+                   'false' as opened,
+                   m.function_id as functionid,
+                   decode((select count(1) from sys_p_menu_fav mf where mf.user_id = ${var("RU.CUR_USER").id} and mf.menu_id = m.id),0,'false','true') as isfav
+              from sys_p_menu m
+             where 1 = 1
+            <#if isAdmin &lt; 1>
+                and m.id in
+                       (select mm.id
+                          from sys_p_menu mm
+                         start with mm.id in
+                                    (select mmm.id
+                                       from sys_p_menu mmm, sys_p_function f, sys_p_user_f uf
+                                      where uf.function_id = f.id(+)
+                                        and f.id = mmm.function_id(+)
+                                        and uf.user_id = ${var("RU.CUR_USER").id}
+                                        and mmm.level_id = 3
+                                        and mmm.status = 1
+                                        and f.status = 1
+                                     union all
+                                     select mmm.id
+                                       from sys_p_menu mmm, sys_p_function f
+                                      where f.id = mmm.function_id(+)
+                                        and f.access_rule = 0
+                                        and mmm.level_id = 3
+                                        and mmm.status = 1
+                                        and f.status = 1
+                                     union all
+                                     select mmm.id
+                                       from sys_p_menu mmm, sys_p_function f
+                                      where f.id = mmm.function_id(+)
+                                        and mmm.level_id = 3
+                                        and mmm.status = 1
+                                        and f.status = 1
+                                        and f.id in
+                                            (select ggf.function_id
+                                               from sys_p_user_group_f ggf
+                                              where ggf.user_group_code in
+                                                    (select uugg.user_group_code
+                                                       from sys_p_user_ug uugg
+                                                      where uugg.user_id = ${var("RU.CUR_USER").id})))
+                        connect by prior mm.parent_id = mm.id)
+            </#if>
+
+            order by m.ORDER_ID asc
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+        <param name="parent-col">pid</param>
+        <param name="root-flag">${pid!0}</param>
+    </query>
+
+    <query id="Q_ADD_FAV_MENU" type="update" result="json">
+        <stmt>
+            <![CDATA[
+			INSERT INTO SYS_P_MENU_FAV mf (USER_ID, MENU_ID) VALUES(${var("RU.CUR_USER").id}, [menuId])
+			]]>
+        </stmt>
+    </query>
+
+    <query id="Q_DEL_FAV_MENU" type="update" result="json">
+        <stmt>
+            <![CDATA[
+			DELETE FROM SYS_P_MENU_FAV mf WHERE mf.USER_ID = ${var("RU.CUR_USER").id} AND mf.MENU_ID = [menuId]
+			]]>
+        </stmt>
+    </query>
+
+</query-config>

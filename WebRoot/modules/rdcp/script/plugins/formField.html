@@ -1,0 +1,57 @@
+<div id="_formField_plugin_dlg" style="display: none;">
+    <table>
+        <tr>
+            <!-- 左边是一个列表 -->
+            <td valign="top">
+                <table id="_formField_plugin_field_list" cellspacing="1" cellpadding="1" border="1"
+                       style="border-collapse: collapse;" width="280" class="propertyGrid">
+                    <tr>
+                        <th width="80" height="22">名称</th>
+                        <th width="60">编码</th>
+                        <th width="60">类型</th>
+                        <th width="60">操作</th>
+                    </tr>
+                </table>
+            </td>
+            <!-- 右边是一个属性编辑器 -->
+            <td rowspan="2" valign="top">
+                <table id="_formField_plugin_field_editor" width="295"></table>
+            </td>
+        </tr>
+        <tr>
+            <!--添加按钮-->
+            <td valign="top"><input type="button" value="添加" onclick="_addformField()"></td>
+        </tr>
+    </table>
+</div>
+<div id="_formField_plugin_add_dlg" style="display: none;">
+    <form name="_FormField_Plugin_Add_Form">
+        <table align="center">
+            <tr class="formRow">
+                <td class="formLabel" width="100">名称：</td>
+                <td class="formField"><input type="text" name="name"></td>
+            </tr>
+            <tr class="formRow">
+                <td class="formLabel">编码：</td>
+                <td class="formField"><input type="text" name="code"></td>
+            </tr>
+            <tr class="formRow">
+                <td class="formLabel">类型：</td>
+                <td class="formField"><select name="type">
+                    <option value="text">文本框(单行)</option>
+                    <option value="select">下拉框</option>
+                    <option value="checkbox">复选框</option>
+                    <option value="radio">单选框</option>
+                    <option value="textarea">文本域(多行)</option>
+                    <option value="date">日期选择</option>
+                    <option value="hidden">隐藏域</option>
+                    <option value="label">标签</option>
+                    <option value="button">按钮</option>
+                    <option value="custom">自定义内容</option>
+                    <option value="file">上传</option>
+                    <option value="password">密码</option>
+                </select></td>
+            </tr>
+        </table>
+    </form>
+</div>

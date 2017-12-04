@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_SUB_MENU_LIST" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+			select menu_id,p_menu_id,menu_code,menu_name,menu_type,code_table
+			from bi_index_menu
+			where code_table=[code_table] and status_id=1 and sub_status_id=1
+			order by menu_type asc,order_num asc
+		]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

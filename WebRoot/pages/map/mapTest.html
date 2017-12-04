@@ -1,0 +1,135 @@
+  <!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>新洲旅游景点导航</title>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #map{
+            left:20%;
+            top:20%;
+            width:800px;
+            height:600px;
+        }
+
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eyp7PSKAmNWB3ClA1Idxk8mA">
+    </script>
+    <script>
+        function transInfo(){
+            window.open("http://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D新洲");
+        }
+        function weatherInfo(){
+            window.open("http://www.weather.com.cn/weather1d/101200104.shtml#input");
+        }
+        function tourQuery(){
+        }
+    </script>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3486186051&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:3486186051:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+</head>
+
+<body>
+<div class=btn>
+    <input type="button" value="交通信息查询" onclick="transInfo()">
+    <input type="button" value="天气信息查询" onclick="weatherInfo()">
+    <input type="button" value="旅游咨询" onclick="tourQuery()">
+</div>
+<div id="map"></div>
+
+</body>
+
+<script type="text/javascript">
+    var map;//创建map对象
+    function initMap() {
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addBoundary();//添加新洲轮廓线
+        addMapOverlay();//向地图添加覆盖物
+    }
+
+    function createMap(){
+        map = new BMap.Map("map");//实例化map对象
+        map.centerAndZoom(new BMap.Point(114.821984,30.855199),11);
+    }
+
+    function setMapEvent(){
+        map.enableScrollWheelZoom();
+        map.enableKeyboard();
+        map.enableDragging();
+        map.enableDoubleClickZoom();
+    }
+    function addClickHandler(target,window) {
+        target.addEventListener("click",function(){
+            target.openInfoWindow(window);
+        });
+    }
+    //添加覆盖物标注
+
+    function addMapOverlay(){
+        //创建景点标志对象数组
+        var markers = new Array();
+        //添加景点
+        function addMaker(longitude,latitude,title,content,url){
+            var marker = new Object();
+            marker.content = content+"<br>" +"<a href='"+ url + "' target='_blank'>详细介绍</a>";
+            marker.title = title;
+            marker.imageOffset = {width:0,height:3};
+            marker.position = {lat: latitude,lng: longitude};
+            markers[markers.length] = marker;
+        }
+        addMaker(114.816019,30.853462,"邾城街道","邾城街道备注","https://www.baidu.com");
+        addMaker(114.605528,30.842797,"仓埠街道","仓埠街道备注","https://www.baidu.com");
+        addMaker(114.718787,30.792679,"汪集街道","汪集街道备注","https://www.baidu.com");
+        addMaker(114.670494,30.890906,"李集街道","李集街道备注","https://www.baidu.com");
+        addMaker(114.934380,30.858175,"旧街街道","旧街街道备注","https://www.baidu.com");
+        addMaker(114.911383,31.018745,"潘塘街道","潘塘街道备注","https://www.baidu.com");
+        addMaker(114.905922, 30.802109,"新洲孔庙","新洲孔庙备注","https://www.baidu.com");
+        addMaker(114.803587,30.939733,"三店街道","三店街道备注","https://www.baidu.com");
+        addMaker(114.565715,30.678326,"阳逻街道","阳逻街道备注","https://www.baidu.com");
+        //依次打标桩
+        for(var index = 0; index < markers.length; index++){
+            var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
+            var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),
+                    {imageOffset: new BMap.Size(markers[index].imageOffset.width, markers[index].imageOffset.height)})});
+            var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+            var opts = {
+                width: 200,
+                title: markers[index].title,
+                enableMessage: false
+            };
+            var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
+            marker.setLabel(label);
+            addClickHandler(marker,infoWindow);//给标注添加点击事件
+            map.addOverlay(marker);
+        }
+    }
+
+    function addMapControl() {
+        var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+        map.addControl(scaleControl);
+        var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(navControl);
+        // var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+        // map.addControl(overviewControl);
+    }
+
+    function addBoundary(){
+        var bdary = new BMap.Boundary();
+        var name = "新洲";
+        bdary.get(name,function(rs) {
+            var count = rs.boundaries.length;
+            for(var i = 0;i < count;i++){
+                var ply = new BMap.Polyline(rs.boundaries[i]);
+                map.addOverlay(ply);    //添加覆盖物
+                map.setViewport(ply.getPath());
+            }
+        });
+    }
+    initMap();
+</script>
+
+</html>

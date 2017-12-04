@@ -1,0 +1,36 @@
+body {font-family: Helvetica, Arial, sans-serif;font-size:12px; margin:0; padding:0;}
+/*#leftbackground{  height:auto; width:100%;background-color:#DFE8F6;clear:both;}
+#left{ width:188px!important; width:190px;margin-left:3px; background-color:#FFFFFF; border:1px solid #A8B9CD; float:left;}
+#lefttitle{ height:26px; background:#fff url(../images/index02_r4_c3.gif) repeat-x; color:#1B4276; font-weight:bold; padding-left:10px;font-family:"宋体","Arial"; font-size-adjust:none;line-height:22px; font-size:12px;}
+#leftshop{background-color:#FFFFFF; height:100%;}
+#leftshousuo{ width:6px;float:right;}*/
+
+#leftbackground{height:100%; width:100%;background-color:#5590c8;clear:both; }
+/** 左边导航 实际div的宽高 背景颜色以及滚动条的调整**/
+#left{ width:160px!important; width:160px;margin-left:0px; background:url(../images/common/leftbg_07.jpg) repeat-y right;float:left; height:100%;overflow:auto; overflow-x: hidden; overflow-y: auto;}
+#lefttitle{ height:29px; background:url(../images/common/common/img_21.jpg) no-repeat; color:#ffffff; font-weight:bold; padding-left:10px;font-family:"Helvetica","Arial"; font-size-adjust:none;line-height:22px; font-size:12px;}
+#leftshop{background-color:#FFFFFF; height:100%;}
+#leftshousuo{ width:6px;float:right; padding-top:190px;}
+
+
+p {line-height: 1.5em;}
+ul#menu, ul#menu ul {list-style-type:none;margin: 0;padding:0; width:160px; padding:1px;}
+ul#menu a {display: block;text-decoration: none;}
+ul#menu li {margin-top: 1px;}
+ul#menu li a {background:url(../images/common/img_21.jpg) no-repeat right;color:#000000;padding-left:3em;height:29px;line-height:29px;}
+ul#menu li a:hover {background:url(../images/common/img_21.jpg) no-repeat center;}
+ul#menu li ul {/* height:440px;*/}
+.menuheight1{ height:500px;overflow: scroll; overflow-x: hidden; overflow-y: auto; }
+.menuheight2{ height:489px;overflow: scroll; overflow-x: hidden; overflow-y: auto; }
+.menuheight3{height:464px; padding-bottom:12px!important;overflow:scroll;overflow-x: hidden; overflow-y: auto;}
+.menuheight4{ height:440px;overflow: scroll; overflow-x: hidden; overflow-y: auto;}
+ul#menu li ul li {border-bottom:1px dotted #ffffff; height:27PX;line-height:27px;}
+ul#menu li ul li a {background:url(../images/common/navthree.gif) no-repeat 20px 8px; color: #ffffff; padding-left:30px;}
+ul#menu li ul li a:hover,ul#menu li ul .current a {background:#DFE8F6 url(../images/common/navthree.gif) no-repeat 20px 8px; padding-left:30px; color:#000000;}
+.indexbg{ background:url(../images/common/indexbg.gif) repeat-y;}
+.menufont{ font-weight:bold;}
+.code { border: 1px solid #ccc; list-style-type: decimal-leading-zero; padding: 5px; margin: 0; }
+.code code { display: block; padding: 3px; margin-bottom: 0; }
+.code li { background: #ddd; border: 1px solid #ccc; margin: 0 0 2px 2.2em; }
+.indent1 { padding-left: 1em; }
+.indent2 { padding-left: 2em; }

@@ -1,0 +1,104 @@
+@charset "utf-8";
+/*公共样式，有重复请删除此部分---Begin*/
+*{
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	}
+/*公共样式，有重复请删除此部分---End*/
+.sr_addTableBox{
+	width:700px;
+	overflow:hidden;
+	border-bottom:#dddddd 1px solid;
+	}
+.sr_addTableTitle{
+	height:30px;
+	background:url(../css/addTableMark.png) no-repeat left center #f7fdfd;
+	text-indent:20px;
+	font-size:14px;
+	line-height:30px;
+	font-weight:700;
+	border-bottom:2px solid #cccccc;
+	}
+.sr_addTableContant{
+	width:700px;
+	}
+.sr_addTableContant table td{
+	height:30px;
+	}
+.sr_addTableContant table{
+	width:100%;
+	font-size:12px;
+	}
+.sr_addTableContant table td .inputText{
+	border:1px #ccc solid;
+	height:20px;
+	width:150px;
+	}
+.sr_addTableContant table .textTitle{
+	width:80px;
+	text-align:right;
+	}
+.sr_addTableContant table td select {
+	width:155px;
+	border:1px #ccc solid;
+	}
+.sr_addTableContant table td textarea {
+	width:600px;
+	border:1px #ccc solid;
+	}
+.addSave{
+	height:30px;
+	margin-top:10px;
+	padding-bottom:5px;
+	}
+.addSave a{
+	margin:0px auto;
+	display:block;
+	height:25px;
+	width:80px;
+	background: #f2601d;
+	text-align:center;
+	line-height:25px;
+	color:#ffffff;
+	text-decoration:none;
+	font-size:12px;
+	font-weight:700;
+}
+.addSave a:hover{
+	display:block;
+	height:25px;
+	width:80px;
+	background: #e44f0b;
+	text-align:center;
+	line-height:25px;
+	color:#ffffff;
+	text-decoration:none;
+	font-size:12px;
+	font-weight:700;
+}
+.sr_addTitleName{
+	float:left;
+	width:100px;
+	height:30px;
+	line-height:30px;
+	}
+.sr_addTitleBtn{
+	float:right;
+	width:60px;
+	height:15px;
+	padding-top:10px;
+	}
+.sr_addTableTitle .btn_delete {
+	background: url(../css/buttons16.png) no-repeat 0px -36px ;
+	display:block;
+	height: 12px;
+	width:50px;
+	text-indent: 16px;
+	line-height: 12px;
+	cursor: pointer;
+	font-size: 12px;
+	color: #344348;
+	text-decoration: none;
+	font-weight:300;
+}

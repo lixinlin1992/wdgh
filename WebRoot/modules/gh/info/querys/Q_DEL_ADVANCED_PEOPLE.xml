@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_DEL_ADVANCED_PEOPLE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            delete from bi_advanced_people where id=[info_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

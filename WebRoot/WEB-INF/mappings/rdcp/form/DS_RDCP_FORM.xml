@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<datasources>
+
+    <!-- 获取字段属性配置
+     参数说明：
+     design_code   字段设计HTML内容，格式如下：
+     <input type="" field="" field_editor="">
+     -->
+    <ds name="DS_RDCP_GET_FIELD_CONFIG" type="url">
+        <url><![CDATA[/_rdcpForm.action?method=getFieldConfig]]></url>
+    </ds>
+
+    <!-- 获取字段设计代码
+    参数说明：
+    field_config  字段配置信息，格式如下
+                   {
+                    "field":"table.field",
+                    "editor":"SIGNLE_TEXT",
+                    "properties":{
+                    ...
+                    }
+                    }
+            其中，properties时由属性编辑器插件获取得到
+    -->
+    <ds name="DS_RDCP_GET_DESIGNCODE" type="url">
+        <url><![CDATA[/_rdcpForm.action?method=getFieldDesigncode]]></url>
+    </ds>
+
+    <!-- 获取编辑器属性数据
+    参数说明：
+    editor  编辑器的编码
+    -->
+    <ds name="DS_RDCP_GET_EDITORPROPERTIES" type="url">
+        <url><![CDATA[/_rdcpForm.action?method=getEditorProperties]]></url>
+    </ds>
+
+    <!-- 打开输入表单
+    参数说明：
+    form_id  表单的ID
+    -->
+    <ds name="DS_RDCP_OPEN_FORM" type="url">
+        <url><![CDATA[/_rdcpForm.action?method=openInputForm]]></url>
+    </ds>
+</datasources>

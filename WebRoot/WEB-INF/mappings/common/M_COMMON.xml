@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+    <!-- 通用数据资源配置 -->
+
+    <!-- 通用自动完成数据资源配置 -->
+    <ds name="DS_COMMON_AUTOCOMPLETE" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?file=common/Q_COMMON.xml&id=_COMMON_AUTO_COMPLETE]]></url>
+        <file></file>
+    </ds>
+    <!-- 通用下拉框数据资源配置 -->
+    <ds name="DS_COMMON_SELECT" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?file=common/Q_COMMON.xml&id=_COMMON_SELECT]]></url>
+        <file></file>
+    </ds>
+
+    <!-- 获取导入Excel的模板 -->
+    <ds name="DS_COMMON_IMPORT_TEMPLATE" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=common/Q_COMMON.xml&_id=Q_COMMON_IMPORT_TEMPLATE&engine=poi]]></url>
+    </ds>
+</datasources>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_RESOURCE_LOG_LIST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT l.*,u.NAME AS USER_NAME
+                FROM SYS_MO_RESOURCE_LOG l
+                LEFT JOIN SYS_P_USER u ON u.ID=l.USER_ID
+                WHERE 1=1
+                <#if module_path??>
+                AND l.MODULE_PATH [like(module_path)]
+                </#if>
+                <#if res_path??>
+                AND l.RES_PATH [like(res_path)]
+                </#if>
+                <#if from_request_time??>
+                AND TO_CHAR(l.REQUEST_TIME, 'YYYY-MM-DD')>=[from_request_time]
+                </#if>
+                <#if to_request_time??>
+                AND TO_CHAR(l.REQUEST_TIME, 'YYYY-MM-DD')<=[to_request_time]
+                </#if>
+                ]]></stmt>
+        <param name="col-formats">REQUEST_TIME=yyyy-MM-dd kk:mm:ss,BEGIN_TIME=yyyy-MM-dd kk:mm:ss,FINISH_TIME=yyyy-MM-dd kk:mm:ss</param>
+        <param name="exp-cols">ACCESS_RESULT,BEGIN_TIME,MODULE_PATH</param>
+        <param name="exp-file">Monitor.xls</param>
+    </query>
+</query-config>

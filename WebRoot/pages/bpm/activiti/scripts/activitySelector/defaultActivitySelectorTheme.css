@@ -1,0 +1,138 @@
+/* 所有对话框默认隐藏 */
+.Dialog {
+    display: none;
+}
+
+/* 根容器 */
+.ActivitySelectorDialog {
+    padding: 10px;
+}
+
+/* 根容器>表单 */
+.ActivitySelectorDialogForm {
+
+}
+
+/* 根容器>表单>当前环节信息区 */
+.CurActivityInfoDiv {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    background-color: #EBF5FF;
+    border: 1px solid #CAD6E2;
+    height: 25px;
+    line-height: 25px;
+    inline-height: 25px;
+}
+
+/* 根容器>表单>当前环节信息区>图片 */
+.CurActivityInfoDivImg {
+    text-indent: 25px;
+    vertical-align: middle;
+    display: inline-block;
+    height: 16px;
+    line-height: 25px;
+    min-width: 16px;
+    cursor: pointer;
+    background: url(../../../../../themes/default/images/common/buttons.png) no-repeat 0px -144px;
+}
+
+/* 根容器>表单>当前环节信息区>当前环节名字标签 */
+.CurActivityNameLabel {
+
+}
+
+/* 根容器>表单>当前环节信息区>当前环节名字热点 */
+.CurActivityNameLink:link {
+    color: blue;
+}
+
+/* 根容器>表单>环节选择区 */
+.ActivitySelectDiv {
+
+}
+
+/* 根容器>表单>环节选择区>环节选择组 */
+.ActivitySelectGroupDiv {
+    border-collapse: collapse;
+    margin-bottom: 5px;
+}
+
+/* 根容器>表单>环节选择区>环节选择组>组信息表格 */
+.ActivitySelectGroupTitleTable {
+    font-size: 12px;
+}
+
+/* 根容器>表单>环节选择区>环节选择组>组信息表格>tr */
+.ActivitySelectGroupTitleTable tr {
+
+}
+
+/* 根容器>表单>环节选择区>环节选择组>组信息表格>td */
+.ActivitySelectGroupTitleTable td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* 根容器>表单>环节选择区>环节选择组>组信息表格>图片td */
+.ActivitySelectGroupTitleTable .TitleTableTrImgTd {
+    display: none;
+}
+
+/* 根容器>表单>环节选择区>环节选择组>组信息表格>图片td */
+.ActivitySelectGroupTitleTable .TitleTableTrCheckBoxTd {
+    width: 25px;
+}
+
+.ActivitySelectListTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #CAD6E2;
+    background-color: #EBF5FF;
+}
+
+.ActivitySelectListTable tr {
+    height: 25px;
+    border: 1px solid #A6C9E2;
+}
+
+.ActivitySelectListTable td {
+    border: 1px solid #A6C9E2;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.ActivitySelectListTable .ActivitySelectCheckboxTd {
+    width: 25px;
+    text-align: center;
+}
+
+.ActivitySelectListTable .ActivitySelectFromTransitionNameTd {
+    width: 50px;
+    text-align: center;
+}
+
+.ActivitySelectListTable .ActivitySelectToTransitionImageTd {
+    width: 25px;
+    text-align: center;
+}
+
+.ActivitySelectListTable .ActivitySelectSelectedAssigneeIdsTd {
+    display: none;
+}
+
+.ActivitySelectListTable .ActivitySelectToActivityNameTd {
+    width: 100px;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.ActivitySelectListTable .ActivitySelectAssigneeSelectorTd {
+    width: 25px;
+    text-align: center;
+}
+
+.ActivitySelectListTable .ActivitySelectSelectedAssigneeTd {
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+#这个文件定义所有需要进行权限控制的资源，在模块加载的时候会写入数据库，卸载的时候从数据库中删除
+#文件的格式，每个数据项之间用空格或制表符分隔
+#资源路径, 显示名称, 控制类型, 依赖资源路径
+#
+#说明：
+# 控制类型： -1 无需控制，0 登录控制，1 授权控制，2 依赖控制
+# 依赖资源路径，当控制类型不为2时，可以不提供，如果控制类型为2时没有提供，则控制类型自动变为1
+#
+# 本文件在更改后，可以通过通过重启应用服务器或者修改模块配置以达到重新加载模块的目的，进而重新加载本文件
+#
+#重要说明，该配置文件在旧模块URL下可能不能正常工作
+
+#资源路径                                       显示名称            控制类型                依赖资源路径
+#~/pages/test.jsp                                测试页面            1
+~/pages/UserInfoManage.jsp                      个人信息设置            0
+~/pages/userModifyPass.jsp                       修改密码            0
+~/pages/UserQuery.jsp                                用户管理            1
+
+#USER_MANAGE             用户查询列表      1
+
+~query/Q_USER_LIST          查询用户信息              2           ~/pages/UserQuery.jsp
+~query/Q_USER_ADD           添加用户            2           ~/pages/UserQuery.jsp
+~query/Q_USER_DISABLE           注销用户    2       ~/pages/UserQuery.jsp
+~query/Q_USER_INFO          查询用户详细信息        2       ~/pages/UserQuery.jsp
+~query/Q_USER_ALL_GROUP          查询所有的角色        2       ~/pages/UserQuery.jsp
+~query/Q_USER_EX_GROUP          查询未有的角色         2       ~/pages/UserQuery.jsp
+~query/Q_USER_IN_GROUP          查询已有的角色         2       ~/pages/UserQuery.jsp
+~query/Q_USER_RESETPWD          还原密码         2       ~/pages/UserQuery.jsp
+~query/Q_USER_UPDATE          修改用户信息         2       ~/pages/UserQuery.jsp
+
+~query/Q_USER_INFO_EDIT          修改用户信息         2       ~/pages/UserInfoManage.jsp
+~query/Q_USER_MANAGE_INFO          查询用户信息         2       ~/pages/UserInfoManage.jsp
+
+
+~query/Q_USER_MODPWD          修改用户密码         2       ~/pages/userModifyPass.jsp

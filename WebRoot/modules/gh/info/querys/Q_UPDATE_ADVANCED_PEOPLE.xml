@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改工会概况信息-->
+    <query id="Q_UPDATE_ADVANCED_PEOPLE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_advanced_people set title=[title],type=[type],dept=[dept],content=[content],create_time=to_date([create_time],'YYYY-MM-DD HH24:MI:SS')
+            where id=[info_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

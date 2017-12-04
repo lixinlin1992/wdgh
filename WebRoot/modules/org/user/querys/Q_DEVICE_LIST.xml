@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!--kinz 2014年6月3日 在模块配置文件中需要指定能能通过统一功能来管理的用户类型-->
+    <!--查询用户列表-->
+    <query id="Q_DEVICE_LIST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+            select id,device_name,url,place_id from bi_devices
+            ]]></stmt>
+    </query>
+</query-config>

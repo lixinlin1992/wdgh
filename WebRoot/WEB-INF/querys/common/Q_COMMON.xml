@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	
+	<!-- 通用的自动完成数据源查询脚本 -->
+	<query id="_COMMON_AUTO_COMPLETE" type="labelvalue" result="json">
+		<stmt>
+			<![CDATA[
+			<#assign excludes=""/>
+			<#if excludes?contains(tname)>
+			select '对不起，您不能以该方式访问该表' as labelCol,'-1' as valueCol from dual
+			<#else>
+			select ${lcol} as lCol,${vcol} as vCol from ${tname} where 1=1
+				<#if scol?exists && sval?exists>
+					<#if exact?exists>
+			and ${scol}=[sval]
+					<#else>
+			and ${scol} [like(sval)]
+					</#if>
+				</#if>
+				<#if ocol?exists>
+			order by ${ocol}
+					<#if otype?exists>
+				${otype}
+					</#if>
+				</#if>
+			</#if>
+			]]>
+		</stmt>
+		<param name="l-col">lCol</param>
+		<param name="v-col">vCol</param>
+	</query>
+	
+	<!-- 通用的简单下拉框填充数据查询脚本 -->
+	<query id="_COMMON_SELECT" type="labelvalue" result="json">
+		<stmt>
+			<![CDATA[
+			<#assign excludes=""/>
+			<#if excludes?contains(tname)>
+			select '对不起，您不能以该方式访问该表' as labelCol,'-1' as valueCol from dual
+			<#else>
+			select ${lcol} as lCol,${vcol} as vCol from ${tname} where 1=1
+				<#if scol?exists && sval?exists>
+					<#if exact?exists>
+			and ${scol}=[sval]
+					<#else>
+			and ${scol} [like(sval)]
+					</#if>
+				</#if>
+				<#if ocol?exists>
+			order by ${ocol}
+					<#if otype?exists>
+				${otype}
+					</#if>
+				</#if>
+			</#if>
+			]]>
+		</stmt>
+		<param name="l-col">lCol</param>
+		<param name="v-col">vCol</param>
+	</query>
+
+
+    <!-- 获取导入的模板 -->
+    <query id="Q_COMMON_IMPORT_TEMPLATE" type="pagelist" result="excel">
+        <stmt>
+            <![CDATA[
+                    <#assign colArray=cols?split(",")>
+                    <#assign idx=0>
+                    SELECT<#list colArray as c><#if idx&gt;0>,</#if>'' AS ${c}<#assign idx=idx+1></#list>
+                    FROM DUAL
+                    WHERE 1=2
+                    ]]>
+        </stmt>
+        <param name="exp-cols">${cols}</param>
+        <param name="exp-names">${names}</param>
+    </query>
+</query-config>

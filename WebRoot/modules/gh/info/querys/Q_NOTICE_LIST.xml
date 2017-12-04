@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_NOTICE_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+			  <#if info_type="notice">
+				select bsc.id,bsc.title,view_times,spu.name create_user,bsc.create_time
+				from bi_notice bsc
+				left join sys_p_user spu on bsc.create_user=spu.id
+				where 1=1 and bsc.type=1 order by create_time desc
+				<#if title??>
+				  and bsc.title [like(title)]
+				</#if>
+				<#if content??>
+				  and dbms_lob.instr(bsc.content, [content], 1, 1) > 0
+				</#if>
+			  </#if>
+			  <#if info_type="download">
+			    select bsc.id,bsc.title,view_times,spu.name create_user,bsc.create_time,sf.id file_id
+				from bi_notice bsc
+				left join sys_p_user spu on bsc.create_user=spu.id
+				left join sys_file sf on sf.busi_type='BI_NOTICE' and sf.busi_id=to_char(bsc.id)
+				where bsc.type=2
+			  </#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

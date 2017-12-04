@@ -1,0 +1,31 @@
+<script type="text/javascript" src="ESale/Mall/UI/scripts/walletLog.js"></script>
+<div class="contentBox">
+	<div class="baseTableBox" style="background: #ffffff;" style="margin-top: 10px;">
+		<table class="baseTable" border="1px" style="width: 100%;">
+			<tr>
+				<td>
+					<p class="baseTableMessage" style="line-height: 36px;height:46px;font-size:14px;">
+						<span class="pull-left">余额：<span class="stress">￥</span><span class="stress" ng-bind="form.fee"></span></span>
+						<span class="pull-right">状态：<span class="stress" ng-bind="form.status"></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr ng-repeat="row in rows">
+				<td>
+					<p class="baseTableMessage" style="line-height: 36px;height:36px;">
+						<span class="pull-left">金额：<span class="stress">￥</span><span class="stress" ng-bind="row.cell[3]"></span></span>
+						<span class="pull-right">动作：<span ng-bind="myStatus(row.cell[2])"></span></span>
+					</p>
+					<p class="baseTableMessage" style="line-height: 36px;height:36px;">
+						<span class="pull-left">时间：<span ng-bind="row.cell[0]"></span></span>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a class="more_btn" href="javascript://" ng-click="listShowAdd()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+</div>

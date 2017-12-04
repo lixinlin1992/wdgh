@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="RDC_CFG_DS_PARAM" name="数据源参数" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>名称</name>
+            <constraint>50</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入名称!</null-message>
+            <invalid-message>请输入正确的功能名称，最长25个汉字或者50个英文字母</invalid-message>
+        </field>
+        <field id="CODE" validate="true" null="false" type="string">
+            <name>编码</name>
+            <constraint>500</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入编码!</null-message>
+            <invalid-message>请输入正确的功能码，最长为250个汉字或者500个英文字母</invalid-message>
+        </field>
+        <field id="YEPE" validate="true" null="false" type="string">
+            <name>类型</name>
+            <constraint>500</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请选择类型!</null-message>
+            <invalid-message>请选择类型!</invalid-message>
+        </field>
+        <field id="VAL_LENGTH" validate="true" null="true" type="int">
+            <name>长度</name>
+            <constraint></constraint>
+            <pattern><![CDATA[\d{1,4}]]></pattern>
+            <null-message></null-message>
+            <invalid-message>填写长度时,请输入数字,长度小于4位!</invalid-message>
+        </field>
+        <field id="VAL_PRECISION" validate="true" null="true" type="int">
+            <name>精度</name>
+            <constraint></constraint>
+            <pattern><![CDATA[\d{1,4}]]></pattern>
+            <null-message></null-message>
+            <invalid-message>填写精度时,请输入数字,长度小于4位!</invalid-message>
+        </field>
+		
+    </form>
+</rules>

@@ -1,0 +1,93 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard2.js"></script>
+<div class="layout_centent ng-scope" ng-show="pkType.length!=1">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>套餐类型</span>
+        <!--<a class="morebtn" href="javascript://">更多选择</a>-->
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="type">
+            <div class="col-md-3 col-xs-3 list" ng-repeat="type in pkType"
+                 ng-click="event.btnon($event);event.typeBtn()" style="padding-top:10px">
+                <!--常用btn-->
+                <!--ng-class="{{$first?'com_selectbtnon':'com_selectbtn'}}"-->
+                <a class="com_selectbtn" href="javascript://" typeId="{{type.ID}}">{{type.NAME}}</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+
+</div>
+<div class="layout_centent ng-scope" ng-show="pkName.length!=1">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>套餐选择</span>
+        <!--<a class="morebtn" href="javascript://">更多选择</a>-->
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="name">
+            <div class="col-md-5 col-xs-5 list" ng-repeat="name in pkName"
+                 ng-click="event.btnon($event);event.nameBtn()" style="padding-top:10px">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" nameId="{{name.ID}}"
+                   LLB="{{name.LLB}}" YYB="{{name.YYB}}" ZFB="{{name.ZFB}}" PERIODS="{{name.PERIODS}}"
+                   first_fee="{{name.FIRST_FEE}}" fee_init="{{name.FEE_INIT}}" fee_config="{{name.FEE}}">{{name.NAME}}</a>
+                <!--常用btn-->
+            </div>
+
+        </div>
+    </div>
+    <!--选择按钮End-->
+
+</div>
+<div class="layout_centent ng-scope" ng-show="pkPlan.length!=1">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>套餐计划</span>
+        <!--<a class="morebtn" href="javascript://">更多选择</a>-->
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="plan">
+
+            <div class="col-md-5 col-xs-5 list" ng-repeat="plan in pkPlan"
+                 ng-click="event.btnon($event);event.planBtn()" style="padding-top:10px">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" planId="{{plan.ID}}">{{plan.NAME}}</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+    <div class="layout_secondbox">
+
+        <!--标题一Begin-->
+        <div class="com_title second_title">
+            <span>套餐详细</span>
+            <!--<a class="btn_add" href="javascript://"></a>-->
+        </div>
+        <!--标题一End-->
+        <!--信息列表Begin-->
+        <div class="com_table">
+            <table>
+                <tbody>
+                <tr  ng-repeat="list in dinnerList">
+                    <td class="summarize" style="width: 180px">{{list.KEY_AS}}:</td>
+                    <td>{{list.VAL}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--信息列表End-->
+
+    </div>
+</div>
+<div class="formlist">
+    <a class="com_btn theme_btn" href="javascript://" ng-click="event.next()">下一步</a>
+</div>

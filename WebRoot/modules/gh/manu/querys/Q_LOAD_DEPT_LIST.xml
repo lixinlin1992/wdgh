@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LOAD_DEPT_LIST" type="pagelist" result="easyui">
+        <stmt>
+            <![CDATA[
+            select id,name from sys_p_department
+            order by id
+            ]]>
+        </stmt>
+    </query>
+    <param name="paging">false</param>
+</query-config>

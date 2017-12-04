@@ -1,0 +1,21 @@
+@charset "utf-8";
+/*输入表单样式================================Begin*/
+.SR_Space{ width:100%; height:10px;}
+.SR_inputBg{ background: url(../images/inputTable/inputTableBg.gif) no-repeat right top #f8f8f8;}
+.SR_addListTableBox{ width:99%; overflow:hidden;  position:relative; border-bottom:1px solid #cccccc; padding-bottom:10px; padding-left:10px;}
+.SR_addListTableBox .SR_moduleBox{ border-bottom:1px solid #cccccc;}
+.SR_addListTable{ overflow:hidden; width:100%; padding-top:15px;}
+.SR_addListitle{ width:100%; overflow:hidden; border-bottom:1px solid #cccccc; text-indent:10px;}
+.SR_addListTitle h1{ width:650px; height:40px; font-size:24px; font-family:微软雅黑; font-weight:300; color:#444444;}
+.SR_addListTableContent{ width:80%; overflow:hidden; margin-left:10px;}
+.SR_addListTableContent .title{ text-align:right; font-size:12px; font-weight:300; height:30px; line-height:30px; color:#444444; width:120px;}
+.addListlongInput{ width:99%; border:1px #cccccc solid;font-size:12px; height:20px; line-height:20px;}
+.addListShortInput{ width:150px; border:1px #cccccc solid; font-size:12px; height:20px; line-height:20px; }
+.addListlongGaryInput{ width:99%; border:1px #cccccc solid; font-size:12px; background:#eeeeee;font-size:12px; height:20px; line-height:20px;}
+.addListShortGaryInput{ width:150px; border:1px #cccccc solid; background:#eeeeee;  font-size:12px; height:20px; line-height:20px;}
+.addListbigInput{ width:99%; height:80px; border:1px solid #cccccc;}
+.addListsmallTable table {border:none;text-align:center;border-collapse:collapse;font-size:12px; border-right:1px solid #cccccc; border-top:1px solid #cccccc;}
+.addListsmallTable table th{background: #f7f7f7;height:26px;border-left:1px solid  #cccccc;border-bottom:1px #cccccc solid;border-top:none;border-right:none;line-height:26px;color:#444444; font-weight:300; }
+.addListsmallTable table td{border-left:1px solid  #cccccc;border-bottom:1px #cccccc solid;border-top:none;border-right:none;line-height:26px;}
+.SR_addListinputTableBox .SR_moduleBox{ border-bottom:1px solid #cccccc;}
+/*输入表单样式================================End*/

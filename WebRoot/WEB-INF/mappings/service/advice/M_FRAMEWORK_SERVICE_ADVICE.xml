@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 投诉与建议数据源配置 -->
+	
+	<!-- 投诉与建议列表 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&id=DS_FRAMEWORK_SERVICE_ADVICE_LIST]]></url>
+		<file>/android/sys/advice/advices_list.json</file>
+	</ds>
+	<!-- 投诉与建议删除 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_DEL" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_DEL]]></url>
+		<file></file>
+	</ds>
+		<!-- 投诉与建议增加 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_ADD" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_ADD]]></url>
+		<file></file>
+	</ds>
+	<!-- 投诉与建议回复列表 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_REPLY_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_REPLY_LIST]]></url>
+		<file></file>
+	</ds>
+	<!-- 投诉与建议回复删除 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_REPLY_DEL" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_REPLY_DEL]]></url>
+		<file></file>
+	</ds>
+	<!-- 投诉与建议回复增加-->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_REPLY_ADD" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_REPLY_ADD]]></url>
+		<file>/android/sys/advice/advice_reply_result.json</file>
+	</ds>
+	<!-- 投诉与建议详情 -->
+	<ds name="DS_FRAMEWORK_SERVICE_ADVICE_SHOW" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?_file=service/advice/Q_FRAMEWORK_SERVICE_ADVICE.xml&_id=Q_FRAMEWORK_SERVICE_ADVICE_SHOW]]></url>
+		<file></file>
+	</ds>
+	</datasources>

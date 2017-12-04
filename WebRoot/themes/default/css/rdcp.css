@@ -1,0 +1,68 @@
+/**
+* 快速开发配置平台样式文件
+*/
+
+/* 属性表格样式配置 */
+.propertyGrid {
+    font-size: 12px;
+    border-collapse: collapse;
+    border: 1px solid #DEDFE4;
+    color: #000;
+    table-layout: fixed;
+    overflow: auto;
+    zoom: 1;
+    border-top: 2px solid #5F8FBF;
+}
+
+.propertyGrid tr {
+    height: 18px;
+}
+
+.propertyGrid th {
+    height: 24px;
+    border: 1px solid #cad9ea;
+    background: url(../images/index02_r8_c8.gif) repeat-x;
+    font-weight: bold;
+    color: #000;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.propertyGrid td {
+    border: 1px solid #cad9ea;
+    padding: 0px 2px 0px 2px;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.propertyGrid input {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.propertyGrid select {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.propertyGrid textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.propertyGrid .group {
+    font-weight: bold;
+    background-color: #5c9ccc;
+    height: 22px;
+}
+
+.propertyGrid .name {
+    background-color: #E3E3E3;
+}

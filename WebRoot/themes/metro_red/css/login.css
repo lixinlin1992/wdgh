@@ -1,0 +1,144 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,p {
+ list-style-type: none;
+ margin: 0;
+ padding: 0;
+}
+
+body {
+	text-align: center;
+	background-image: url(../images/bg.png);
+	background-repeat: repeat;
+	background-position: center top;
+}
+
+.main {
+	height: 702px;
+	width: 690px;
+	margin-right: auto;
+	margin-left: auto;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-image: url(../images/loginbg.png);
+}
+.main .left {
+	float: left;
+	height: 80px;
+	width: 100px;
+}
+
+
+.main .top {
+	height: 200px;
+	width: 690px;
+}
+.main .middle {
+	height: 200px;
+	width: 690px;
+}
+.middlespace table {
+	font-size: 12px;
+	font-weight: 700;
+	text-align: right;
+	color: #fff;
+}
+.middle table td {
+	height: 30px;
+}
+.middle table input {
+	height: 20px;
+	width: 163px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.middle .proof img {
+	height: 26px;
+	width: 80px;
+	display: inline-block;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+.proofinput {
+	width: 70px;
+	vertical-align: middle;
+}
+
+.leftspace {
+	float: left;
+	width: 390px;
+	height: 100px;
+}
+.middlespace {
+	float: left;
+}
+
+.middlespace .proof input {
+	width: 75px;
+	float: left;
+}
+.middlespace .btn {
+	text-align: left;
+	margin-top: 10px;
+}
+.btn a.loginbtn input{
+	border: 0px;
+	background-position: top;
+	height: 42px;
+	width: 106px;
+	margin-right: 8px;
+	background-image: url(../images/loginBtn.png);
+}
+
+.btn a.loginbtn:hover input{
+	border: 0px;
+	background-image: url(../images/loginBtn.png);
+	background-position: bottom;
+	height: 42px;
+	width: 106px;
+}
+.btn a.resetbtn input{
+	border: 0px;
+	background-image: url(../images/resetBtn.png);
+	background-position: top;
+	height: 42px;
+	width: 106px;
+}
+.btn a.resetbtn:hover input{
+	border: 0px;
+	background-image: url(../images/resetBtn.png);
+	background-position: bottom;
+	height: 42px;
+	width: 106px;
+}
+.main .footer  {
+	margin-top: 100px;
+	line-height: 26px;
+	font-size: 12px;
+	color: #a3a2a2;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: dotted;
+	border-bottom-style: dotted;
+	border-top-color: #ccc;
+	border-bottom-color: #CCC;
+	text-align: center;
+}

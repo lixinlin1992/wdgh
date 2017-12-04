@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 公告展示 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_LIST]]></url>
+		<file></file>
+	</ds>
+	<!-- 公告细节展示 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_DETAIL_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_DETAIL_LIST]]></url>
+		<file></file>
+	</ds>
+	<!-- 公告附件展示 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_ATTACHMENT_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_ATTACHMENT_LIST]]></url>
+		<file></file>
+	</ds>	
+	<!--公告访问统计-->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_VISIT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_VISIT]]></url>
+		<file></file>
+	</ds>
+</datasources>

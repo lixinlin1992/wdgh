@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 添加报备商机 -->
+	<query id="Q_ADD_REP_BUSI" type="batch" result="json">
+        <stmt>
+            <![CDATA[
+			   insert into BS_REP_INFO(
+				busi_id,  
+				busi_name, 
+				busi_class, 
+				busi_addr, 
+				market_name, 
+				cust_name, 
+				requ_des, 
+				busi_date, 
+				busi_state_id, 
+				busi_pro_fee, 
+				busi_pro_unit, 
+				busi_pro_time,
+				memo,
+				BUSI_USER_ID,
+				CUST_PER,
+				CUST_PHONE ,work_id,ai_id,uu_id) 
+				select 
+				[seqNum],
+				[busi_name],
+				[busi_class_value],
+				[busi_addr],
+				[market_name],
+				[cust_name],
+				[requ_des],
+				sysdate,
+				1,--申请
+				decode([busi_pro_fee],'-1','',[busi_pro_fee]),--没用
+				decode([busi_pro_unit],'-1','',[busi_pro_unit]),--没用
+				decode([busi_pro_time],'-1','',[busi_pro_time]),--没用
+				'1',
+				[var(RU.CUR_USER.id)],
+				[cust_per],[cust_phone],'','',
+				''
+				from  dual;
+				
+				<#if busiTypeFeeAll_0=='0'>
+					select 1 from dual;
+				<#else>
+					insert into BI_REP_BUSINESS_TYPE(
+					busi_id, 
+					busi_type_id, 
+					busi_type_name, 
+					busi_type_fee, 
+					busi_type_num, 
+					note)
+					select 
+					[seqNum],
+					0,
+					'移网',
+					[busiTypeFeeAll_0],
+					[busiTypeNumAll_0],
+					'' from dual;
+				</#if>
+				
+				<#if busiTypeFeeAll_1=='0'>
+					select 1 from dual;
+				<#else>
+					insert into BI_REP_BUSINESS_TYPE(
+					busi_id, 
+					busi_type_id, 
+					busi_type_name, 
+					busi_type_fee, 
+					busi_type_num, 
+					note)
+					select 
+					[seqNum],
+					1,
+					'固网',
+					[busiTypeFeeAll_1],
+					[busiTypeNumAll_1],
+					'' from dual;
+				</#if>
+				
+				<#if busiTypeFeeAll_2=='0'>
+					select 1 from dual;
+				<#else>
+					insert into BI_REP_BUSINESS_TYPE(
+					busi_id, 
+					busi_type_id, 
+					busi_type_name, 
+					busi_type_fee, 
+					note)
+					select 
+					[seqNum],
+					2,
+					'系统集成',
+					[busiTypeFeeAll_2],
+					'' from dual;
+				</#if>
+            ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

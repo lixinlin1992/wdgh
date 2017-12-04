@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 公共填充下拉框 -->
+	<query id="Q_COMMON_GET_SELECT" type="combos" result="easyui-combobox">
+        <stmt>
+            <![CDATA[
+            	 select * from (
+            	 select to_char('-1') id ,to_char('--请选择--') text,0 order_id from dual
+            	 union all
+                 select to_char(pc.code_num) id,to_char(pc.name) text,pc.order_id
+                 from sys_pa_code pc
+                 where pc.code_table=[code_table] and pc.code_field=[code_field] 
+                 and pc.status_id=1) v
+                 
+                 order by v.order_id
+            ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">text</param>
+    </query>
+</query-config>

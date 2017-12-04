@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_LOAD_TRADE_APPLY_AUDIT_LIST" type="pagelist" result="json">
+        <stmt><![CDATA[
+        select spu.name||'-['||to_char(bar.audit_time,'yyyy-mm-dd hh24:mi:ss')||']-'||
+        decode(audit_code,'apply_start','申请入会','apply_audit1','二级工会管理员审核','apply_audit2','校工会管理员审核')||
+        '-'||decode(audit_result,'1','同意',2,'不同意','无')||'-'||nvl(audit_content,'无')
+        from bi_audit_record bar
+        left join sys_p_user spu on bar.audit_user=spu.id
+        where bar.object_id=[apply_id] and flow_code='trade_apply'
+        order by bar.audit_time asc
+		]]></stmt>
+    </query>
+</query-config>

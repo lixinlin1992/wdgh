@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 参数类型展示表格 -->
+	<query id="Q_SERVICE_PARAM_TYPE_GRID" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[ 
+			SELECT B.NAME       AS SYS_CODE,
+			       A.CODE_TABLE AS CODE_TABLE,			       
+			       A.CODE_TABLE_NAME AS CODE_TABLE_NAME,
+			       A.CODE_FIELD AS CODE_FIELD,
+			       A.CODE_FIELD_NAME AS CODE_FIELD_NAME,
+			       A.NAME AS NAME,
+			       A.NOTE AS NOTE,
+			       A.EDIT_FLAG AS EDIT_FLAG,
+			       '' AS CZ,
+			       A.ID AS ID       
+			  FROM SYS_PA_CODE_TYPE A, SYS_BI_SYSTEM B
+			 WHERE A.SYS_CODE = B.CODE(+)
+			 
+			 <#if sysSelect??>
+				and a.sys_code = [sysSelect]
+			 </#if>
+			 
+			 <#if code_table_ser??>
+			 	and  A.CODE_TABLE  [Like(code_table_ser)]
+			 </#if>
+			 
+			 <#if code_field_ser??>
+			 	and A.CODE_FIELD [Like(code_field_ser)]
+			 </#if>
+			 
+			 <#if edit_flag_ser??>
+			 	and  A.EDIT_FLAG = [edit_flag_ser]
+			 </#if>
+			 
+			 <#if name_ser??>
+			 	and A.NAME [Like(name_ser)]
+			 </#if>
+			 
+			 <#if code_table_name_ser??>	
+			 	and  A.CODE_TABLE_NAME [Like(code_table_name_ser)]
+			 </#if>
+			 
+			 <#if code_field_name_ser??>
+			 	and A.CODE_FIELD_NAME [Like(code_field_name_ser)]
+			 </#if>
+			 
+			 order by A.ID asc
+    	 ]]>
+		</stmt>
+		<param name="id">ID</param>		
+		<param name="paging">true</param>
+	</query>
+ 
+	<!-- 参数类型添加/修改 -->	
+	<query id="Q_SERVICE_PARAM_TYPE_EDIT" type="auto-update">
+        <!--业务系统必填-->
+        <processor name="check-count" type="before" break="true" seq="1">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM SYS_BI_SYSTEM WHERE CODE =[sys_code]  	
+                ]]></param>
+            <param name="min-count">1</param>
+            <param name="break-message"><![CDATA[请选择业务系统。]]></param>
+        </processor>		
+		<!-- 权限判断 -->
+		<processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor"
+			type="before" break="true" seq="2">
+			<param name="type">edit</param>
+		</processor>	
+        <!--类型名字不能相同-->
+        <processor name="check-count" type="before" break="true" seq="3">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM SYS_PA_CODE_TYPE WHERE NAME =[name]  	  		
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[该参数类型名称已经被占用，请使用其它名称。]]></param>
+        </processor>	
+ 		<!--表code与字段code 不能同时相同-->        	
+        <processor name="check-count" type="before" break="true" seq="1">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM SYS_PA_CODE_TYPE WHERE CODE_TABLE =[code_table]  and CODE_FIELD = [code_field]	  		
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[存在相同"业务表编码"与"字段编码"，请填写别的编码。]]></param>
+        </processor>		
+		<param name="insert-tables"><![CDATA[<#if id??><#else>SYS_PA_CODE_TYPE s</#if>]]></param>	
+		<param name="update-tables"><![CDATA[<#if id??>SYS_PA_CODE_TYPE s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=SYS_PA_CODE_TYPE_SEQ.NEXTVAL</#if>]]></param>
+		<param name="trans">true</param>
+	</query>
+		
+	<!-- 初始参数类型修改弹出框 -->
+	<query id="Q_SERVICE_PARAM_TYPE_INIT" type="form_map" result="ftl">
+		<stmt>
+			<![CDATA[ 
+			SELECT A.SYS_CODE       AS SYS_CODE,
+			       A.CODE_TABLE AS CODE_TABLE,			       
+			       A.CODE_TABLE_NAME AS CODE_TABLE_NAME,
+			       A.CODE_FIELD AS CODE_FIELD,
+			       A.CODE_FIELD_NAME AS CODE_FIELD_NAME,
+			       A.NAME AS NAME,
+			       A.NOTE AS NOTE,
+			       A.EDIT_FLAG AS EDIT_FLAG,
+			       '' AS CZ,
+			       A.ID AS ID       
+			  FROM SYS_PA_CODE_TYPE A, SYS_BI_SYSTEM B
+			 WHERE A.SYS_CODE = B.CODE(+)
+         	   AND A.ID = [id]			  
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>		
+		<param name="ftl">
+			template/service/basedata/T_FRAMEWORK_SERVICE_BASEDATA_PARAM_TYPE.ftl
+		</param>		
+	</query>   	
+	 <!-- 删除参数类型 -->
+	<query id="Q_SERVICE_PARAM_TYPE_DELETE" type="auto-update">
+		<!-- 权限判断 -->
+		<processor name="set-value" type="before" seq="1"
+			break="false">
+			<param name="var">SYS_CODE</param>
+			<param name="sql"><![CDATA[SELECT SYS_CODE FROM SYS_PA_CODE_TYPE WHERE ID [in(id long)]]]></param>
+			<param name="type">array</param>
+		</processor>
+		<processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor"
+			type="before" break="true" seq="2">
+			<param name="type">delete</param>
+		</processor>
+        <!-- 是否被关联了 -->
+        <processor name="check-count" type="before" break="true" seq="3">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM  SYS_PA_CODE  WHERE code_type_id  =[id long]	
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[该参数类型正在使用不能删除。]]></param>
+        </processor>				
+		<param name="delete-tables">SYS_PA_CODE_TYPE s</param>
+		<param name="key-cols">s.id</param>
+	</query>	
+
+</query-config>

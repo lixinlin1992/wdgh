@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 校验规则数据源 -->
+	<ds name="DS_BPM_TEST_APPLY" type="url">
+		<url>/_bpmTestAction.action?method=apply</url>
+		<file>/</file>
+	</ds>
+</datasources>

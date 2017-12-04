@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_SUBMENU_LIST_FGPH" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+
+		select cou,to_char(name) title,'发稿排行>更多' header_title from
+		(select * from (
+		select spd.name,count(1) cou from bi_manu bm
+		left join sys_p_department spd on bm.dept_id=spd.id
+		group by spd.name) a
+		order by cou asc)
+
+
+		]]>
+			<!--[header_title]应该是下面的这段sql语句-->
+		</stmt>
+	</query>
+</query-config>

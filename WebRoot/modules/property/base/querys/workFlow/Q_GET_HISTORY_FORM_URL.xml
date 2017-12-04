@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用电用户详细信息展示 -->
+<query-config>
+	<query id="Q_GET_HISTORY_FORM_URL" type="form_data" result="easyui">
+		<stmt>
+			<![CDATA[
+					SELECT n.form_url AS formurl FROM wf_node n WHERE n.id =
+					(select t.node_id from wf_ru_task t where t.id =(select max(id) from wf_ru_task where work_order_id = [woId]) )
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

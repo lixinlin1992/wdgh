@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_GET_APPLY_NUM" type="form_data" result="json">
+        <stmt><![CDATA[
+            select COUNT(*) as num
+            from bi_trade_apply
+            where account=[account]
+            and apply_type=[type]
+            and apply_status  between 1 and 2
+		]]></stmt>
+    </query>
+</query-config>

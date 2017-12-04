@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LINDEX_IMG_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select id,busi_id,name from sys_file
+				where busi_id in ('WEB','WECHAT','MOBILE')
+				and busi_type in ('WEB_INDEX_IMG','WECHAT_INDEX_IMG','MOBILE_INDEX_IMG')
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

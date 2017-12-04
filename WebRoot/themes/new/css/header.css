@@ -1,0 +1,23 @@
+*{
+	margin:0;
+	padding:0;
+}
+body {font-family: Helvetica, Arial, sans-serif;font-size:12px; margin:0; padding:0;background:#F8F3F5;}
+/*******header css***********/
+#header{clear:both;width:100%; }
+#headerbarner{clear:both; width:100%;background-color:#f6f3f3;}
+#headerbarner .headerbarnet_left{height:40px;width:480px;padding-top:-20px;
+background:url(../images/common/index02_header.gif) no-repeat}
+#headerbarner .headerbarnet_right{height:40px; }
+/*******end header***********/
+
+/* =-=-=-=-=-=-=-head_navigation-=-=-=-=-=-=-=- */
+#nav {height:15px;font-size: 12px;background: url(../images/common/img_07.jpg) repeat-x bottom left; text-align:left; letter-spacing:1px;border-bottom:4px solid #2e72b2;}
+#nav ul {padding-left:3%;margin: 0;list-style-type: none;}
+#nav ul li {text-align:center;float:left;position: relative;display:inline;}
+/*style of main items normal state*/
+#nav ul li a,.nav ul li a:visited {display: block;text-decoration: none;color:#000000;width: auto;padding: 5px 11px 0px 10px;line-height:12px;height:21px;float:left;}
+* html .nav ul li a,.nav ul li a:visited {width: auto;}
+/*main nav over state*/
+#nav ul li:hover a {color:#fff;background: url(../images/common/nav.gif) no-repeat top;float:left;padding-top:5px;}
+.nav-selected {color:#fff;background: url(../images/common/nav.gif) no-repeat top;float:left;padding-top:5px;}

@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+	
+	<form id="SYS_P_USER" name="用户信息" validate="true">
+		<field id="account" validate="true" null="false" type="string">
+			<name>帐号</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>用户帐号必填</null-message>
+			<invalid-message>用户帐号格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+		<field id="name" validate="true" null="false" type="string">
+			<name>姓名</name>
+			<constraint>10</constraint>
+			<pattern><![CDATA[\w*]]></pattern>
+			<null-message>请输入用户姓名</null-message>
+			<invalid-message></invalid-message>
+		</field>
+		<field id="mobile_phone" validate="true" null="false" type="string">
+			<name>手机</name>
+			<constraint>12</constraint>
+			<pattern><![CDATA[^1[3|4|5|8][0-9]\d{4,8}$]]></pattern>
+			<null-message>请输入手机号码!</null-message>
+			<invalid-message>你输入的手机号码格式不对！</invalid-message>
+		</field>
+
+        <field id="dept_name" validate="true" null="false" type="string">
+            <name>部门</name>
+            <constraint>12</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请选择部门!</null-message>
+            <invalid-message></invalid-message>
+        </field>
+	</form>
+	
+	<form id="SYS_P_USERINFOMANAGE" name="个人信息管理" validate="true">
+		<field id="name" validate="true" null="false" type="string">
+			<name>用户名称</name>
+			<constraint>50</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入用户名称</null-message>
+			<invalid-message>用户名称格式不正确，请输入1-50个字符或者1-25个汉字!</invalid-message>
+		</field>
+		<field id="mobile_phone" validate="true" null="false" type="string">
+			<name>手机号码</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[^1[3|4|5|8][0-9]\d{4,8}$]]></pattern>
+			<null-message>请输入手机号码</null-message>
+			<invalid-message>手机号码格式不对，请重新输入!</invalid-message>
+		</field>
+		<field id="email" validate="true" null="false" type="string">
+			<name>电子邮箱</name>
+			<constraint>32</constraint>
+			<pattern><![CDATA[^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$]]></pattern>
+			<null-message>请输入用户电子邮箱</null-message>
+			<invalid-message>电子邮箱格式不正确，请按正确的格式输入1-32个字符!</invalid-message>
+		</field>
+	</form>
+	
+	<form id="SYS_USERROLEMANAGE" name="角色管理" validate="true">
+		<field id="eidtName" validate="true" null="false" type="string">
+			<name>角色名称</name>
+			<constraint>64</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色名称</null-message>
+			<invalid-message>角色名称格式不正确，正确格式为 1-64个字符或者1-32个汉字</invalid-message>
+		</field>
+		<field id="edit_type_id" validate="true" null="false" type="int">
+			<name>角色类型</name>
+			<constraint>2</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请选择角色类型</null-message>
+			<invalid-message>角色类型格式不正确</invalid-message>
+		</field>
+		<field id="eidtNote" validate="true" null="true" type="string">
+			<name>角色备注</name>
+			<constraint>255</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色备注</null-message>
+			<invalid-message>角色备注格式不正确，请输入1-255个字符或者1-128个汉字</invalid-message>
+		</field>
+		<field id="addCode" validate="true" null="false" type="string">
+			<name>角色编号</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色编号</null-message>
+			<invalid-message>角色编码格式不正确，正确格式为 1-20个数字</invalid-message>
+		</field>
+		<field id="addName" validate="true" null="false" type="string">
+			<name>角色名称</name>
+			<constraint>64</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色名称</null-message>
+			<invalid-message>角色名称格式不正确，正确格式为 1-64个字符或者1-32个汉字</invalid-message>
+		</field>
+		<field id="add_type_id" validate="true" null="false" type="string">
+			<name>角色类型</name>
+			<constraint>2</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色类型</null-message>
+			<invalid-message>角色类型格式不正确</invalid-message>
+		</field>
+		<field id="addNote" validate="true" null="true" type="string">
+			<name>角色备注</name>
+			<constraint>255</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入角色备注</null-message>
+			<invalid-message>角色备注格式不正确，请输入1-255个字符或者1-128个汉字</invalid-message>
+		</field>
+	</form>
+	
+	
+	<form id="SYS_USERMODIFYPASS" name="修改密码" validate="true">
+		<field id="oldPassword" validate="true" null="false" type="string">
+			<name>旧密码</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入旧密码</null-message>
+			<invalid-message>用户帐号格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+		<field id="newPassword" validate="true" null="false" type="string">
+			<name>新密码</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入新密码</null-message>
+			<invalid-message>用户帐号格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+		<field id="newPassword1" validate="true" null="false" type="string">
+			<name>确定新密码</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请再次输入新密码</null-message>
+			<invalid-message>用户帐号格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+	</form>
+	
+
+	<form id="SYS_P_LOGIN" name="系统登录" validate="true">
+		<field id="loginName" validate="true" null="false" type="string">
+			<name>用户名</name>
+			<constraint>20</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>用户不能为空</null-message>
+			<invalid-message>格式不正确</invalid-message>
+		</field>
+		<field id="password" validate="true" null="false" type="string">
+			<name>密码</name>
+			<constraint>10</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>密码不能为空</null-message>
+			<invalid-message>不正确</invalid-message>
+		</field>
+		<field id="validateCode" validate="true" null="false" type="string">
+			<name>验证码</name>
+			<constraint>10</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>验证码不能为空</null-message>
+			<invalid-message>不正确</invalid-message>
+		</field>
+	</form>	
+	
+	<form id="SYS_P_MODIFYPASS" name="修改密码" validate="true">
+		<field id="oldPassword" validate="true" null="false" type="string">
+			<name>此项输入</name>
+			<constraint>15</constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>不能为空.</null-message>
+			<invalid-message>不正确</invalid-message>
+		</field>
+		<field id="newPassword" validate="true" null="false" type="string">
+			<name>此项输入</name>
+			<constraint></constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>不能为空.</null-message>
+			<invalid-message>不正确</invalid-message>
+		</field>
+		<field id="newPassword1" validate="true" null="false" type="string">
+			<name>此项输入</name>
+			<constraint></constraint>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>不能为空.</null-message>
+			<invalid-message>不正确</invalid-message>
+		</field>
+	</form>
+	<form id="add_orgStrMan_validation" name="增加组织机构" validate="true">
+		<field id="name" validate="true" null="false" type="string">
+			<name>组织机构名称</name>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>组织机构名称必填</null-message>
+			<invalid-message>组织机构名称格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+		<field id="DEPT_TYPE" validate="true" null="false" type="string">
+			<name>组织机构类型</name>
+			<pattern><![CDATA[^[0-9]{1,2}$]]></pattern>
+			<null-message>请输入组织机构类型</null-message>
+			<invalid-message>组织机构类型只能输入一到两位的数字！</invalid-message>
+		</field>
+        <field id="PARENT_ID" validate="true" null="false" type="string">
+			<name>上级部门ID</name>
+			<pattern><![CDATA[^[0-9]{1,2}$]]></pattern>
+			<null-message>请选择一个部门ID</null-message>
+			<invalid-message>组织机构类型只能输入一到两位的数字！</invalid-message>
+		</field>
+		<field id="NOTE" validate="true" null="false" type="string">
+			<name>备注</name>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入备注</null-message>
+			<invalid-message>请输入正确的备注格式</invalid-message>
+		</field>
+	</form>	
+	<form id="editService" name="修改组织机构" validate="true">
+		<field id="ename" validate="true" null="false" type="string">
+			<name>组织机构名称</name>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>组织机构名称必填</null-message>
+			<invalid-message>组织机构名称格式不正确，正确格式为 1-5个数字</invalid-message>
+		</field>
+		<field id="eDEPT_TYPE" validate="true" null="false" type="string">
+			<name>组织机构类型</name>
+			<pattern><![CDATA[^[0-9]{1,2}$]]></pattern>
+			<null-message>请输入组织机构类型</null-message>
+			<invalid-message>组织机构类型只能输入一到两位的数字！</invalid-message>
+		</field>
+		<field id="eNOTE" validate="true" null="false" type="string">
+			<name>备注</name>
+			<pattern><![CDATA[]]></pattern>
+			<null-message>请输入备注</null-message>
+			<invalid-message>请输入正确的备注格式</invalid-message>
+		</field>editService
+	</form>
+
+    <!-- IP规则数据校验 -->
+    <form id="DS_IP_RULES_EDIT" name="IP规则" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>规则名称</name>
+            <pattern></pattern>
+            <null-message>规则名称必填</null-message>
+            <invalid-message></invalid-message>
+        </field>
+    </form>
+</rules>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_NOTICE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            <#if info_type="notice">
+            insert into bi_notice(id,title,content,view_times,create_user,create_time)
+            values(bi_notice_seq.nextval,[title],[content],0,[var(RU.CUR_USER.id)],sysdate)
+            </#if>
+            <#if info_type="download">
+            insert into bi_notice(id,title,view_times,create_user,create_time,type)
+            values([notice_id],[title],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'),2)
+            </#if>
+            ]]>
+        </stmt>
+    </query>
+</query-config>

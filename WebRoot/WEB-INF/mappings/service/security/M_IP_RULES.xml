@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- IP规则数据源配置 -->
+<datasources>
+
+    <!-- IP规则列表 -->
+    <ds name="DS_IP_RULES_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_LIST]]></url>
+    </ds>
+
+    <!-- 编辑IP规则 -->
+    <ds name="DS_IP_RULES_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_EDIT]]></url>
+    </ds>
+
+    <!-- 获取IP规则详细信息 -->
+    <ds name="DS_IP_RULES_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_INFO]]></url>
+    </ds>
+
+    <!-- 删除IP规则 -->
+    <ds name="DS_IP_RULES_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_DELETE]]></url>
+    </ds>
+    
+    <!-- 编辑全局跳转参数 -->
+    <ds name="DS_IP_RULES_SYSPARAMS_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_SYSPARAMS_EDIT]]></url>
+    </ds>    
+    
+    <!-- 加载全局跳转参数 -->
+    <ds name="DS_IP_RULES_SYSPARAMS_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_res=/com/sunrise/service/security/Q_IP_RULES.xml&_id=Q_IP_RULES_SYSPARAMS_INFO]]></url>
+    </ds>        
+
+</datasources>

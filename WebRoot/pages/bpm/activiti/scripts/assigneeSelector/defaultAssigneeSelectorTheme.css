@@ -1,0 +1,145 @@
+/* 所有对话框默认隐藏 */
+.Dialog {
+    display: none;
+}
+
+/* 根容器 */
+.AssigneeSelectorDialog {
+    padding: 10px;
+}
+
+/* 根容器>表单 */
+.AssigneeSelectorDialogForm {
+
+}
+
+/* 根容器>表单>责任人选择区> */
+.AssigneeSelectorArea {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+    line-height: 25px;
+}
+
+.AssigneeSelectorArea .SelectorViewTd {
+    padding: 5px;
+}
+
+.AssigneeSelectorArea .SelectorOrgTd {
+    padding: 5px;
+    width: 200px;
+}
+
+/* 已选组织 */
+.SelectorOrgTdSelected {
+    background-color: #FFE6B8;
+}
+
+.AssigneeSelectorArea .SelectorUserListTd {
+    padding: 5px;
+    width: 100px;
+}
+
+.AssigneeSelectorArea .AssigneeSelectorOperTd {
+    width: 25px;
+    padding: 5px;
+}
+
+.AssigneeSelectorArea .SelectedAssigneeListTd {
+    padding: 5px;
+}
+
+.AssigneeSeelectorViewDiv {
+    border: 1px solid #A6C9E2;
+    height: 25px;
+}
+
+.AssigneeSelectorOrgDiv {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    width: 100%;
+    /*min-height: 200px;*/
+    height: 250px;
+    overflow: auto;
+}
+
+/* 根容器>表单>责任人选择区>组织选择区 */
+.AssigneeSelectorOrgList {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    width: 100%;
+    font-size: 12px;
+}
+
+/* 根容器>表单>责任人选择区>组织选择区>tr */
+.AssigneeSelectorOrgList tr {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    height: 25px;
+}
+
+/* 根容器>表单>责任人选择区>组织选择区>td */
+.AssigneeSelectorOrgList td {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    height: 25px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.AssigneeSelectorUserSelector {
+    width: 100%;
+    height: 250px;
+}
+
+.AssigneeSelectorOper {
+
+}
+
+.AssigneeSelectorUserList {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    width: 100%;
+    font-size: 12px;
+}
+
+.AssigneeSelectorUserList tr {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    height: 25px;
+}
+
+.AssigneeSelectorUserList td {
+    border-collapse: collapse;
+    border: 1px solid #A6C9E2;
+    height: 25px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.AssigneeSelectorSelectedAssigneeList, .Copy_Selected_List {
+    border: 1px solid #A6C9E2;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+}
+
+.Selected_Assignee_Td, .Selected_Copy_Td {
+    width: 130px;
+    height: 110px;
+}
+
+.Selected_Assignee_Option_Td, .Selected_Copy_Option_Td {
+    width: 90px;
+    height: 100px;
+}
+
+.AssigneeSeelectorViewLink {
+    margin-left: 5px;
+}
+
+.AssigneeSeelectorViewLink:link {
+    color: blue;
+    text-decoration: underline;
+}

@@ -1,0 +1,54 @@
+#errorTitle{
+	background-color:#fff;
+	display:none;	
+	width:auto;
+	padding:15px;
+	text-align:left;
+	border:2px solid #333;
+	font-size:12px;
+
+	opacity:0.8;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	-moz-box-shadow: 0 0 50px #ccc;
+	-webkit-box-shadow: 0 0 50px #ccc;
+	
+}
+
+#errorDetailed{
+	font-size: 13px;
+}
+
+.tip {
+	/*background-color:#000;*/
+	/*border:1px solid #fff;*/
+	padding:3px 6px;
+	margin-left:0px;
+	/*width:100px;*/
+	/*display:none;*/
+	/*color:#fff;*/
+	text-align:left;
+	font-size:10px;
+	float:right;
+	font-size:12px;
+
+	/* outline radius for mozilla/firefox only */
+	/*-moz-box-shadow:0 0 10px #000;*/
+	/*-webkit-box-shadow:0 0 10px #000;*/
+}
+
+.msg_info{
+    padding:2px;
+	font-size:12px;
+}
+.msg_error{
+    padding:2px;
+	font-size:12px;
+}
+.msg_error_detail{
+	font-size : 12px;
+	display : none;
+	width : 100%;
+	height : 200px;
+	overflow : auto;
+}

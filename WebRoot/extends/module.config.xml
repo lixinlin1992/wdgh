@@ -1,0 +1,4 @@
+<module_config>
+	<main version="gz"/>
+	<extend module="xx" version="wh"/>
+</module_config>

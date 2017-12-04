@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+@(#)index.html 2015/12/21 15:58
+Copyright 2015 Sunrise Tech Ltd. All rightis reserved
+
+@author 张金凌
+-->
+<html lang="zh-CN" ng-app="esaleb">
+<head>
+    <base href="../../../">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易售宝</title>
+
+    <script type="text/javascript" src="rdcp/script/lib/jquery/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript" src="ESale/Mall/UI/js/jquery.slides.min.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/rdcp.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/ajax/rdcp.ajax.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/core/rdcp.adapter.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/core/rdcp.array.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/core/rdcp.string.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/core/rdcp.dom.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/ui/rdcp.mask.js"></script>
+    <script type="text/javascript" src="rdcp/script/src/core/rdcp.core.all.js"></script>
+
+    <script type="text/javascript" src="System/Base/scripts/config.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/Base.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/update.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/local.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/ajax.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/app.js"></script>
+    <script type="text/javascript" src="Style/js/ripple.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/jsonpath/jsonpath-0.8.0.js"></script>
+    <script type="text/javascript" src="System/Intf/scripts/intf.js"></script>
+    <script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/mobile_framework.js"></script>
+    <script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/rwCard.js"></script>
+
+    <link rel="stylesheet" href="Style/css/style.css">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="Style/css/bootstrap.min.css">
+
+    <!--IOS电池栏样式-->
+    <link id="batteryBarCss" rel="stylesheet" href=""/>
+</head>
+<body ng-controller="IntfCtrl" style="background: #FFFFFF;">
+<!--提示盒子Begin-->
+<div class="com_noticeBox">
+    <!--提示图片展示Begin-->
+    <div class="bigloading"><img src="Style/images/common/bigestloading.gif" alt=""></div>
+    <!--提示图片展示End-->
+    <!--提示信息Begin-->
+    <p class="skipTitle">正在启动，请稍候...</p>
+</div>
+<!--提示盒子End-->
+<script>
+    document.addEventListener('deviceready', function () {
+        console.log("System/Intf: Device ready");
+
+        window.$$DeviceReady = true;
+    });
+</script>
+</body>
+</html>

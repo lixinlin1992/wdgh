@@ -1,0 +1,196 @@
+<!--坐标信息-->
+<div class="appLocate appLocateWhite">
+	<span class="locateItem">当前位置：</span>
+	<span class="locateLon" id="Longitude">经度</span>
+	<span class="locateLat" id="Latitude">纬度</span>
+</div>
+<!--坐标信息end-->
+<!--基站基础信息-->
+<div class="appForum">
+	<h4 class="basicTitle">基站基础信息</h4>
+	<div class="basicShow">
+		<div class="baseItem">
+			<span>基站编码：</span>
+			<p>{{g_adress.PROPERTYCODE}}</p>
+		</div>
+		<div class="baseItem">
+			<span>基站名称：</span>
+			<p>{{g_adress.PROPERTYNAME}}</p>
+		</div>
+		<div class="baseItem">
+			<span>基站地址：</span>
+			<p>{{g_adress.PROPERTYADDR}}</p>
+		</div>
+	</div>
+</div>
+<!--基站基础信息end-->
+<!--基站信息填写-->
+<div class="appForum" >
+	<form id="g_message">
+	<div class="inputInline selectXs">
+		<label>是否为标杆:</label>
+		<select class="form-control" name="isExample">
+			<option value="1" ng-selected="isexmp">是</option>
+			<option value="0" ng-selected="!isexmp">否</option>
+		</select>
+	</div>
+	<div class="inputInline inputXs">
+		<label>2P空调数量:</label>
+		<input type="text" class="form-control" id="ue_2pcount"  name="ue_2pcount" required value="{{row.e_2p}}"/>
+		<span>台</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>3P空调数量:</label>
+		<input type="text" class="form-control" id="ue_3pcount" name="ue_3pcount" required value="{{row.e_3p}}"/>
+		<span>台</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>5P空调数量:</label>
+		<input type="text" class="form-control" id="ue_5pcount" name="ue_5pcount" required value="{{row.e_5p}}"/>
+		<span>台</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>1.5P空调数量:</label>
+		<input type="text" class="form-control" id="ue1_5pcount" name="ue1_5pcount" required value="{{row.e_1_5p}}"/>
+		<span>台</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>开关电源输出总电流:</label>
+		<input type="text" class="form-control" id="output" name="output" required value="{{row.e_output_current}}" onchange="calculateEDcPower()"/>
+		<span>A</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>交流设备功率:</label>
+		<input type="text" class="form-control" id="acPower" name="acPower" required value="{{row.e_ac_power}}" onchange="calculateSumPower()"/>
+		<span>KW</span>
+	</div>
+	<div class="inputInline inputXs">
+		<label>直流设备功率:</label>
+		<input type="text" class="form-control" id="dcPower" name="dcPower"required value="{{row.e_dc_power}}" readonly="readonly"/>
+		<span>KW</span>
+	</div>
+	<div class="inputInline inputXs" style="padding-left: 90px;">
+		<label>基站总额定功率:</label>
+		<input type="text" class="form-control" id="sumPower"  name="sumPower" required value="{{row.e_sum_power}}"  readonly="readonly"/>
+		<span>KW</span>
+	</div>
+	<div class="inputInline inputXs" style="padding-left: 90px;">
+		<label>联通主设备分摊电流:</label>
+		<input type="text" class="form-control" id="share_eletronic"  name="share_eletronic" required value="{{row.share_eletronic}}" onchange="calculateSharePercent(this.value)"/>
+		<span>KW</span>
+	</div>
+	<div class="inputInline inputXs" style="padding-left: 90px;">
+		<label>分摊比例:</label>
+		<input type="text" class="form-control" id="share_percent"  name="share_percent" required value="{{row.share_percent}}"  readonly="readonly"/>
+		<span>KW</span>
+	</div>
+	</form>
+</div>
+
+<div class="submitBtns">
+	<button type="" class="btn btn-block btnSubmit" attr1="{{g_adress.PROPERTYID}}" ng-click="g_save($event)" >保存</button>
+	<button type="" class="btn btn-block btnCancel" ng-click="g_cancel()">取消</button>
+</div>
+<!--基站信息填写end-->
+
+
+
+
+
+<!--		<div class="bmTitle">
+			<span>当前位置：经度：<span id="Longitude"></span>，纬度：<span id="Latitude"></span></span>
+		</div>
+		<div class="bmChange">
+			<h6>
+				<span>基站基础信息</span>
+			</h6>
+			<div class="bmInfo container">
+				<div class="row">
+					<div class="col-xs-3">基站名称:</div>
+					<div class="col-xs-3">{{g_adress.PROPERTYNAME}}</div>
+					<div class="col-xs-3">基站编码:</div>
+					<div class="col-xs-3">{{g_adress.PROPERTYCODE}}</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3">站址归属:</div>
+					<div class="col-xs-3">{{g_adress.PROPERTYADDR}}</div>
+				</div>
+			</div>
+			<h6>
+				<span>基站基础信息</span>
+			</h6>
+			<form id="g_message">
+			<div class="bmInfo container">
+				<div class="row">
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>是否为标杆:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="isExample" placeholder="1是，0否" id="g1" required value="{{row.IS_EXAMPLE}}"/>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>开关电源输出电流:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="output" required value="{{row.e_output_current}}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>直流设备功率:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="dcPower"required value="{{row.e_dc_power}}"/>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>交流设备功率:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="acPower" required value="{{row.e_ac_power}}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>1.5P空调数量:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="ue1_5pcount" required value="{{row.e_1_5p}}"/>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>2P空调数量:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="ue_2pcount" required value="{{row.e_2p}}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>3P空调数量:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="ue_3pcount" required value="{{row.e_3p}}"/>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>5P空调数量:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="ue_5pcount" required value="{{row.e_5p}}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3 bmFormGroup">
+						<label><i>*</i>基站总额定功率:</label>
+					</div>
+					<div class="col-xs-3 bmFormGroup">
+						<input type="text" class="form-control" name="sumPower" required value="{{row.e_sum_power}}"/>
+					</div>
+				</div>
+				<div class="bmInfoBtn">
+					<button type="submit" attr1="{{g_adress.PROPERTYID}}" class="bmBtnLg" ng-click="g_save($event)">保存</button>
+					<button type="button" class="bmBtnLg" ng-click="g_cancel()">取消</button>
+				</div>
+			</div>
+			</form>
+		</div>-->
+<script src="Business/CellControl/scripts/Cellmess_edit.js"></script>
+

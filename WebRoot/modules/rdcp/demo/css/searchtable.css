@@ -1,0 +1,22 @@
+@charset "utf-8";
+/*-=-=-=-=-=搜索条的模块，这块使用时变动比较大，需要进一步考虑-=-=-=-=-=*/
+/*搜索条的模块Begin*/
+.SR_searchTableBox {
+	margin-top:5px;
+	width:100%;
+	overflow:hidden;
+	font-size:12px;
+	}
+.SR_searchTableBox table{
+	width:99%;
+	margin:0px auto;
+	}
+.SR_searchTableBox table td{
+	height:30px;
+	}
+.SR_searchTableBox .SR_searchTitle{
+	text-align:right;
+	width:80px;
+    font-size: 12px;
+	}
+/*搜索条的模块End*/

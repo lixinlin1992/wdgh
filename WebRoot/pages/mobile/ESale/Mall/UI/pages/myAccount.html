@@ -1,0 +1,35 @@
+<script type="text/javascript" src="ESale/Mall/UI/scripts/myAccount.js"></script>
+
+<div class="contentBox">
+	<a href="javascript://" style="margin-top: 10px;display: block;" ng-click="nextPage()">
+		<div class="baseTableBox" style="background: #ffffff;">
+			<table class="baseTable" border="1px" style="width: 100%;" >
+				<tr>
+					<td>
+						<p class="baseTableMessage"><span ng-bind="name"></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p class="baseTableMessage">平台商：<span ng-bind="mname"></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p class="baseTableMessage">可用金额：<span class="stress">￥<span ng-bind="balance"></span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p class="baseTableMessage">状态：<span ng-bind="status"></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p class="baseTableMessage">备注：<span ng-bind="note"></span></p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</a>
+</div>

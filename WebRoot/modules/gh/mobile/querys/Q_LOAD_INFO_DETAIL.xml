@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_INFO_DETAIL" type="form_data" result="easyui">
+		<stmt>
+		<![CDATA[
+		  select bnc.title,bnc.content,spd.name department_name,to_char(bnc.create_time,'yyyy-mm-dd') create_time
+from ${code_table} bnc
+left join sys_p_user spu on bnc.create_user=spu.id
+left join sys_p_department spd on spu.dept_id=spd.id
+where bnc.id=${detail_id}
+		]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

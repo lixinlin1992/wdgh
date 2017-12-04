@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 查询数据源树 -->
+    <ds name="DS_DATA_SOURCE_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_TREE]]></url>
+    </ds>
+    <!-- 查询数据源树 -->
+    <ds name="DS_DATA_SOURCE_GRID" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_GRID]]></url>
+    </ds>
+    <!-- 属性编辑器的数据 -->
+    <ds name="DS_DS_PROPERTY_GRID" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DS_PROPERTY_GRID]]></url>
+    </ds>    
+    <!-- 数据源添加 -->
+    <ds name="DS_DATA_SOURCE_ADD" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_ADD]]></url>
+    </ds>    
+    <!-- 数据源参数列表 -->
+    <ds name="DS_DATA_SOURCE_PARAM_GRID" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_PARAM_GRID]]></url>
+    </ds>    
+    <!-- 规则下拉框填充 -->
+    <ds name="DS_CHECK_RULE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_CHECK_RULE]]></url>
+    </ds>    
+    <!-- 参数添加 -->
+    <ds name="DS_DATA_SOURCE_PARAM_ADD" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_PARAM_ADD]]></url>
+    </ds>  
+	<!-- 参数属性编辑器 -->      
+    <ds name="DS_DS_PARAM_TABLE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DS_PARAM_TABLE]]></url>
+    </ds>    
+	<!-- 删除数据源 -->      
+    <ds name="DS_DATA_SOURCE_DEL_KV" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DATA_SOURCE_DEL_KV]]></url>
+    </ds>    
+	<!-- 删除参数 -->      
+    <ds name="DS_DS_PARAM_DEL_KV" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/datasource/Q_RDCP_DATA_SOURCE.xml&_id=Q_DS_PARAM_DEL_KV]]></url>
+    </ds>    
+
+</datasources>

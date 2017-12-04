@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="struts" extends="framework" namespace="/">
+        <!-- 更新政策申请 -->
+        <action name="importFileAction" class="com.ImportFileAction">
+        </action>
+        <action name="LdapAction" class="com.action.LdapAction">
+        </action>
+	</package>
+</struts>

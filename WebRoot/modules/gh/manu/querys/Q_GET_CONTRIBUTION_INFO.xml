@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_GET_CONTRIBUTION_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+            select title, author_one, author_two, author_three, content
+            from bi_contribution
+            where id=[manu_id]
+		]]></stmt>
+    </query>
+</query-config>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+    <!--区域列表-->
+    <ds name="DS_PAGE_SECTOR_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_SECTOR.xml&_id=Q_SECTOR_LIST]]></url>
+    </ds>
+
+    <!--查询区域详细信息-->
+    <ds name="DS_PAGE_SECTOR_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_SECTOR.xml&_id=Q_SECTOR_INFO]]></url>
+    </ds>
+
+    <!--添加/修改区域-->
+    <ds name="DS_PAGE_SECTOR_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_SECTOR.xml&_id=Q_SECTOR_EDIT]]></url>
+    </ds>
+
+    
+    <!--删除区域-->
+    <ds name="DS_PAGE_SECTOR_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_SECTOR.xml&_id=Q_SECTOR_DELETE]]></url>
+    </ds>
+</datasources>

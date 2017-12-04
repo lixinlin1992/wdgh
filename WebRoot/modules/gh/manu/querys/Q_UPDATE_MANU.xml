@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_UPDATE_MANU" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_manu set company=[company],author_one=[author_one],author_two=[author_two],
+            author_three=[author_three],content=[content],state=0,remarks=null
+            where id=[manu_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>编辑会籍信息</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/shake.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/wo.js"></script>
+    <!-- 日期插件js -->
+    <script src="js/datetime/jquery-1.11.1.min.js"></script>
+    <script src="js/datetime/mobiscroll.core.js"></script>
+    <script src="js/datetime/mobiscroll.widget.js"></script>
+    <script src="js/datetime/mobiscroll.scroller.js"></script>
+    <script src="js/datetime/mobiscroll.util.datetime.js"></script>
+    <script src="js/datetime/mobiscroll.datetimebase.js"></script>
+    <script src="js/datetime/mobiscroll.widget.ios.js"></script>
+    <script src="js/datetime/mobiscroll.i18n.zh.js"></script>
+    <link href="css/datetime/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.widget.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.widget.ios.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+    <link href="css/datetime/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(function () {
+            var nowData=new Date();
+            var opt= {
+                theme:'ios', //设置显示主题
+                mode:'scroller', //设置日期选择方式，这里用滚动
+                display:'bottom', //设置控件出现方式及样式
+                preset : 'datetime', //日期:年 月 日 时 分
+                minDate: nowData,
+                // maxDate:new Date(nowData.getFullYear(),nowData.getMonth(),nowData.getDate()+7,22,00),
+                dateFormat: 'yy-mm', // 日期格式,显示小时分钟加上dd
+                dateOrder: 'yymm', //面板中日期排列格式,显示小时分钟加上dd
+                stepMinute: 5, //设置分钟步长
+                yearText:'年',
+                monthText:'月',
+                dayText:'日',
+                hourText:'时',
+                minuteText:'分',
+                lang:'zh' //设置控件语言};
+            };
+            $('#dateinput').mobiscroll(opt);
+            $('#dateinput2').mobiscroll(opt);
+        });
+    </script>
+    <style>
+        .part2 , .part2 input {
+            font-size: 1.6rem !important;
+        }
+        .part2 input {
+            text-indent: 8em;
+            text-align: right;
+        }
+		.part ul li{
+		   height:3rem
+		}
+    </style>
+</head>
+<body style="background-color: #fff !important;">
+<div class="warpe">
+    <div class="head">
+        <a href="#" class="return"><i class="icon-chevron-left"></i></a>
+        编辑会籍信息
+        <a href="#" class="search animated fadeInRight" style="font-size: 1.4rem;">提交</a>
+    </div>
+    <div class="main" style="padding:1rem">
+        <div class="part part2">
+            <ul>
+                <li>
+                    <input type="text" placeholder="2015202110081">
+                    <label class="puff_left">工号：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="王婷婷">
+                    <label class="puff_left">姓名：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="女">
+                    <label class="puff_left">性别：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="1992年8月" id="dateinput2">
+                    <label class="puff_left">出生年月：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="中共党员">
+                    <label class="puff_left">政治面貌：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="汉族">
+                    <label class="puff_left">民族：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="一卡通">
+                    <label class="puff_left">证件类型：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="2015202110081">
+                    <label class="puff_left">证件号：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="硕士">
+                    <label class="puff_left">学历：</label>
+                </li>	
+                <li>
+                    <input type="text" placeholder="硕士">
+                    <label class="puff_left">学位：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="" >
+                    <label class="puff_left">岗位名称：</label>
+                </li>	
+                <li>
+                    <input type="text" placeholder="" value="2017年6月6日">
+                    <label class="puff_left">入会时间：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder="" value="计算机学院二级工会">
+                    <label class="puff_left">所属二级工会：</label>
+                </li>
+                <li>
+                    <input type="text" placeholder=""value="18086494886">
+                    <label class="puff_left">手机号：</label>
+                </li>		
+                <li>
+                    <input type="text" placeholder=""value="很不错噢">
+                    <label class="puff_left">备注：</label>
+                </li>				
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 页面配置列表数据 -->
+    <ds name="DS_PAGE_SELECTER_LIST" type="url">
+          <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_PAGE_SELECTER.xml&_id=Q_PAGE_SELECTER_LIST]]></url>
+    </ds>
+
+</datasources>

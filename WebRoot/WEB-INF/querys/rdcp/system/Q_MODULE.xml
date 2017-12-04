@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!--查询模块树结构-->
+    <query id="Q_MODULE_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    <#if id??>
+						SELECT m.ID,1 AS TYPE,m.NAME,COUNT(cm.ID) AS CHILDREN_COUNT,m.SYS_CODE,s.NAME AS SYS_NAME
+						FROM SYS_P_MODULE m
+						LEFT JOIN SYS_P_MODULE cm ON cm.PARENT_ID=m.ID
+						LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+						WHERE 1=1
+							<#if type=='0'>
+							AND m.SYS_CODE=[id] AND m.PARENT_ID=0
+							<#else>
+							AND m.PARENT_ID=[id long]
+							</#if>
+                        AND [RdcpSecurity(m.SYS_CODE,m.ID)]
+						GROUP BY m.ID,m.NAME,m.SYS_CODE,s.NAME
+						ORDER BY m.NAME ASC
+                    <#else>
+						SELECT s.CODE AS ID,0 AS TYPE,s.NAME,COUNT(m.ID) AS CHILDREN_COUNT,s.CODE AS SYS_CODE,s.NAME AS SYS_NAME
+						FROM SYS_BI_SYSTEM s
+						LEFT JOIN SYS_P_MODULE m ON m.SYS_CODE=s.CODE
+						WHERE 1=1
+						<#if sys_code??>
+						AND s.CODE=[sys_code]
+						</#if>
+                        AND [RdcpSecurity(s.CODE)]
+						GROUP BY s.CODE,s.NAME
+						ORDER BY s.NAME ASC
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/system/T_MODULE_TREE.ftl</param>
+    </query>
+
+    <!--模块数据列表-->
+    <query id="Q_MODULE_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT m.*,pm.NAME AS PARENT_NAME,s.NAME AS SYS_NAME
+                    FROM SYS_P_MODULE m
+                    LEFT JOIN SYS_P_MODULE pm ON pm.ID=m.PARENT_ID
+                    LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+                    WHERE 1=1
+                    <#if sys_code??>
+                    AND m.SYS_CODE=[sys_code]
+                    </#if>
+                    <#if sys_name??>
+                    AND s.NAME [like(sys_name)]
+                    </#if>
+                    <#if id??>
+                    AND m.ID IN (SELECT ID FROM SYS_P_MODULE START WITH ID=[id] CONNECT BY PRIOR ID=PARENT_ID)
+                    </#if>
+                    AND [RdcpSecurity(m.SYS_CODE,m.ID)]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!--获取模块信息-->
+    <query id="Q_MODULE_INFO" type="form_data">
+        <stmt>
+            <![CDATA[
+                    SELECT m.*,pm.NAME AS PARENT_NAME
+                    FROM SYS_P_MODULE m
+                    LEFT JOIN SYS_P_MODULE pm ON pm.ID=m.PARENT_ID
+                    WHERE m.ID=[id long]
+                    AND [RdcpSecurity(m.SYS_CODE,m.ID)]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!--添加/修改模块信息-->
+    <query id="Q_MODULE_EDIT" type="auto-update">
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">id</param>
+            <param name="type">edit</param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MODULE WHERE NAME=[name] AND SYS_CODE=[sys_code] AND PARENT_ID=[parent_id long] <#if id??>AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[模块名称 [${name}] 已经被占用，请使用其它名称。]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if id??><#else>SYS_P_MODULE m</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if id??>SYS_P_MODULE m</#if>]]></param>
+        <param name="col-vals"><![CDATA[<#if id??><#else>m.ID=SYS_P_MODULE_SEQ.NEXTVAL</#if>]]></param>
+        <param name="update-cols"><![CDATA[m.NAME,m.NOTE]]></param>
+    </query>
+
+
+    <!--删除模块，支持批量删除，如果选中的模块中存在不能删除，则不能删除-->
+    <query id="Q_MODULE_DELETE" type="auto-update">
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM SYS_P_MODULE WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">id</param>
+            <param name="type">delete</param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MODULE WHERE PARENT_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">选中模块下存在子模块，不能删除</param>
+        </processor>
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE MODULE_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">选中的模块下存在功能，不能删除</param>
+        </processor>
+        <processor name="check-count" type="before" seq="4" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_DATASOURCE WHERE MODULE_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">选中的模块下存在数据源配置，不能删除</param>
+        </processor>
+        <processor name="check-count" type="before" seq="5" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_QUERY WHERE MODULE_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">选中的模块下存在查询配置，不能删除</param>
+        </processor>
+        <processor name="check-count" type="before" seq="6" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_PAGE WHERE MODULE_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">选中的模块下存在页面配置，不能删除</param>
+        </processor>
+        <param name="delete-tables">SYS_P_MODULE m</param>
+        <param name="batch-tables">m=id</param>
+        <param name="trans">true</param>
+    </query>
+</query-config>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_GET_SCHOOL_CULTURE_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+        with a as (
+        select wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+        where busi_type='BI_SCHOOL_CULTURE' and busi_id=[culture_id])
+        select id culture_id,title,movie_type,to_char(play_time,'yyyy-mm-dd hh24:mi:ss') play_time,play_place,actors,type,
+        content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,a.file_ids,a.file_names
+        from bi_school_culture,a
+        where id=[culture_id]
+		]]></stmt>
+    </query>
+</query-config>

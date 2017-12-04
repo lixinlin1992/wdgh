@@ -1,0 +1,318 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+    $("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+
+
+<!--身份信息begin-->
+<div id="infoPanel" style="display: block;">
+	
+	<!--用户信息表单js-->
+	<!--<script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/fourGGroup_info.js"></script>-->
+
+	<!--成卡信息begin-->
+	<div id="ck_info" style="display: block;" ng-show="numType.value=='ChinaUnicom.Account.4G.CK'">
+		<!--100%布局Begin-->
+		<div class="layout_centent" style="padding-bottom: 0;">
+			<!--标题一Begin-->
+			<div class="com_title first_title">
+				<span>成卡信息</span>
+			</div>
+			<!--标题一End-->
+			<!--选择按钮Begin-->
+			<div style="padding:10px;">
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left" style="margin-left:0 ;">
+						<p class="form_title">成卡卡号</p>
+					</div>
+					<div class="form_right" style="margin-right: 0;">
+						<input name="name" type="tel" class="input_normal" ng-model="form.CARDNUMBER" id="cardnumber" placeholder="成卡卡号" />
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!--表单排版End-->
+				<div class="container-fluid goods_show_list">
+					<div class="row">
+						<div class="col-xs-4 col-md-4 col-xs-offset-4 col-md-offset-4 goods_box">
+							<div style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+								<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="writeCard" id="writeCard" onchange="uploadImg('writeCard');" single>
+								<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_writeCard" ng-click="takePhoto('writeCard')"></div>
+								<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">成卡照片</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--选择按钮End-->
+		</div>
+		<!--100%布局End-->
+	</div>
+	<!--成卡信息end-->
+
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>身份资料</span>
+		</div>
+		<!--标题一End-->
+		<!--正常外框Begin-->
+		<div class="com_normalbox">
+			<!--提示文字Begin-->
+			<div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+				上传身份证正，反面及手持照片
+			</div>
+			<!--提示文字End-->
+
+			<!--身份证图片列表Begin-->
+			<div class="container-fluid goods_show_list">
+				<div class="row">
+					<div id="frontDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+						<div id="frontDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+							<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="front" id="front" onchange="uploadImg('front');" single>
+							<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front" ng-click="takePhoto('front')"></div>
+							<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+						</div>
+					</div>
+
+					<div id="contraryDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+						<div id="contraryDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+							<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="contrary" id="contrary" onchange="uploadImg('contrary');" single>
+							<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary" ng-click="takePhoto('contrary')"></div>
+							<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+						</div>
+					</div>
+
+					<div class="col-xs-4 col-md-4 goods_box">
+						<div style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+							<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+							<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_hand" ng-click="takePhoto('hand')"></div>
+							<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+						</div>
+					</div>
+				</div>
+				<!--进度条begin-->
+				<div class="row">
+					<div class="col-md-12">
+						<p id="upload_text" style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+					</div>
+					<div class="col-md-12">
+						<div class="progress">
+							<div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--进度条end-->
+			</div>
+			<!--身份证图片列表End-->
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6 col-xs-6 list" id="bluetoothDiv" style="display: block;">
+						<!--常用btn-->
+						<button style="width: 100%;" class="com_btn gary_btn" id="bluetooth_read_btn" data-loading-text="读取中...." autocomplete="off">
+							蓝牙读取
+						</button>
+						<!--常用btn-->
+					</div>
+					<div class="col-md-6 col-xs-6 list" id="ocrDiv" style="display: block;">
+						<!--常用btn-->
+						<button style="width: 100%;" class="com_btn gary_btn" id="ocr_btn" ng-click="imageShiBie()" data-loading-text="识别中...." autocomplete="off">
+							图片识别
+						</button>
+						<!--常用btn-->
+					</div>
+				</div>
+			</div>
+
+			<!--提示文字Begin-->
+			<div class="small_font gray_font" style="line-height: 20px;">
+				<span class="red_font">*</span>请尽量在光线较亮的环境下拍摄以提高照片的清晰度,清晰度越高, 图片的识别效果将越好
+			</div>
+			<!--提示文字End-->
+
+			<form>
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">客户名称</p>
+					</div>
+					<div class="form_right">
+						<input name="name" type="text" class="input_normal" ng-model="form.CUSTOMER_NAME" id="customer_name" placeholder="客户名称" readonly="readonly" />
+					</div>
+				</div>
+				<!--表单排版End-->
+
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">性别</p>
+					</div>
+					<div class="form_right">
+						<!--单选按钮Begin-->
+						<a href="javascript://" id="man" ng-click="sex_select('男')" class="radiobtn radiobtnon">男</a>
+						<a href="javascript://" id="woman" ng-click="sex_select('女')" class="radiobtn">女</a>
+						<input id="gender" type="text" style="display: none;" ng-model="form.GENDER" />
+						<!--<input name="gender" type="radio" value="男" style="display: none;"/>
+						<input name="gender" type="radio" value="女" style="display: none;"/>-->
+						<!--单选按钮End-->
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!--表单排版End-->
+
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">证件类型</p>
+					</div>
+					<div class="form_right">
+						<select class="input_normal" id="cert_type" ng-click="certTypeChange()">
+							<option ng-repeat="cert in certs" value="{{cert.id}}">{{cert.text}}</option>
+						</select>
+					</div>
+				</div>
+				<!--表单排版End-->
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">证件号码</p>
+					</div>
+					<div class="form_right">
+						<input name="paper_num" type="text" id="cert_number" maxLength="18" ng-model="form.CERT_NUMBER" class="input_normal" pattern="^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|[xX])$"
+						required="required" readonly="readonly"/>
+					</div>
+				</div>
+				<!--表单排版End-->
+				<!--表单排版Begin-->
+				<div class="formlist" style="background: #ffffff;">
+					<div class="form_left">
+						<p class="form_title">证件有效期</p>
+					</div>
+					<div class="form_right">
+						<div class="dateblock">
+							<input name="paper_stime" class="input_normal" id="cert_valid_from" ng-model="form.CERT_VALID_FROM" required="required" readonly="readonly" placeholder="0000-00-00" />
+						</div>
+						<p class="middleblock">至</p>
+						<div class="dateblock">
+							<input name="paper_time" class="input_normal" id="cert_valid_to" ng-model="form.CERT_VALID_TO" required="required" readonly="readonly" placeholder="0000-00-00" />
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!--表单排版End-->
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">签发机关</p>
+					</div>
+					<div class="form_right">
+						<input name="str_office" type="text" class="input_normal" id="iss_using" ng-model="form.ISS_USING"  readonly="readonly"/>
+					</div>
+				</div>
+				<!--表单排版End-->
+				<!--表单排版Begin-->
+				<div class="formlist">
+					<div class="form_left">
+						<p class="form_title">证件地址</p>
+					</div>
+					<div class="form_right">
+						<input name="paper_addr" type="text" class="input_normal" id="cert_address" ng-model="form.CERT_ADDRESS"  readonly="readonly"/>
+					</div>
+				</div>
+				<!--表单排版End-->
+				<input type="text" style="display: none;" id="nation" ng-model="form.NATION" />
+			</form>
+		</div>
+		<!--正常外框End-->
+	</div>
+	<!--100%布局End-->
+
+	<!--100%布局Begin-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>联系资料（必填）</span>
+		</div>
+		<!--标题一End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">联系电话</p>
+			</div>
+			<div class="form_right">
+				<input type="tel" name="myPhone" class="input_normal" id="phoeNumber" ng-model="form.CONTACT_PHONE" maxlength="11" />
+			</div>
+		</div>
+		<!--表单排版End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">通讯地址</p>
+			</div>
+			<div class="form_right">
+				<input type="text" class="input_normal" id="postal_address" ng-model="form.POSTAL_ADDRESS" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">备注</p>
+			</div>
+			<div class="form_right">
+				<!--多行文本框Begin-->
+				<textarea class="textarea_normal" cols="30" rows="10" id="note" ng-model="form.NOTE" placeholder="请输入少于100的字符"></textarea>
+				<!--多行文本框End-->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!--表单排版End-->
+
+		<input type="text" style="display: none;" id="device_name" ng-model="form.DEVICE_NAME" />
+
+		<!--<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button class="com_btn theme_btn" style="width: 100%" id="submit_btn" ng-click="submit()" data-loading-text="数据提交中...." autocomplete="off">提交
+				</button>
+			</div>
+		</div>-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--身份信息end-->
+<input id="btnAccess" type="hidden" value="1" />
+
+<div class="com_normalbox" id="prev_and_nextPage" style="display: block;margin-bottom: 20px">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" id="prevBtn" href="javascript://" onclick="hrefJump('fourGYiTiHua_package')">
+                    上一步
+                </a>
+				<!--常用btn-->
+			</div>
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" id="submit_btn" href="javascript://" ng-click="submit()">
+                   提交
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="checkHtml"></div>
+
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/fourGYiTiHua_submit.js"></script>
+<script type="text/javascript">
+    $("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

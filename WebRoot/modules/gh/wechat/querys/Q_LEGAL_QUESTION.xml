@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LEGAL_QUESTION" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select b.title,b.view_times,b.content,t.num
+				from BI_LEGAL_AID b,(select count(*) AS num from BI_LEGAL_AID_DETAIL WHERE AID_ID = [legalId]) t
+				where b.ID = [legalId]
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

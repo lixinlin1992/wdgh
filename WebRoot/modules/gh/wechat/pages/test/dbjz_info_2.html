@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>文章详情</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/shake.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/wo.js"></script>
+    <script>
+        $(document).ready(function(){
+            //收藏
+            $("#sc_bth").click(function(){
+                $(".Collection").show();
+            });
+        });
+    </script>
+</head>
+<body style="background-color: #fff !important;">
+<div class="warpe">
+    <div class="head old-head2">
+        <a href="#" class="return"><i class="icon-chevron-left"></i></a>
+        <a href="#" id="sc_bth" class="search"><i class="icon-star-empty"></i> </a>
+    </div>
+    <div class="main">
+        <div class="finance">
+            <ul>
+                <li class="animated fadeIn clear_border">
+                    <a>
+                        <p>关于做好2015年武汉大学教职工重大疾病补助申报工作的通知单</p>
+                        <p><span class="puff_left">来自武大工会</span><span class="puff_right">2015-12-15 23:58</span> <p>
+                        <p>全校各二级工会（离退休工作处）：<p>
+<p>根据武大体卫字[2015]3号《关于印发武汉大学教职工重大疾病互助金管理办法（试行）>的通知》及武大工字[2015]15号《关于实施<武汉大学教职工重大疾病互助金管理办法（试行）>的通知》文件精神，现经互助金管理委员会研究决定，于2015年12月组织教职工重大疾病补助申报工作。现将相关事宜通知如下：<p>
+<p>一、  补助申报时间<p>
+<p>2015年12月21日---2016年1月8日。<p>
+<p>二、补助申报方式<p>
+<p>会员自行登入“武汉大学大病救助及特困补助管理系统”，进行网上申报（详见附件1）。<p>
+<p>三、补助核算时段<p>
+<p>2015年1月1日至2015年12月31日。<p>
+<p>四、相关要求<p>
+<p>1、入会教职工每人每年交纳的互助金120元人民币已由学校财务部从个人工资中代扣。各二级工会（离退休工作处）务必将补助申报通知精神传达给每位会员，对有需要申报的会员进行申报指导；<p>
+<p>2、各二级工会（离退休工作处）指派专人负责“武汉大学大病救助及特困补助管理系统”管理员工作，填写《武汉大学大病救助及特困补助管理系统二级管理员登记表》（附件2）,并于2015年12月16日前发送至邮箱：jzgfwzx@163.com；<p>
+<p>3、各二级工会（离退休工作处）管理员务必准时参加“武汉大学大病救助及特困补助管理系统”管理员培训（培训时间及地点另行通知）。<p>
+<p>联系人：刘仲沛<p>
+<p>联系方式：68779116<p>
+ 
+ 
+ 
+                  <p>武汉大学工会<p>
+                    <p> 2015年12月 9日<p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Collection animated fadeInUp dis_none">
+    <span class="puff_left"><i class="icon-star"> 已收藏</i> </span>
+    <span class="puff_right"><a href="Information_bq.html"><i class=" icon-plus-sign"></i> 添加标签</a> </span>
+</div>
+<script type="text/javascript" src="js/idangerous.swiper.min.js"></script>
+<script type="text/javascript">
+    var tabsSwiper = new Swiper('.swiper-container',{
+        speed:500,
+        onSlideChangeStart: function(){
+            $(".tabs .active").removeClass('active');
+            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+        }
+    });
+    $(".tabs a").on('touchstart mousedown',function(e){
+        e.preventDefault()
+        $(".tabs .active").removeClass('active')
+        $(this).addClass('active')
+        tabsSwiper.slideTo( $(this).index() )
+    })
+    $(".tabs a").click(function(e){
+        e.preventDefault()
+    })
+</script>
+</body>
+</html>

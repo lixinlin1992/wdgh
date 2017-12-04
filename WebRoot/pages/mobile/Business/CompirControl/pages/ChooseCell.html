@@ -1,0 +1,94 @@
+<!--坐标信息-->
+<div class="appLocate">
+	<span class="locateItem">当前位置：</span>
+	<span class="locateLon" id="Longitude">经度</span>
+	<span class="locateLat" id="Latitude">纬度</span>
+</div>
+<!--坐标信息end-->
+<!--主体部分-->
+<div class="appMain">
+	<div class="searchInput">
+		<div class="searchUnit">
+		<input type="text" class="form-control searchIpt" placeholder="请输入基站编码或基站名称" id="PROP_CODE_NAME" />
+		<a href="javascript://" class="searchBtn" ng-click="g_query()"></a>
+			</div>
+	</div>
+	<h4 class="mainTitle">选择站点</h4>
+	<!--基站信息列表-->
+	<div class="baseList">
+		<div class="baseUnit" ng-repeat="row in mylist">
+			<div class="baseItem">
+				<span>基站编码：</span>
+				<p>{{row.PROP_CODE}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站名称：</span>
+				<p>{{row.PROP_NAME}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站类型：</span>
+				<p>{{row.PROPERTY_TYPE_NAME}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站地址：</span>
+				<p>{{row.PROP_ADDRESS}}</p>
+			</div>
+			<a href="javascript://" class="btn btnEdit" attr1="{{row.PROP_ID}}" attr2="{{row.PROP_CODE}}" attr3="{{row.PROP_NAME}}" attr4="{{row.PROPERTY_TYPE_NAME}}" attr5="{{row.PROP_ADDRESS}}" ng-click="g_edit($event)">选择</a>
+		</div>
+	</div>
+	<div class="bmLoad" id="g1" style="display:block">
+		<span class="bmLoadMore" ng-click=""><a href="javascript://" ng-click="getmoredata()">点击加载更多信息……</a></span>
+	</div>
+	<div class="bmLoad" id="g2" style="display:none">
+		<span class="bmLoading"><a href="javascript://">正在加载更多信息……</a></span>
+	</div>
+	<div class="bmLoad" id="g3" style="display:none">
+		<span>无更多信息</span>
+	</div>
+	<!--基站信息列表end-->
+</div>
+<!--主体部分end-->
+
+
+
+
+<!--		<div class="bmTitle">
+			<span>选择站点</span>
+		</div>
+		<div class="bmMain">
+			<div class="bmForm">
+				<form action="" method="">
+					<input type="text" class="form-control" placeholder="基站编码" id="PROP_CODE"/>
+					<input type="text" class="form-control" placeholder="基站名称" id="PROP_NAME" />
+					<button type="submit" class="btn bmBtn bmSearch pull-right" ng-click="g_query()">
+						<span>查询</span>
+					</button>
+				</form>
+			</div>
+			<div class="bmTable cbTable">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>基站编码</th>
+							<th>基站名称</th>
+							<th>基站类型</th>
+							<th>基站地址</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="row in mylist">
+							<td>{{row.PROP_CODE}}</td>
+							<td>{{row.PROP_NAME}}</td>
+							<td>{{row.PROPERTY_TYPE_NAME}}</td>
+							<td>{{row.PROP_ADDRESS}}</td>
+							<td><button type="button" class="btn cbBtn" attr1="{{row.PROP_ID}}" attr2="{{row.PROP_CODE}}" attr3="{{row.PROP_NAME}}" attr4="{{row.PROPERTY_TYPE_NAME}}" attr5="{{row.PROP_ADDRESS}}" ng-click="g_edit($event)">修改</button></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>-->
+
+<script src="Business/CompirControl/scripts/ChooseCell.js"></script>
+

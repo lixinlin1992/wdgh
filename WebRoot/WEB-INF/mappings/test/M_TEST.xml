@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+	<!-- 查询模板列表数据 -->
+	<ds name="DS_TEST_TREE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=test/Q_TEST.xml&_id=Q_TEST_TREE]]>
+			</url>
+	</ds>
+
+
+    <ds name="DS_TEST_TREES" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=test/Q_TEST.xml&_id=Q_TEST_TREES]]>
+        </url>
+    </ds>
+    <ds name="DS_TEST_COMBOS" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=test/Q_TEST.xml&_id=Q_TEST_COMBOS]]>
+        </url>
+    </ds>
+</datasources>

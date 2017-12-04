@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+
+	<ds name="DS_PAY_ELEC_LIST_BY_WO_ID" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/payprint/Q_FRAMEWORK_SERVICE_PAY_PRINT.xml&id=Q_PAY_ELEC_LIST_BY_WO_ID]]></url>
+		<file></file>
+	</ds>
+    <ds name="DS_PAY_ELEC_PRINT_INFO_BY_WO_ID" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?file=service/payprint/Q_FRAMEWORK_SERVICE_PAY_PRINT.xml&id=Q_PAY_ELEC_PRINT_INFO_BY_WO_ID]]></url>
+        <file></file>
+    </ds>
+    
+    <ds name="DS_PAY_RENT_APPLY_PRINT_INFO_BY_WO" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/payprint/Q_FRAMEWORK_SERVICE_PAY_PRINT.xml&id=Q_PAY_RENT_APPLY_PRINT_INFO_BY_WO]]></url>
+		<file></file>
+	</ds>
+    <ds name="DS_PAY_RENT_APPLY_DOWN_BY_WO" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?file=service/payprint/Q_FRAMEWORK_SERVICE_PAY_PRINT.xml&id=Q_PAY_RENT_APPLY_DOWN_BY_WO]]></url>
+        <file></file>
+    </ds>
+    
+</datasources>

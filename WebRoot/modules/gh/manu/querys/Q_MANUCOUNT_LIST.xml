@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_MANUCOUNT_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				SELECT spd.name company,TO_CHAR(create_time,'YYYY-MM') month,COUNT(*) count
+				FROM bi_manu bm
+				left join sys_p_department spd on bm.dept_id=spd.id
+				where 1=1
+				<#if dept_id??>
+				  and spd.id = [dept_id]
+				</#if>
+				<#if urgency??>
+				  and TO_CHAR(create_time,'YYYY') = [urgency]
+				</#if>
+				<#if month??>
+				  and TO_CHAR(create_time,'MM') = [month]
+				</#if>
+				group by spd.name, TO_CHAR(create_time,'YYYY-MM')
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+		<param name="exp-cols">company,month,count</param>
+		<param name="exp-names">单位,月份,投稿数</param>
+		<param name="exp-file">投稿情况</param>
+	</query>
+</query-config>

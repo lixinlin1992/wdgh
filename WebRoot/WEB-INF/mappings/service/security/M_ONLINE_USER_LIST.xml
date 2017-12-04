@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 在线用户 -->
+<datasources>
+    <!--在线用户列表-->
+    <ds name="DS_ONLINE_USER_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_ONLINE_USER_LIST.xml&id=Q_ONLINE_USER_LIST]]></url>
+		<file></file>
+	</ds>
+    <!--用户的登录历史列表-->
+    <ds name="DS_ONLINE_USER_HISTORY_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/security/Q_ONLINE_USER_LIST.xml&id=Q_ONLINE_USER_HISTORY_LIST]]></url>
+		<file></file>
+	</ds>
+	
+</datasources>

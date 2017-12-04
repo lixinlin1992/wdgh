@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- 页面配置模板容器操作 -->
+<query-config>
+
+    <!--容器列表-->
+    <query id="Q_CONTAINER_LIST" type="pagelist" result="json">
+        <stmt><![CDATA[
+                    SELECT c.ID,c.NAME,c.STATUS,c.NOTE,u.NAME AS CREATE_USER_NAME,c.CREATE_TIME
+                    FROM RDC_CFG_CONTAINER c
+                    LEFT JOIN SYS_P_USER u ON u.ID=c.CREATE_USER
+                    WHERE c.STATUS=0
+                    <#if name??> AND c.NAME [like(name)]</#if>
+                    ]]></stmt>
+        <param name="id">id</param>
+        <param name="list-cols">id,name,create_user_name,create_time,note</param>
+    </query>
+
+    <!-- 获取容器详细数据 -->
+    <query id="Q_CONTAINER_INFO" type="form_data">
+        <stmt><![CDATA[
+            SELECT *
+            FROM RDC_CFG_CONTAINER
+            WHERE ID=[id]
+        ]]></stmt>
+    </query>
+
+    <!--更新容器-->
+    <query id="Q_CONTAINER_EDIT" type="auto-update">
+        <processor name="script" type="before" break="true" seq="1">
+            <param name="script">
+                <![CDATA[
+                try{
+                    //判断是添加还是修改
+                    var _id = __cxt.getParam("id");
+                    if(!com.sunrise.foundation.utils.StringUtil.isNull(_id)){
+                        __cxt.setParam("_edit","true")
+                    }
+                    //对模板进行解析
+                    var _templateConfig = com.sunrise.rdcp.config.TemplateConfigParser.parse(__cxt.getParam("defination"));
+                    if(!com.sunrise.foundation.utils.StringUtil.isNull(_id) && !_id.equalsIgnoreCase(_templateConfig.getId()))
+                        __result.block("不能对容器的ID进行修改 ");
+                    __cxt.setParam("name",_templateConfig.getName());
+                    __cxt.setParam("id",_templateConfig.getId());
+                }catch(e){__result.block("处理容器定义失败，请确认区域定义是否正确，详细信息如下："+e);}
+                ]]>
+            </param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+                    SELECT COUNT(1) FROM RDC_CFG_CONTAINER
+                    WHERE (ID=[id] OR NAME=[name])<#if _edit??> AND ID<>[id]</#if>
+                    ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[容器ID或者名称已经被占用，请使用其它ID或名称]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if !_edit??>RDC_CFG_CONTAINER c</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if _edit??>RDC_CFG_CONTAINER c</#if>]]></param>
+        <param name="ex-cols"><![CDATA[<#if _edit??>c.ID,c.STATUS,c.CREATE_USER,</#if>c.CREATE_TIME]]></param>
+        <param name="col-vals"><![CDATA[<#if !_edit??>c.STATUS=0,c.CREATE_USER=[_CurrUser.id long]</#if>]]></param>
+    </query>
+
+    <!--删除容器，设置状态为无效-->
+    <query id="Q_CONTAINER_DELETE" type="auto-update">
+        <param name="update-tables">RDC_CFG_CONTAINER c</param>
+        <param name="update-cols">c.STATUS</param>
+        <param name="col-vals">c.STATUS=1</param>
+    </query>
+</query-config>

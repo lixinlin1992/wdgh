@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+   	<!-- 数据库配置查询列表 -->
+	<ds name="DS_DB_CONFIG_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DB_CONFIG.xml&_id=Q_DB_CONFIG_LIST]]></url>
+	</ds>
+	<!-- 数据库配置添加 -->
+	<ds name="DS_SYS_SELECT_4_DB_CONFIG" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DB_CONFIG.xml&_id=Q_SYS_SELECT_4_DB_CONFIG]]></url>
+	</ds>
+	<!-- 数据库配置添加 -->
+	<ds name="DS_EDIT_4_DB_CONFIG" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DB_CONFIG.xml&_id=Q_EDIT_4_DB_CONFIG]]></url>
+	</ds>
+	<!-- 数据库配置添加 -->
+	<ds name="DS_INIT_DB_CONFIG_EDIT" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DB_CONFIG.xml&_id=Q_INIT_DB_CONFIG_EDIT]]></url>
+	</ds>
+	<!-- 数据库配置删除 -->
+	<ds name="DS_DB_CONFIG_DELETE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DB_CONFIG.xml&_id=Q_DB_CONFIG_DELETE]]></url>
+	</ds>
+	
+</datasources>

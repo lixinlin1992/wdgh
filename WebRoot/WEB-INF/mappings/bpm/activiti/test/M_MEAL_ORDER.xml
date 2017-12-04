@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 查询菜单列表 -->
+	<ds name="DS_GET_MENU_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/test/Q_MEAL_ORDER.xml&_id=Q_GET_MENU_LIST]]></url>
+	</ds>
+
+	<!-- 发起订餐流程 -->
+	<ds name="DS_SAVE_MEAL_ORDER" type="url">
+		<url>/_mealOrderAction.action?method=saveMealOrder</url>
+		<file></file>
+	</ds>
+
+
+	<!-- 根据订餐ID查询订餐单 -->
+	<ds name="DS_GET_MEAL_ORDER_BY_ID" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/activiti/test/Q_MEAL_ORDER.xml&_id=Q_GET_MEAL_ORDER_BY_ID]]></url>
+		<file></file>
+	</ds>
+</datasources>

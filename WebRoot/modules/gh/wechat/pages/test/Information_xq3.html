@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>组织详情</title>
+    <link href="css/main2.css" rel="stylesheet" type="text/css">
+    <link href="css/style2.css" rel="stylesheet" type="text/css">
+    <link href="css/shake2.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/wo.js"></script>
+</head>
+<body style="background-color: #fff !important;">
+<div class="warpe">
+
+    <div class="head">
+	    
+        <a href="second.html" class="return"><i class="icon-chevron-left"></i> </a>
+        武汉大学
+        
+	
+    </div>
+    
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="content-slide">
+                    <div class="main">
+                        <div class="zz_txt">
+                            <p>单位名称：</p>
+                            <p><span>武汉大学工会委员会</span></p>
+                        </div>
+                        <div class="zz_txt">
+                            <p>电话号码：</p>
+                            <p><span>027-68762359</span></p>
+                        </div>
+                        <div class="zz_txt">
+                            <p>详细地址：</p>
+                            <p><span>武汉市八一路</span></p>
+                        </div>
+                        <div class="zz_txt">
+                            <p>邮政编码</p>
+                            <p><span>430072</span></p>
+                        </div>
+                        
+                       
+                    </div>
+                </div>
+            </div>
+            
+           
+        </div>
+    </div>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+    <div class="er_btn">
+        <a href="second2.html" class="bg_03" style=" background-color: #d7534e !important;"><i class=" icon-save"></i> 提案信息</a>
+        <a href="Information_xq3.html"><i class="icon-cogs"></i> 关于我们</a>
+    </div>
+</div>
+<script type="text/javascript" src="js/idangerous.swiper.min.js"></script>
+<script type="text/javascript">
+    var tabsSwiper = new Swiper('.swiper-container',{
+        speed:500,
+        onSlideChangeStart: function(){
+            $(".tabs .active").removeClass('active');
+            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+        }
+    });
+    $(".tabs a").on('touchstart mousedown',function(e){
+        e.preventDefault()
+        $(".tabs .active").removeClass('active')
+        $(this).addClass('active')
+        tabsSwiper.slideTo( $(this).index() )
+    })
+    $(".tabs a").click(function(e){
+        e.preventDefault()
+    })
+</script>
+</body>
+</html>

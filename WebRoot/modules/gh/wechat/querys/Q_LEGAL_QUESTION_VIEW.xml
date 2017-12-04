@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LEGAL_QUESTION_VIEW" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update BI_LEGAL_AID set view_times = view_times + 1
+            where id = [legalId]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

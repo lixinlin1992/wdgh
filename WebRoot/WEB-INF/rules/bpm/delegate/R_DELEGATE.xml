@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="BPM_DELEGATE" name="委托任务" validate="true">
+        <field id="toUserName" validate="true" null="false" type="string">
+            <name>被委托人</name>
+            <null-message>请选择被委托人</null-message>
+        </field>
+        <field id="startDate" validate="true" null="false" type="string">
+            <name>开始时间</name>
+            <null-message>请输入委托开始时间</null-message>
+        </field>
+        <field id="endDate" validate="true" null="false" type="string">
+            <name>结束时间</name>
+            <null-message>请输入委托结束时间</null-message>
+        </field>
+    </form>
+</rules>

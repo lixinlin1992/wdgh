@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_STAFF_SERVICE_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bsc.id,bsc.title,spc.name type,view_times,spu.name create_user,bsc.create_time
+				from bi_staff_service bsc
+				left join sys_pa_code spc on bsc.type=spc.code_num and spc.code_table='BI_STAFF_SERVICE' and spc.code_field='TYPE'
+				left join sys_p_user spu on bsc.create_user=spu.id
+				where 1=1
+				<#if title??>
+				  and bsc.title [like(title)]
+				</#if>
+				<#if content??>
+				  and dbms_lob.instr(bsc.content, [content], 1, 1) > 0
+				</#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 编码类型下拉款 -->
+	<ds name="DS_SYS_CODE_TYPE_SELECT" type="URL" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_TYPE_SELECT]]></url>
+		<file>/sys/code-label-value.json</file>
+	</ds>
+	<!-- 编码参数列表 -->
+	<ds name="DS_SYS_CODE_LIST" type="URL" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_LIST]]></url>
+		<file></file>
+	</ds>	
+	<!-- 编码参数增加 -->
+	<ds name="DS_SYS_CODE_ADD" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_ADD]]></url>
+		<file></file>
+	</ds>
+	<!-- 编码参数修改 -->
+	<ds name="DS_SYS_CODE_INFO" type="URL" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_INFO]]></url>
+		<file></file>
+	</ds>
+	<!-- 编码参数更新 -->
+	<ds name="DS_SYS_CODE_UPDATE" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_UPDATE]]></url>
+		<file></file>
+	</ds>			
+	<!-- 编码参数下拉框 -->
+	<ds name="DS_SYS_CODE_LABEL_VALUE" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_LABEL_VALUE]]></url>
+		<file></file>
+	</ds>
+
+    <!--删除编码-->
+    <ds name="DS_SYS_CODE_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_DELETE]]></url>
+    </ds>
+
+    <!--恢复编码-->
+    <ds name="DS_SYS_CODE_RESTORE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA.xml&_id=Q_SYS_CODE_RESTORE]]></url>
+    </ds>
+</datasources>	

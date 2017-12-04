@@ -1,0 +1,47 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/chooseContractCtrl3.js"></script>
+
+<!--主体内容-->
+<section>
+
+	<!--商品选购搜索框begin-->
+	<div class="shop_search">
+		<div class="shop_search_container">
+			<input type="text" class="search_text" value="请输入您想要搜索的内容" ng-model="queryparam" />
+			<a href="javascript://" class="go_search" ng-click="search()">搜索</a>
+		</div>
+	</div>
+	<!--商品选购搜索框End-->
+	
+	<!-- 列表 开始 -->
+	<div class="com_selectnumber">
+		<ul>
+			<li ng-repeat="r in results" ng-if="$index<(page*pageSize)">
+				<a href="javascript://" id="selectNumber_{{$index}}" style="text-decoration:none" data="{{r.ID}}" name="{{r.TITLE}}" ng-click="chooseContract4($index)">
+					<div class="number_top">
+						<span class="normalcolor">{{r.TITLE.substring(start,3)}}</span>
+						<span class="importantcolor">{{r.TITLE.substring(3,7)}}</span>
+						<span class="normalcolor">{{r.TITLE.substring(7,end)}}</span>
+					</div>
+					<div class="number_bottom">
+						<p>
+							<img class="hot" src="Style/images/common/hot.png" alt="" />
+							<span class="price">{{r.FEE | currency : '￥'}}</span>
+							<span class="tips">区域：{{r.AREA_NAME}}</span>
+							<!--<span class="tips">{{order.BUSI_NAME}}</span>-->
+						</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+
+		<div class="clear"></div>
+	</div>
+	<!-- 列表 结束 -->
+
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a id="more" class="more_btn" href="javascript://" ng-click="more()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+</section>
+<!--主体内容End-->

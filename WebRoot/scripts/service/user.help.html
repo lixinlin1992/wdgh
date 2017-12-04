@@ -1,0 +1,41 @@
+<div id='user_select_div_'>
+    <table border='0' width='100%'>
+        <tr>
+            <td width='170' valign='top'>
+                <div class='tree' style='width:160px;height:300px;overflow: auto;position:absolute;'
+                     id='user_select_dept_tree_'></div>
+            </td>
+            <td width='380' valign='top'>
+                <div class="" style="width: 380px;" align="center">
+                    <form name="UserSelectQueryForm_"
+                          onsubmit="GRID.reload('user_select_user_List_');return false;">
+                        <div class="barquerycontent" align="center">
+                            <input type='hidden' name='list-cols' value='id,account,name,group_name'>
+                            <input type='hidden' name='dept_id' value=''>
+                            <table class="content_List">
+                                <tr>
+                                    <td align="right" class="contenttd" style="width:40px">工号：</td>
+                                    <td align="left" style="width:80px">
+                                        <input name="useraccount" class="textbox_css" style="width:80px"/>
+                                    </td>
+                                    <td align="right" class="contenttd" style="width:50px">用户名：</td>
+                                    <td align="left">
+                                        <input type="text" name="username" class="textbox_css" style='width:80px;'/>
+                                        <input class="btnquery_mouseout"
+                                               onmouseover="this.className='btnquery_mouseover'"
+                                               onmouseout="this.className='btnquery_mouseout'" type="submit" value=""/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                    <div id='_single_select_tip' style='width: 100%;text-align: left;'><b>提示</b>：双击列表中的行可快速选中。</div>
+                    <div>
+                        <table id="user_select_user_List_" style="margin: 0; padding: 0;" align='left'></table>
+                        <div id="user_select_user_pagerdt_" style="margin: 0; padding: 0;"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

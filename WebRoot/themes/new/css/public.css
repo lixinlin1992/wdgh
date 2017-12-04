@@ -1,0 +1,59 @@
+*{margin:0;padding:0;}
+/** 页面主体body样式 包括字体边框的调整**/
+body {font-family: Helvetica, Arial, sans-serif;font-size:12px; margin:0; padding:0;background:#F8F3F5;}
+/**��ʽ̷���**/
+#container {position:absolute;width:1024px;left:50%;margin-left:-512px;}/*Control page center*/
+/*******logn css***********/
+.btn{ border:0px; width:56px; text-align:center; height:24px; color:#000; background:url(../images/common/common/btn.gif) no-repeat; line-height:24px;cursor:pointer;} 
+.inputtext{ border:1px solid #CECECE; background:#FFFFFF; height:18px;}
+
+/*=-=-=-=-=-=-=-left Modules (navbar.jsp)-=-=-=-=-=-=-=-*/
+#guild{width:100%;clear:both;margin-left:0px;height:27px; line-height:27px;background:url(../images/common/img_18.jpg) repeat-x;}
+#guildleft{ width:23px; float:left;height:27px;}
+#guildcenter{ width:90%;height:27px;float:left;word-break:keep-all;white-space:nowrap;overflow:hidden; }
+#guildright{ width:4px; float:right;}
+.qtext a:link{ background-color:#DFE8F6;}
+.qtext a:visited{background-color:#000000;}
+.qtext a:hover{ background-color:#0033FF;}
+/*************Modules end********************/
+/*************right Modules ********************/
+.modules{width:99.5%; margin-left:3px;}
+.barquery{ height:23px; line-height:23px; clear:both; padding:0px 3px 3px 3px; /*background:url(../images/common/magnifier-zoom.gif) no-repeat;*/ }
+/*.barqueryleft{ width:25px; color:#000000; float:left; z-index:5;}*/
+.barquerycenter{ width:auto; float:left; color:#C60000;font-weight:bold;text-indent:23px;}
+.barquerybtn{ width:50%; float:right; text-align:right; padding-top:3px;}
+/*=-=-=-=-=-=-=-end left Modules (navbar.jsp)-=-=-=-=-=-=-=-*/
+
+/*************foot********************/
+#footer{ background:#5590c8;heigth:100%;width:100%; text-align:center; color:#002e59;}
+/************ end foot*������ǩ ********************/
+
+OL LI {MARGIN: 8px}
+#con {FONT-SIZE: 12px; MARGIN: 0px auto; WIDTH: 100%;padding-top:10px;}
+#tags {PADDING: 0px; MARGIN: 0px 0px 0px 10px; WIDTH: 100%;HEIGHT: 23px}
+#tags LI {BACKGROUND:url(../images/common/tagleft.gif) no-repeat left bottom; FLOAT: left; MARGIN-RIGHT: 1px; LIST-STYLE-TYPE: none; HEIGHT: 23px; }
+#tags LI A {PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND:url(../images/common/tagright.gif) no-repeat right bottom; FLOAT: left; PADDING-BOTTOM: 0px; COLOR: #999;LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-DECORATION: none;}
+#tags LI.emptyTag {BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 4px;}
+#tags LI.selectTag {BACKGROUND-POSITION: left top; MARGIN-BOTTOM: -2px; POSITION: relative; HEIGHT: 25px;}
+#tags LI.selectTag A {BACKGROUND-POSITION: right top; COLOR: #000; LINE-HEIGHT: 25px; HEIGHT: 25px;}
+#tagContent {BORDER:#4E79A4 1px solid;PADDING-TOP:1px;BACKGROUND-COLOR: #fff;}
+.tagContent {PADDING-RIGHT: 10px; DISPLAY: none; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; WIDTH:98%; COLOR: #474747; PADDING-TOP: 10px; ;}
+#tagContent DIV.selectTag {DISPLAY: block;}
+.errorfont{color:#FF0000;}/**��ɫ����**/
+/************* list ********************/
+.list-add{ height:20px; line-height:25px; padding:5px; border-bottom:1px solid #D7E0E9; background:url(../images/common/list2-add.png) no-repeat 5px; text-indent:28px; font-weight:bold; margin-bottom:20px;}
+.list-edit{ height:20px; line-height:25px; padding:5px; border-bottom:1px solid #D7E0E9;background:url(../images/common/list-edit.png) no-repeat 5px; text-indent:28px; font-weight:bold; margin-bottom:20px;}
+.list-look{ height:20px; line-height:25px; padding:5px; border-bottom:1px solid #D7E0E9; background:url(../images/common/list.png) no-repeat 5px; text-indent:28px; font-weight:bold; margin-bottom:20px;}
+/**list-add**/
+
+/************* error ********************/
+.errortipfont{color:000; font-size:28px; font-weight:bold;}
+.tip{width:575px;margin: 0 auto;}
+.tiperrorimg{  background:url(../images/common/tip.gif) no-repeat 10px -168px; height:90px; margin:0 auto;width:460px;WORD-WRAP: break-word;TABLE-LAYOUT: fixed;word-break:break-all;text-indent:110px; line-height:110px;}
+.tipmarkimg{  background:url(../images/common/tip.gif) no-repeat 10px 10px; height:90px; margin:0 auto;width:460px;WORD-WRAP: break-word;TABLE-LAYOUT: fixed;word-break:break-all;text-indent:110px; line-height:110px;}
+.tipcorrectimg{  background:url(../images/common/tip.gif) no-repeat 10px -82px; height:90px; margin:0 auto;width:460px;WORD-WRAP: break-word;TABLE-LAYOUT: fixed;word-break:break-all;text-indent:110px; line-height:110px;}
+.tipexclamationimg{  background:url(../images/common/tip.gif) no-repeat 10px -255px; height:90px; margin:0 auto;width:460px;WORD-WRAP: break-word;TABLE-LAYOUT: fixed;word-break:break-all;text-indent:110px; line-height:110px;}
+.tiptop{position:static;position:absolute\9; top: 50%;}
+.tipcontent{height:400px; width: 275px; position: relative; display: table-cell; vertical-align: middle;}
+.modal {background-color:#fff;display:none;width:auto;padding:15px;text-align:left;border:2px solid #333;opacity:0.8;-moz-border-radius:6px;-webkit-border-radius:6px;-moz-box-shadow: 0 0 50px #ccc;-webkit-box-shadow: 0 0 50px #ccc;}
+.modal h2 {background:url(/img/global/info.png) 0 50% no-repeat;margin:0px;padding:10px 0 10px 45px;border-bottom:1px solid #333;font-size:20px;}

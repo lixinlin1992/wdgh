@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_LOAD_USER_TRADE_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+        select bti.account,bti.name,decode(bti.sex,0,'女',1,'男') sex,to_char(bti.birthday,'yyyy-mm-dd') birthday,bti.nation,bti.email,
+        bti.card_type,bti.card_no,bti.qualifications,bti.degree,bti.post,bti.duties,bti.memo,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,
+        bti.leaguer_no,bti.leaguer_type,bti.tele_phone,bti.trade_memo,
+        decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status,
+				spc1."NAME" political_status,
+				spc2."NAME" card_type,
+				spc3."NAME" QUALIFICATIONS,
+				spc4."NAME" DEGREE,
+        spd."NAME" dept_id
+        from bi_trade_info bti
+left join SYS_PA_CODE spc1 on BTI.POLITICAL_STATUS=SPC1.CODE_NUM and spc1.CODE_TABLE='BI_TRADE_INFO' and SPC1.CODE_FIELD='POLITICAL_STATUS'
+left join SYS_PA_CODE spc2 on BTI.CARD_TYPE =SPC2.CODE_NUM and spc2.CODE_TABLE='BI_TRADE_INFO' and SPC2.CODE_FIELD='CARD_TYPE'
+left join SYS_PA_CODE spc3 on BTI.QUALIFICATIONS =SPC3.CODE_NUM and spc3.CODE_TABLE='BI_TRADE_INFO' and SPC3.CODE_FIELD='QUALIFICATIONS'
+left join SYS_PA_CODE spc4 on BTI.DEGREE =SPC4.CODE_NUM and spc4.CODE_TABLE='BI_TRADE_INFO' and SPC4.CODE_FIELD='DEGREE'
+LEFT JOIN SYS_P_DEPARTMENT spd on SPD."ID" = BTI.DEPT_ID
+      where account=[account]
+		]]></stmt>
+    </query>
+</query-config>

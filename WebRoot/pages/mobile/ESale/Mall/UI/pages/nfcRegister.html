@@ -1,0 +1,25 @@
+<script type="text/javascript" src="ESale/Mall/UI/scripts/nfcRegister.js"></script>
+
+<div class="com_nfcRegister" style="padding-bottom: 20px;">
+	<div class="imgShow" style="">
+		<img src="Style/images/common/authorization.png" alt="" />
+	</div>
+	<div class="nfcInformation">
+		<p class="title">输入授权码</p>
+		<div class="inputBox">
+			<input type="text" style="padding: 0 10px 0 10px;" ng-model="authorizationCode" />
+		</div>
+		<div class="formlist">
+			<a id="registerBtn" class="com_btn theme_btn" style="margin:0px 20px 0 20px;" ng-click="event.btnClick()" href="javascript://">
+				<span ng-bind="registerText"></span>
+				<span ng-bind="circle"></span>
+			</a>
+		</div>
+		<div class="formlist" style="margin-top: 20px;">
+			<a id="updateBtn" class="com_btn theme_btn" style="margin:0px 20px 0 20px;" ng-click="event.updateIdentity()" href="javascript://">
+				<span ng-bind="updateText"></span>
+				<span ng-bind="circle2"></span>
+			</a>
+		</div>
+	</div>
+</div>

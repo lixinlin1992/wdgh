@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!--查询模块树结构-->
+    <query id="Q_SYNC_MODULE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    <#if id??>
+						SELECT m.ID,<#if type=='0'>1<#else>2</#if> AS TYPE,m.NAME,COUNT(cm.ID) AS CHILDREN_COUNT,m.SYS_CODE,s.NAME AS SYS_NAME
+						FROM SYS_P_MODULE m
+						LEFT JOIN SYS_P_MODULE cm ON cm.PARENT_ID=m.ID
+						LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+						WHERE 1=1
+							<#if type=='0'>
+							AND m.SYS_CODE=[id] AND m.PARENT_ID=0
+							<#else>
+							AND m.PARENT_ID=[id long]
+							</#if>
+                        AND [RdcpSecurity(m.SYS_CODE,m.ID)] <#if sys_code_??>and m.SYS_CODE = [sys_code_]</#if>
+						GROUP BY m.ID,m.NAME,m.SYS_CODE,s.NAME
+						ORDER BY m.NAME ASC
+                    <#else>
+						SELECT s.CODE AS ID,0 AS TYPE,s.NAME,COUNT(m.ID) AS CHILDREN_COUNT,s.CODE AS SYS_CODE,s.NAME AS SYS_NAME
+						FROM SYS_BI_SYSTEM s
+						LEFT JOIN SYS_P_MODULE m ON m.SYS_CODE=s.CODE
+						WHERE 1=1
+						<#if sys_code??>
+						AND s.CODE=[sys_code]
+						</#if>
+                        AND [RdcpSecurity(s.CODE)] <#if sys_code_??>and s.CODE = [sys_code_]</#if>
+						GROUP BY s.CODE,s.NAME
+						ORDER BY s.NAME ASC
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/system/T_MODULE_TREE.ftl</param>
+    </query>
+    <!--功能列表-->
+    <query id="Q_SYNC_FUNCTION" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    <#if id??>
+                    SELECT m.ID,1 AS TYPE,m.NAME,(COUNT(cm.ID)+COUNT(f.ID)) AS CHILDREN_COUNT,m.SYS_CODE
+                    FROM SYS_P_MODULE m
+                    LEFT JOIN SYS_P_MODULE cm ON cm.PARENT_ID=m.ID
+                    LEFT JOIN SYS_P_FUNCTION f ON f.MODULE_ID=m.ID
+                    WHERE 1=1
+                        <#if type=='0'>
+                    AND m.SYS_CODE=[id] AND m.PARENT_ID=0
+                        <#else>
+                    AND m.PARENT_ID=[id long]
+                        </#if>
+                    AND [RdcpSecurity(m.SYS_CODE,m.ID)] <#if sys_code_??>and m.SYS_CODE = [sys_code_]</#if>
+                    GROUP BY m.ID,m.NAME,m.SYS_CODE
+                        <#if type=="1">
+                    UNION ALL
+                    SELECT f.ID,2 AS TYPE,f.NAME,0 AS CHILDREN_COUNT,f.SYS_CODE
+                    FROM SYS_P_FUNCTION f
+                    WHERE f.MODULE_ID=[id long]
+                    AND [RdcpSecurity(f.SYS_CODE,f.MODULE_ID)] <#if sys_code_??>and f.SYS_CODE = [sys_code_]</#if>
+                        </#if>
+                    ORDER BY TYPE ASC,NAME ASC
+                    <#else>
+                    SELECT s.CODE AS ID,0 AS TYPE,s.NAME,COUNT(m.ID) AS CHILDREN_COUNT,s.CODE AS SYS_CODE
+                    FROM SYS_BI_SYSTEM s
+                    LEFT JOIN SYS_P_MODULE m ON m.SYS_CODE=s.CODE
+                    WHERE 1=1
+                        <#if sys_code??>
+                    AND s.CODE=[sys_code]
+                        </#if>
+                    AND [RdcpSecurity(s.CODE)] <#if sys_code_??>and s.CODE = [sys_code_]</#if>
+                    GROUP BY s.CODE,s.NAME
+                    ORDER BY s.NAME ASC
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/system/T_MODULE_TREE.ftl</param>
+    </query>
+    <!-- 菜单选择 -->
+	<query id="Q_SYNC_MENU" type="pagelist" result="ftl">
+		<stmt>
+			<![CDATA[
+            <#-- type在这里用来区分类型,0为业务系统,1为模块,2为数据源 -->
+            <#if type?exists && type!='3'>
+	            select * from(
+					SELECT TO_CHAR(CODE) AS ID,
+					       TO_CHAR(CODE) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR('0') AS TYPE,
+					       TO_CHAR('') AS PARENT_ID,
+					       TO_CHAR('true') AS ISPARENT
+					  FROM SYS_BI_SYSTEM
+					  where 1=1 
+					  and [RdcpSecurity(CODE)] <#if sys_code_??>and CODE = [sys_code_]</#if>
+					UNION
+					SELECT TO_CHAR(ID) AS ID,
+					       TO_CHAR(sys_code) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR(level_id) AS TYPE,
+					       TO_CHAR(sys_code) AS PARENT_ID,
+					       (CASE WHEN level_id = 3 THEN ''
+					       ELSE
+					          'true'
+					       END) ISPARENT
+					  FROM SYS_P_MENU 
+					   where parent_id = 0    
+					   and [RdcpSecurity(sys_code)] <#if sys_code_??>and sys_code = [sys_code_]</#if>
+					UNION
+					SELECT TO_CHAR(ID) AS ID,
+					       TO_CHAR(sys_code) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR(level_id) AS TYPE,
+					       TO_CHAR(parent_id) AS PARENT_ID,
+					       (CASE WHEN level_id = 3 THEN ''
+					       ELSE
+					          'true'
+					       END) ISPARENT
+					  FROM SYS_P_MENU    
+					  where parent_id <> 0   
+					   and [RdcpSecurity(sys_code)] <#if sys_code_??>and sys_code = [sys_code_]</#if>
+		        )tt where tt.PARENT_ID = [id]
+		         <#-- 是否展示第三级菜单 -->
+		         <#if inx??>
+		         AND tt.type <> 3
+		         </#if>
+		         order by tt.type asc
+            <#else>
+	            SELECT CODE AS ID,
+                CODE AS SYS,
+       			NAME AS NAME,
+       			TO_CHAR('0') AS TYPE,
+       			TO_CHAR('') AS PARENT_ID,
+       			to_char('true') as isParent
+ 	 			FROM SYS_BI_SYSTEM
+ 	 			where 1=1
+ 	 			and [RdcpSecurity(CODE)] <#if sys_code_??>and CODE = [sys_code_]</#if>
+             </#if>
+             ]]>
+		</stmt>
+		<param name="paging">false</param>
+		<param name="format">text</param>
+		<param name="ftl">
+			template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl
+		</param>
+	</query>    
+
+    <!--执行器-->
+    <query id="Q_SYNC_EXEC" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+               <#if !type??>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_qry_executor
+ 			   <#else>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_qry_executor
+ 			   where ID<0
+ 			   </#if>			   
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl</param>
+    </query>
+
+
+    <!--处理器-->
+    <query id="Q_SYNC_PROC" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+               <#if !type??>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_qry_processor
+ 			   <#else>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_qry_processor
+ 			   where ID<0
+ 			   </#if>			   
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl</param>
+    </query>
+    
+
+    <!--区域-->
+    <query id="Q_SYNC_SECTOR" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+               <#if !type??>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_cfg_sector where status = 0
+ 			   <#else>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_cfg_sector
+ 			   where ID<0
+ 			   </#if>			   
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl</param>
+    </query>
+
+
+    <!--容器-->
+    <query id="Q_SYNC_CON" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+               <#if !type??>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_cfg_container where status = 0
+ 			   <#else>			   
+	           SELECT ID,
+       			      NAME,
+       			      TO_CHAR('2') AS TYPE,
+       			      TO_CHAR('') AS PARENT_ID,
+       			      to_char('true') as isParent,
+       			      'RDCP' AS SYS_NAME,
+                      'RDCP' AS SYS
+ 			   FROM rdc_cfg_container
+ 			   where ID<0
+ 			   </#if>			   
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl</param>
+    </query>            
+</query-config>

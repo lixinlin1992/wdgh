@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--修改角色信息-->
+    <query id="Q_USERGROUP_EDIT" type="update" result="json">
+        <stmt><![CDATA[
+		<#if update?exists && update="true">
+		UPDATE SYS_P_USER_GROUP T SET T.NAME=[name],T.NOTE=[note] WHERE T.CODE=[code]
+		<#else>
+		INSERT INTO SYS_P_USER_GROUP(CODE,NAME,NOTE,TYPE_ID,USER_ID,CREATE_TIME)
+		VALUES(
+		[code],[name],[note],1,[var(RU.CUR_USER.id)],TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'))
+		)
+		</#if>
+		]]></stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[select count(1) from sys_p_user_group where NAME=[name]
+                <#if update?exists && update="true">and CODE<>[code]
+                <#else>or CODE = [code]
+                </#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="min-count">0</param>
+            <param name="max-count">1</param>
+            <param name="break-message"><![CDATA[已经存在角色名称[${name}]或者编码[${code}]，请输入其他进行操作！]]></param>
+        </processor>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改角色：code为${code}，name为${name}</param>
+        </processor>
+        <param name="trans">true</param>
+        <param name="paging">false</param>
+    </query>
+</query-config>

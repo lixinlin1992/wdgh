@@ -1,0 +1,391 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 获取功能列表数据 -->
+    <ds name="DS_F_FUNCTION_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_LIST]]></url>
+        <file></file>
+    </ds>
+
+    <!-- 获取模块功能树节点数据 -->
+    <ds name="DS_MODULE_FUNCTION_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_TREE]]></url>
+    </ds>
+
+    <!-- 添加功能 -->
+    <ds name="DS_FUNCTION_ADD" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.XML&_id=Q_FUNCTION_ADD]]></url>
+    </ds>
+
+    <!-- 获取功能信息 -->
+    <ds name="DS_FUNCTION_INFO" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_INFO]]></url>
+    </ds>
+
+    <!-- 修改系统功能 -->
+    <ds name="DS_FUNCTION_UPDATE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_UPDATE]]></url>
+    </ds>
+
+    <!-- 删除系统功能 -->
+    <ds name="DS_FUNCTION_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_DEL]]></url>
+    </ds>
+
+    <!-- 为系统功能分配菜单 -->
+    <ds name="DS_FUNCTION_MENU_ASSIGN" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNCTION_MENU_ASSIGN]]></url>
+    </ds>
+
+    <!-- 查询功能的数据源信息 -->
+    <ds name="DS_FUNC_DATASOURCE_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNC_DATASOURCE_LIST]]>
+        </url>
+    </ds>
+
+    <!-- 添加功能的数据源 -->
+    <ds name="DS_FUNC_DATASOURCE_ADD" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNC_DATASOURCE_ADD]]>
+        </url>
+    </ds>
+
+    <!-- 删除功能的数据源 -->
+    <ds name="DS_FUNC_DATASOURCE_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FUNC_DATASOURCE_DEL]]>
+        </url>
+    </ds>
+
+    <!-- 添加/修改模块信息 -->
+    <ds name="DS_MODULE_EDIT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MODULE_EDIT]]></url>
+    </ds>
+
+    <!-- 删除模块信息 -->
+    <ds name="DS_MODULE_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MODULE_DEL]]></url>
+    </ds>
+
+    <!-- 获取模块信息以进行修改 -->
+    <ds name="DS_MODULE_INFO" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MODULE_INFO]]></url>
+    </ds>
+
+    <!-- 获取菜单树结构数据 -->
+    <ds name="DS_MENU_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MENU_TREE]]></url>
+    </ds>
+
+    <!-- 菜单查询列表数据 -->
+    <ds name="DS_MENU_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MENU_LIST]]></url>
+    </ds>
+
+    <!-- 添加/修改菜单 -->
+    <ds name="DS_MENU_EDIT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MENU_EDIT]]></url>
+    </ds>
+
+    <!-- 获取菜单数据以供修改 -->
+    <ds name="DS_MENU_INFO" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MENU_INFO]]></url>
+    </ds>
+
+    <ds name="DS_MENU_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_MENU_DEL]]></url>
+    </ds>
+
+    <!-- 获取用户的功能授权信息 -->
+    <ds name="DS_USER_FUNCTION" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_FUNCTION]]>
+        </url>
+    </ds>
+
+    <!-- 获取用户授权树 -->
+    <ds name="DS_USER_ACCESS_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_FUNC_ACCESS_TREE]]></url>
+    </ds>
+
+    <!-- 获取角色的功能授权信息 -->
+    <ds name="DS_USER_GROUP_FUNCTION" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_GROUP_FUNCTION]]>
+        </url>
+    </ds>
+
+    <!-- 设置角色的功能授权 -->
+    <ds name="DS_USER_GROUP_FUNCTION_SET" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_GROUP_FUNCTION_SET]]>
+        </url>
+    </ds>
+
+    <!-- 获取角色授权树 -->
+    <ds name="DS_USERGROUP_ACCESS_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USERGROUP_ACCESS_TREE]]></url>
+    </ds>
+
+    <!-- 获取用户的菜单信息 -->
+    <ds name="DS_USER_MENU" type="url" func="">
+        <url><![CDATA[/security/sysMenu.action?method=userMenus]]></url>
+    </ds>
+
+    <!-- 图片验证码数据资源 <img src="framework.do?ds=DS_SYS_P_VALIDATE_CODE"> -->
+    <ds name="DS_FRAMEWORK_SECURITY_VALIDATE_CODE" type="url" func="">
+        <url>userLog.action?method=getValidateImage</url>
+    </ds>
+
+    <!-- 用户登录验证 -->
+    <ds name="DS_USER_LOGIN" type="url" func="">
+        <url>userLog.action?method=loginInfo</url>
+    </ds>
+
+    <!-- 用户登录验证 -->
+    <ds name="DS_USER_LDAP_LOGIN" type="url" func="">
+        <url>LdapAction.action?method=loginByLdap</url>
+    </ds>
+
+    <!-- 用户注销 -->
+    <ds name="DS_USER_LOGOUT" type="url" func="">
+        <url><![CDATA[/userLog.action?method=logout]]></url>
+    </ds>
+
+    <!-- 用户功能授权选择树数据源查询 -->
+    <ds name="DS_FRAMEWORK_SECURITY_USER_IMPOWER" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FRAMEWORK_SERVICE_SECURITY_USER_IMPOWER]]></url>
+        <file>/</file>
+    </ds>
+    <!-- 用户添加功能权限 -->
+    <ds name="DS_USER_FUNCTION_SET" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_FUNCTION_SET]]></url>
+    </ds>
+
+    <!-- 修改用户application值 -->
+    <ds name="DS_FRAMEWORK_SECURITY_USER_APPLICATION" type="url" func="">
+        <url>/application.action?method=eidtApplication</url>
+        <file>/</file>
+    </ds>
+
+    <!-- 用户删除功能权限  -->
+    <ds name="DS_FRAMEWORK_SECURITY_FUNCTION_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_FRAMEWORK_SERVICE_SECURITY_USER_FUNCTION_DEL]]></url>
+    </ds>
+
+    <!-- 用户信息 -->
+    <ds name="DS_USER_INFO" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&id=Q_USER_INFO]]></url>
+    </ds>
+
+    <!-- 修改用户信息 -->
+    <ds name="DS_USER_INFO_EDIT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&id=Q_USER_INFO_EDIT]]></url>
+    </ds>
+
+    <!-- 组织机构管理树，此处命名不规范 -->
+    <ds name="DS_FRAMEWORK_SECURITY_DEPARTMENT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPARTMENT]]></url>
+        <file>/</file>
+    </ds>
+
+    <!-- 部门树 -->
+    <ds name="DS_DEPT_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_TREE]]></url>
+    </ds>
+
+    <!-- 查出组织机构管理的详细信息，并填充到页面 -->
+    <ds name="DS_DEPARTMENT_DETAIL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPARTMENT_DETAIL]]></url>
+        <file>/</file>
+    </ds>
+
+    <!-- 行政组织树 -->
+    <ds name="DS_SYS_BI_ADMIN_ORG_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_SYS_BI_ADMIN_ORG_TREE]]></url>
+        <file>/</file>
+    </ds>
+
+    <!-- 添加修改部门信息 -->
+    <ds name="DS_DEPARTMENT_EDIT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPARTMENT_EDIT]]></url>
+        <file>/</file>
+    </ds>
+
+    <!-- 根据组织机构查询用户 -->
+    <ds name="DS_DEPARTMENT_USERS" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPARTMENT_USERS]]></url>
+        <file>/</file>
+    </ds>
+
+    <!-- 角色管理列表 -->
+    <ds name="DS_USER_GROUP_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&id=Q_USER_GROUP_LIST]]></url>
+    </ds>
+    <!-- 角色信息 -->
+    <ds name="DS_USER_GROUP_INFO" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&id=Q_USER_GROUP_INFO]]></url>
+    </ds>
+
+    <!-- 添加修改角色信息 -->
+    <ds name="DS_USER_GROUP_EDIT" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&id=Q_USER_GROUP_EDIT]]></url>
+    </ds>
+
+    <!-- 删除角色 -->
+    <ds name="DS_USER_GROUP_DEL" type="url">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_GROUP_DEL]]>
+        </url>
+    </ds>
+
+    <!-- 查询部门/用户机构授权 -->
+    <ds name="DS_DEPT_USER_ORG_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_USER_ORG_LIST]]>
+        </url>
+    </ds>
+
+    <!-- 添加部门机构授权 -->
+    <ds name="DS_DEPT_ORG_ADD" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_ORG_ADD]]>
+        </url>
+    </ds>
+
+    <!-- 删除部门机构授权 -->
+    <ds name="DS_DEPT_ORG_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_ORG_DEL]]>
+        </url>
+    </ds>
+
+    <!-- 添加用户机构授权 -->
+    <ds name="DS_USER_ORG_ADD" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_ORG_ADD]]>
+        </url>
+    </ds>
+
+    <!-- 删除用户机构授权 -->
+    <ds name="DS_USER_ORG_DEL" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_ORG_DEL]]>
+        </url>
+    </ds>
+
+    <!-- 查询部门/用户的机构授权信息 -->
+    <ds name="DS_DEPT_USER_ORGS" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_USER_ORGS]]>
+        </url>
+    </ds>
+
+    <ds name="DS_DEPT_USER_ORG_ADD" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_DEPT_USER_ORG_ADD]]>
+        </url>
+    </ds>
+
+    <!-- 设置用户排除的功能 -->
+    <ds name="DS_USER_FUNC_EXCLUDE_SET" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_FUNC_EXCLUDE_SET]]>
+        </url>
+    </ds>
+
+    <!-- 查询用户排除的功能信息 -->
+    <ds name="DS_USER_FUNC_EXCLUDE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_USER_FUNC_EXCLUDE]]>
+        </url>
+    </ds>
+
+    <!-- 获取用户所拥有的所有功能授权 -->
+    <ds name="DS_LOAD_ALL_USER_FUNCTION" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_LOAD_ALL_USER_FUNCTION]]>
+        </url>
+    </ds>
+
+    <!-- 获取业务系统的对象属性类型 -->
+    <ds name="DS_PROPERTYSECURTY_TYPE_GET" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_TYPE_GET]]></url>
+    </ds> 
+
+    <!-- 获取业务系统的对象属性类型 -->
+    <ds name="DS_PROPERTYSECURTY_GET" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_GET]]></url>
+    </ds>  
+
+    <!-- 获取业务系统的所有角色 -->
+    <ds name="DS_PROPERTYSECURTY_USERGROUP_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_USERGROUP_LIST]]></url>
+    </ds> 
+    
+    <!-- 获取业务系统的所有用户 -->
+    <ds name="DS_PROPERTYSECURTY_USER_LIST" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_USER_LIST]]></url>
+    </ds>   
+
+    <!-- 添加角色到属性授权 -->
+    <ds name="DS_PROPERTYSECURTY_ADDUG" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_ADDUG]]></url>
+    </ds>
+
+    <!-- 删除属性授权中的角色组 -->
+    <ds name="DS_PROPERTYSECURTY_DELUG" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_DELUG]]></url>
+    </ds>      
+
+    <!-- 添加用户到属性授权 -->
+    <ds name="DS_PROPERTYSECURTY_ADDUSER" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_ADDUSER]]></url>
+    </ds>        
+    
+    <!-- 删除属性授权中的用户 -->
+    <ds name="DS_PROPERTYSECURTY_DELUSER" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/security/Q_FRAMEWORK_SERVICE_SECURITY.xml&_id=Q_PROPERTYSECURTY_DELUSER]]></url>
+    </ds>
+
+    <!-- 获取用户登录信息 -->
+    <ds name="DS_GET_USER_LOGIN_INFO" type="url" func="">
+        <url>userLog.action?method=getLoginUser</url>
+    </ds>
+</datasources>

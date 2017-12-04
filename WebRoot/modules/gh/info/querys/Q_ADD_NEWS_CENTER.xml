@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改新闻中心信息-->
+    <query id="Q_ADD_NEWS_CENTER" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_news_center(id,title,type,content,view_times,create_user,create_time,content_text)
+            values([news_id],[title],[type],[content],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'),[content_text])
+            ]]>
+        </stmt>
+    </query>
+</query-config>

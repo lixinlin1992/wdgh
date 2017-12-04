@@ -1,0 +1,97 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/YSBinputlist2.js"></script>
+<div class="com_mainbox" ng-controller="YSBinputlist2Ctrl">
+    <!--进度条Begin-->
+    <div class="com_progress">
+        <img src="Style/images/progress/second.png" alt=""/>
+    </div>
+    <!--进度条End-->
+    <!--100%布局Begin-->
+    <div class="layout_full" style="padding-top:10px; padding-bottom: 0px; background: none;"
+         ng-controller="NumberListCtrl">
+        <!--常用btn-->
+        <a class="com_roundbtn theme_btn" href="javascript://" ng-click="change_NUM();">
+            换一组号码
+        </a>
+        <input id="pageCount" type="hidden" value="1"/>
+        <input id="pageNow" type="hidden" value="1"/>
+        <input id="selectNum" type="hidden" value="">
+
+        <div id="searchDIV" class="com_form" style="margin-top: 10px;">
+            <div class="message" href="javascript://" style="height: 50px;">
+                <span class="title" style=" float:left;">号码：</span>
+
+                <div style="margin-left: 70px; margin-right: 120px;">
+                    <input id="searchNum" style="border:1px solid #eeeeee; background: none; width: 100%; float: left;"
+                           type="text" ng-model="searchNum"/></div>
+                <a id="searchBtn" class="theme_btn right_btn" href="javascript:void(0)" ng-click="search_NUM();">查询</a>
+
+                <div style="margin-left: 120px; margin-right: 120px;">
+                </div>
+            </div>
+            <!--常用btn-->
+        </div>
+        <!--100%布局End-->
+        <!--100%布局Begin-->
+        <div class="layout_full">
+            <!--选择按钮Begin-->
+            <div id="numDIV" class="container-fluid" style="display: block;">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list" ng-repeat="row in NumList" style="margin-bottom: 10px">
+                        <!--常用btn-->
+                        <a id="num_select_id_{{$index}}" ng-click="num_select($index)" class="com_selectbtn"
+                           goodId="{{row.ID}}"
+                           href="javascript://">{{row.TITLE}}</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+            <!--选择按钮End-->
+        </div>
+        <!--100%布局End-->
+
+    </div>
+    <!--底部导航：nav_buttom-->
+    <!--底部导航Begin-->
+    <div class="nav_bottom" style="border-top:1px solid #dddddd; height: 52px;margin-bottom:59px">
+        <div class="box">
+            <div class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list">
+                        <!--常用btn-->
+                        <a class="com_btn theme_btn" href="javascript://" ng-click="back();">
+                            上一步
+                        </a>
+                        <!--常用btn-->
+                    </div>
+                    <div class="col-md-6 col-xs-6 list">
+                        <!--常用btn-->
+                        <a class="com_btn theme_btn" href="javascript://" ng-click="next();">
+                            下一步
+                        </a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .com_form .message {
+        background: #fff;
+        position: relative;
+        display: block;
+        padding: 10px 0;
+        line-height: 30px;
+        text-indent: 5px;
+        height: 50px;
+    }
+
+    .com_form .right_btn {
+        position: absolute;
+        right: 14px;
+        top: 10px;
+        width: 100px;
+        height: 34px;
+        line-height: 34px;
+    }
+</style>

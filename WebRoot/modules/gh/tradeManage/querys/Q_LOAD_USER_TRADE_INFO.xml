@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_LOAD_USER_TRADE_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+        select account,name,sex,to_char(birthday,'yyyy-mm-dd') birthday,political_status,nation,email,
+        card_type,card_no,qualifications,degree,post,duties,memo,to_char(intrade_date,'yyyy-mm-dd') intrade_date,
+        leaguer_no,leaguer_type,dept_id,tele_phone,trade_memo,
+        decode(trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status
+        from bi_trade_info
+        where account=[account]
+		]]></stmt>
+    </query>
+</query-config>

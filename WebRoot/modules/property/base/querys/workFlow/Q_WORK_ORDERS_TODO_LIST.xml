@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_WORK_ORDERS_TODO_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				SELECT T.ID TASK_ID,O.ID WO_ID ,O.TITLE WO_TITLE,P.NAME WO_TYPE,O.NOTE,O.OBJECT_ID,N.NODE_NAME,to_char(T.START_TIME,'yyyy-mm-dd hh24:mi:ss') START_TIME,O.OBJECT_ID OBJ_ID,u.name START_MAN
+                FROM WF_RU_TASK T,WF_WORK_ORDER O,WF_PROCESS P,WF_NODE N,
+                (select * from wf_ru_task t,wf_node n where t.node_id = n.id and n.node_type=3) st,
+                sys_p_user u
+                WHERE T.WORK_ORDER_ID = O.ID
+                      AND O.PROCESS_ID = P.ID
+                      AND T.NODE_ID = N.ID
+                      AND T.END_TIME IS NULL
+                      and o.id = st.work_order_id(+)
+                      and st.handle_man_id = u.id(+)
+                      AND T.HANDLE_MAN_ID =  ${_CurrUser.id}
+
+		        <#if work_order_title??>
+		        	and O.TITLE  [like(work_order_title)]
+		        </#if>
+		        <#if work_order_type??>
+		        	and P.NAME  [like(work_order_type)]
+		        </#if>
+
+		        order by T.START_TIME desc
+				
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

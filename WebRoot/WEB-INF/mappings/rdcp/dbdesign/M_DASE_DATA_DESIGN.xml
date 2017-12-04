@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+    <!-- 数据库设计表列表 -->
+    <ds name="DS_DES_TABLE_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN.xml&_id=Q_DES_TABLE_LIST]]></url>
+    </ds>
+    <!-- 数据库表添加/修改 -->
+    <ds name="DS_BASE_DATA_TABLE_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN.xml&_id=Q_BASE_DATA_TABLE_EDIT]]></url>
+    </ds>
+    <!-- 初始化修改弹出框 -->
+    <ds name="DS_BASE_DATA_TEBLE_EDIT_INIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN.xml&_id=Q_BASE_DATA_TEBLE_EDIT_INIT]]></url>
+    </ds>
+    <!-- 数据库表删除 -->
+    <ds name="DS_DATA_BASE_TABLE_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN.xml&_id=Q_DATA_BASE_TABLE_DELETE]]></url>
+    </ds>
+    <!-- PDM上传 -->
+    <ds name="DS_PDM_IMPORT" type="url">
+        <url>/dbdesign.action?method=importPDM</url>
+    </ds>
+
+    <!-- 数据库表树-->
+    <ds name="DS_SYSTEM_TABLE_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN.xml&_id=Q_SYSTEM_TABLE_TREE]]></url>
+    </ds>
+     <!-- 数据库同步 -->
+    <ds name="DS_DB_SYNC" type="url">
+        <url>/DBSyncAction.action?method=syncDBtableToRDCP</url>
+    </ds>
+</datasources>

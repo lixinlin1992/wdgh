@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <!-- 公共填充下拉框 -->
+    <query id="Q_LOAD_FLOWS_BY_NODE_ID" type="combos" result="easyui-combobox">
+        <stmt>
+            <![CDATA[
+            	 SELECT * FROM (
+            --	 SELECT TO_CHAR('-1') ID ,TO_CHAR('请选择') TEXT,0 ORDER_ID FROM DUAL
+            --	 UNION ALL
+                 SELECT TO_CHAR(WF.ID) ID , WF.TITLE TEXT,WF.ID ORDER_ID
+                 FROM WF_FLOW WF WHERE WF.START_NODE_ID = [nodeId]
+                 )
+                 
+                 ORDER BY ORDER_ID
+            ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">ID</param>
+        <param name="name-col">TEXT</param>
+    </query>
+</query-config>

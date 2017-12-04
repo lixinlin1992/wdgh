@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!--加载所有的授权信息-->
+    <query id="GET_ALL_ACCESS" type="resultset">
+        <stmt><![CDATA[
+                SELECT u.USER_ID AS ASSIGN_ID, u.MODULE_PATH,u.RES_PATH,'user' AS ASSIGN_TYPE FROM SYS_P_USER_RESOURCE u
+                UNION ALL
+                SELECT r.GROUP_CODE AS ASSIGN_ID, r.MODULE_PATH,r.RES_PATH,'usergroup' AS ASSIGN_TYPE FROM SYS_P_USERGROUP_RESOURCE r
+                UNION ALL
+                SELECT d.DEPT_PATH AS ASSIGN_ID, dr.MODULE_PATH,dr.RES_PATH,'dept' AS ASSIGN_TYPE
+                FROM SYS_P_DEPT_RESOURCE dr
+                LEFT JOIN (SELECT SYS_CONNECT_BY_PATH(ID,'/') AS DEPT_PATH,ID FROM SYS_P_DEPARTMENT START WITH PARENT_ID IS NULL CONNECT BY PRIOR ID=PARENT_ID) d ON d.ID=dr.DEPT_ID
+                ]]></stmt>
+        <param name="handler">com.sunrise.framework.module.addon.impl.SecurityResultSetHandler</param>
+    </query>
+</query-config>

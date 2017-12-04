@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--
+    获取当前用户有权限进行分配的所有资源信息
+    只有单独分配给当前用户的才可以进行分配，超级管理员例外
+    -->
+    <query id="Q_GET_RESOURCE_LIST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT r.*, ORA_HASH(r.MODULE_PATH||'/'||r.RES_PATH) AS ID, ORA_HASH(r.MODULE_PATH) AS MODULE_ID
+                FROM SYS_BI_MODULE_RESOURCE r
+                WHERE r.ACCESS_CONTROL=1
+                <#if res_name??>
+                AND r.RES_NAME [like(res_name)]
+                </#if>
+                <#if res_path??>
+                AND r.RES_PATH [like(res_path)]
+                </#if>
+                <#if module_name??>
+                AND r.MODULE_NAME [like(module_name)]
+                </#if>
+                <#if module_path??>
+                AND r.MODULE_PATH [like(module_path)]
+                </#if>
+                AND (
+                EXISTS (SELECT 1 FROM SYS_P_USER_UG ug LEFT JOIN SYS_P_USER_GROUP g ON g.CODE=ug.USER_GROUP_CODE WHERE ug.USER_ID=[var(RU.CUR_USER.id)] AND g.SUPER_ADMIN=1)
+                OR r.RES_PATH IN (SELECT RES_PATH FROM SYS_P_USER_RESOURCE WHERE USER_ID=[var(RU.CUR_USER.id)])
+                )
+                ORDER BY r.MODULE_NAME ASC, r.RES_NAME ASC
+                ]]></stmt>
+        <param name="paging">false</param>
+    </query>
+</query-config>

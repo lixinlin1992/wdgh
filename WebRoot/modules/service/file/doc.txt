@@ -1,0 +1,10 @@
+文件服务模块
+
+JS接口
+添加文件上传功能：
+    rdcp.uploader(containerDivId, {busiId: "testId", busiType: "testType"}, {onSuccess:function(file){}})
+        参数说明：
+                containerDivId      容器DIV的ID
+                busiId                      业务对象ID
+                busiType                业务对象类型
+                onSuccess               上传成功回调函数，其参数file 是一个json对象，格式：{id:'', name: '', size: '', url: '', thumbURL: '', delUrl: ''}

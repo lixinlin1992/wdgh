@@ -1,0 +1,155 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none;
+}li {
+
+
+}
+a {
+	color: #000;
+	text-decoration: none;
+	font-size: 12px;
+}
+.topmark {
+	height: 15px;
+	width: 500px;
+	margin-left: 100px;
+}
+.topmark .topleft {
+	background-image: url(../images/top-left.gif);
+	float: left;
+	height: 15px;
+	width: 15px;
+	background-repeat: no-repeat;
+}
+.topmark .topright {
+	background-image: url(../images/top-right.gif);
+	float: right;
+	height: 15px;
+	width: 15px;
+	background-repeat: no-repeat;
+}
+.bottommark {
+	height: 37px;
+	width: 500px;
+	margin-left: 100px;
+	margin-top: 10px;
+}
+.bottommark .bottomleft {
+	background-image: url(../images/bottom-leftbutton.gif);
+	background-repeat: no-repeat;
+	float: left;
+	height: 37px;
+	width: 40px;
+}
+.bottommark .bottomright {
+	background-image: url(../images/bottom-right.gif);
+	background-repeat: no-repeat;
+	float: right;
+	height: 37px;
+	width: 40px;
+	background-position: center;
+}
+
+
+
+.cotegary {
+	width: 600px;
+	overflow: hidden;
+	float: left;
+}
+
+.category-detail-item{
+	height: 50px;
+	margin-top: 10px;
+	}
+.category-detail-item dt a {
+	font-size: 14px;
+	font-weight: 700;
+	color: #1798c5;
+	width: 40px;
+}
+.category-detail-item dt a:hover {
+	color: #0CF;
+}
+
+
+.cotegary dl dt {
+	float: left;
+	width: 100px;
+	text-align: center;
+}
+.category-detail-item dd {
+	width: 500px;
+	float: left;
+	height: 50px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+}
+
+
+.category-detail-item li {
+	float: left;
+	background-image: url(../images/separateline.gif);
+	background-repeat: no-repeat;
+	margin-right: 10px;
+	padding-left: 10px;
+	line-height: 14px;
+	margin-bottom: 10px;
+	display: inline;
+}
+.category-detail-item dl dd ul li a:hover {
+	color: #09F;
+}
+
+.previewimg {
+	height: 320px;
+	width: 320px;
+	float: left;
+	margin-left: 10px;
+	display: inline;
+}
+.previewimg .img1 {
+	background-image: url(../images/img1.gif);
+	height: 150px;
+	width: 150px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.previewimg .img2 {
+	background-image: url(../images/img2.gif);
+	height: 150px;
+	width: 150px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.previewimg .img3 {
+	background-image: url(../images/img3.gif);
+	height: 150px;
+	width: 150px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.previewimg .img4 {
+	background-image: url(../images/img1.gif);
+	height: 150px;
+	width: 150px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}

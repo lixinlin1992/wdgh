@@ -1,0 +1,70 @@
+<script src="ESale/FusionBusiness/scripts/fusionTwoPage.js"></script>
+<script src="ESale/FusionBusiness/scripts/fusionBase.js"></script>
+<!--进度条Begin-->
+<div class="com_progress">
+    <img src="ESale/FusionBusiness/images/amalg_2.png" alt=""/>
+</div>
+<!--进度条End-->
+<!-- 选择融合产品模块begin-->
+<div class="layout_centent" id="fusionProduct" style="display:block;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择融合产品</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="changProduct" style="display: none">
+            <!-- 记录页数-->
+            <input type="hidden" id="pageIndex" />
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn green_btn" href="javascript://" ng-click="changProduct()">
+                    摇一摇，换产品
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">产品名称:</p>
+            </div>
+            <div class="form_last">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="searchBtn" href="javascript://" ng-click="searchFusionPro()">
+                    搜索
+                </a>
+                <!--常用btn-->
+            </div>
+            <div class="form_threeline_right">
+                <input type="text" class="input_normal" id="fusionKeyWord">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="row com_selectbox" style="display: block" id="fusionProductData">
+            <div class="col-md-12 col-xs-12 list" style="margin-bottom: 5px" ng-repeat="product in productData">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="pro{{$index}}" ng-click="selectProduct('pro'+$index,product.ID,product.WOTYPE,product.NAME)">
+                    {{product.NAME}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 选择融合产品模块End-->
+
+<div class="com_normalbox" id="twoPage" style="display: none;margin-bottom: 20px;margin-top: 20px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn green_btn" href="javascript://" ng-click="fusionThreePage()">
+                    下一步
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+</div>

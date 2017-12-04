@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html ng-app="hnwy" ng-controller="AppCtrl">
+
+	<head>
+		<base href="../../../../">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="Style/css/bootstrap.min.css">
+		<link rel="stylesheet" href="Style/css/style.css">
+		<script type="text/javascript" src="System/Base/scripts/local.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/jquery/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/config.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/app.js"></script>
+		<script type="text/javascript" src="ESale/Mall/UI/scripts/login.js"></script>
+		<script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/mobile_framework.js"></script>
+		<title>登录湖南物业管理系统</title>
+		<link id="batteryBarCss" rel="stylesheet" href="" />
+	</head>
+	<body ng-controller="LoginController" class="bgcolor">
+	<div id="batteryBarBox" class="batteryBarBox"></div>
+	<!--弹出框Begin-->
+	<div id="loadingDiv" class="com_alert" style="top: 150px;display: none;">
+		<h2 class="title">系统消息<a class="closed" href="javascript://" onclick="unmask();"></a></h2>
+		<div class="content">
+			<span class="loading"></span>
+			<span id="loadingMessage" class="loadingtxt">页面正在加载，请耐心等待</span>
+		</div>
+	</div>
+	<!--弹出框End-->
+
+	<!--背景-->
+	<div class="loginBg">
+		<img src="Style/images/login/loginbg.png" />
+	</div>
+	<!--背景end-->
+	<!--logo-->
+	<div class="loginLogo">
+		<img src="Style/images/login/login.png" />
+	</div>
+	<!--logo end-->
+	<!--表单-->
+	<div class="loginBox">
+		<form action="" method="" id="loginForm_id">
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconOne">帐号</span>
+				</div>
+				<div class="loginFormRight">
+					<input type="text" id="loginName" name="loginName"/>
+				</div>
+			</div>
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconTwo">密码</span>
+				</div>
+				<div class="loginFormRight">
+					<input type="password" id="password" name="password"/>
+				</div>
+			</div>
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconThree">验证码</span>
+				</div>
+				<div class="loginFormRight loginCode">
+					<input type="text" id="validateCode" name="validateCode" />
+					<img src="javascript://" id="g_time" ng-click="gettime()" />
+				</div>
+			</div>
+
+		</form>
+		<button class="loginBtn" ng-click="loginFun()">登录</button>
+		<div class="loginForget">
+			<a href="javascript:void(0);">忘记密码</a>
+		</div>
+
+	</div>
+	<!--表单end-->
+
+<!--
+
+	&lt;!&ndash;背景&ndash;&gt;
+	<div class="loginBg">
+		<img src="Style/images/login/loginbg.png" />
+	</div>
+	&lt;!&ndash;背景end&ndash;&gt;
+	&lt;!&ndash;logo&ndash;&gt;
+	<div class="loginLogoMd">
+		<img src="Style/images/login/login.png" />
+	</div>
+	&lt;!&ndash;logo end&ndash;&gt;
+	&lt;!&ndash;表单&ndash;&gt;
+	<div class="loginBox">
+		<form  id="loginForm_id">
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconOne">帐号</span>
+				</div>
+				<div class="loginFormRight">
+					<input type="text" id="loginName" name="loginName" />
+				</div>
+			</div>
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconTwo">密码</span>
+				</div>
+				<div class="loginFormRight">
+					<input type="password" id="password" name="password" />
+				</div>
+			</div>
+			<div class="loginForm">
+				<div class="loginFormLeft">
+					<span class="loginIconThree">验证码</span>
+				</div>
+				<div class="loginFormRight loginCode">
+					<input type="text" id="validateCode" name="validateCode" value="" />
+					<img src="#" id="g_time" ng-click="gettime()" />
+				</div>
+			</div>
+			<button class="loginBtn" type="" ng-click="loginFun()">登录</button>
+		</form>
+		<div class="loginForget">
+			<a href="javascript://">忘记密码</a>
+		</div>
+	</div>-->
+	<!--表单end-->
+<!--	<div class="com_alert">
+	<div class="content">
+		<span class="loading"></span>
+		<span class="loadingtxt">页面正在加载，请耐心等待</span>
+	</div>
+	</div>-->
+
+	<!--
+		<div id="batteryBarBox" class="batteryBarBox"></div>
+
+		&lt;!&ndash;logoBegin&ndash;&gt;
+		&lt;!&ndash;2015-07-15更新，padding更新&ndash;&gt;
+		<div class="loginLogo">
+			<img src="Style/images/login/login.png" alt="" />
+		</div>
+		&lt;!&ndash;logoEnd&ndash;&gt;
+
+		&lt;!&ndash;欢迎页主体Begin&ndash;&gt;
+		<div class="login_welcome" style="text-align: center;">
+			<img src="Style/images/login/shows.png" alt="" />
+		</div>
+		&lt;!&ndash;欢迎页主体End&ndash;&gt;
+
+		&lt;!&ndash;登录动画主体Begin&ndash;&gt;
+		<div class="login_logining" style="text-align: center;">
+			&lt;!&ndash;<p>登录中</p>&ndash;&gt;
+			<img src="Style/images/login/logining.gif" alt="" />
+		</div>
+		&lt;!&ndash;登录动画主体End&ndash;&gt;
+
+		&lt;!&ndash;登录框主体Begin&ndash;&gt;
+		<div class="com_loginbox" id="loginFun" style="display: none;">
+			<form role="form" id="loginForm_id">
+				<div class="loginform">
+					<div class="login_inputbox">
+						<div class="left">
+							<div class="mark">
+								<img src="Style/images/login/people.png" alt="" />
+							</div>
+						</div>
+						<div class="right">
+							<input type="text" id="loginName" name="loginName" placeholder="登录工号" />
+						</div>
+					</div>
+					<div class="login_inputbox">
+						<a class="com_btn normal_btn" href="ESale/Mall/UI/pages/forgetPass.html">忘记密码</a>
+
+						<div class="left">
+							<div class="mark">
+								<img src="Style/images/login/password.png" alt="" />
+							</div>
+						</div>
+						<div class="right">
+							<input type="password" id="password" name="password" value="" placeholder="请输入密码" />
+						</div>
+					</div>
+				</div>
+				&lt;!&ndash;<a class="login_radio login_radioon" href="javascript://">记住密码</a>&ndash;&gt;
+				<a class="loginbtn" id="form_button" ng-click="loginFun()" data-loading-text="正在登录....">登录</a>
+			</form>
+		</div>
+		&lt;!&ndash;登录框主体End&ndash;&gt;
+
+		&lt;!&ndash;验证码Begin&ndash;&gt;
+		<div class="com_loginbox com_verification" id="SmsCode" style="display: none;">
+			<a class="com_btn special_btn" id="SmsCodeSendBtn" href="javascript://" ng-click="reSendSms()">发送验证码</a>
+
+			<div class="loginform">
+				<div class="login_inputbox">
+					<div class="right" style="margin-right: 120px; margin-left: 5px;">
+						<input type="tel" value="" id="SMSLoginCode" ng-model="smsCode" />
+					</div>
+				</div>
+			</div>
+			<a class="loginbtn" href="javascript://" ng-click="validateSmsCode()">验证</a>
+		</div>
+		&lt;!&ndash;验证码End&ndash;&gt;
+
+		&lt;!&ndash;提示Begin&ndash;&gt;
+		<div class="login_tips">
+			<p ng-bind="loginTip"></p>
+		</div>
+		&lt;!&ndash;提示End&ndash;&gt;
+		<div id="loginfooter" style="text-align: center; color: #ffffff; position: absolute; width:100%;">
+			<p>广州市森锐电子科技有限公司技术支持</p>
+		</div>
+
+		&lt;!&ndash;2015-07-15更新，增加该div模块&ndash;&gt;
+		<div class="loginBg">
+			<img src="Style/images/login/loginbg.png" alt="" />
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				login.loginControllerScope.testSession(function() {
+					login.init();
+				});
+				var account = localStorage.getItem('account');
+				if (account) {
+					$('#loginForm_id input[name=loginName]').val(account);
+				}
+			});
+		</script>-->
+		<script type="text/javascript" src="rdcp/script/src/rdcp.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/ajax/rdcp.ajax.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.adapter.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.array.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.string.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.dom.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.core.all.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.json.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/ui/rdcp.mask.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/Base.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/ajax.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/button.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+	</body>
+
+</html>

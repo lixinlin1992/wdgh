@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>AngularJS Dependency Injection</title>
+</head>
+<body>
+<h2>AngularJS Sample Application</h2>
+
+<div ng-app="mainApp" ng-controller="CalcController">
+    <p>Enter a number: <input type="number" ng-model="number"/>
+        <button ng-click="square()">X<sup>2</sup></button>
+    <p>Result: {{result}}</p>
+</div>
+<script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
+<script>
+    var mainApp = angular.module("mainApp", []);
+
+    mainApp.config(function ($provide) {
+        $provide.provider('MathService', function () {
+            this.$get = function () {
+                var factory = {};
+                /*factory.multiply = function (a, b) {
+                    return a * b;
+                }*/
+                return {};
+            };
+        });
+    });
+
+    mainApp.value("defaultInput", 5);
+
+    mainApp.factory('MathService', function () {
+        var factory = {};
+        factory.multiply = function (a, b) {
+            return a * b;
+        }
+        return factory;
+    });
+
+    mainApp.service('CalcService', function (MathService) {
+        this.square = function (a) {
+            return MathService.multiply(a, a);
+        }
+    });
+
+    mainApp.controller('CalcController', function ($scope, CalcService, defaultInput) {
+        $scope.number = defaultInput;
+        $scope.result = CalcService.square($scope.number);
+        $scope.square = function () {
+            $scope.result = CalcService.square($scope.number);
+        }
+    });
+   function name(name) {
+       var myname = function(name) {
+           return name;
+       }
+       return myname;
+   };
+    console.info(new name('name')(''));
+</script>
+</body>
+</html>

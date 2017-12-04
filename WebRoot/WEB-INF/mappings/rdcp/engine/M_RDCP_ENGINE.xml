@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 系统演示DS -->
+    <ds name="DS_RDCP_START_DEMO" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=startDemo]]></url>
+    </ds>
+
+    <!--退出系统演示-->
+    <ds name="DS_RDCP_EXIT_DEMO" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=exitDemo]]></url>
+    </ds>
+
+    <!--运行页面-->
+    <ds name="DS_RDCP_RUN_PAGE" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=runPage]]></url>
+    </ds>
+
+    <!--获取元素API信息-->
+    <ds name="DS_RDCP_ELEMENT_API" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=api]]></url>
+    </ds>
+
+    <!-- 生成页面数据 -->
+    <ds name="DS_RDCP_GEN_PAGE" type="url">
+        <url>/_rdcpAction.action?method=genPage</url>
+    </ds>
+
+    <!-- 生成查询配置 -->
+    <ds name="DS_RDCP_GEN_QUERY" type="url">
+        <url>/_rdcpCommonQuery.action?method=genQuerys</url>
+    </ds>
+
+    <!-- 生成查询配置 -->
+    <ds name="DS_RDCP_GEN_MENU" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=genMenu]]></url>
+    </ds>
+
+    <!-- 生成查询配置 -->
+    <ds name="DS_RDCP_GEN_DATA_SERVICE" type="url">
+        <url>/_rdcpCommonDataService.action?method=genDataService</url>
+    </ds>
+
+</datasources>

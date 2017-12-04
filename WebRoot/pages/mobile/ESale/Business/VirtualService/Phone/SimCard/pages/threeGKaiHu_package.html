@@ -1,0 +1,106 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/threeGKaiHu_package.js"></script>
+
+<!--套餐选择begin-->
+
+<div ng-controller="ThreeGOpenOrderCtrl" id="threeGPackage" style="display: block;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div id="taocan" class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows1">
+					<a id="taocan_select_id_{{$index}}" ng-click="taocan_select($index)" class="com_selectbtn" href="javascript://">{{row.NAME}}</a>
+				</div>
+
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--3G开户--套餐end-->
+
+<!--3G开户--套餐begin-->
+<div ng-controller="ThreeGDinnerCtrl" id="threeGPrice" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>费用选择</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div id="price" class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows2" ng-show="row.CODE_NUM==form.CODE_NUM">
+					<!--价格列表-->
+					<a fee="{{row.FEE}}" id="price_select_id_{{$index}}" essName="{{row.ESS_NAME}}" essCode="{{row.ESS_CODE}}" ng-click="price_select($index)" class="com_selectbtn" href="javascript://" data="{{row.FEE}}">{{row.NAME}}</a>
+					<!--价格列表-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--3G开户--套餐end-->
+
+<!--3G开户--首月资费begin-->
+<div id="month" ng-controller="MonthPackageCtrl" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>首月资费</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_0" ng-click="month_select(0)" class="com_selectbtn" href="javascript://">套外资费</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_1" ng-click="month_select(1)" class="com_selectbtn" href="javascript://">半月资费</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_2" ng-click="month_select(2)" class="com_selectbtn com_selectbtnon" href="javascript://">全月资费</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--3G开户--首月资费end-->
+
+<!--套餐选择end-->
+
+<div class="com_normalbox" id="prev_and_nextPage" style="display: block;margin-bottom: 20px">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" id="prevBtn" href="javascript://" onclick="hrefJump('threeGKaiHu')">
+                    上一步
+                </a>
+				<!--常用btn-->
+			</div>
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" style="display: none;" id="nextBtn" href="javascript://" ng-click="nextPage()">
+                    下一步
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+</div>

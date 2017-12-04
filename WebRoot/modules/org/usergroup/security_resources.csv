@@ -1,0 +1,24 @@
+#这个文件定义所有需要进行权限控制的资源，在模块加载的时候会写入数据库，卸载的时候从数据库中删除
+#文件的格式，每个数据项之间用空格或制表符分隔
+#资源路径, 显示名称, 控制类型, 依赖资源路径
+#
+#说明：
+# 控制类型： -1 无需控制，0 登录控制，1 授权控制，2 依赖控制
+# 依赖资源路径，当控制类型不为2时，可以不提供，如果控制类型为2时没有提供，则控制类型自动变为1
+#
+# 本文件在更改后，可以通过通过重启应用服务器或者修改模块配置以达到重新加载模块的目的，进而重新加载本文件
+#
+#重要说明，该配置文件在旧模块URL下可能不能正常工作
+
+#资源路径                                                                           显示名称            控制类型                依赖资源路径
+~/pages/UserRoleManage.jsp                                角色管理            1
+
+~query/Q_USERGROUP_ADDUSER                              添加用户组的资源            1                           ~/pages/UserRoleManage.jsp
+~query/Q_USERGROUP_ALL_NAMES                          获取所有的角色            1                   ~/pages/UserRoleManage.jsp
+~query/Q_USERGROUP_DEL                                删除角色            1               ~/pages/UserRoleManage.jsp
+~query/Q_USERGROUP_EDIT                                     修改角色信息            2               ~/pages/UserRoleManage.jsp
+~query/Q_USERGROUP_INFO                                     获取角色信息            2               ~/pages/UserRoleManage.jsp
+~query/Q_USERGROUP_LIST                                     获取角色管理列表            2               ~/pages/UserRoleManage.jsp
+
+
+ADD_BUTTON      添加角色 1

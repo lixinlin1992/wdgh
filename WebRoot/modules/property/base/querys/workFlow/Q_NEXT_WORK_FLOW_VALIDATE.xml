@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <query id="Q_NEXT_WORK_FLOW_VALIDATE" type="batch" result="easyui">
+        <stmt><![CDATA[
+          select 0 from dual;
+        ]]></stmt>
+
+        <param name="trans">true</param>
+
+        <processor name="check-count" type="before" seq="0" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) FROM WF_RU_TASK T WHERE T.END_TIME IS NULL AND T.ID = [taskId]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[该工单已处理，请及时刷新待办工单列表！]]></param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT([handle_result])  FROM DUAL
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[请选择下一步！]]></param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">nextNodeType</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT N.NODE_TYPE nextNodeType FROM WF_FLOW F,WF_NODE N WHERE F.END_NODE_ID = N.ID AND F.ID = [handle_result]
+				]]>
+            </param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT( [next_step_man_id]||DECODE([nextNodeType],4,'X',NULL) )  FROM DUAL
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[请选择下一步处理人！]]></param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="4" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) FROM WF_FLOW F,WF_NODE N WHERE F.END_NODE_ID = N.ID AND F.ID = [handle_result]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[未配置下一步处理节点无法创建流程实例，请与管理员联系！]]></param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="5" break="false">
+            <param name="var">nextNodeId</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT F.END_NODE_ID AS nextNodeId FROM WF_FLOW F WHERE F.ID = [handle_result]
+				]]>
+            </param>
+        </processor>
+
+
+
+
+
+    </query>
+</query-config>

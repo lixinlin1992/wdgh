@@ -1,0 +1,173 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/chooseContractCtrl2.js"></script>
+
+<!--选择活动类型begin-->
+<div id="activeLayoutDiv" style="display: block;" ng-controller="ActiveLayoutCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>选择活动类型</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length==1">
+					<a id="active_select_id_{{$index}}" ng-click="active_select($index)" class="com_selectbtn com_selectbtnon" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length>1">
+					<a id="active_select_id_{{$index}}" ng-click="active_select($index)" class="com_selectbtn" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--选择活动类型end-->
+
+<!--套餐类型begin-->
+<div id="PackageTypeLayoutDiv" style="display: none;" ng-controller="PackageTypeLayoutCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐类型</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length==1">
+					<a id="packageType_select_id_{{$index}}" ng-click="packageType_select($index)" class="com_selectbtn com_selectbtnon" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length>1">
+					<a id="packageType_select_id_{{$index}}" ng-click="packageType_select($index)" class="com_selectbtn" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--套餐类型end-->
+
+<!--套餐名称 begin-->
+<div id="PackageNameLayoutDiv" style="display: none;" ng-controller="PackageNameLayoutCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐名称</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length==1">
+					<a id="packageName_select_id_{{$index}}" ng-click="packageName_select($index)" class="com_selectbtn com_selectbtnon" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length>1">
+					<a id="packageName_select_id_{{$index}}" ng-click="packageName_select($index)" class="com_selectbtn" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--套餐名称end-->
+
+<!--价格 begin-->
+<div id="FeeLayoutDiv" style="display: none;" ng-controller="FeeLayoutCtrl">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>合约惠机</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length==1">
+					<a id="fee_select_id_{{$index}}" ng-click="fee_select($index)" class="com_selectbtn com_selectbtnon" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in row1" ng-if="row1.length>1">
+					<a id="fee_select_id_{{$index}}" ng-click="fee_select($index)" class="com_selectbtn" href="javascript://" data="{{row.ID}}">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+		<div id="info" style="display:none;">
+			<p style="font-size:0.9em;padding: 10px;margin: 0;" ng-if="row1[0].LLB!=''">流量包：<span ng-bind="row1[0].LLB"></span></p>
+			<p style="font-size:0.9em;padding: 10px;margin: 0;" ng-if="row1[0].YYB!=''">语音包：<span ng-bind="row1[0].YYB"></span></p>
+			<p style="font-size:0.9em;padding: 10px;margin: 0;" ng-if="row1[0].NOTE!=''">合约说明：<span ng-bind="row1[0].NOTE"></span></p>
+		</div>
+	</div>
+	<!--100%布局End-->
+</div>
+<!--价格end-->
+
+<!--套餐信息begin-->
+<div id="InfoLayoutDiv" style="display: none;" ng-controller="InfoLayoutCtrl">
+	<!--100%布局End-->
+	<div class="layout_centent" id="detail_info">
+
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐信息</span>
+			<!--<a class="morebtn" href="javascript://"></a>-->
+		</div>
+
+		<div class="com_showtable">
+			<table>
+				<tbody>
+					<tr ng-repeat="r in row1">
+						<td rowspan="{{row1.length}}" ng-if="$index==row1.length"><span class="orange_font">套餐包含</span></td>
+						<td>{{r.KEY_AS}}</td>
+						<td>{{r.VAL}}</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<!--套餐信息end-->
+</div>
+
+<!--底部导航Begin-->
+<div id="BottomDiv" style="display: block;margin-bottom: 44px;">
+	<!--100%布局End-->
+	<div class="layout_centent" id="detail_info">
+		<div class="box">
+			<div class="container-fluid">
+				<div class="row com_selectbox">
+					<div class="col-md-6 col-xs-6 list">
+						<!--常用btn-->
+						<a class="com_btn theme_btn" href="javascript://" onclick="hrefJump('chooseContract')">
+                            上一步
+                        </a>
+						<!--常用btn-->
+					</div>
+					<div class="col-md-6 col-xs-6 list">
+						<!--常用btn-->
+						<a id="nextBtn" style="display: none;" class="com_btn theme_btn" href="javascript://" ng-click="nextPage()">
+                            下一步
+                        </a>
+						<!--常用btn-->
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<!--底部导航End-->

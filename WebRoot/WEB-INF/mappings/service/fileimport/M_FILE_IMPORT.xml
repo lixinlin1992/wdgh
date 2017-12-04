@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 获取导入映射字段信息 -->
+    <ds name="DS_FILE_IMPORT_MAPPING_INFO" type="url" func="">
+        <url><![CDATA[/_fileImport.action?method=getMappingInfo]]></url>
+    </ds>
+    
+    <!-- 获取导入映射字段信息 -->
+    <ds name="DS_FILE_IMPORT_SERVICE" type="url" func="">
+        <url><![CDATA[/_fileImport.action?method=importData]]></url>
+    </ds>    
+    
+    <!-- 下载错误明细 -->
+    <ds name="DS_COMMON_DOWNLOAD_ERROR" type="url" func="">
+        <url>/_fileImport.action?method=download</url>
+    </ds> 
+</datasources>

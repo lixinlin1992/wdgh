@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <query id="Q_FILE_GET" type="bean">
+        <stmt><![CDATA[
+            select t.id         as id,
+                   t.busi_id    as busiId,
+                   t.busi_type  as busiType,
+                   t.name       as name,
+                   t.type       as type,
+                   t.path       as path,
+                   t.thumb_path as thumbPath,
+                   t.note       as note
+              from sys_file t
+                where t.id = [id]
+
+        ]]></stmt>
+        <param name="class">com.sunrise.service.file.UploadFileBean</param>
+    </query>
+
+</query-config>

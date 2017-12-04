@@ -1,0 +1,53 @@
+<script src="ESale/TerminalOrder/scripts/address.js"></script>
+
+<div>
+
+	<!--地址Begin-->
+	<div class="com_fontList" ng-repeat="row in rows" ng-mouseup='mouseUp()' ng-mousedown='downS(row.ID)'>
+		<!-- 商品Begin-->
+		<div class="goods_detail">
+			<a class="radiobtn" ng-click='aClick($event)' addressId="{{row.ID}}"></a>
+			<div class="font_box">
+				<h5><span class="default" ng-if="row.IS_DEFAULT=='1'">(默认)</span>{{row.ADDRESS}}</h5>
+				<ul>
+					<li><span>收货人：</span><span>{{row.CONTACTS}}</span></li>
+					<li><span>电话：</span><span>{{row.PHONE}}</span></li>
+					<li><span>电子邮箱：</span><span>{{row.EMAIL}}</span></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 商品End-->
+	</div>
+	<!--地址End-->
+
+	<div class="com_alert" id="operate" style="top: 150px; display: none;">
+		<h2 class="title">编辑信息<a class="closed" href="javascript://"></a></h2>
+		
+		<div class="bottom_btnbox">
+			<!--常用btn-->
+			<a class="normal_btn" href="javascript://" style="margin: 8px;" ng-click='defAddress(addressId)'>
+            设位默认
+        </a>
+			<!--常用btn-->
+		</div>
+	<div class="bottom_btnbox">
+			<!--常用btn-->
+			<a class="normal_btn" href="javascript://" style="margin: 8px;" ng-click='info(addressId)'>
+            编辑
+        </a>
+			<!--常用btn-->
+		</div>
+	<div class="bottom_btnbox">
+			<!--常用btn-->
+			<a class="normal_btn" href="javascript://" style="margin: 8px;" ng-click='delAddress(addressId)'>
+            删除
+        </a>
+			<!--常用btn-->
+		</div>
+	</div>
+
+	<!--遮罩层Begin-->
+	<div class="com_shade" id='opShade' style="display: none; height: 628px;">
+	</div>
+	<!--遮罩层End-->
+</div>

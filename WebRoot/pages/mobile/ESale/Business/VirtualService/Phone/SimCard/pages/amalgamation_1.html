@@ -1,0 +1,458 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+    $("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+<div id="businessClassDiv" class="layout_centent" ng-controller="businessClassCtrl">
+    <!--标题一Begin-->
+    <div id="businessTitleDiv" class="com_title first_title">
+        <span>业务类型</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+            <div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in businessClass">
+                <a id="flow_select_id_{{$index}}" ng-click="select_businessClass($index)" class="com_selectbtn"
+                   href="javascript://" businessId="{{row.ID}}">{{row.NAME}}</a>
+            </div>
+            <div class="clear"></div>
+            <!--//如果是沃家庭，则创建并添加新装 加装单选框-->
+            <div id="radioGroup" style="display: none;">
+                <div class='col-md-6 col-xs-6 list'>
+                    <a class='radiobtn radiobtnon' name='radioBtn' href='javascript:void(0)'
+                       onclick='selectRadio(this)'>新装</a>
+                </div>
+                <div class='col-md-6 col-xs-6 list'>
+                    <a class='radiobtn' name='radioBtn' href='javascript:void(0)' onclick='selectRadio(this)'>加装</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+
+<div id="packageLayoutDiv" class="layout_centent" ng-controller="PackageCtrl">
+    <!--标题一Begin-->
+    <div id="packageTitleDiv" class="com_title first_title">
+        <span>业务套餐</span>
+    </div>
+    <!--标题一End-->
+    <div id="packageDIV" class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+            <div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in package">
+                <a id="package_select_id_{{$index}}" ng-click="select_package($index)" class="com_selectbtn"
+                   href="javascript://" packageID="{{row.ID}}">{{row.NAME}}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="basicLayoutDiv" class="layout_centent" ng-controller="BasicCtrl">
+    <!--标题一Begin-->
+    <div id="basicTitleDiv" class="com_title first_title">
+        <span>基础信息</span>
+    </div>
+    <!--标题一End-->
+    <!--基础信息 模块内容Begin-->
+    <div id="basicDIV" class="container-fluid">
+        <!--用户号码模块内容 只有用户选择了加装才会显示Begin-->
+        <div id="userNumberDiv" class="formlist" style="display: none">
+            <div class="form_left">
+                <p class="form_title"><font color="red">*</font>用户号码:</p>
+            </div>
+            <div class="form_right">
+                <input id="userNumber" class="form-control" type="text"/>
+            </div>
+        </div>
+        <!--用户号码模块内容end-->
+
+        <!--装机地址模块内容Begin-->
+        <div class="formlist" id="addressDiv">
+            <div class="form_left">
+                <p class="form_title"><font color="red">*</font>装机地址:</p>
+            </div>
+            <div class="form_right">
+                <input id="address" class="form-control" type="text"/>
+            </div>
+        </div>
+        <!--装机地址模块内容end-->
+
+        <!--宽带类型模块Begin-->
+        <div class="layout_secondbox" id="netTypeLayoutDiv">
+            <!--标题一Begin-->
+            <div class="com_title second_title">
+                <span>宽带类型</span>
+            </div>
+            <!--标题一End-->
+            <!--宽带类型 内容Begin-->
+            <div id="netTypeDiv" class="container-fluid">
+                <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+                    <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in netType">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" netTypeID="{{row.ID}}"
+                           id="netTypeSelect_id_{{$index}}" ng-click="netTypeSelect($index)">
+                            {{row.NAME}}
+                        </a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+            </div>
+            <!--宽带类型 内容End-->
+        </div>
+        <!--宽带类型模块End-->
+
+        <!--速率 模块内容Begin-->
+        <div id="speedLayoutDiv" class="layout_secondbox">
+            <!--标题一Begin-->
+            <div id="speedTitleDiv" class="com_title second_title">
+                <span>速率</span>
+            </div>
+            <!--标题一End-->
+            <!--速率 内容Begin-->
+            <div id="speedDIV" class="container-fluid">
+                <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+                    <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in speed">
+                        <!--常用btn-->
+                        <a class="com_selectbtn" href="javascript://" speedID="{{row.ID}}"
+                           id="speedSelect_id_{{$index}}" ng-click="speedSelect($index)">
+                            {{row.NAME}}
+                        </a>
+                        <!--常用btn-->
+                    </div>
+
+                </div>
+            </div>
+            <!--速率 内容end-->
+        </div>
+        <!--速率 模块内容end-->
+    </div>
+</div>
+
+<!--费用类型模块 begin-->
+<div id="feeLayoutDiv" class="layout_centent" ng-controller="FeeCtrl">
+    <!--标题一Begin-->
+    <div id="feeTitleDiv" class="com_title first_title">
+        <span>费用类型</span>
+    </div>
+    <!--标题一End-->
+    <!--费用类型按钮Begin-->
+    <input id="feeRowsCount" type="hidden" value="0">
+
+    <div id="feeDIV" class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+            <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in feeType">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" feeID="{{row.ID}}"
+                   id="feeSelect_id_{{$index}}" ng-click="feeSelect($index)">
+                    {{row.NAME}}
+                </a>
+                <!--常用btn-->
+            </div>
+
+        </div>
+    </div>
+    <!--费用类型按钮end-->
+</div>
+<!--费用类型模块 end-->
+
+<!--费用标准模块 begin-->
+<div id="feeStandardLayoutDiv" class="layout_centent" ng-controller="FeeStandardCtrl">
+    <!--标题一Begin-->
+    <div id="feeStandardTitleDiv" class="com_title first_title">
+        <span>费用标准</span>
+    </div>
+    <!--标题一End-->
+    <!--费用标准按钮Begin-->
+    <div id="feeStandardDIV" class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+            <div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in feeStandard">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" feeStandardID="{{row.ID}}"
+                   id="feeStandardSelect_id_{{$index}}" ng-click="feeStandardSelect($index)">
+                    {{row.NAME}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--费用标准按钮end-->
+</div>
+<!--费用标准模块 end-->
+
+<!--局向 模块 begin-->
+<div id="configLayoutDiv" class="layout_centent">
+    <!--标题一Begin-->
+    <div id="configTitleDiv" class="com_title first_title">
+        <span>局向反抢</span>
+    </div>
+    <!--标题一End-->
+    <!--局向内容Begin-->
+    <div id="configDIV" class="container-fluid">
+        <div class="formlist" id="JuxiangInputDiv">
+            <div class="form_left">
+                <p class="form_title">局向:</p>
+            </div>
+            <div class="form_right">
+                <input id="config" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="formlist" id="configChooseDiv">
+            <div class="form_left">
+                <p class="form_title">零配置:</p>
+            </div>
+            <div class="form_right">
+                <a class='radiobtn' name='configBtn' href='javascript:void(0)' onclick='selectConfig(this)'>是</a>
+                <a class='radiobtn radiobtnon' name='configBtn' href='javascript:void(0)'
+                   onclick='selectConfig(this)'>否</a>
+            </div>
+            <div class="clear"></div>
+            <!-- 用来清除浮动 -->
+        </div>
+        <!--单张图片Begin-->
+        <div id="configPicDIV" class="com_singleimg" style="display: none">
+            <div id="configPicDIV_img"
+                 style="margin:0 auto;position: relative; width:230px;height:150px;margin-top:10px; background:url('Style/images/show/img.png');background-size:230px 150px;-moz-background-size:230px 150px; -webkit-background-size:230px 150px;-o-background-size:230px 150px;">
+                <input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px"
+                       data-param="configId" id="configId" onchange="uploadImg('configId');" single>
+
+                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_configId"
+                     ng-click="takePhoto('configId')"></div>
+            </div>
+        </div>
+        <!--
+          <div id="configPicDIV" class="com_singleimg" style="display: none">
+              <div id="configDIV1" class="imgbox" onclick="takePhoto('config')">
+                  <img id='configPic' src="Style/images/show/config.png" alt=""/>
+                  <input type="hidden" id="configID" value=""/>
+              </div>
+          </div>-->
+        <!--单张图片Edn-->
+
+        <!--反抢内容Begin-->
+        <div class="formlist" id="robDIV">
+            <div class="form_left">
+                <p class="form_title">反抢用户:</p>
+            </div>
+            <div class="form_right">
+                <a class='radiobtn' name='robBtn' href='javascript:void(0)' onclick='selectRob(this)'>是</a>
+                <a class='radiobtn radiobtnon' name='robBtn' href='javascript:void(0)' onclick='selectRob(this)'>否</a>
+
+                <div class="clear"></div>
+                <!-- 用来清除浮动 -->
+            </div>
+        </div>
+
+        <!--单张图片Begin-->
+        <div id="robPicDiv" class="com_singleimg" style="display: none">
+            <div id="robPicDiv_img"
+                 style="margin:0 auto;position: relative; width:230px;height:150px;margin-top:10px; background:url('Style/images/show/img2.png');background-size:230px 150px;-moz-background-size:230px 150px; -webkit-background-size:230px 150px;-o-background-size:230px 150px;">
+                <input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px"
+                       data-param="robID" id="robID" onchange="uploadImg('robID');" single>
+
+                <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_robID"
+                     ng-click="takePhoto('robID')"></div>
+            </div>
+        </div>
+        <!--
+        <div id="robPicDiv" class="com_singleimg" style="display: none">
+            <div id="robDIV1" class="imgbox" onclick="takePhoto('rob')">
+                <img id='robPic' src="Style/images/show/rob.png" alt=""/>
+                <input type="hidden" id="robID" value=""/>
+            </div>
+        </div>-->
+        <!--单张图片Edn-->
+        <!--反抢内容End-->
+
+    </div>
+    <!--局向内容end-->
+</div>
+<!--局向 模块 end-->
+
+<div class="com_steptitle" style="display: none;">
+    <p class="one">第一步：填写主要信息</p>
+    <select class="com_btn theme_btn choice_btn" style="text-decoration: none;width:70px" id="readerTypeSelect">
+        <option value="0">森锐</option>
+        <option value="3">一体</option>
+        <option value="2">亿数</option>
+        <option value="1">信通</option>
+    </select>
+    <input type="text" style="display: none;" id="device_name" ng-model="form.DEVICE_NAME"/>
+</div>
+
+<!--100%布局Begin-->
+<div class="layout_centent" id="cardLyoutDiv">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>身份资料</span>
+    </div>
+    <!--标题一End-->
+    <!--正常外框Begin-->
+    <div class="com_normalbox">
+        <!--提示文字Begin-->
+        <div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+            上传身份证正，反面及手持照片
+        </div>
+        <!--提示文字End-->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-xs-12 list" id="bluetoothDiv" style="display: block;margin:10px 0;">
+                    <!--常用btn-->
+                    <button style="width: 100%;" class="com_btn theme_btn" id="bluetooth_read_btn"
+                            onclick="bluetoothRead()" data-loading-text="读取中...." autocomplete="off">
+                        蓝牙读取
+                    </button>
+                    <!--常用btn-->
+                </div>
+            </div>
+        </div>
+
+        <!--身份证图片列表Begin-->
+        <div class="container-fluid goods_show_list">
+            <div class="row">
+                <div id="frontDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+                    <div id="frontDiv_img"
+                         style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                        <input type="file" accept="image/jpeg,image/png"
+                               style="display: none; opacity:0;width:60px;height:60px" data-param="front" id="front"
+                               onchange="uploadImg('front');" single>
+
+                        <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"
+                             ng-click="takePhoto('front')"></div>
+                        <span class="imgprice"
+                              style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+                    </div>
+                </div>
+
+                <div id="contraryDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+                    <div id="contraryDiv_img"
+                         style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                        <input type="file" accept="image/jpeg,image/png"
+                               style="display: none; opacity:0;width:60px;height:60px" data-param="contrary"
+                               id="contrary" onchange="uploadImg('contrary');" single>
+
+                        <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"
+                             ng-click="takePhoto('contrary')"></div>
+                        <span class="imgprice"
+                              style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-md-4 goods_box">
+                    <div style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+                        <input type="file" accept="image/jpeg,image/png"
+                               style="display: none; opacity:0;width:60px;height:60px" data-param="hand" id="hand"
+                               onchange="uploadImg('hand');" single>
+
+                        <div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_hand"
+                             ng-click="takePhoto('hand')"></div>
+                        <span class="imgprice"
+                              style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+                    </div>
+                </div>
+            </div>
+            <!--进度条begin-->
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="upload_text"
+                       style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+                </div>
+                <div class="col-md-12" style="display: none;">
+                    <div class="progress" style="margin-bottom: 5px;">
+                        <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped"
+                             role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--进度条end-->
+        </div>
+        <!--身份证图片列表End-->
+
+        <form>
+            <!--表单排版Begin-->
+            <div class="formlist">
+                <div class="form_left">
+                    <p class="form_title"><font color="red">*</font>联系人:</p>
+                </div>
+                <div class="form_right">
+                    <input id="contactName" class="form-control" type="text" placeholder="必填项"
+                           ng-model="orderList.contactName"/>
+                </div>
+            </div>
+            <!--表单排版End-->
+            <!--表单排版Begin-->
+            <div class="formlist">
+                <div class="form_left">
+                    <p class="form_title"><font color="red">*</font>联系电话:</p>
+                </div>
+                <div class="form_right">
+                    <input id="telephone" class="form-control" type="text" placeholder="必填项"
+                           ng-model="orderList.telephone" maxlength="11"/>
+                </div>
+            </div>
+            <!--表单排版End-->
+            <input name="name" type="text" class="input_normal" id="customer_name" ng-model="form.CUSTOMER_NAME"
+                   placeholder="客户姓名" readonly="readonly" style="display: none;"/>
+            <input name="paper_num" type="text" id="cert_number" maxLength="18" ng-model="form.CERT_NUMBER"
+                   placeholder="证件号码" class="input_normal" required="required" readonly="readonly"
+                   style="display: none;"/>
+
+            <input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS"/>
+            <input type="text" style="display: none;" id="gov" ng-model="form.ISS_USING"/>
+            <input type="text" style="display: none;" id="gender" ng-model="form.GENDER"/>
+            <input type="text" style="display: none;" id="from" ng-model="form.CERT_VALID_FROM"/>
+            <input type="text" style="display: none;" id="to" ng-model="form.CERT_VALID_TO"/>
+            <input type="text" style="display: none;" id="nation" ng-model="form.NATION"/>
+        </form>
+    </div>
+    <!--正常外框End-->
+</div>
+<!--100%布局End-->
+
+<div class="layout_centent" id="otherLayoutDiv">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>其他</span>
+    </div>
+    <!--表单排版Begin-->
+    <div class="formlist">
+        <div class="form_left">
+            <p class="form_title">备注</p>
+        </div>
+        <div class="form_right">
+            <!--多行文本框Begin-->
+            <textarea placeholder="请输入少于100的字符" id="other" class="form-control" rows="3" name="note"
+                      style="background: none; width: 100%; float: left;" ng-model="form.NOTE"
+                      type="text"></textarea>
+            <!--多行文本框End-->
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--表单排版End-->
+</div>
+
+<div class="com_normalbox" id="prev_and_nextPage" style="display: block;margin-bottom: 20px" ng-controller="FooterCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="nextBtn" ng-click="nextPage()">
+                    下一步
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="checkHtml"></div>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/amalgamation_1.js"></script>
+
+<script type="text/javascript">
+    $("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 手机端自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="../js/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../js/bootstrap.min.js"></script>
+
+</head>
+<body class="bgcolor">
+
+<!--轮播Begin-->
+<div class="slideContainer">
+    <div id="slides">
+        <img src="../images/show/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
+        <img src="../images/show/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
+        <img src="../images/show/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
+        <img src="../images/show/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
+        <!--<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>-->
+        <!--<a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>-->
+    </div>
+</div>
+<!--轮播End-->
+
+<!-- SlidesJS Required: Link to jquery.slides.js -->
+<script src="../js/jquery.slides.min.js"></script>
+<!-- End SlidesJS Required -->
+<!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+<script>
+    $(function() {
+        $('#slides').slidesjs({
+            width: 940,
+            height: 450,
+            navigation: false,
+            generateNextPrev: false,
+            play: {
+                active: false,
+                auto: true,
+                interval: 4000,
+                swap: true
+            }
+        });
+    });
+</script>
+<!-- End SlidesJS Required -->
+</body>
+</html>

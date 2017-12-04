@@ -1,0 +1,164 @@
+﻿<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+<!--主体内容Begin-->
+
+<div>
+	<!--进度条End-->
+	<div class="layout_centent">
+		<!--步骤标题Begin-->
+		<div class="com_steptitle">
+			<p class="one">第一步：填写主要信息</p>
+			<select class="com_btn theme_btn choice_btn" style="text-decoration: none;width:70px;display: none;" id="readerTypeSelect">
+				<option value="0">森锐</option>
+				<option value="3">一体</option>
+				<option value="2">亿数</option>
+				<option value="1">信通</option>
+			</select>
+			<input type="text" style="display: none;" id="device_name" ng-model="form.DEVICE_NAME" />
+		</div>
+		<!--步骤标题End-->
+
+		<div class="container-fluid" id="company">
+			<div class="row com_selectbox">
+				<div class="col-md-4 col-xs-4 list">
+					<!--常用btn-->
+					<a class="com_selectbtn com_selectbtnon" id="company_0" href="javascript://" ng-click="selectCompany(0)">联通</a>
+					<!--常用btn-->
+				</div>
+				<div class="col-md-4 col-xs-4 list">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" id="company_1" ng-click="selectCompany(1)">电信</a>
+					<!--常用btn-->
+				</div>
+				<div class="col-md-4 col-xs-4 list">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" id="company_2" ng-click="selectCompany(2)">移动</a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+
+		<!--<span ng-click="setText()">使用测试数据</span>-->
+		<!--特殊表单排版Begin-->
+		<div class="formlist bigformlist">
+			<div class="form_left">
+				<p class="form_title">用户号码</p>
+			</div>
+			<div class="form_right">
+				<input style="border:none;" type="tel" onkeyup="handleChange()" name="phonenumber" maxlength="11" class="input_normal" id="number" ng-model="form.USER_NUMBER" />
+			</div>
+		</div>
+		<!--特殊排版End-->
+
+		<!--步骤标题Begin-->
+		<div class="com_steptitle">
+			<p class="two">第二步：读取身份证信息</p>
+			<a class="com_btn theme_btn" style="text-decoration: none;" href="javascript://" onclick="bluetoothRead()">读取</a>
+		</div>
+		<!--步骤标题End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">客户姓名</p>
+			</div>
+			<div class="form_right">
+				<input type="text" class="input_normal" id="name" ng-model="form.CUSTOMER_NAME" readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">证件号码</p>
+			</div>
+			<div class="form_right">
+				<input type="text" class="input_normal" id="certNumber" ng-model="form.CERT_NUMBER" readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<!--步骤标题Begin-->
+		<div class="com_steptitle">
+			<p class="three">第三步：输入联系人资料</p>
+		</div>
+		<!--步骤标题End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">联系人</p>
+			</div>
+			<div class="form_right">
+				<input placeholder="非必填项" type="text" class="input_normal" id="contactName" ng-model="form.CONTACT_NAME" />
+			</div>
+		</div>
+		<!--表单排版End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">联系电话</p>
+			</div>
+			<div class="form_right">
+				<input placeholder="非必填项" type="tel" class="input_normal" id="contactNumber" ng-model="form.CONTACT_PHONE" />
+			</div>
+		</div>
+		<!--表单排版End-->
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">通信地址</p>
+			</div>
+			<div class="form_right">
+				<input placeholder="非必填项" type="text" class="input_normal" id="address" ng-model="form.CONTACT_ADDRESS" />
+			</div>
+		</div>
+		<input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS" />
+		<input type="text" style="display: none;" id="gov" ng-model="form.GOV" />
+		<input type="text" style="display: none;" id="gender" ng-model="form.GENDER" />
+		<input type="text" style="display: none;" id="from" ng-model="form.FROM" />
+		<input type="text" style="display: none;" id="to" ng-model="form.TO" />
+		<input type="text" style="display: none;" id="nation" ng-model="form.NATION" />
+		<input type="text" style="display: none;" id="born" ng-model="form.BORN" />
+		<input type="text" style="display: none;" id="picture" ng-model="form.PICTURE" />
+		<!--表单排版End-->
+
+		<div id="code_div" style="display: none;">
+			<!--步骤标题Begin-->
+			<div class="com_steptitle"></div>
+			<!--步骤标题End-->
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">输入验证码</p>
+				</div>
+				<div class="form_right">
+					<input type="text" class="input_normal" id="code" ng-model="form.CODE" />
+				</div>
+			</div>
+			<!--表单排版End-->
+			<div class="clear"></div>
+			<p id="img_code" style="text-align: center;padding: 0;margin: 0;"><img ng-src="{{img_code}}" /></p>
+		</div>
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<!--可点击状态是orange_btn-->
+			<a id="submit" class="com_btn unuse_btn" style="text-decoration: none;" href="javascript://" ng-click="submit()">
+                提交资料
+            </a>
+			<!--常用btn-->
+		</div>
+		<!--表单排版End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--主体内容End-->
+
+<div id="checkHtml"></div>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/realNameReg.js"></script>
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_AUDIT_TRADE_APPLY" type="batch" result="easyui">
+        <stmt>
+            <![CDATA[
+        insert into bi_audit_record(audit_id,flow_code,object_id,audit_result,
+        audit_time,audit_user,audit_content,audit_code)
+        values(bi_audit_record_seq.nextval,'trade_apply',[apply_id],[audit_result],sysdate,
+        ${_CurrUser.id},[audit_content],decode([apply_status],'1','apply_audit1',2,'apply_audit2'));
+        update bi_trade_apply set apply_status=apply_status<#if audit_result=='1'>+1<#else>-1</#if>
+        where apply_id=[apply_id];
+        <#if apply_status=='2'&&audit_result=='1'>
+          <#if trade_status==-1>
+            insert into bi_trade_info(account,name,sex,birthday,political_status,nation,email,card_type,card_no,
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,trade_status,intrade_date)
+            select account,name,sex,birthday,political_status,nation,email,card_type,card_no,
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,1,sysdate
+            from bi_trade_apply where apply_id=[apply_id];
+          <#elseif trade_status==0>
+            update bi_trade_info set trade_status=1,intrade_date=sysdate where account=(select account from bi_trade_apply
+            where apply_id=[apply_id];
+          <#elseif trade_status==2>
+            update bi_trade_info set trade_status=1 where account=(select account from bi_trade_apply
+            where apply_id=[apply_id]);
+          </#if>
+        </#if>
+            ]]>
+        </stmt>
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">trade_status</param>
+            <param name="sql">
+                <![CDATA[
+					select nvl(trade_status,-1)
+                    from bi_trade_apply bta
+                    left join bi_trade_info bti on bta.account=bti.account
+                    where bta.apply_id=[apply_id]
+				]]>
+            </param>
+        </processor>
+    </query>
+</query-config>

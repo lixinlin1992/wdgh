@@ -1,0 +1,70 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/handleContract2.js"></script>
+
+<div class="shop_search">
+        <div class="shop_search_container">
+                <input type="text" class="search_text" placeholder="请输入您想要搜索的内容">
+                <a href="javascript://" class="go_search" ng-click="event.chooseNum()">搜索</a>
+        </div>
+    </div>
+<div class="com_area">
+	<div class="left">
+		<span>卡号类型：</span>
+		<!--<a class="area_btn" href="javascript://">内蒙古自治区</a>-->
+	</div>
+	<div class="right">
+		<a class="choice_btn choiceon_btn" href="javascript://" ng-click="event.cardType(1)">白卡</a>
+		<a class="choice_btn " href="javascript://" ng-click="event.cardType(2)">成卡</a>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="formlist" ng-show="CBSS_hide==1">
+	<div class="form_right" style="width:200px;margin: 0 auto">
+		<!--单选按钮Begin-->
+		<a class="radiobtn radiobtnon" ng-click="event.sub($event,0)">平台商获取</a>
+		<a class="radiobtn" ng-click="event.sub($event,1)">CBSS获取</a>
+		<!--单选按钮End-->
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="com_selectnumber">
+	<ul ng-if="type==0">
+		<li ng-repeat="num in numlist" ng-click='event.next(num.ID,num.TITLE,num.BUSINESS_ID,num.BRAND_ID,num.FEE)'>
+			<div class="number_top">
+				<span class="normalcolor">{{num.TITLE.substring(start,3)}}</span>
+				<span class="importantcolor">{{num.TITLE.substring(3,6)}}</span>
+				<span class="normalcolor">{{num.TITLE.substring(6,end)}}</span>
+			</div>
+			<div class="number_bottom">
+				<p>
+					<img class="hot" src="Style/images/common/hot.png" alt="">
+					<span class="price">{{num.FEE | currency : '￥'}}</span>
+					<span class="tips">区域：{{num.AREA_NAME}}</span>
+				</p>
+			</div>
+		</li>
+	</ul>
+	<ul ng-if="type==1">
+		<li ng-repeat="num in numAndFee" ng-click='event.CBSS_next(num[0],num[1])'>
+			<div class="number_top">
+				<span class="normalcolor">{{num[0].substring(start,3)}}</span>
+				<span class="importantcolor">{{num[0].substring(3,6)}}</span>
+				<span class="normalcolor">{{num[0].substring(6,end)}}</span>
+			</div>
+			<div style="font-size: 10px;color: #AFAEAE;">
+				<span>&yen;{{num[1]}}元，含&yen;{{num[1]}}元话费</span>
+			</div>
+		</li>
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<div class="com_showmore" ng-show="type==0">
+	<a class="more_btn" href="javascript://" ng-click="event.more()">点击加载更多</a>
+</div>
+<div class="com_showmore" ng-show="type==1">
+	<a class="more_btn" href="javascript://" ng-click="event.cbsmore()">点击加载更多</a>
+</div>
+
+<script type="text/javascript" src="System/Base/scripts/passwd/core-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/enc-base64-min.js"></script>
+<script type="text/javascript" src="System/Base/scripts/passwd/sha1.js"></script>

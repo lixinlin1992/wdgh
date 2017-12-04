@@ -1,0 +1,219 @@
+@charset "utf-8";
+/*标题搜索模块Begin*/
+.SR_moduleContent{
+	float:left;
+	}
+.SR_moduleContent{
+	font-size:12px;
+	}
+.SR_moduleRight{
+	float:right;
+	}
+.SR_moduleContent table{
+	text-align:right;
+	}
+.SR_moduleContent .SR_dateInput{
+	border:1px solid #ccc; 
+	color:#444444;
+	height:20px;
+	width:100px;
+	text-align:center;
+	}
+.SR_moduleContent .SR_searchInput{
+	border:1px solid #ccc; 
+	color:#444444;
+	height:20px;
+	width:180px;
+	text-align:center;
+	font-size:12px;
+	line-height:20px;
+	color:#ccc;
+	text-align:left;
+	text-indent:10px;
+	}
+.SR_moduleSearch{
+	float:right;
+	width:55px;
+	height:25px;
+	display:block;
+	background:url(../images/index/indexSearchBtn.png) top no-repeat;
+	margin-right:10px;
+	margin-top:2px;
+	}
+.SR_moduleSearchHover{
+	float:right;
+	width:55px;
+	height:25px;
+	display:block;
+	background:url(../images/index/indexSearchBtn.png) bottom no-repeat;
+	margin-right:10px;
+	margin-top:2px;
+	}
+/*标题搜索模块End*/
+
+/*主要表格内容Begin*/
+.SR_toDoListTable{
+		width:100%;
+		overflow:hidden;
+		margin-top:5px;
+	}
+.SR_toDoListTable table{
+	width:100%;
+	text-align:center;
+	border-left:#e5e4e4 1px solid;
+	border-top:#e5e4e4 1px solid;
+	border-bottom:none;
+	border-right:none;
+	margin:0px auto;
+	font-size:12px;
+	}
+.SR_toDoListTable table td{
+	border-bottom:#e5e4e4 1px solid;
+	border-right:#e5e4e4 1px solid;
+	border-top:none;
+	border-left:none;
+	height:30px;
+	line-height:30px;
+	}
+.SR_toDoListTable table th{
+	border-bottom:#e5e4e4 1px solid;
+	border-right:#e5e4e4 1px solid;
+	border-top:none;
+	border-left:none;
+	height:30px;
+	background:#f5f5f5;
+	line-height:30px;
+	}
+.controlBtn a{
+	margin-bottom:4px;
+	margin-left:10px;
+	}
+/*主要表格内容End*/
+
+/*下半部分图表选项卡Begin*/
+.SR_indexDown table{
+	vertical-align:top;
+	}
+a {
+	text-decoration: none;
+	color: #333;
+}
+.SR_tabBox {
+	width: 520px;
+	margin: 0px auto;
+	position: relative;
+}
+.nav {
+	width: 518px;
+	float: left;
+	height: 41px;
+	border: 1px solid #dadcdd;
+	padding-left:10px;
+}
+.nav li {
+	font-size: 12px;
+	font-weight:700;
+	color:#444444;
+	float: left;
+	width: 120px;
+	height: 41px;
+	-webkit-transition: all 0.35s linear;
+	cursor: pointer;
+	text-align: center;
+	line-height: 39px;
+	list-style-type: none;
+}
+.nav li.on {
+	color:#444444;
+	font-weight:700;
+	background:url(../images/index/tabBg.png) center no-repeat;
+}
+.nav {
+	background: #f5f5f5;
+}
+.zlbox_content {
+	width: 520px;
+	margin: 0px auto;
+}
+.item_tab {
+	overflow:hidden; 
+	border: 1px solid #dadcdd;
+	border-top: 0px;
+	padding: 20px;
+	text-align: center;
+}
+
+.statisticsTab{
+	width:460px;
+	height:200px;
+	background:url(../images/index/tabImg.png) no-repeat;
+	}
+
+.SR_indexTabRight{
+	float:right;
+	overflow:hidden;
+	}
+/*下半部分图表选项卡End*/
+
+/*通知表格Begin*/
+.noticeTable{
+	width:99%; 
+	float:left;
+	overflow:hidden;
+	border:1px #dadcdd solid;
+	font-size:12px;
+	}
+.noticeTitle{
+	background:#f5f5f5;
+	height:41px;
+	border-bottom:1px #dadcdd solid;
+	cursor:pointer;
+	}
+.noticeTable td{
+	height:60px;
+	}
+.noticeTitleHover{
+	background:url(../images/index/tabBg.png) center no-repeat #f5f5f5;
+	height:41px;
+	border-bottom:1px #dadcdd solid;
+	cursor:pointer;
+	}
+.noticeContent{
+	width:97%;
+	height:50px;
+	background:url(../images/index/assignmentMark.png) no-repeat left center;
+	line-height:50px;
+	text-indent:30px;
+	border-bottom:#efefec 1px solid;
+	margin:0px auto;
+	  text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden;
+
+	}
+.noticeContent a:hover{
+	color:#3f7cc7;
+	cursor:pointer;
+	}
+.noticeTitle a{
+	color:#3f7cc7;
+	}
+.noticeNoContent{
+	width:97%;
+	height:50px;
+	background:url(../images/index/empty.png) no-repeat left center;
+	line-height:50px;
+	text-indent:30px;
+	border-bottom:#efefec 1px solid;
+	margin:0px auto;
+	  text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden;
+	color:#333333;
+	cursor:pointer;
+	}
+.noticeEmpty{
+	width:97%;
+	height:50px;
+	}
+/*通知表格Begin*/

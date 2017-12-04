@@ -1,0 +1,171 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/fourGGroupOrder_package.js"></script>
+
+<!--套餐选择begin-->
+
+<!--4G组合--全国语音包begin-->
+<div ng-controller="VoicePackageCtrl" id="voice" style="display: block;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>全国语音包</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a fee="0" id="voice_select_id_0" ng-click="a_select(-1)" class="com_selectbtn" href="javascript://">不需要</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows1">
+					<a fee="{{row.FEE}}" id="voice_select_id_{{$index+1}}" ng-click="a_select($index)" class="com_selectbtn" href="javascript://">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--4G组合--全国语音包end-->
+
+<!--4G组合--全国流量包begin-->
+<div ng-controller="FlowPackageCtrl" id="flow" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>全国流量包</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows2">
+					<a fee="{{row.FEE}}" id="flow_select_id_{{$index}}" ng-click="a_select($index)" class="com_selectbtn" href="javascript://">{{row.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--4G组合--全国流量包end-->
+
+<!--4G组合--共享短信包begin-->
+<div ng-controller="SmsPackageCtrl" id="sms" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>共享短信包</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<!--第1个-->
+					<a fee="0" id="sms_select_id_0" ng-click="a_select(-1)" class="com_selectbtn" href="javascript://">不需要</a>
+					<!--第1个-->
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows3">
+					<!--非第1个-->
+					<a fee="{{row.FEE}}" id="sms_select_id_{{$index+1}}" ng-click="a_select($index)" class="com_selectbtn" href="javascript://">{{row.NAME}}</a>
+					<!--非第1个-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--4G组合--共享短信包end-->
+
+<!--4G组合--来电显示begin-->
+<div ng-controller="CallPackageCtrl" id="call" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>来电显示</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<!--第1个-->
+					<a fee="0" id="call_select_id_0" ng-click="a_select(-1)" class="com_selectbtn" href="javascript://">不需要</a>
+					<!--第1个-->
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows4">
+					<!--非第1个-->
+					<a fee="{{row.FEE}}" id="call_select_id_{{$index+1}}" ng-click="a_select($index)" class="com_selectbtn" href="javascript://">{{row.NAME}}</a>
+					<!--非第1个-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--4G组合--来电显示end-->
+
+<span style="padding:5px 0 5px 10px;display: block;"> 每月的套餐费用总额为:<span id="groupFee" style="color: red;font-size: 16px;" ng-bind="form.sureFee">0</span>元</span>
+
+<!--4G组合--首月资费begin-->
+<div id="month" ng-controller="MonthPackageCtrl" style="display: none;">
+	<!--100%布局Begin-->
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>首月资费</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_0" ng-click="month_select(0)" class="com_selectbtn" href="javascript://">套外资费</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_1" ng-click="month_select(1)" class="com_selectbtn" href="javascript://">半月资费</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a id="month_select_id_2" ng-click="month_select(2)" class="com_selectbtn com_selectbtnon" href="javascript://">全月资费</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--100%布局End-->
+</div>
+<!--4G组合--首月资费end-->
+
+<!--套餐选择end-->
+
+<div class="com_normalbox" id="prev_and_nextPage" style="display: block;margin-bottom: 20px">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" id="prevBtn" href="javascript://" onclick="hrefJump('fourGGroupOrder')">
+                    上一步
+                </a>
+				<!--常用btn-->
+			</div>
+			<div class="col-md-6 col-xs-6 list">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" style="display: none;" id="nextBtn" href="javascript://" ng-click="nextPage()">
+                    下一步
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<script type="text/javascript" src="ESale/Mall/UI/scripts/readNameSys.js"></script>
+<div ng-controller="IncludeController">
+    <div ng-include="template.rCard"></div>
+</div>
+<div id="ckLayoutDiv" class="layout_full" style="display: block;" ng-controller="IccidController">
+    <!--标题一Begin-->
+    <div id="ckTitleDiv" class="com_title first_title" style="height: 60px; overflow: hidden;">
+        <blockquote>
+            <p>实名制返档</p>
+        </blockquote>
+    </div>
+    <form style="margin-top: 15px" id="form_readName" onsubmit="return false">
+        <div class="form-group">
+            <label for="input_mobileNum">电话号码</label>
+            <input type="text" required title="您的电话号码" class="form-control" id="input_mobileNum" placeholder="电话号码">
+        </div>
+        <div class="form-group">
+            <label style="text-decoration:underline" ng-click="clickFun('iccid')"
+                   for="input_iccid">ICCID(点击读卡)</label>
+            <input type="text" class="form-control" ng-model="input.input_iccid" required id="input_iccid" placeholder="ICCID">
+        </div>
+        <div class="form-group">
+            <label for="input_name">姓名</label>
+            <input type="text" class="form-control" id="input_name" placeholder="姓名">
+        </div>
+        <div class="form-group">
+            <label for="input_sex">性别</label>
+            <select id="input_sex" class="form-control">
+                <option value="1">男</option>
+                <option value="0">女</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="input_expiredDate" ng-click="clickFun('personId')">证件有效期</label>
+            <input type="text" class="form-control" id="input_expiredDate" placeholder="证件有效期">
+        </div>
+        <div class="form-group">
+            <label for="input_personId" style="text-decoration:underline" ng-model="input.input_personId"
+                   ng-click="clickFun('personId')">身份证号码(点击读取身份证)</label>
+            <input type="text" class="form-control" id="input_personId" placeholder="身份证号码">
+        </div>
+        <div class="form-group">
+            <label for="input_address">证件地址</label>
+            <input type="text" required class="form-control" id="input_address" placeholder="证件地址">
+        </div>
+        <div class="form-group">
+              <label for="input_postCode">邮政编码</label>
+              <input type="number"class="form-control" id="input_postCode" placeholder="邮政编码">
+          </div>
+        <div class="form-group">
+            <label for="input_contactsName">联系人姓名</label>
+            <input type="text" required class="form-control" id="input_contactsName" placeholder="联系人姓名">
+        </div>
+        <div class="form-group">
+            <label for="input_contactsMobile">联系人电话</label>
+            <input type="text" required class="form-control" id="input_contactsMobile" placeholder="联系人电话">
+        </div>
+        <div class="form-group">
+            <label for="input_contactsAdd">通信地址</label>
+            <input type="text" required class="form-control" id="input_contactsAdd" placeholder="通信地址">
+        </div>
+        <div class="form-group">
+            <label for="input_jobType">职业类型</label>
+            <input type="number"class="form-control" id="input_jobType" placeholder="职业类型">
+        </div>
+        <div class="form-group">
+            <label for="input_tradeType">单位行业类别</label>
+            <input type="number"class="form-control" id="input_tradeType" placeholder="单位行业类别">
+        </div>
+        <div class="form-group">
+            <label for="input_tradeTypeStatus">单位行业子类别</label>
+            <input type="number"class="form-control" id="input_tradeTypeStatus" placeholder="单位行业子类别">
+        </div>
+        <div class="form-group">
+            <label for="input_note">备注</label>
+            <input type="number" class="form-control" id="input_note" placeholder="备注">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control btn-info">
+        </div>
+    </form>
+    <div class="message" href="javascript://" style="height: 50px;">
+        <a id="ckBtnRead" class="orange_btn"
+           style="float:left; height: 30px; line-height:30px; text-align: centent; width: 40%; margin-left: 10px;"
+           href="javascript:void(0)" ng-click="submit();">读取</a>
+        <a id="ckBtn" class="orange_btn"
+           style="float:right;height: 30px; line-height:30px; text-align: centent; width: 40%; margin-right: 10px;"
+           href="javascript:void(0)" onclick="card.submit();">确定</a>
+    </div>
+</div>

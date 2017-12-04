@@ -1,0 +1,189 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, p {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #CCC;
+}
+
+.lowernav {
+    width: auto;
+    overflow: hidden;
+    float: left;;
+}
+
+.lowernav table {
+    float: left;
+}
+
+.rightline {
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #e5e2e2;
+}
+
+.menuListContainer {
+    width: 150px;
+}
+
+.lowernav table ul {
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #FFF;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.rightline ul li {
+    width: 100%;
+    overflow: hidden;
+}
+
+.rightline ul li table {
+    width: 100%;
+}
+
+.lowernav table ul li a {
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+    height: 20px;
+    width: 100%;
+    line-height: 20px;
+    float: left;
+    text-align: left;
+}
+
+.lowernav table ul li a:hover {
+    font-size: 12px;
+    color: #d60619;
+    text-decoration: none;
+    font-weight: normal;
+    background-repeat: no-repeat;
+    background-position: left;
+    display: inline-block;
+    height: 20px;
+    width: 100%;
+    line-height: 20px;
+}
+
+.lowernav table h4 {
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #d60619;
+    line-height: 26px;
+    color: #d60619;
+    text-align: center;
+}
+
+.lowernav table tr td {
+    border-left-color: #e5e2e2;
+    vertical-align: top;
+    text-align: left;
+}
+
+.collectTd {
+    width: 18px;
+}
+
+.middle {
+    background-color: #FFF;
+}
+
+.middle a.collect {
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    width: 15px;
+    float: left;
+}
+
+.collectHover {
+    background-image: url(../images/collectNormal.png);
+    display: inline-block;
+    height: 20px;
+    width: 15px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.middle a.collect:visited {
+    background-image: url(../images/collectPressed.png);
+    display: inline-block;
+    height: 20px;
+    width: 15px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.middle a.collect:hover {
+    background-image: url(../images/collectNormal.png);
+    display: inline-block;
+    height: 20px;
+    width: 15px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.middle a.collect:active {
+    background-image: url(../images/collectPressed.png);
+    display: inline-block;
+    height: 20px;
+    width: 15px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.leftfarme {
+    background-image: url(../images/leftfarme.png);
+    background-repeat: repeat-y;
+    width: 10px;
+}
+
+.rightfarme {
+    background-image: url(../images/rightfarme.png);
+    background-repeat: repeat-y;
+    width: 10px;
+}
+
+.buttomfarme {
+    background-image: url(../images/buttomfarme.png);
+    background-repeat: repeat-x;
+    height: 10px;
+}
+
+.lefthorn {
+    background-image: url(../images/lefthorn.png);
+    background-repeat: no-repeat;
+    height: 10px;
+    width: 10px;
+}
+
+.righthorn {
+    background-image: url(../images/righthorn.png);
+    height: 10px;
+    width: 10px;
+}
+
+.pageFrame {
+    width: 100%;
+    height: 100%;
+}

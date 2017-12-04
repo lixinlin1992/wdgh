@@ -1,0 +1,1079 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/readCarTakePhoto.js"></script>
+
+<script src="ESale/Business/VirtualService/Phone/Amalgamation/scripts/rongHe2.js"></script>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/handleContract.js"></script>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/handleContract3.js"></script>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard.js"></script>
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard2.js"></script>
+
+<div id="writeInfoDiv" ng-show="show.writeInfoDiv">
+	<div class="layout_centent">
+		<div class="com_title first_title">
+			<span>已选产品说明</span>
+		</div>
+		<div class="com_normalbox">
+			<div class="formlist">
+				<div>
+					<p style="padding: 0;margin: 0;" ng-bind-html="rongHe2.DESCRIPTION"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--融合信息-->
+	<div class="layout_centent" ng-show="show.rh_info">
+		<div class="com_title first_title">
+			<span>融合信息</span>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.rh_info_type">
+			<div class="com_title second_title">
+				<span>类型</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-12 col-xs-12 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.rh_type_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectRongHeType($event,row.ID,row.NAME)">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.rh_info_fee">
+			<div class="com_title second_title">
+				<span>资费</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.rh_zf_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectRongHeZiFei($event,row.ID,row.NAME)">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.rh_info_first">
+			<div class="com_title second_title">
+				<span>首月资费</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_rh_first($event,'1')">全月</a>
+					</div>
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_rh_first($event,'2')">半月</a>
+					</div>
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_rh_first($event,'3')">套外</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="layout_centent" ng-show="show.kd_info">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>宽带信息</span>
+		</div>
+		<div class="layout_secondbox" style="padding-bottom: 0;" ng-show="show.kd_speed">
+			<div class="com_title second_title">
+				<span>选择速率</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.speed_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectSpeed($event,row.ID,row.NAME)">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 0;" ng-show="show.kd_jrlx">
+			<div class="com_title second_title">
+				<span>选择接入类型</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.jrlx_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectJrlx($event,row.ID,row.NAME)">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" ng-show="show.kuanDaiNumber">
+			<div class="com_title second_title">
+				<span>宽带号码</span>
+			</div>
+			<div class="formlist">
+				<div>
+					<input type="text" class="input_normal" ng-model="rongHe2.kd_number" />
+				</div>
+			</div>
+		</div>
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.kd_info_fee">
+			<div class="com_title second_title">
+				<span>资费</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.kuanDaiZiFei_rows">
+						<a id="kd_info_fee_{{$index}}" class="com_selectbtn" href="javascript://" ng-bind="row.NAME" ng-click="event.selectKuanDaiZiFei($event,row.ID,row.CBSS_ID,row.FEE_TYPE,row.CBSS_NAME)"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.kd_info_zxfs">
+			<div class="com_title second_title">
+				<span>到期执行方式</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="container-fluid">
+						<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+							<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.kuanDaiMode_rows">
+								<a class="com_selectbtn" href="javascript://" ng-click="event.selectKuanDaiMode($event,row.CBSS_ID,row.CBSS_NAME)" ng-bind="row.CBSS_NAME"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.kd_address">
+			<div class="com_title second_title">
+				<span>区域选择</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.city_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectCity1($event,row.CODE,row.NAME)" ng-bind="row.NAME"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layout_secondbox" ng-show="show.kd_address">
+			<div class="com_title second_title">
+				<span>装机地址</span>
+			</div>
+			<div class="formlist">
+				<div>
+					<input type="text" class="input_normal" ng-model="rongHe2.kd_address" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--固话信息-->
+	<div class="layout_centent" ng-show="show.gh_info">
+		<div class="com_title first_title">
+			<span>固话信息</span>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;">
+			<div class="com_title second_title">
+				<span>安装类型</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_gh_type($event,'新装')">新装</a>
+					</div>
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_gh_type($event,'纳入')">纳入</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" ng-show="show.gh_info_num">
+			<div class="com_title second_title">
+				<span>固话号码</span>
+			</div>
+			<div class="formlist">
+				<div>
+					<input type="tel" class="input_normal" onkeyup="this.value=this.value.replace(/\D/g,'')" ng-model="rongHe2.gh_number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.gh_info_name">
+			<div class="com_title second_title">
+				<span>固话产品</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-12 col-xs-12 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.gh_name_rows">
+						<a id="gh_info_name_{{$index}}" class="com_selectbtn" href="javascript://" ng-click="event.select_gh_name($event,row.TYPE,row.CBSS_NAME,row.CBSS_ID,row.GH_FEE,row.GH_FEE_ID)" ng-bind="row.CBSS_NAME"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.gh_info_first">
+			<div class="com_title second_title">
+				<span>首月资费</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_gh_first($event,'首月全量全价')">全月</a>
+					</div>
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_gh_first($event,'首月半量半价')">半月</a>
+					</div>
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_gh_first($event,'首月按量计费')">套外</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layout_secondbox" style="padding-bottom: 5px;" ng-show="show.gh_address">
+			<div class="com_title second_title">
+				<span>区域选择</span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.city_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.selectCity2($event,row.CODE,row.NAME)" ng-bind="row.NAME"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layout_secondbox" ng-show="show.gh_address">
+			<div class="com_title second_title">
+				<span>装机地址</span>
+			</div>
+			<div class="formlist">
+				<div>
+					<input type="text" class="input_normal" ng-model="rongHe2.gh_address" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--IPTV信息-->
+	<div class="layout_centent" ng-show="show.iptv_info">
+		<div class="com_title first_title">
+			<span>IPTV信息（请先确定数量再填写信息）</span>
+			<div class="right" ng-show="show.addIPTV_btn">
+				<a class="btn_add" href="javascript://" ng-click="event.addIPTV()"></a>
+			</div>
+		</div>
+
+		<!--自定义的IPTV-->
+		<div class="layout_secondbox iptv_zdy_div" style="padding-bottom: 5px;" data-index="{{$index}}" ng-show="show.ziDingYi_iptv" ng-repeat="bigRow in arrays.iptv_zdy_rows">
+			<div class="com_title second_title">
+				<span>IPTV<span ng-bind="$index+1"></span></span>
+			</div>
+			<!--包年，包月-->
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.iptv_zf_rows">
+						<a class="com_selectbtn year_month" href="javascript://" ng-click="event.select_iptv_class($event,row.ID,row.NAME)">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+			<!--高清，标清-->
+			<div class="container-fluid iptv_type_div">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="smallRow in arrays.iptv_type_rows">
+						<a class="com_selectbtn type" href="javascript://" ng-click="event.select_zdy_iptv_type($event,smallRow.NAME)" data-id="{{smallRow.ID}}" data-iptvid="{{bigRow.ID}}" data-iptvname="{{bigRow.CBSS_NAME}}" data-iptvcode="{{bigRow.CBSS_ID}}" data-aliasid="{{bigRow.ALIAS_ID}}"
+						data-aliasname="{{bigRow.ALIAS_NAME}}" data-jdhid="{{bigRow.JDH_ID}}" data-jdhname="{{bigRow.JDH_NAME}}">{{smallRow.NAME}}</a>
+					</div>
+				</div>
+			</div>
+			<!--机顶盒-->
+			<div class="container-fluid iptv_jdh_div">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in arrays.iptv_jdhs_rows track by $index">
+						<a class="com_selectbtn jdh iptv_jdh_{{$index}}" href="javascript://" ng-click="event.select_iptv_jdh($event)" data-id="{{row.ID}}">{{row.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--配置的IPTV-->
+		<div class="layout_secondbox iptv_peizhi_div" style="padding-bottom: 5px;" ng-show="show.peiZhi_iptv" ng-repeat="bigRow in arrays.iptv_name_rows">
+			<div class="com_title second_title">
+				<span>IPTV<span ng-bind="$index+1"></span></span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="smallRow in arrays.iptv_type_rows">
+						<a class="com_selectbtn" href="javascript://" ng-click="event.select_iptv_type($event,smallRow.NAME)" data-id="{{smallRow.ID}}" data-iptvid="{{bigRow.IPTV_ID}}" data-iptvname="{{bigRow.IPTV_NAME}}" data-iptvcode="{{bigRow.IPTV_CODE}}" data-aliasid="{{bigRow.ALIAS_ID}}"
+						data-aliasname="{{bigRow.ALIAS_NAME}}" data-jdhid="{{bigRow.JDH_ID}}" data-jdhname="{{bigRow.JDH_NAME}}">{{smallRow.NAME}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="layout_centent" id="yiWangDiv">
+		<div class="com_title first_title">
+			<span>移网信息（请先确定数量再填写信息）</span>
+			<div class="right" ng-show="show.addYiWang_btn">
+				<a class="btn_add" href="javascript://" ng-click="event.addYwInfo()"></a>
+			</div>
+		</div>
+		<!--移网信息-->
+		<div class="layout_secondbox" type="yiWang" index="{{$index}}" style="padding-bottom: 5px;" id="yiWangInfo_{{$index}}" ng-repeat="bigRow in arrays.yiWang_rows track by $index">
+			<div class="com_title second_title">
+				<span>移网号码<span ng-bind="$index+1"></span></span>
+			</div>
+			<div class="container-fluid">
+				<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn marker" href="javascript://" data-type="{{bigRow['data-type']}}" data-actitype="{{bigRow['data-actitype']}}" data-actiname="{{bigRow['data-actiname']}}" data-packname="{{bigRow['data-packname']}}" data-clas="{{bigRow['data-clas']}}"
+						data-keep="{{bigRow['data-keep']}}" ng-click="event.selectYiWangType($event,'新装',$index)">新装</a>
+					</div>
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+						<a class="com_selectbtn" href="javascript://" data-type="{{bigRow['data-type']}}" data-actitype="{{bigRow['data-actitype']}}" data-actiname="{{bigRow['data-actiname']}}" data-packname="{{bigRow['data-packname']}}" data-clas="{{bigRow['data-clas']}}" data-keep="{{bigRow['data-keep']}}"
+						ng-click="event.selectYiWangType($event,'纳入',$index)">纳入</a>
+					</div>
+				</div>
+			</div>
+			<div class="formlist" id="yiWangInfo" style="padding-left: 12px;">
+				<p class="yw_num"><span>号码：</span><span class="orange_font" ng-bind="bigRow.yw_num"></span></p>
+				<p class="yw_acti" ng-show="bigRow.yw_acti!=''"><span>活动类型：</span><span class="orange_font" ng-bind="bigRow.yw_acti"></span></p>
+				<p class="yw_actiname" ng-show="bigRow.yw_actiname!=''"><span>活动名称：</span><span class="orange_font" ng-bind="bigRow.yw_actiname"></span></p>
+				<p class="yw_pack"><span ng-show="bigRow.yw_pack!=''">套餐：</span><span class="orange_font" ng-bind="bigRow.yw_pack"></span></p>
+				<p class="yw_first"><span>首月资费：</span><span class="orange_font" ng-bind="bigRow.yw_first"></span></p>
+				<p class="yw_fee"><span>预存款：</span><span class="orange_font" ng-bind="bigRow.yw_fee"></span></p>
+				<div class="yw_ch">
+					<div class="form_left" style="width:40px">
+						<p class="form_title" style="text-align: left;">串号：</p>
+					</div>
+					<div class="form_right" style="margin-left: 45px;">
+						<input class="input_normal" type="text" ng-model="bigRow.yw_ch" />
+					</div>
+				</div>
+				<div class="clear"></div>
+				<p class="yw_type"><span>类型：</span>
+					<select onchange="changeType(this)">
+						<option value="10">2G后付费</option>
+						<option value="16">2G预付费</option>
+						<option value="17">3G后付费</option>
+						<option value="33">3G预付费</option>
+						<option value="50">4G</option>
+					</select>
+				</p>
+
+				<div class="yw_number">
+					<div class="form_left" style="width:40px">
+						<p class="form_title" style="text-align: left;">号码：</p>
+					</div>
+					<div class="form_right" style="margin-left: 45px;">
+						<input class="input_normal" type="tel" ng-model="bigRow.yw_number" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!--遮罩层-->
+	<div id="shadeDiv2" class="com_shade" style="display: block;position: fixed;display: none;"></div>
+	<!--弹出框begin-->
+	<div id="editBox" class="com_alert" style="position: fixed;top:140px;display: none;">
+		<div>
+			<h2 id="alertTitle" class="title">提示</h2>
+			<!--<a class="closed" ng-click="event.edit_false();" href="javascript://"></a>-->
+		</div>
+		<div class="content" style="padding:0px 15px;">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="zf3" class="com_selectbtn com_selectbtnon" ng-click="event.selectReplaceClass($event)" href="javascript://">全月</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="zf2" class="com_selectbtn" href="javascript://" ng-click="event.selectReplaceClass($event)">半月</a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;">
+					<a id="zf1" class="com_selectbtn" href="javascript://" ng-click="event.selectReplaceClass($event)">套餐外资费</a>
+				</div>
+			</div>
+			<div class="formlist">
+				<div class="form_left" style="width:40px">
+					<p class="form_title" style="text-align: left;">预存款</p>
+				</div>
+				<div class="form_right" style="margin-left: 45px;">
+					<input class="input_normal" type="text" id="yw_fee" />
+				</div>
+			</div>
+		</div>
+		<div class="bottom_btnbox">
+			<div style="width:50%;margin: auto;">
+				<a class="normal_btn" href="javascript://" ng-click="event.getFirstFee()">确定</a>
+			</div>
+			<!--<div class="right">
+			<a class="normal_btn" href="javascript://" onclick="edit_false()">取消</a>
+		</div>-->
+		</div>
+	</div>
+	<!--弹出框end-->
+
+	<!--保留原产品--弹出框begin-->
+	<div id="saveProduct" class="com_alert" style="position: fixed;top:140px;display: none;">
+		<div>
+			<h2 id="alertTitle" class="title">提示</h2>
+			<!--<a class="closed" onclick="edit_false();" href="javascript://"></a>-->
+		</div>
+		<div class="content" style="padding:0px 15px;">
+			<span class="loadingtxt" style="margin-top: 15px;font-size:1.2em;">是否保留原产品？</span>
+		</div>
+		<div class="bottom_btnbox">
+			<div class="left">
+				<a class="normal_btn" href="javascript://" ng-click="event.saveProduct('是')">是</a>
+			</div>
+			<div class="right">
+				<a class="normal_btn" href="javascript://" ng-click="event.saveProduct('否')">否</a>
+			</div>
+		</div>
+	</div>
+	<!--弹出框end-->
+
+	<!--弹出框--单产品、合约产品begin-->
+	<div id="productBox" class="com_alert" style="position: fixed;top:180px;display: none;">
+		<div>
+			<h2 id="alertTitle" class="title">选择产品类型</h2>
+			<!--<a class="closed" ng-click="event.edit_false();" href="javascript://"></a>-->
+		</div>
+		<div class="content" style="padding:0px 15px;">
+			<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a class="com_selectbtn" href="javascript://" ng-click="event.selectProductType($event,'单号卡')">单号卡</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+					<a class="com_selectbtn" href="javascript://" ng-click="event.selectProductType($event,'合约')">合约</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--弹出框end-->
+</div>
+
+<!--单卡产品-->
+<div id="danKaProductDiv" ng-show="show.danKaProductDiv" ng-controller="BuyNumCardCtrl">
+	<div class="shop_search" style="display: none;">
+		<div class="shop_search_container">
+			<input type="text" class="search_text" placeholder="请输入您想要搜索的内容">
+			<a href="javascript://" class="go_search" ng-click="event.NumSearch()">搜索</a>
+		</div>
+	</div>
+	<div class="com_area">
+		<div class="right" style="width: 100%;" id="brandBtnAll">
+			<a class="choice_btn choiceon_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://" ng-click="event.brandBtnAll()" brand_id="">全部</a>
+			<a class="choice_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://" ng-repeat="bra in brand" brand_id="{{bra.ID}}" ng-click="event.brandBtn($event)">{{bra.NAME}}</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="com_area" ng-show="net" id="netBtnAll">
+		<div class="right" style="width: 100%;">
+			<a class="choice_btn choiceon_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://" ng-click="event.netBtnAll()" net_id="">全部</a>
+			<a class="choice_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://" ng-repeat="net in net" net_id="{{net.ID}}" ng-click="event.netBtn($event)">{{net.NAME}}</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="layout_centent ng-scope">
+		<div class="container-fluid com_smallgoodslist">
+			<div class="row">
+				<div class="col-md-4 col-xs-4 list" ng-repeat='dks in dk' ng-class="selectLast($index)" ng-click="event.goods($event,dks.ID,dks.IS_WHITE,dks.NAME,dks.IS_RELE,dks.NETWORK,dks.CARD_FEE)">
+					<a class="com_smallgoods" href="javascript://">
+						<span class="choiced" style="display: none"></span>
+						<div class="goodsshow" style="overflow: hidden;">
+							<img ng-src="{{imgScr}}{{dks.PIC_ID}}">
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="com_title ">
+			<a class="morebtn" href="javascript://" ng-click='event.dk_pageSize()'>更多选择</a>
+		</div>
+	</div>
+
+	<!--下面号码池，全隐藏掉-->
+	<div style="display: none;">
+		<div class="formlist" ng-show="CBSS_hide==1">
+			<div class="form_right" style="width:200px;margin: 0 auto">
+				<!--单选按钮Begin-->
+				<a class="radiobtn radiobtnon" ng-click="event.sub($event,0)">平台商获取</a>
+				<a class="radiobtn" ng-click="event.sub($event,1)">CBSS获取</a>
+				<!--单选按钮End-->
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="com_selectnumber">
+			<ul ng-if="type==0">
+				<li ng-repeat="num in numlist" ng-click='event.next(num.ID,num.TITLE,num.BUSI_ID,num.BRAND_ID,num.FEE)'>
+					<div class="number_top">
+						<span class="normalcolor">{{num.TITLE.substring(start,3)}}</span>
+						<span class="importantcolor">{{num.TITLE.substring(3,6)}}</span>
+						<span class="normalcolor">{{num.TITLE.substring(6,end)}}</span>
+					</div>
+					<div class="number_bottom">
+						<p>
+							<img class="hot" src="Style/images/common/hot.png" alt="">
+							<span class="price">{{num.FEE | currency : '￥'}}</span>
+							<span class="tips">区域：{{num.AREA_NAME}}</span>
+						</p>
+					</div>
+				</li>
+
+			</ul>
+			<ul ng-if="type==1">
+				<li ng-repeat="num in list" ng-click='event.CBSS_next(num)'>
+					<div class="number_top">
+						<span class="normalcolor">{{num.substring(start,3)}}</span>
+						<span class="importantcolor">{{num.substring(3,6)}}</span>
+						<span class="normalcolor">{{num.substring(6,end)}}</span>
+					</div>
+				</li>
+			</ul>
+
+			<div class="clear"></div>
+		</div>
+
+		<div class="com_showmore" ng-if="type==0">
+			<a class="more_btn" href="javascript://" ng-click="event.listShowAdd()">点击加载更多</a>
+		</div>
+		<div class="com_showmore" ng-if="type==1">
+			<a class="more_btn" href="javascript://" ng-click="event.cbsShowAdd()">点击加载更多</a>
+		</div>
+	</div>
+	<div class="formlist">
+		<a class="com_btn theme_btn" href="javascript://" ng-click="event.yiWangNext()">下一步</a>
+	</div>
+</div>
+
+<!--单卡套餐界面-->
+<div id="danKaPackageDiv" ng-show="show.danKaPackageDiv" ng-controller="BuyNumCardCtrl2">
+	<div class="layout_centent ng-scope" ng-show="pkType.length!=1">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐类型</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" id="type">
+				<div class="col-md-3 col-xs-3 list" ng-repeat="type in pkType" ng-click="event.btnon($event);event.typeBtn()" style="padding-top:10px">
+					<!--常用btn-->
+					<!--ng-class="{{$first?'com_selectbtnon':'com_selectbtn'}}"-->
+					<a class="com_selectbtn" href="javascript://" typeId="{{type.ID}}">{{type.NAME}}</a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+
+	</div>
+	<div class="layout_centent ng-scope" ng-show="pkName.length!=1">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐选择</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" id="name">
+				<div class="col-md-5 col-xs-5 list" ng-repeat="name in pkName" ng-click="event.btnon($event);event.nameBtn()" style="padding-top:10px">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" nameId="{{name.ID}}" LLB="{{name.LLB}}" YYB="{{name.YYB}}" ZFB="{{name.ZFB}}" PERIODS="{{name.PERIODS}}" first_fee="{{name.FIRST_FEE}}" fee_init="{{name.FEE_INIT}}" fee_config="{{name.FEE}}">{{name.NAME}}</a>
+					<!--常用btn-->
+				</div>
+
+			</div>
+		</div>
+		<!--选择按钮End-->
+
+	</div>
+	<div class="layout_centent ng-scope" ng-show="pkPlan.length!=1">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>套餐计划</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" id="plan">
+
+				<div class="col-md-5 col-xs-5 list" ng-repeat="plan in pkPlan" ng-click="event.btnon($event);event.planBtn()" style="padding-top:10px">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" planId="{{plan.ID}}">{{plan.NAME}}</a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+		<div class="layout_secondbox">
+
+			<!--标题一Begin-->
+			<div class="com_title second_title">
+				<span>套餐详细</span>
+				<!--<a class="btn_add" href="javascript://"></a>-->
+			</div>
+			<!--标题一End-->
+			<!--信息列表Begin-->
+			<div class="com_table">
+				<table>
+					<tbody>
+						<tr ng-repeat="list in dinnerList">
+							<td class="summarize" style="width: 180px">{{list.KEY_AS}}:</td>
+							<td>{{list.VAL}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--信息列表End-->
+
+		</div>
+	</div>
+	<div class="formlist">
+		<a class="com_btn theme_btn" href="javascript://" ng-click="event.yiWangNext()">下一步</a>
+	</div>
+</div>
+
+<!--选融合产品-->
+<div id="productDiv" ng-show="show.productDiv" ng-controller="HandleContractCtrl">
+	<div class="layout_centent ng-scope">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>筛选</span>
+			<!--<a class="btn_add" href="javascript://"></a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+
+			<div class="row com_selectbox" id="brand">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-click="event.btnon($event);event.brand()">
+					<!--常用btn-->
+					<a class="com_selectbtn com_selectbtnon" href="javascript://" brandId="">
+                    全部
+                </a>
+					<!--常用btn-->
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-repeat="br in brand" ng-click="event.btnon($event);event.brand()">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" brandId="{{br.ID}}">{{br.NAME}}</a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" id="net" style="margin-bottom: 10px;" ng-if="form.brandId!=''&& net.length>1">
+				<div class="col-md-4 col-xs-4 list" ng-click="event.btnon($event);">
+					<!--常用btn-->
+					<a class="com_selectbtn com_selectbtnon" href="javascript://" netId="">
+                    全部
+                </a>
+					<!--常用btn-->
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-repeat="ne in net" ng-click="event.btnon($event);event.net()">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" netId="{{ne.ID}}">{{ne.NAME}}</a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+
+		<!--选择按钮Begin-->
+		<!-- 套餐过滤-->
+		<div class="container-fluid" ng-if="form.brandId!=''&&policy.length>1">
+			<div class="row com_selectbox" id="policy">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-click="event.btnon($event);event.policy()">
+					<a class="com_selectbtn com_selectbtnon" href="javascript://" netId="">
+                    全部
+                </a>
+				</div>
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-repeat="po in policy" ng-click="event.btnon($event);event.policy()">
+					<a class="com_selectbtn" href="javascript://" netId="{{po.ID}}">{{po.NAME}}</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>商品列表</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<div class="container-fluid com_smallgoodslist">
+			<div class="row">
+				<div class="col-md-3 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat='hy in hyProduct' ng-class="selectLast($index)" ng-click="event.goods($event,hy.ID,hy.NAME,hy.PACKAGE_ID,hy.CARD_FEE,hy.IS_CUS,hy.BRAND_ID,hy.CARD_FEE)">
+					<a class="com_smallgoods" href="javascript://">
+						<span class="choiced" style="display: none"></span>
+
+						<div class="goodsshow" style="overflow: hidden;">
+							<!--<p></p>-->
+							<img ng-src="{{imgScr}}{{hy.PIC_ID}}" alt="">
+						</div>
+						<div class="introduce">
+							<p>{{hy.NAME}}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="com_showmore">
+			<a class="more_btn" href="javascript://" ng-click="event.more()">点击加载更多</a>
+		</div>
+		<div style="height: 18px"></div>
+		<div class="nav_bottom" style="border-top:1px solid #dddddd; height: 52px;bottom:59px">
+			<div class="formlist" style="padding: 0">
+				<a class="com_btn theme_btn" href="javascript://" ng-click="event.productOver_next()">下一步</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--移网套餐-->
+<div id="packageDiv" ng-show="show.packageDiv" ng-controller="HandleContractCtrl3">
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title" ng-show="acti.length!=1">
+			<span>套餐类型</span>
+			<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid" ng-show="acti.length!=1">
+			<div class="row com_selectbox" id="acti">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 10px;" ng-repeat="ac in acti" ng-click="event.btnon($event);event.acti()">
+					<!--常用btn-->
+					<a class="com_selectbtn" href="javascript://" actiId="{{ac.ID}}">{{ac.NAME}}</a>
+					<!--常用btn-->
+				</div>
+			</div>
+
+		</div>
+		<!--选择按钮End-->
+		<div class="layout_secondbox">
+
+			<!--标题一Begin-->
+			<div class="com_title second_title" ng-hide="acti_name.length==1||!acti_name">
+				<span>活动名称</span>
+				<!--<a class="btn_add" href="javascript://"></a>-->
+			</div>
+			<!--标题一End-->
+			<!--选择按钮Begin-->
+			<div class="container-fluid" ng-hide="acti_name.length==1||!acti_name">
+
+				<div class="row com_selectbox" id="acti_name">
+					<div class="col-md-6 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat="an in acti_name" ng-click="event.btnon($event);event.acti_name()">
+						<!--常用btn-->
+						<a class="com_selectbtn" href="javascript://" acti_nameId="{{an.ID}}">{{an.NAME}}</a>
+						<!--常用btn-->
+					</div>
+				</div>
+			</div>
+			<!--选择按钮End-->
+			<!--选择按钮End-->
+			<div class="layout_secondbox">
+
+				<!--标题一Begin-->
+				<div class="com_title second_title" ng-show="type.length!=1">
+					<span>套餐名称</span>
+					<!--<a class="btn_add" href="javascript://"></a>-->
+				</div>
+				<!--标题一End-->
+				<!--选择按钮Begin-->
+				<div class="container-fluid" ng-show="type.length!=1">
+
+					<div class="row com_selectbox" id="type">
+						<div class="col-md-6 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat="ty in type" ng-click="event.btnon($event);event.type()">
+							<!--常用btn-->
+							<a class="com_selectbtn" href="javascript://" typeId="{{ty.ID}}">{{ty.NAME}}</a>
+							<!--常用btn-->
+						</div>
+					</div>
+				</div>
+				<!--选择按钮End-->
+				<!--标题一Begin-->
+				<div class="com_title second_title" ng-show="name.length!=1">
+					<span>套餐名称</span>
+					<!--<a class="btn_add" href="javascript://"></a>-->
+				</div>
+				<!--标题一End-->
+				<!--选择按钮Begin-->
+				<div class="container-fluid" ng-show="name.length!=1">
+
+					<div class="row com_selectbox" id="name">
+						<div class="col-md-6 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat="na in name" ng-click="event.btnon($event);event.name()">
+							<!--常用btn-->
+							<a class="com_selectbtn" href="javascript://" first_fee="{{na.FIRST_FEE}}" LLB="{{na.LLB}}" YYB="{{na.YYB}}" ZFB="{{na.ZFB}}" PERIODS="{{na.PERIODS}}" nameId="{{na.ID}}">{{na.NAME}}</a>
+							<!--常用btn-->
+						</div>
+					</div>
+				</div>
+				<!--选择按钮End-->
+				<!--标题一Begin-->
+				<div class="com_title second_title" ng-show="plan.length!=1">
+					<span>套餐计划</span>
+					<!--<a class="btn_add" href="javascript://"></a>-->
+				</div>
+				<!--标题一End-->
+				<!--选择按钮Begin-->
+				<div class="container-fluid" ng-show="plan.length!=1">
+
+					<div class="row com_selectbox" id="plan">
+						<div class="col-md-6 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat="pl in plan" ng-click="event.btnon($event);event.plan()">
+							<!--常用btn-->
+							<a class="com_selectbtn" href="javascript://" planId="{{pl.ID}}">{{pl.NAME}}</a>
+							<!--常用btn-->
+						</div>
+					</div>
+
+					<!--<div id="fee" feeId="{{fee[0].ID}}" style="font-size: 0.9em;-->
+					<!--vertical-align: top;padding: 5px 0px;word-break: break-all; color: #666">-->
+					<!--{{fee[0].NOTE}}-->
+					<!--</div>-->
+				</div>
+				<!--选择按钮End-->
+				<!--&lt;!&ndash;标题一Begin&ndash;&gt;-->
+				<div class="com_title second_title" ng-hide="fee.length<=1">
+					<span>办合约</span>
+					<!--<a class="btn_add" href="javascript://"></a>-->
+				</div>
+				<!--标题一End-->
+				<!--选择按钮Begin-->
+				<div class="container-fluid" ng-hide="fee.length<=1">
+
+					<div class="row com_selectbox" id="feeVal">
+						<div class="col-md-6 col-xs-6 list" style="margin-bottom: 10px;" ng-repeat="fe in fee" ng-click="event.btnon($event);event.fee($index)">
+							<!--常用btn-->
+							<a class="com_selectbtn" href="javascript://" feeId="{{fe.ID}}" fee_init="{{fe.FEE_INIT}}" fee_Val="{{fe.NAME}}" PERIODS="{{na.PERIODS}}" fee_config="{{fe.FEE}}" first_fee="{{fe.FIRST_FEE}}">{{fe.NAME}}</a>
+							<!--常用btn-->
+						</div>
+					</div>
+
+				</div>
+				<!--选择按钮End-->
+
+				<div class="layout_secondbox">
+
+					<!--标题一Begin-->
+					<div class="com_title second_title">
+						<span>套餐详细</span>
+						<!--<a class="btn_add" href="javascript://"></a>-->
+					</div>
+					<!--标题一End-->
+					<!--信息列表Begin-->
+					<div class="com_table">
+						<table>
+							<tbody>
+								<tr ng-if="dinner.length>0" ng-repeat="list in dinner">
+									<td class="summarize" style="width: 180px">{{list.KEY_AS}}:</td>
+									<td>{{list.VAL}}</td>
+								</tr>
+								<tr ng-if="dinner.length<=0">
+									<td>抱歉！此计划没有套餐详细，请选择其他计划~！</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--信息列表End-->
+					<div id="fee" feeId="{{fee[index].ID}}" style="font-size: 0.7em;
+                vertical-align: top;padding: 15px 0px;word-break: break-all; color: #666">
+						{{fee[index].NOTE}}
+					</div>
+				</div>
+			</div>
+			<div class="formlist">
+				<a class="com_btn theme_btn" href="javascript://" ng-click="event.packageOver_next()">下一步</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--选号-->
+<div id="numberDiv" ng-show="show.numberDiv">
+	<!--商品选购搜索框begin-->
+	<div class="shop_search">
+		<div class="shop_search_container">
+			<input type="text" class="search_text" placeholder="请输入您想要搜索的内容" ng-model="title" />
+			<a href="javascript://" class="go_search" ng-click="NumSearch()">搜索</a>
+		</div>
+	</div>
+	<!--商品选购搜索框End-->
+	<div class="com_selectnumber">
+		<ul>
+			<li ng-repeat="order in arrays.numbers">
+				<a href="javascript://" style="text-decoration:none" id="selectNumber_{{$index}}" data="{{order.ID}}" name="{{order.TITLE}}" ng-click="event2.selectNumber($index)">
+					<div class="number_top">
+						<span class="normalcolor">{{order.TITLE.substring(start,3)}}</span>
+						<span class="importantcolor">{{order.TITLE.substring(3,7)}}</span>
+						<span class="normalcolor">{{order.TITLE.substring(7,end)}}</span>
+					</div>
+					<div class="number_bottom">
+						<p>
+							<img class="hot" src="Style/images/common/hot.png" alt="" />
+							<span class="price">{{order.FEE | currency : '￥'}}</span>
+							<span class="tips">区域：{{order.AREA_NAME}}</span>
+							<!--<span class="tips">{{order.BUSI_NAME}}</span>-->
+						</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a id="more" class="more_btn" href="javascript://" ng-click="event2.more()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+</div>
+
+<!--身份证信息-->
+<div class="layout_centent" ng-show="show.writeInfoDiv">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>身份资料</span>
+	</div>
+	<!--标题一End-->
+	<!--正常外框Begin-->
+	<div class="com_normalbox">
+		<!--提示文字Begin-->
+		<div id="picTitle" class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+			上传身份证正，反面及手持照片
+		</div>
+		<!--提示文字End-->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 list" id="bluetoothDiv" style="display: block;margin:10px 0;">
+					<!--常用btn-->
+					<button style="width: 100%;" class="com_btn gary_btn" id="bluetooth_read_btn" onclick="bluetoothRead()" data-loading-text="读取中...." autocomplete="off">
+						蓝牙读取
+					</button>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+
+		<!--身份证图片列表Begin-->
+		<div class="container-fluid goods_show_list">
+			<div class="row">
+				<div id="frontDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+					<div id="frontDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="front" id="front" onchange="uploadImg('front');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_front"></div>
+						<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+					</div>
+				</div>
+
+				<div id="contraryDiv" class="col-xs-4 col-md-4 goods_box" style="display: block;">
+					<div id="contraryDiv_img" style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="contrary" id="contrary" onchange="uploadImg('contrary');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_contrary"></div>
+						<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+					</div>
+				</div>
+
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png" style="display: none; opacity:0;width:60px;height:60px" data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;" id="new_img_hand" onclick="takePhoto('hand')"></div>
+						<span class="imgprice" style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+					</div>
+				</div>
+			</div>
+			<!--进度条begin-->
+			<div class="row">
+				<div class="col-md-12">
+					<p id="upload_text" style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+				</div>
+				<div class="col-md-12" style="display: none;">
+					<div class="progress" style="margin-bottom: 5px;">
+						<div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--进度条end-->
+		</div>
+		<!--身份证图片列表End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title"><font color="red">* </font>客户姓名</p>
+			</div>
+			<div class="form_right">
+				<input type="text" class="input_normal" ng-model="form.CUSTOMER_NAME" id="customer_name" readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title"><font color="red">* </font>证件号码</p>
+			</div>
+			<div class="form_right">
+				<input type="text" id="cert_number" maxLength="18" ng-model="form.CERT_NUMBER" class="input_normal" readonly="readonly" />
+			</div>
+		</div>
+		<!--表单排版End-->
+
+		<!--表单排版Begin-->
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title"><font color="red">* </font>联系号码</p>
+			</div>
+			<div class="form_right">
+				<input type="tel" id="contactNumber" maxLength="15" ng-model="form.CONTACT_PHONE" class="input_normal" />
+			</div>
+		</div>
+		<!--表单排版End-->
+		<input type="text" style="display: none;" id="cert_address" ng-model="form.CERT_ADDRESS" />
+		<input type="text" style="display: none;" id="gov" ng-model="form.GOV" />
+		<input type="text" style="display: none;" id="gender" ng-model="form.GENDER" />
+		<input type="text" style="display: none;" id="from" ng-model="form.FROM" />
+		<input type="text" style="display: none;" id="to" ng-model="form.TO" />
+		<input type="text" style="display: none;" id="nation" ng-model="form.NATION" />
+		<input type="text" style="display: none;" id="born" ng-model="form.BORN" />
+		<input type="text" style="display: none;" id="picture" ng-model="form.PICTURE" />
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">备注</p>
+			</div>
+			<div class="form_right">
+				<textarea class="textarea_normal" cols="30" style="height: 62px;" rows="10" id="note" ng-model="form.NOTE" placeholder="请输入少于100的字符"></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!--正常外框End-->
+
+	<div class="com_normalbox" id="prev_and_nextPage" style="display: block;">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 list">
+					<a class="com_btn theme_btn" id="submit_btn" href="javascript://" ng-click="request.creatOrder()">提交</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="checkHtml"></div>
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

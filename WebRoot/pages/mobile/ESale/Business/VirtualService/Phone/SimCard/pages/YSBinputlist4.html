@@ -1,0 +1,264 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/YSBinputlist4.js"></script>
+<!--用来填补页面定位留下的空格Begin-->
+<div class="com_mainbox"  style="margin-bottom: 60px;">
+    <!--用来填补页面定位留下的空格End-->
+
+    <!--进度条Begin-->
+    <div class="com_progress">
+        <img src="Style/images/progress/fouth.png" alt=""/>
+    </div>
+    <!--进度条End-->
+
+    <!--100%布局Begin-->
+    <div class="layout_full">
+        <!--标题一Begin-->
+        <div class="com_title first_title">
+            <span>订单总览</span>
+        </div>
+        <!--标题一End-->
+        <!--信息列表Begin-->
+        <div class="com_showtable">
+            <table>
+                <tr id="num_tr">
+                    <td class="summarize">开户号码：</td>
+                    <td><span id="show_num" class="big_font orange_font">{{orderList.num}}</span></td>
+                </tr>
+                <tr id="pinPaiName_tr">
+                    <td class="summarize">运营商：</td>
+                    <td id="show_pinPaiName">{{orderList.pinPaiName}}</td>
+                </tr>
+                <tr id="areaName_tr">
+                    <td class="summarize">归属地：</td>
+                    <td id="show_areaName">{{orderList.areaName}}</td>
+                </tr>
+                <tr id="netName_tr">
+                    <td class="summarize">网络：</td>
+                    <td id="show_netName">{{orderList.netName}}</td>
+                </tr>
+                <tr id="openAccountTypeName_tr">
+                    <td class="summarize">开户类型：</td>
+                    <td id="show_openAccountTypeName">{{orderList.openAccountTypeName}}</td>
+                </tr>
+                <tr id="firstMonthFeeName_tr">
+                    <td class="summarize">首月资费：</td>
+                    <td id="show_firstMonthFeeName">{{orderList.firstMonthFeeName}}</td>
+                </tr>
+                <tr id="jmkfStatus_tr">
+                    <td class="summarize">减免SIM/USM卡费</td>
+                    <td id="show_jmkfStatus">{{orderList.jmkfStatus}}</td>
+                </tr>
+                <tr id="policyName_tr">
+                    <td class="summarize">政策名称：</td>
+                    <td id="show_policyName">{{orderList.policyName}}</td>
+                </tr>
+                <tr id="phoneBrand_tr">
+                    <td class="summarize">手机品牌：</td>
+                    <td id="show_phoneBrand">{{orderList.phoneBrand}}</td>
+                </tr>
+                <tr id="phoneModel_tr">
+                    <td class="summarize">手机型号：</td>
+                    <td id="show_phoneModel">{{orderList.phoneModel}}</td>
+                </tr>
+                <tr id="policyEvent_tr">
+                    <td class="summarize">活动名称：</td>
+                    <td id="show_policyEvent">{{orderList.policyEvent}}</td>
+                </tr>
+                <tr id="contract_tr">
+                    <td class="summarize">合约期：</td>
+                    <td id="show_contract">{{orderList.contract}}</td>
+                </tr>
+                <tr id="contractPackage_tr">
+                    <td class="summarize">套餐：</td>
+                    <td id="show_contractPackage">{{orderList.contractPackage}}</td>
+                </tr>
+                <tr id="contractPlan_tr">
+                    <td class="summarize">套餐计划：</td>
+                    <td id="show_contractPlan">{{orderList.contractPlan}}</td>
+                </tr>
+                <tr id="packageType_tr">
+                    <td class="summarize">套餐类型：</td>
+                    <td id="show_packageType">{{orderList.packageType}}</td>
+                </tr>
+                <tr id="package_tr">
+                    <td class="summarize">套餐：</td>
+                    <td id="show_package">{{orderList.packageName}}</td>
+                </tr>
+                <tr id="packagePlan_tr">
+                    <td class="summarize">套餐计划：</td>
+                    <td id="show_packagePlan">{{orderList.packagePlan}}</td>
+                </tr>
+                <tr id="customName_tr">
+                    <td class="summarize">客户姓名：</td>
+                    <td id="show_customName">{{orderList.customName}}</td>
+                </tr>
+                <tr id="certNum_tr">
+                    <td class="summarize">身份证号码：</td>
+                    <td id="show_certNum">{{orderList.certNum}}</td>
+                </tr>
+            </table>
+
+        </div>
+        <!--信息列表End-->
+    </div>
+    <input id="payFlag" type="hidden" value="1"/>
+    <div id="payLayout" class="layout_full" style="display: none">
+        <!--标题一Begin-->
+        <div class="com_title first_title">
+            <span>支付</span>
+        </div>
+        <!--标题一End-->
+        <div class="box" >
+            <div class="container-fluid">
+                <div class="row com_selectbox">
+                    <div class="col-md-6 col-xs-6 list">
+                        <!--常用btn-->
+                        <a id="payChangeBtn1" class="com_selectbtn com_selectbtnon" href="javascript://" onclick="payChange();">钱包支付</a>
+                        <!--常用btn-->
+                    </div>
+                    <div class="col-md-6 col-xs-6 list">
+                        <!--常用btn-->
+                        <a id="payChangeBtn2" class="com_selectbtn" href="javascript://" onclick="payChange();">暂不支付</a>
+                        <!--常用btn-->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--信息列表Begin-->
+        <div id="payTable" class="com_table" >
+            <div class="com_form">
+                <div class="message" href="javascript://" style="height: 50px;">
+                    <span class="title" style=" float:left;">订单金额:</span>
+                    <div style="margin-left: 80px;"><span id="price" class="big_font red_font">￥0.00</span></div>
+                </div>
+            </div>
+            <!--商品编辑模块End-->
+            <!--商品信息填写Begin-->
+            <div class=" com_form">
+                <div class="message" href="javascript://" style="height: 50px; line-height: 30px">
+                    <span class="title" style=" float:left;">支付密码:</span>
+                    <div style="margin-left: 80px;"><input id="passwd" style="border:1px solid #dddddd; background: none; width: 100%; float: left;" type="password"/></div>
+                </div>
+            </div>
+        </div>
+        <!--信息列表End-->
+    </div>
+    <!--100%布局End-->
+
+</div>
+
+<!--底部导航：nav_buttom-->
+<!--底部导航Begin-->
+<div class="nav_bottom" id="aa" style="border-top:1px solid #dddddd; height: 52px; margin-bottom: 59px;">
+    <div id="backDiv" class="box" >
+        <div class="container-fluid">
+            <div class="row com_selectbox">
+                <div class="col-md-6 col-xs-6 list">
+                    <!--常用btn-->
+                    <a class="com_btn theme_btn" href="javascript://" ng-click="back();">上一步</a>
+                    <!--常用btn-->
+                </div>
+                <div class="col-md-6 col-xs-6 list">
+                    <!--常用btn-->
+                    <a class="com_btn theme_btn" href="javascript://" ng-click="submitOrder();">确认订单</a>
+                    <!--常用btn-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="payDiv" class="box" style="padding: 10px 5px;display: block">
+        <!--常用btn-->
+        <a id="payBtn" class="com_btn theme_btn" href="javascript:void(0)" ng-click="pay_order()">支付</a>
+        <!--常用btn-->
+        <a id="finishBtn" class="com_btn theme_btn" href="javascript:void(0)" ng-click="finish();" style="display: none;">完成</a>
+    </div>
+</div>
+<!--底部导航End-->
+<input id="alreadySubmitOrder" type="hidden" value="0"/>
+<input id="pinPaiId" type="hidden" value="{{orderList.pinPaiId}}"/>
+<input id="jmkfStatus" type="hidden" value="{{orderList.jmkfStatus}}"/>
+<input id="pinPaiName" type="hidden" value="{{orderList.pinPaiName}}"/>
+<input id="areaId" type="hidden" value="{{orderList.areaId}}"/>
+<input id="areaName" type="hidden" value="{{orderList.areaName}}"/>
+<input id="netName" type="hidden" value="{{orderList.netName}}"/>
+<input id="openAccountTypeName" type="hidden" value="{{orderList.openAccountTypeName}}"/>
+<input id="packageId" type="hidden" value="{{orderList.packageId}}"/>
+<input id="packageName" type="hidden" value="{{orderList.packageName}}{{orderList.contractPackage}}"/>
+<input id="policyId" type="hidden" value="{{orderList.policyId}}"/>
+<input id="policyName" type="hidden" value="{{orderList.policyName}}"/>
+<input id="ckNum" type="hidden" value="{{orderList.ckNum}}"/>
+<input id="ckPicId" type="hidden" value="{{orderList.ckPicId}}"/>
+<input id="iemiNum" type="hidden" value="{{orderList.iemiNum}}"/>
+<input id="phoneModel" type="hidden" value="{{orderList.phoneModel}}"/>
+<input id="phoneBrand" type="hidden" value="{{orderList.phoneBrand}}"/>
+<input id="policyEventId" type="hidden" value="{{orderList.policyEventId}}"/>
+<input id="policyEvent" type="hidden" value="{{orderList.policyEvent}}"/>
+<input id="contract" type="hidden" value="{{orderList.contract}}"/>
+<input id="contractPackage" type="hidden" value="{{orderList.contractPackage}}"/>
+<input id="contractPlanId" type="hidden" value="{{orderList.contractPlanId}}"/>
+<input id="contractPlan" type="hidden" value="{{orderList.contractPlan}}"/>
+<input id="contractLast" type="hidden" value="{{orderList.contractLast}}"/>
+<input id="packageType" type="hidden" value="{{orderList.packageType}}"/>
+<input id="package" type="hidden" value="{{orderList.packageName}}"/>
+<input id="packagePlanId" type="hidden" value="{{orderList.packagePlanId}}"/>
+<input id="packagePlan" type="hidden" value="{{orderList.packagePlan}}"/>
+<input id="policyId_4G" type="hidden" value="{{orderList.policyId_4G}}"/>
+<input id="policyName_4G" type="hidden" value="{{orderList.policyName_4G}}"/>
+<input id="surefee" type="hidden" value="{{orderList.surefee}}"/>
+<input id="businessId" type="hidden" value="{{orderList.businessId}}"/>
+<input id="bid" type="hidden" value="{{orderList.bid}}"/>
+<input id="num" type="hidden" value="{{orderList.num}}"/>
+<input id="goodId" type="hidden" value="{{orderList.goodId}}"/>
+<input id="firstMonthFee" type="hidden" value="{{orderList.firstMonthFee}}"/>
+<input id="firstMonthFeeName" type="hidden" value="{{orderList.firstMonthFeeName}}"/>
+<input id="frontPicId" type="hidden" value="{{orderList.frontPicId}}"/>
+<input id="backPicId" type="hidden" value="{{orderList.backPicId}}"/>
+<input id="handPicId" type="hidden" value="{{orderList.handPicId}}"/>
+<input id="customName" type="hidden" value="{{orderList.customName}}"/>
+<input id="sex" type="hidden" value="{{orderList.sex}}"/>
+<input id="certTypeId" type="hidden" value="{{orderList.certTypeId}}"/>
+<input id="certType" type="hidden" value="{{orderList.certType}}"/>
+<input id="certNum" type="hidden" value="{{orderList.certNum}}"/>
+<input id="certValidFrom" type="hidden" value="{{orderList.certValidFrom}}"/>
+<input id="certValidTo" type="hidden" value="{{orderList.certValidTo}}"/>
+<input id="issuing" type="hidden" value="{{orderList.issuing}}"/>
+<input id="certAddress" type="hidden" value="{{orderList.certAddress}}"/>
+<input id="contactPhoneNum" type="hidden" value="{{orderList.contactPhoneNum}}"/>
+<input id="postalAddress" type="hidden" value="{{orderList.postalAddress}}"/>
+<input id="note" type="hidden" value="{{orderList.note}}"/>
+<script type="text/javascript">
+    function back(){
+//        history.back();
+        if($("#alreadySubmitOrder").val() == "1"){
+            alert("提示","对不起，您已确认了订单，不能返回上一步修改");
+            return;
+        }
+    }
+    function cancel(){
+        if (confirm("您确定要放弃订单吗？")) {
+            location.href = '#/home';
+        }
+    }
+
+    function payChange(){
+        if($("#payFlag").val() == 1){
+            //按钮样式互换
+            $("#payChangeBtn1").attr("class","com_selectbtn");
+            $("#payChangeBtn2").attr("class","com_selectbtn com_selectbtnon");
+            $("#payTable").css("display","none");
+            $("#payBtn").css("display","none");
+            $("#finishBtn").css("display","block");
+            $("#payFlag").val("0");
+        }else{
+            //按钮样式互换
+            $("#payChangeBtn1").attr("class","com_selectbtn com_selectbtnon");
+            $("#payChangeBtn2").attr("class","com_selectbtn");
+            $("#payTable").css("display","block");
+            $("#payBtn").css("display","block");
+            $("#finishBtn").css("display","none");
+            $("#payFlag").val("1");
+        }
+    }
+</script>

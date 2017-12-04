@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <ds name="DS_USER_MENUS" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_MENU.xml&_id=Q_USER_MENUS]]>
+        </url>
+    </ds>
+
+    <ds name="DS_ADD_FAV_MENU" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_MENU.xml&_id=Q_ADD_FAV_MENU]]>
+        </url>
+    </ds>
+
+    <ds name="DS_DEL_FAV_MENU" type="url">
+        <url><![CDATA[/_commonQueryModlue.action?_file=rdcp/querys/Q_MENU.xml&_id=Q_DEL_FAV_MENU]]>
+        </url>
+    </ds>
+
+</datasources>

@@ -1,0 +1,203 @@
+@charset "UTF-8";
+/**
+ * @最新更新时间：2014-1-23 22:29
+ * @authors pangcong (you@example.org)
+ * @date    2016-01-17 11:11:26
+ * @version $Id$
+ */
+ /*样式初始化Begin*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{ margin:0; padding:0; }
+body{ font:12px "微软雅黑","Arial Narrow",HELVETICA; background:#fff; -webkit-text-size-adjust:100%; }
+a{ text-decoration:none; cursor: pointer; }
+a:hover{ text-decoration:underline; }
+em{ font-style:normal; }
+ul,li{ list-style:none; }
+img{ border:0; vertical-align:middle; }
+table{ border-collapse:collapse; border-spacing:0; }
+p{ word-wrap:break-word; }
+html,body{ height:100%; }
+body {font: normal 100% 微软雅黑;}
+
+/*样式初始化End*/
+
+/*登录界面样式Begin*/
+.SR_moblieBox{ min-width: 320px; overflow: hidden; width: 100%; background: #ededed; height:auto!important; /*for ie6 bug and ie7+,moz,webkit 正确*/height:100%; /*修复IE6,all browser*/min-height:100%; /*for ie6 bug and ie7+,moz,webkit 正确*/ position: relative; }
+.SR_title{ width: 100%; height: 45px; background:url(../images/titleBg.png) repeat-x; position: relative; }
+.SR_titleBg{ width: 100%; height: 45px; background: url(../images/titleBgMark.png) no-repeat; }
+.SR_title h1{ color: #fff; line-height: 45px; width:190px; height: 45px; margin: 0px auto; text-align: center; font-size: 20px; font-family:微软雅黑; font-weight: 300; }
+.leftBtn{ width: 70px; height: 45px; position: absolute; left: 0px; top: 0px; color: #fff; font-family: 微软雅黑; line-height: 45px; text-indent: 20px; background:url(../images/leftBtn.png) no-repeat  0px 2px; }
+.rightBtn{ width: 65px; height: 45px; position: absolute; right: 0px; top: 0px; color: #fff; font-family: 微软雅黑; line-height: 45px; text-indent: 25px; background:url(../images/home.png) no-repeat 5px 1px; }
+.tableContent{ padding: 10px; margin-top: 50px; }
+.logo{ width: 75px; height: 64px; background: url(../images/logo.png) no-repeat; left: 0px; top:75px; position:absolute; left:50%; margin-left:-25px; }
+.tableContentBox{ background: #fff; border:1px solid #d8d8d8; margin: 0px auto; background: url(../images/bgImg.png) repeat-x bottom #ffffff; min-height: 420px; padding: 10px; }
+.tableContentBox ul{ margin-top:40px; width: 100%; }
+.tableContentBox ul li{ width: 100%; }
+.tableContentBox .tips{ height: 20px; font-size: 12px; color:#ff6f00; margin-top: 20px; }
+.tableInput{ width: 100%; height: 40px; -moz-border-radius: 5px; border-radius: 5px; outline: none; background:none; border: 1px #cccccc solid; line-height: 30px; }
+.moblieBtn{ width: 100%; height: 40px; display: block; -moz-border-radius: 5px; border-radius: 5px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fb862c, #ff6f00); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fb862c), color-stop(1, #ff6f00)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb862c', endColorstr='#ff6f00', GradientType='0'); /* IE*/ margin-top: 30px; color: #ffffff; font-size: 20px; text-align: center; line-height: 40px; cursor:pointer; }
+.moblieBtn:hover{ width: 100%; height: 40px; display: block; -moz-border-radius: 5px; border-radius: 5px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fa740d, #e06100); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fa740d), color-stop(1, #e06100)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa740d', endColorstr='#e06100', GradientType='0'); /* IE*/ margin-top: 30px; color: #ffffff; font-size: 20px; text-align: center; line-height: 40px; cursor:pointer; }
+/*登录界面样式End*/
+
+/*表单Begin*/
+.SR_Form{ min-width: 320px; overflow: hidden; width: 100%; background: #f4f4f4; height:auto!important; /*for ie6 bug and ie7+,moz,webkit 正确*/height:100%; /*修复IE6,all browser*/min-height:100%; /*for ie6 bug and ie7+,moz,webkit 正确*/ position: relative; }
+.SR_moblieForm{ padding: 10px; overflow: hidden; }
+.SR_moblieFormBox ul li{ margin-top: 10px; }
+.SR_moblieFormList{ width: 100%; height: 40px; -moz-border-radius: 5px; border-radius: 5px; outline: none; background:#fff; border: 1px #eeeeee solid; line-height: 30px; }
+.SR_moblieFormList table{ width: 100%; height: 40px; }
+.SR_moblieFormList table .listTitle{ width: 90px; color: #ff6f00; height: 40px; line-height: 40px; text-align: right; font-size:1em; overflow:hidden; }
+.SR_moblieFormList table .listTitle span{ margin-right: 5px; }
+.SR_moblieFormList table .listContent input{ width: 100%; height: 40px; line-height: 40px; border:none; background: none; outline: none; font-size:1em; font-family:微软雅黑;  }
+.SR_moblieFormList table .listContent select{ width: 100%; border: none; background: none; height: 40px; outline: none;font-size:1em;   line-height:40px; font-family:微软雅黑;   }
+.SR_moblieFormList table .listContent .time{ width: 100%; height: 40px; position: relative; line-height: 40px; }
+.SR_moblieFormList table .listContent .timeBtn{ width:40px; height: 40px; position: absolute; right: 0px; top: 0px; background: url(../images/time.png) no-repeat center; display: block; }
+.SR_moblieFormListTextarea table{ width: 100%; }
+.SR_moblieFormListTextarea table .listTitle{ width: 110px; color: #ff6f00; height: 40px; line-height: 40px; text-align: left; font-size:1em;  border-top: 1px #dddddd solid; }
+.SR_moblieFormListTextarea table .listTitle span{ margin-right: 5px; }
+.SR_moblieFormListTextarea table .listContent textarea{ width: 100%; height: 100px; -moz-border-radius: 5px; border-radius: 5px; border: 1px #eeeeee solid; font-size:1em; font-family:微软雅黑;}
+.SR_moblieFormListRadio table{ width: 100%; }
+.SR_moblieFormListRadio table .listTitle{ width: 110px; color: #ff6f00; height: 40px; line-height: 40px; text-align: left;font-size:1em;  border-top: 1px #dddddd solid; }
+.SR_moblieFormListRadio table .listTitle span{ margin-right: 5px; }
+.SR_moblieFormListRadio table .listContent{ -moz-border-radius: 5px; border-radius: 5px; border: 1px #eeeeee solid; font-size:1em;   line-height:30px; color: #444444; }
+.SR_moblieFormListRadio table .listContent span{ margin-right:5px; }
+.SR_moblieFormListBtn table{ width: 100%; }
+.SR_moblieFormListBtn table .space{ width: 10px; }
+.SR_moblieFormListBtn table tr td .moblieBtn{ margin-top:0px; }
+.takePhoto{ width: 100%; background:#ffffff url(../images/photo.png) no-repeat center; -moz-border-radius: 5px; border-radius: 5px; outline: none; border: 1px #eeeeee solid; display: block; height: 40px; -moz-border-radius: 5px; border-radius: 5px; outline: none; border: 1px #eeeeee solid; }
+.takePhoto:hover{ width: 100%; background:#dddddd url(../images/photo.png) no-repeat center; -moz-border-radius: 5px; border-radius: 5px; outline: none; border: 1px #eeeeee solid; display: block; height: 40px; -moz-border-radius: 5px; border-radius: 5px; outline: none; border: 1px #eeeeee solid; }
+.photo{ margin-top:10px; }
+.photo img{ max-width: 100%; margin:0px auto;}
+/*.SR_moblieFormTable{ width: 100%; overflow: hidden;}*/
+.SR_moblieFormTable{ overflow: hidden;}
+.SR_moblieFormTable table{ border-right:1px solid  #eeeeee; border-top:1px #eeeeee solid; border-left:none; border-bottom:none; width:100%; text-align:center; border-collapse:collapse; background: #fff; }
+.SR_moblieFormTable table th{ background: #fff; height:px; border-left:1px solid  #eeeeee; border-bottom:1px #eeeeee solid; border-top:none; border-right:none; font-size:1em;   line-height:40px; color: #ff6f00; }
+.SR_moblieFormTable table td{ border-left:1px solid  #eeeeee; border-bottom:1px #eeeeee solid; border-top:none; border-right:none; font-size:1em;  ; color: #444444; height: 40px; line-height: 40px;}
+.SR_moblieFormTable table tr td .tableInput{ width: 100%; height: 40px; border:none; text-align:center;}
+.SR_moblieFormLongTable{ overflow: hidden; overflow-x:auto; }
+.SR_moblieFormLongTable table{ min-width:600px; border-right:1px solid  #eeeeee; border-top:1px #eeeeee solid; border-left:none; border-bottom:none; width:100%; text-align:center; border-collapse:collapse; background: #fff; }
+.SR_moblieFormLongTable table th{ background: #fff; height:px; border-left:1px solid  #eeeeee; border-bottom:1px #eeeeee solid; border-top:none; border-right:none; font-size:1em;  line-height:40px; color: #ff6f00; }
+.SR_moblieFormLongTable table td{ border-left:1px solid  #eeeeee; border-bottom:1px #eeeeee solid; border-top:none; border-right:none; font-size:1em;  color: #444444; height: 40px; line-height: 40px;}
+.SR_moblieFormBigList{width: 100%; overflow: hidden; -moz-border-radius: 5px; border-radius: 5px; outline: none; background:#ffffff; border: 1px #eeeeee solid; line-height: 30px; }
+.SR_moblieFormBigList table .listTitle{ width: 90px; color: #ff6f00; height: 40px; line-height: 40px; text-align: right; font-size:1em; overflow:hidden; background: url(../images/listLine.png) repeat-y 82px ; }
+.SR_moblieFormBigList table .listTitle span{ margin-right: 5px;  }
+.SR_moblieFormBigList ul li{ overflow: hidden; line-height: 40px; padding:0px 10px;}
+.SR_moblieFormBigList table td{ border-left:1px solid  #eeeeee; border-bottom:1px #eeeeee solid; border-top:none; border-right:none; font-size:1em;  color: #444444; height: 40px; line-height: 40px;}
+/*表单End*/
+
+/*开始菜单Begin*/
+.tableListBox{width: 100%; min-height: 350px; background: url(../images/listBg.png) no-repeat center top; padding-top:50px; }
+.tableListBox ul .listBtn{ width: 100%; display: block;  height: 50px;border: 1px solid #cfcfcf; margin-top: 10px; background: url(../images/listBtnBg.png) repeat; line-height: 50px;text-indent: 30px; font-size: 1em;cursor: pointer; position: relative;}
+.tableListBox ul .listBtn:hover{ width: 100%; height: 50px;border: 1px solid #cfcfcf; margin-top: 10px; background: url(../images/listBtnHoverBg.png) repeat;}
+.tableListBox ul .listBtn a{ color: #444444; text-decoration: none;display: block; width: 100%; height: 50px;}
+.tableListBox ul .listBtn a:hover{ color: #444444;  text-decoration: none;display: block; width: 100%; height: 50px;}
+.tableListBox ul .listBtn .markLeft{ display: block; height: 18px; width: 18px; position: absolute; left: 8px; top:1em; background: url(../images/leftMark.png);}
+.tableListBox ul .listBtn .markRight{ display: block; height: 15px; width: 9px; position: absolute; right: 8px; top:18px; background: url(../images/rightMark.png);}
+/*开始菜单End*/
+
+/*评论列表Begin*/
+.SR_discussListBox{ padding: 10px; overflow: hidden;}
+.SR_discussListContent{ width: 100% overflow: hidden; }
+.SR_discussList{background: #fff; -moz-border-radius: 5px; border-radius: 5px; width: 100%; overflow: hidden; margin-top:10px; border: 1px solid #eeeeee; }
+.SR_discussList ul li{ padding: 10px;}
+.SR_discussList ul .replyBox{ border-top:1px dotted #cccccc;}
+.SR_discussList ul li .title{ height: 20px; line-height: 20px; position: relative; font-size: 1em; }
+.SR_discussList ul li .title span{ margin-right: 5px; color: #444444;}
+.SR_discussList ul li .title .time{ width: 160px; height: 20px; line-height: 20px; text-indent: 6px; position:absolute; right: 0px; top:0px; font-size: 12px;}
+.SR_discussList ul li .title .time span{color: #cccccc; margin-right: 0px; margin-left: 5px;}
+.SR_discussList ul li .title .name{ color:#ff6f00; width: 130px; height: 20px; display: block; position: absolute; left: 0px; top: 0px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.SR_discussList ul li .title .longName span{ margin-left: 10px; }
+.SR_discussList ul li .title .longName{ color:#ff6f00; width: 300px; height: 20px; display: block; position: absolute; left: 0px; top: 0px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.SR_discussList ul li .article{ margin-top:5px; font-size:1em; color: #444444;  }
+.SR_discussList ul li .tools{ width: 100%; height: 20px; margin-top:10px;  }
+.SR_discussList ul li .tools a{display: block; float: right; width: 90px; height: 20px; line-height: 20px; color: #444444; text-indent: 23px; margin-left:10px; }
+.SR_discussList ul li .tools .discuss{ background: url(../images/discuss.png) center left no-repeat;}
+.SR_discussList ul li .tools .reply{ background: url(../images/reply.png) center left no-repeat;}
+.SR_discussList ul li .tools .pushOn{ background: url(../images/pushOn.png) 0px 3px no-repeat;}
+.replyBox{ width: 100%;}
+.replyBox ul li h4{ color: #444444; font-size: 12px; text-align: left; height: 40px;line-height: 40px;}
+.replyBox ul li textarea {width: 100%; height: 100px; -moz-border-radius: 5px; border-radius: 5px; border: 1px #eeeeee solid; }
+.replyBox table{ width: 100%; }
+.replyBox table .space{ width: 10px; }
+.replyBox table tr td .moblieBtn{ margin-top:5px; }
+/*评论列表End*/
+
+
+/*照片信息Begin*/
+.imgInformationBox{ width: 100%; height: 40px; line-height: 40px; position: relative; border-bottom: 1px solid #dddddd; }
+.imgInformationList{ width: 100%; height: 40px;}
+.imgInformation{ width: 130px; height: 40px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; position: absolute; left: 0px; top: 0px; font-size: 1em;  font-family:微软雅黑; color: #444444;}
+.imgTools{ width: 80px; height: 40px; position: absolute; right: 0px; top:0px;}
+.imgTools a{ position: absolute; right: 5px; top:12px;  font-size: 1em;  font-family:微软雅黑;}
+/*照片信息End*/
+
+/**/
+.floadDiscuss{ position: fixed; width: 50px; height: 50px; background: url(../images/floadDiscuss.png) no-repeat center; z-index: 100; right: 0px; bottom: 140px;}
+
+/*弹出框样式Begin*/
+.popupBox{ width: 280px; height: 130px; padding:0px 9px; border:1px #eeeeee solid; background: #ffffff;}
+.popupBox ul li h4{ color: #444444; font-size: 12px; text-align: left; height: 20px;line-height: 20px;}
+.popupBox ul li textarea {width: 100%; height: 60px; -moz-border-radius: 5px; border-radius: 5px; border: 1px #eeeeee solid; }
+.popupBox table{ width: 100%; height: 30px; }
+.popupBox table td{height: 30px; }
+.popupBox table .space{ width: 110px; height: 30px; }
+.popupBtn{ width: 80px; height: 28px; display: block; -moz-border-radius: 5px; border-radius: 5px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fb862c, #ff6f00); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fb862c), color-stop(1, #ff6f00)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb862c', endColorstr='#ff6f00', GradientType='0'); /* IE*/ margin-top: 5px; color: #ffffff; font-size: 16px; text-align: center; line-height: 30px; cursor:pointer; }
+.popupBtn:hover{ width: 80px; height: 28px; display: block; -moz-border-radius: 5px; border-radius: 5px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fa740d, #e06100); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fa740d), color-stop(1, #e06100)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa740d', endColorstr='#e06100', GradientType='0'); /* IE*/ margin-top: 5px; color: #ffffff; font-size: 16px; text-align: center; line-height: 30px; cursor:pointer; }
+/*弹出框样式End*/
+
+/*搜索样式Begin*/
+.SR_moblieSearch{width: 100%; height: 40px; -moz-border-radius: 5px; border-radius: 5px; outline: none; background:#fff; border: 1px #cccccc solid; line-height: 30px;}
+.SR_moblieSearch table{width: 100%; height: 40px; -moz-border-radius: 5px; border-radius: 5px;}
+.SR_moblieSearchBtn{ width: 80px; height: 38px; display: block; -moz-border-radius: 0px 5px 5px 0px ; border-radius: 0px 5px 5px 0px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fb862c, #ff6f00); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fb862c), color-stop(1, #ff6f00)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb862c', endColorstr='#ff6f00', GradientType='0'); /* IE*/  color: #ffffff; font-size: 16px; text-align: center; line-height: 38px; cursor:pointer; }
+.SR_moblieSearchBtn:hover{ width: 80px; height: 38px; display: block; -moz-border-radius: 5px; border-radius: 5px; border:1px solid #ec6700; background-image: -moz-linear-gradient(top, #fa740d, #e06100); /* Firefox */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fa740d), color-stop(1, #e06100)); /* Saf4+, Chrome */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa740d', endColorstr='#e06100', GradientType='0'); /* IE*/  color: #ffffff; font-size: 16px; text-align: center; line-height: 38px; cursor:pointer; }
+.SR_moblieSearchInput{ width:100%; height: 40px; border:none; -moz-border-radius: 5px; border-radius: 5px;}
+/*搜索样式End*/
+
+/*2014-2-18-列表样式-pangcong-Begin*/
+.SR_moblieBigTitle{width: 100%; height: 40px;; line-height: 40px; background: url(../images/mark.png) no-repeat left; text-indent: 15px; font-size: 20px; color: #ff6f00; border-bottom: #cccccc 1px solid;}
+.SR_moblieFormListTitle{ color:#ff6f00; text-indent: 10px; width: 100px;  }
+.SR_moblieFormListContent{ text-align: left; font-size: 1em;}
+.discussBtn { border-bottom: 1px #cccccc solid; position: relative; height: 25px;}
+.discussBtn a{font-size: 18px; display: block; width: 80px; position: absolute; top:0px; left: 0px; }
+/*2014-2-18-列表样式-pangcong-End*/
+
+/*头部链接点击之后样式Begin*/
+.headerBtn th a{ width: 100%; height:40px; display: block; color: #444444; text-decoration: none;  }
+.headerBtn th a:hover{ width: 100%; height:40px; display: block; background: #ff7900; color: #ffffff; }
+.headerBtn th .active{ width: 100%; height:40px; display: block; background: #ff7900; color: #ffffff; }
+/*头部链接点击之后样式End*/
+
+/*内嵌表格样式Begin*/
+.SR_moblieFormTable table th .insideTable{border:none;}
+.SR_moblieFormTable table th .insideTable th{border:none;}
+.SR_moblieFormTable table th .insideTable .leftTitle{border-right: 1px solid #eeeeee;}
+/*内嵌表格样式End*/
+
+/*上传按钮样式Begin*/
+.moblieCommit{margin-top: 10px; width: 65px; height: 20px; background: #fea330; text-decoration: none; color: #ffffff; font-size: 12px;display: block; border:1px #eb6e17 solid;line-height: 20px; text-align: center;}
+.moblieCommit:hover{ background: #f77b1d; text-decoration: none;}
+/*上传按钮样式End*/
+
+/*602表格样式Begin*/
+.rightName{ width: 60px;}
+/*602表格样式End*/
+
+/*上传按钮样式Begin*/
+.uploadTable{width: 100%; }
+.uploadTable tr td{text-align:right;}
+.file-box{ position:relative;width:100%; padding:0px 0px 30px 0px;  }
+.txt{ height:22px; border:1px solid #cdcdcd; width:100%;}
+.btnSelect{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px; }
+.btnUpload{ background-color:#f77b1d; border:1px solid #eb6e17;height:22px; width:68px; color: #ffffff;font-size: 12px; text-decoration: none; display: block; line-height: 22px; text-align: center; margin-left: 10px; }
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+/*上传按钮样式End*/

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<query id="Q_FILE_INFO_DEL" type="update"	result="json">
+		<stmt><![CDATA[
+		delete from core_b_upload_file where id=[id]
+        ]]></stmt>
+	</query>
+</query-config>

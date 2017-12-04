@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (pang cong)
+ * @date    2014-03-07 11:23:18
+ * @version $Id$
+ */
+
+/*input标签按钮Begin*/
+.SR_uploaderContainer{ width:100%; overflow: hidden;}
+.SR_uploaderSelector{background: url(../images/addfile.png) no-repeat top; width: 92px; height: 28px; display:block; border:none; cursor:pointer; position: relative;float: left; margin-right: 10px;}
+.SR_uploaderSelectorActive{background: url(../images/addfile.png) no-repeat bottom; width: 92px; height: 28px; display:block;border:none;cursor:pointer;position: relative;float: left; margin-right: 10px;}
+.file{ height:28px; filter:alpha(opacity:0);opacity: 0;width:92px; position: absolute; top: 0px; left: 0px; cursor: pointer; font-size: 19px;}
+.SR_uploaderDel{background: url(../images/delete.png) no-repeat top; width: 18px; height: 18px; display:block;border:none;cursor:pointer;float: right; }
+.SR_uploaderDelActive{background: url(../images/delete.png) no-repeat bottom; width: 18px; height: 18px; display:block;border:none; cursor: pointer;float: right; }
+/*input标签按钮End*/
+
+/*editfilepage页面主要内容Begin*/
+.SR_uploadFileList{ overflow: hidden; padding: 0px 10px 10px 10px;}
+.SR_uploadHeader{ overflow: hidden; height: 40px; background: #f0f0f0; }
+.SR_uploadHeader .SR_uploaderSelector{ margin-top: 6px; margin-left: 10px;}
+.SR_uploadHeader .SR_uploaderSelectorActive{ margin-top: 6px; margin-left: 10px;}
+.SR_uploadFileBox{ width: 142px; overflow: hidden; padding: 10px;border:1px solid #e5e5e5;float: left; margin:10px 10px 0px 0px;}
+.SR_uploadImg{ width: 140px; height: 140px; border:1px solid #e5e5e5; margin-top: 10px;}
+.SR_uploadImg img{ width: 140px; height: 140px;}
+.SR_progressBar{ width: 142px; height: 16px;  line-height: 16px; color: #aaaaaa; margin-top: 10px;}
+.SR_uploadFileBoxBtn{ width: 142px; overflow: hidden;  }
+.SR_imgName{ width: 110px; float: left; height: 18px; line-height: 18px; }
+.SR_imgName h2{width: 110px;height: 18px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; font-size: 12px; font-weight: 300; color: #666666;}
+
+/*------进度条动画Begin-----*/
+.SR_progressBarSucess{ background: url(../images/sucess.png) no-repeat right center; height: 14px;}
+.SR_progressBarFail{ background: url(../images/fail.png) no-repeat right center; height: 14px;}
+.SR_progressBarIng0{ background: url(../images/schedule.png) no-repeat 0px 0px; height: 14px;}
+.SR_progressBarIng1{ background: url(../images/schedule.png) no-repeat 0px -14px; height: 14px;}
+.SR_progressBarIng2{ background: url(../images/schedule.png) no-repeat 0px -28px; height: 14px;}
+.SR_progressBarIng3{ background: url(../images/schedule.png) no-repeat 0px -42px; height: 14px;}
+.SR_progressBarIng4{ background: url(../images/schedule.png) no-repeat 0px -56px; height: 14px;}
+.SR_progressBarIng5{ background: url(../images/schedule.png) no-repeat 0px -70px; height: 14px;}
+.SR_progressBarIng6{ background: url(../images/schedule.png) no-repeat 0px -84px; height: 14px;}
+.SR_progressBarIng7{ background: url(../images/schedule.png) no-repeat 0px -98px; height: 14px;}
+.SR_progressBarIng8{ background: url(../images/schedule.png) no-repeat 0px -112px; height: 14px;}
+.SR_progressBarIng9{ background: url(../images/schedule.png) no-repeat 0px -126px; height: 14px;}
+.SR_progressBarIng10{ background: url(../images/schedule.png) no-repeat 0px -140px; height: 14px;}
+/*------进度条动画End-------*/
+
+
+/*editfilepage页面主要内容End*/

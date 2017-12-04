@@ -1,0 +1,19 @@
+插件安装说明
+
+插件支持Eclipse的版本 3.4 或以上。
+
+简单方法：
+1. 将下载的压缩包解压后得到的文件直接复制到 Eclipse/pugins 目录
+2. 重启Eclipse
+
+建议安装方法：
+1. 在Eclipse/dropins 目录下新建 rdcp 目录，在rdcp目录下新建features和plugins目录
+2. 将下载的压缩包解压后得到的文件复制到 Eclipse/dropins/rdcp/plugins 目录
+3. 重启Eclipse
+
+
+升级插件：
+1. 退出Eclipse
+2. 删除旧版本的三个插件jar文件
+3. 将下载的压缩包解压后得到的文件复制到 Eclipse/plugins 或 Eclipse/dropins/rdcp/plugins 目录下
+4. 启动Eclipse

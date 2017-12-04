@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_UPDATE_LEGAL_AID" type="batch" result="easyui">
+		<stmt>
+			<![CDATA[
+			  <#if opt='add'>
+			    insert into bi_legal_aid(id,title,content,create_user,create_date,view_times)
+                values(bi_legal_aid_seq.nextval,[title],[content],[var(RU.CUR_USER.id)],sysdate,0)
+			  </#if>
+			  <#if opt='edit'>
+				update bi_legal_aid set title=[title],content=[content] where id=[legal_aid_id]
+			  </#if>
+			  <#if opt='del'>
+			    delete from bi_legal_aid where id=[legal_aid_id];
+			    delete from bi_legal_aid_detail where aid_id=[legal_aid_id]
+			  </#if>
+			  <#if opt='del_detail'>
+			    delete from bi_legal_aid_detail where id=[aid_id]
+			  </#if>
+			]]>
+		</stmt>
+	</query>
+</query-config>

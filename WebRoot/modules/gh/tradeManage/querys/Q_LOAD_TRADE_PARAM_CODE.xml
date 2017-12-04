@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LOAD_TRADE_PARAM_CODE" type="pagelist" result="easyui">
+        <stmt>
+            <![CDATA[
+            select  * from (
+            select to_char(lower(code_field)) code,to_number(code_num) code_num,name,order_id from sys_pa_code
+            where code_table='BI_TRADE_INFO' and code_field in ('POLITICAL_STATUS','QUALIFICATIONS','DEGREE')
+            union all
+            select 'dept_id',id,name,id order_id from sys_p_department where dept_type=2)
+            order by code,order_id asc
+            ]]>
+        </stmt>
+    </query>
+    <param name="paging">false</param>
+</query-config>

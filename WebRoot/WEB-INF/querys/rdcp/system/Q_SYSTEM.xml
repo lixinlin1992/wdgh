@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	
+	<!-- 业务系统列表查询 -->
+	<query id="Q_SYSTEM_LIST" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[
+			SELECT s.*,u.NAME AS MASTER_NAME,u2.NAME AS CREATE_USER_NAME
+			FROM SYS_BI_SYSTEM s
+			LEFT JOIN SYS_P_USER u ON u.ID=s.MASTER
+			LEFT JOIN SYS_P_USER u2 ON u2.ID=s.CREATE_USER
+			WHERE 1=1
+			<#if name??>
+			AND s.NAME [like(name)]
+			</#if>
+			<#if code??>
+			AND s.CODE [like(code)]
+			</#if>
+			AND [RdcpSecurity(s.CODE)]
+			]]>
+		</stmt>
+		<param name="list-cols">name,code,master_name,create_user_name,create_date</param>
+        <param name="exp-cols">name,code,master_name,create_user_name,create_date</param>
+        <param name="exp-names">系统名称,系统编码,负责人,创建人,创建时间</param>
+        <param name="exp-file">业务系统数据.xls</param>
+	</query>
+
+    <!--业务系统下拉框列表-->
+    <query id="Q_SYSTEM_SELECT_LIST" type="labelvalue" result="json" extends="Q_SYSTEM_LIST">
+		<param name="l-col">name</param>
+		<param name="v-col">code</param>
+    </query>
+	
+	<!--
+	添加/修改业务系统
+	1. 业务系统名称不能重复
+	2. 业务系统编码不能重复
+	3. 只有业务系统负责人和超级管理员才能修改系统信息
+	4. 系统负责人不能修改负责人
+	-->
+	<query id="Q_SYSTEM_EDIT" type="auto-update">
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">_isAdmin</param>
+            <param name="sql"><![CDATA[SELECT <#list _CurrUser.userGroups as g><#if g.super_admin=1><#assign isAdmin="1"></#if></#list>${isAdmin!"0"} FROM DUAL]]></param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+                <#if _edit??>
+                SELECT COUNT(1) FROM SYS_BI_SYSTEM WHERE CODE=[code] AND (MASTER=[_CurrUser.id long] OR <#if _isAdmin=1>1=1<#else>1=2</#if>)
+                <#else>
+                SELECT [_isAdmin] FROM DUAL
+                </#if>
+            ]]></param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[<#if _edit??>只有项目负责人或者管理员能对业务系统进行修改<#else>只有管理员能添加业务系统</#if>]]></param>
+        </processor>
+		<processor break="true" name="check-count" seq="3" type="before">
+			<param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_BI_SYSTEM WHERE NAME=[name]<#if _edit??>AND CODE<>[code]</#if>]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message"><![CDATA[业务系统名称[${name}]已经被占用，请使用其它名称。]]></param>
+		</processor>
+		<processor break="true" name="check-count" seq="4" type="before">
+			<param name="count-sql"><![CDATA[<#if _edit??>SELECT 0 FROM DUAL<#else>SELECT COUNT(1) FROM SYS_BI_SYSTEM WHERE CODE=[code]</#if>]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message"><![CDATA[业务系统编码[${code}]已经被占用，请使用其它编码。]]></param>
+		</processor>
+        <processor class="com.sunrise.rdcp.pro.InitSystemTableProcessor" type="before" seq="5" break="true">
+      	</processor>
+		<param name="insert-tables"><![CDATA[<#if _edit??><#else>SYS_BI_SYSTEM s</#if>]]></param>
+		<param name="update-tables"><![CDATA[<#if _edit??>SYS_BI_SYSTEM s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if _edit??><#else>s.CREATE_USER=[_CurrUser.id long],s.CREATE_DATE=SYSDATE</#if>,s.LAST_EDIT_USER=[_CurrUser.id long],s.LAST_EDIT_DATE=SYSDATE]]></param>
+		<param name="update-cols"><![CDATA[s.NAME,<#if _isAdmin=1>s.MASTER,</#if>s.NOTE,s.LAST_EDIT_USER,s.LAST_EDIT_DATE]]></param>
+	</query>
+	
+	<!-- 装载业务系统信息 -->
+	<query id="Q_SYSTEM_INFO" type="form_data">
+		<stmt>
+			<![CDATA[
+			SELECT s.*,u.NAME AS MASTER_NAME
+			FROM SYS_BI_SYSTEM s
+			LEFT JOIN SYS_P_USER u ON u.ID=s.MASTER
+			WHERE s.CODE=[code] AND [RdcpSecurity(s.CODE)]
+			]]>
+		</stmt>
+	</query>
+	
+	<!--
+	删除业务系统
+	1. 存在模块，不能删除
+	2. 存在数据源，不能删除
+	3. 存在查询，不能删除
+	4. 存在页面，不能删除
+	5. 只有管理员才能删除业务系统
+	6. 删除业务系统，需要将业务系统的开发人员也删除
+	-->
+	<query id="Q_SYSTEM_DELETE" type="auto-update">
+        <processor name="check-count" type="before" seq="0" break="true">
+            <param name="count-sql"><![CDATA[SELECT <#list _CurrUser.userGroups as g><#if g.super_admin=1><#assign isAdmin="1"></#if></#list>${isAdmin!"0"} FROM DUAL]]></param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[只有管理员才能删除业务系统！]]></param>
+        </processor>
+		<processor name="check-count" type="before" seq="1" break="true">
+			<param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MODULE WHERE SYS_CODE=[code]]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message">该业务系统还存在模块数据，不能删除</param>
+		</processor>
+		<processor name="check-count" type="before" seq="2" break="true">
+			<param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_DATASOURCE WHERE SYS_CODE=[code]]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message">该业务系统还存在数据源配置，不能删除</param>
+		</processor>
+		<processor name="check-count" type="before" seq="3" break="true">
+			<param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_QUERY WHERE SYS_CODE=[code]]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message">该业务系统还存在查询配置，不能删除</param>
+		</processor>
+        <processor name="check-count" type="before" seq="4" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM RDC_CFG_PAGE WHERE SYS_CODE=[code]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message">该业务系统还存在页面配置，不能删除</param>
+        </processor>
+		<param name="delete-tables">SYS_BI_SYSTEM s,RDC_SYS_DEVELOPER d</param>
+        <param name="col-vals">d.SYS_CODE=[code]</param>
+		<param name="key-cols">s.CODE,d.SYS_CODE</param>
+	</query>
+</query-config>

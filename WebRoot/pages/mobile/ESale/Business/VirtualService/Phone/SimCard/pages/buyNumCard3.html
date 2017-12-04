@@ -1,0 +1,382 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load(
+			"ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+<script
+	src="ESale/Business/VirtualService/Phone/SimCard/scripts/readCarTakePhoto.js"></script>
+<style>
+.com_IdCardBox {
+	margin: 0 auto;
+	position: relative;
+	width: 60px;
+	height: 60px;
+	margin-top: 10px;
+	background: url('Style/images/goods/id.png');
+	background-size: 60px 60px;
+	-moz-background-size: 60px 60px;
+	-webkit-background-size: 60px 60px;
+	-o-background-size: 60px 60px;
+}
+</style>
+<div class="layout_centent">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>已选产品说明</span>
+	</div>
+	<!--标题一End-->
+	<!--信息列表Begin-->
+	<div class="com_table">
+		<table>
+			<tbody>
+				<tr>
+					<td class="summarize">已选号码:</td>
+					<td><span class="big_font orange_font">{{cardForm.number}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="summarize">已选业务:</td>
+					<td>{{cardForm.typeVal}} {{cardForm.dksName}}
+						{{cardForm.openAccountTypeName}}</td>
+				</tr>
+				<tr>
+					<td class="summarize"></td>
+					<td>{{cardForm.nameVal}} {{cardForm.packageName}}</td>
+				</tr>
+				<tr>
+					<td class="summarize"></td>
+					<td>{{cardForm.packagePlan}} {{cardForm.contractPackage}}</td>
+				</tr>
+				<tr>
+					<td class="summarize"></td>
+					<td>{{cardForm.packageType}}</td>
+				</tr>
+				<tr ng-show="cardForm.planVal.indexOf('一体化计划') == '-1'">
+					<td class="summarize"></td>
+					<td>{{cardForm.planVal}}</td>
+				</tr>
+				<tr>
+					<td class="summarize" ng-show="cardForm.accountVal"></td>
+					<td>{{cardForm.accountVal}}</td>
+				</tr>
+				<tr>
+					<td class="summarize" ng-show="cardForm.brandVal"></td>
+					<td>{{cardForm.brandVal}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--信息列表End-->
+</div>
+<div class="layout_centent" id="first_fee_box">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>首月资费选择</span>
+		<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox" id="first_fee">
+			<div class="col-md-4 col-xs-4 list"
+				ng-click="event.firstFee($event, '全月资费')">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://"> 全月资费 </a>
+				<!--常用btn-->
+			</div>
+			<div class="col-md-4 col-xs-4 list"
+				ng-click="event.firstFee($event, '半月资费')">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://"> 半月资费 </a>
+				<!--常用btn-->
+			</div>
+			<div class="col-md-4 col-xs-4 list"
+				ng-click="event.firstFee($event, '套外资费')">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://"> 套外资费 </a>
+				<!--常用btn-->
+			</div>
+		</div>
+		<!--表单排版Begin-->
+		<div class="formlist" ng-show="cardForm.is_rele!='1'">
+			<div class="form_left" style="width:50px;">
+				<p class="form_title">预存款</p>
+			</div>
+			<div class="form_right" style="margin-left: 60px;">
+				<input name="paper_num" type="tel" maxLength="18"
+					ng-model="cardForm.fee_config" placeholder="0" class="input_normal" />
+			</div>
+		</div>
+		<div class="com_select" ng-show="cardForm.is_rele=='1'"
+			style="border-top: 1px solid #eeeeee; margin-top: 10px;clear:both">
+			<a id="jmkfCheckBox" class="com_checkox com_checkoxon"
+				ng-click="event.jmkfCheck()"></a> <span class="title">减免活动</span> <span
+				class="content">减免SIM/USM卡费</span>
+		</div>
+	</div>
+</div>
+<!-- CBSS工号绑定-begin -->
+<div class="layout_centent" id="binding" style="display:none">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>CBSS工号绑定</span>
+		<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+	</div>
+	<!--标题一End-->
+	<div class="layout_centent" ng-repeat="row in rows"
+		id="developSelectAll">
+		<!-- <div class="com_title second_title">
+            <span class="ng-binding">发展人信息</span>
+          
+        </div> -->
+		<div class="com_select"
+			style="border-top: 1px solid #eeeeee; margin-top: 10px;clear:both">
+			<a class="com_checkox" id="developSelect_{{$index}}"
+				ng-click="developSelect($index)"></a> <span class="title"><b>发展人信息</b>
+			</span>
+		</div>
+
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">
+					<font color="red">*</font> 发展人编码：
+				</p>
+			</div>
+			<div class="form_right">
+				<input type="tel" name="phonenumber" maxlength="10"
+					class="input_normal" ng-model="row.DEV_CODE" readonly="readonly">
+			</div>
+		</div>
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">
+					<font color="red">*</font> 发展人姓名：
+				</p>
+			</div>
+			<div class="form_right">
+				<input type="text" name="phonenumber" class="input_normal"
+					ng-model="row.DEV_NAME" readonly="readonly">
+			</div>
+		</div>
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">
+					<font color="red">*</font> 发展人手机：
+				</p>
+			</div>
+			<div class="form_right">
+				<input type="tel" name="phonenumber" maxlength="11"
+					class="input_normal" ng-model="row.DEV_PHONE" readonly="readonly">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- CBSS工号绑定-end -->
+<!---->
+<div class="layout_centent">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>身份资料</span>
+	</div>
+	<!--标题一End-->
+	<!--正常外框Begin-->
+	<div class="com_normalbox">
+		<!--提示文字Begin-->
+		<div id="picTitle" class="small_font gray_font"
+			style="line-height: 30px; padding: 0px 5px;">上传身份证正，反面及手持照片</div>
+		<!--提示文字End-->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 list" id="bluetoothDiv"
+					style="display: block;margin:10px 0;">
+					<!--常用btn-->
+					<button style="width: 100%;" class="com_btn gary_btn"
+						id="bluetooth_read_btn" onclick="bluetoothRead()"
+						data-loading-text="读取中...." autocomplete="off">蓝牙读取</button>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+		<!--身份证图片列表Begin-->
+		<div class="container-fluid goods_show_list">
+			<div class="row">
+				<div id="frontDiv" class="col-xs-4 col-md-4 goods_box"
+					style="display: block;">
+					<div id="frontDiv_img"
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="front" id="front" onchange="uploadImg('front');"
+							single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_front"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">正面照</span>
+					</div>
+				</div>
+				<div id="contraryDiv" class="col-xs-4 col-md-4 goods_box"
+					style="display: block;">
+					<div id="contraryDiv_img"
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="contrary" id="contrary"
+							onchange="uploadImg('contrary');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_contrary"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">反面照</span>
+					</div>
+				</div>
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div
+						style="margin:0 auto;position: relative; width:60px;height:60px;margin-top:10px; background:url('Style/images/goods/id.png');background-size:60px 60px;-moz-background-size:60px 60px; -webkit-background-size:60px 60px;-o-background-size:60px 60px;">
+						<input type="file" accept="image/jpeg,image/png"
+							style="display: none; opacity:0;width:60px;height:60px"
+							data-param="hand" id="hand" onchange="uploadImg('hand');" single>
+						<div style="width:100%;height: 100%;display: block;opacity:0;"
+							id="new_img_hand" onclick="takePhoto('hand')"></div>
+						<span class="imgprice"
+							style="width:60px;font-size: 12px;height: 20px;line-height: 20px;">手持照</span>
+					</div>
+				</div>
+			</div>
+			<!--进度条begin-->
+			<div class="row">
+				<div class="col-md-12">
+					<p id="upload_text"
+						style="height:30px; line-height:30px;  border-bottom:1px solid #f5f5f5; margin:0px;"></p>
+				</div>
+				<div class="col-md-12" style="display: none;">
+					<div class="progress" style="margin-bottom: 5px;">
+						<div id="progressBar"
+							class="progress-bar progress-bar-success progress-bar-striped"
+							role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+				</div>
+			</div>
+			<!--进度条end-->
+		</div>
+		<!--身份证图片列表End-->
+		<form>
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">客户姓名</p>
+				</div>
+				<div class="form_right">
+					<input name="name" type="text" class="input_normal"
+						ng-model="form.CUSTOMER_NAME" id="customer_name"
+						placeholder="客户姓名" readonly="readonly" />
+				</div>
+			</div>
+			<!--表单排版End-->
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">证件号码</p>
+				</div>
+				<div class="form_right">
+					<input name="paper_num" type="text" id="cert_number" maxLength="18"
+						ng-model="form.CERT_NUMBER" placeholder="证件号码"
+						class="input_normal" required="required" readonly="readonly" />
+				</div>
+			</div>
+			<!--表单排版End-->
+			<!--表单排版Begin-->
+			<!--<div class="formlist">
+					<div class="form_left">
+						<p class="form_title"><span class="text-danger">&nbsp;*&nbsp;</span>终端串号</p>
+					</div>
+					<div class="form_right">
+						<input type="text" class="input_normal ng-pristine ng-untouched ng-valid">
+					</div>
+				</div>-->
+			<!--表单排版End-->
+			<!--表单排版Begin-->
+			<!-- cardForm.is_white 在选择商品的时候得到 -->
+			<!--<div class="formlist" ng-show="cardForm.is_white==1||bkVal>0">-->
+			<div class="formlist"
+				ng-show="(cardForm.is_white==0)&& (cardForm.dksName != '沃派校园26元套餐')">
+				<div class="form_left">
+					<p class="form_title">
+						<span class="text-danger">&nbsp;*&nbsp;</span>成卡卡号
+					</p>
+				</div>
+				<div class="form_right">
+					<input type="tel"
+						class="input_normal ng-pristine ng-untouched ng-valid"
+						ng-model="CK_NUMBER">
+				</div>
+			</div>
+			<!--表单排版End-->
+			<!--表单排版Begin-->
+			<div class="formlist"  ng-show="cardForm.product_type==1">
+				<div class="form_left">
+					<p class="form_title">
+						<span class="text-danger">&nbsp;*&nbsp;</span>集团编号
+					</p>
+				</div>
+				<div class="form_right">
+					<input type="text" class="input_normal"
+						   ng-model='form.group_id'>
+				</div>
+			</div>
+			<!--表单排版End-->
+			<!--表单排版Begin-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">
+						<span class="text-danger">&nbsp;*&nbsp;</span>联系电话
+					</p>
+				</div>
+				<div class="form_right">
+					<input type="tel"
+						class="input_normal ng-pristine ng-untouched ng-valid" id="phone"
+						ng-model='form.CONTACTNUMBER'>
+				</div>
+			</div>
+			<!--表单排版End-->
+			<div class="formlist">
+				<div class="form_left">
+					<p class="form_title">备注</p>
+				</div>
+				<div class="form_right">
+					<input name="name" type="text" class="input_normal"
+						ng-model="form.NOTE" id="NOTE"
+						placeholder="备注信息"/>
+				</div>
+			</div>
+			<!--表单排版End-->
+			<input type="text" style="display: none;" id="cert_address"
+				ng-model="form.CERT_ADDRESS" /> <input type="text"
+				style="display: none;" id="gov" ng-model="form.GOV" /> <input
+				type="text" style="display: none;" id="gender"
+				ng-model="form.GENDER" /> <input type="text" style="display: none;"
+				id="from" ng-model="form.FROM" /> <input type="text"
+				style="display: none;" id="to" ng-model="form.TO" /> <input
+				type="text" style="display: none;" id="nation"
+				ng-model="form.NATION" /> <input type="text" style="display: none;"
+				id="born" ng-model="form.BORN" /> <input type="text"
+				style="display: none;" id="picture" ng-model="form.PICTURE" />
+		</form>
+	</div>
+	<!--正常外框End-->
+</div>
+<!---->
+<div class="formlist">
+	<!--<div class="layout_full" style="padding-top: 10px; padding-bottom: 0px; background: none;">-->
+	<a class="com_btn theme_btn" href="javascript://"
+		ng-click="event.submit()">提交</a>
+	<!--</div>-->
+</div>
+<div id="checkHtml"></div>
+<!--<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/handleContract4.js"></script>-->
+<script
+	src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard3.js"></script>
+<script type="text/javascript">
+	$("#checkHtml")
+			.load(
+					"ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

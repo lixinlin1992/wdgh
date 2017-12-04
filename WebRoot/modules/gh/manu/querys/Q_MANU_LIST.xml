@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_MANU_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bm.id,bm.company title,spd.name dept_name,state,remarks,author_one,author_two,
+				author_three,spu.name name,create_time
+				from bi_manu bm
+				left join sys_p_user spu on bm.job_num=spu.id
+				left join sys_p_department spd on bm.dept_id=spd.id
+				where job_num = [var(RU.CUR_USER.id)]
+				<#if state??>
+				  and bm.state = [state]
+				</#if>
+				<#if company??>
+				  and bm.company [like(company)]
+				</#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

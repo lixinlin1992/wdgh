@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--注销用户-->
+    <query id="Q_USER_DISABLE" type="update" result="json">
+        <stmt><![CDATA[
+		 	 update sys_p_user set status_id=2 where id = [userid long]
+		]]></stmt>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">注销用户：id为[${userid}]</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

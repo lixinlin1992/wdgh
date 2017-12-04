@@ -1,0 +1,39 @@
+/* 表格*/
+/* 表格样式 包括字体 边框 颜色以及表格内的各类元素的属性设置*/
+table.ui_grid_btable{font-size: 12px;border-collapse: collapse; border: 1px solid #DEDFE4;color:#000;table-layout:fixed; overflow:auto; zoom:1;border-top:2px solid #5F8FBF;}
+table.ui_grid_btable th { height:24px;line-height:24px !important;border:1px solid #cad9ea;background:url(../images/common/index02_r8_c8.gif) repeat-x;
+	font-weight:bold;color:#000;text-align:center; word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/*table.ui_grid_btable span.ui_grid_asc_img{ background:url(../images/common/blue_asc.png) no-repeat;margin-left:5px;position:relative; bottom:-2px;}
+table.ui_grid_btable span.ui_grid_desc_img{ background:url(../images/common/blue_desc.png) no-repeat;margin-left:5px ;position:relative; bottom:-2px;}
+*/	
+table.ui_grid_btable span.ui_grid_asc_img{ background:url(../images/common/blue_asc.gif) no-repeat 0 2px;}
+table.ui_grid_btable span.ui_grid_desc_img{ background:url(../images/common/blue_desc.gif) no-repeat 0 2px;}
+table.ui_grid_btable span.ui_grid_no_sort_img{ background:url(../images/common/no_sort.gif) no-repeat 0 2px;}
+table.ui_grid_btable td {border: 1px solid #cad9ea;height:24px;padding:0px auto; word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;}
+table.ui_grid_btable tr {height:24px;}
+
+.ui_grid_bdiv{}
+/* 表格生成的标题栏样式*/
+.ui_grid_titlebar{ padding-bottom:5px;}
+/* 表格生成的标题栏的标题样式*/
+.ui_grid_title{color:#000; font-weight:bold;}
+/* 表格内 超链接各种行为的样式*/
+table.ui_grid_btable a:link {font-size: 12px;color:#000;text-decoration: underline;}
+table.ui_grid_btable a:visited {font-size: 12px;color:#7B0000;text-decoration: underline;}
+table.ui_grid_btable a:hover {font-size: 12px;color: #000000;text-decoration: underline;}
+table.ui_grid_btable a:active {font-size: 12px;color: #CC0000;text-decoration: underline;}
+.ui_grid_view{  /* border:1px solid black;*/}
+/* 表格内 鼠标移动到行所变的颜色*/
+.ui_grid_row_highlight{ background:#FFF2E8;}
+/* 表格内 鼠标单击行所变的颜色*/
+.ui_grid_row_selected{ background:#EEF2F9; }
+/* 表格 工具条*/
+.ui_view_navButton {height:35px;}
+.ui_grid_toolbar { padding-top:4px;padding-bottom:6px; float:left;background:#F8F3F5; color:#313031; font-family:Verdana,Tahoma,Arial,Helvetica,Sans-Serif;}
+/* 表格下 分页栏内各类元素的样式*/
+.ui_view_page{ padding:3px;}
+.ui_view_page a {border:1px solid #b7d8ee; padding:2px;text-decoration:none; color:#0030ce; font-size:12px; margin:0px 3px;cursor:pointer}
+.ui_view_page a:hover {border:1px solid #b7d8ee;COLOR: #0066a7; background:#d2eaf6;}
+.ui_view_page a:active {border:1px solid #b7d8ee;COLOR: #0066a7; background:#d2eaf6}
+.ui_view_page span {border:1px solid #b7d8ee;padding:2px;COLOR:#444444;margin:0px 3px; background:#d2eaf6; font-size:12px}
+.ui_view_page span.disabled { display:none}

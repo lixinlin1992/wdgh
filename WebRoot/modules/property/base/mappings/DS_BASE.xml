@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+	<ds name="DS_IMPORT_FILE" type="url" func="">
+        <url>/importFileAction.action?method=importInfo</url>
+        <file>/</file>
+    </ds>
+
+    <ds name="DS_IMPORT_MARK_FILE" type="url" func="">
+        <url>/importFileAction.action?method=importMarkInfo</url>
+        <file>/</file>
+    </ds>
+        <!-- 下载数据源 -->
+	<ds name="DS_FRAMEWORK_FILE_DOWNLOAD" type="url" func="">
+        <url>/framework_service_download.action?method=download</url>
+	</ds>	
+
+</datasources>

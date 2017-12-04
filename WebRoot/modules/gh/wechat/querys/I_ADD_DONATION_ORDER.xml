@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<query id="I_ADD_DONATION_ORDER" type="update" result="json">
+        <stmt>
+		<![CDATA[
+		insert into bi_donation_order(id,name,contact,sex,is_school,blessing,fee,is_anonymous,is_pay,
+		create_user,create_time,pay_time)
+		values(bi_donation_order_seq.nextval,[name],[contact],[sex],[is_school],[blessing],[fee],
+		[is_anonymous],1,[var(RU.CUR_USER.id)],sysdate,sysdate)
+
+		]]>
+        </stmt>
+    </query>
+</query-config>

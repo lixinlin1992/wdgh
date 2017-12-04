@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_GET_NEWS_CENTER_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+        with a as (
+        select wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+where busi_type='BI_NEWS_CENTER' and busi_id=[news_id])
+            select id,title,type,content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,
+            a.file_ids,a.file_names
+            from bi_news_center,a
+            where id=[news_id]
+		]]></stmt>
+    </query>
+</query-config>

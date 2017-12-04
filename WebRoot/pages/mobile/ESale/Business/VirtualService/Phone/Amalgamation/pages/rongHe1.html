@@ -1,0 +1,53 @@
+<script src="ESale/Business/VirtualService/Phone/Amalgamation/scripts/rongHe1.js"></script>
+
+<div class="layout_centent" style="padding-bottom: 0;">
+	<div class="com_title first_title">
+		<span>选择办理类型</span>
+	</div>
+	<div class="container-fluid">
+		<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+				<a class="com_selectbtn" href="javascript://" ng-click="event.selectKuanDaiType($event,'新装宽带')">新装宽带</a>
+			</div>
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;">
+				<a class="com_selectbtn" href="javascript://" ng-click="event.selectKuanDaiType($event,'已有宽带')">已有宽带</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="layout_centent" style="padding-bottom: 0;" ng-show="show.product">
+	<div class="com_title first_title">
+		<span>选择产品</span>
+	</div>
+	<div class="container-fluid" style="padding: 0 5px;">
+		<!--大块商品Begin-->
+		<div class="container-fluid com_biggoodslist" style="margin-bottom: 5px;">
+			<div class="row">
+				<div id="img_div" class="col-xs-6 col-md-3 list" ng-repeat="r in results" ng-if="$index<(page*pageSize)">
+					<a class="com_biggoods" ng-click="event.nextPage(r.ID,r.NAME,r.WOTYPE,r.RH_NAME,r.RH_TYPE)">
+						<!--图片显示Begin-->
+						<div class="goodsshow">
+							<!--如果没有图片,则按顺序显示系统默认图片-->
+							<img ng-src="Style/images/goods/bg{{$index%4+1}}.png" alt="" ng-if="r.PIC_ID==''" />
+							<!--有图片id的情况-->
+							<img ng-src="{{imgScr}}{{r.PIC_ID}}" ng-if="r.PIC_ID!=''" alt="" />
+						</div>
+						<!--图片显示End-->
+						<div class="introduce">
+							<p>{{r.NAME}}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="com_showmore">
+			<a id="more" class="more_btn" style="margin: 0;border:none;" href="javascript://" ng-click="more()">点击加载更多</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var width = $("#img_div").width();
+	$("#img_div img").attr("height", width + "px");
+</script>

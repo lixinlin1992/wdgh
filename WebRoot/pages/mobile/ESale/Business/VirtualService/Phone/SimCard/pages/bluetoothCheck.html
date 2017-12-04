@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--<script type="text/javascript">
+    var btVal = "";
+    var bluetoothList=[];
+    $(document).ready(function(){
+        var bluetoothList_tmp = rdcp.str2json(sessionStorage.getItem("allBluetooth"));
+        if(bluetoothList_tmp != null)
+        {
+            bluetoothList = bluetoothList_tmp
+        }
+        setInterval(function(){
+            /*if(bluetoothList.length == 0)
+            {
+                ysb_shade("正在搜寻设备...");
+            }else{
+                ysb_unshade();
+            }*/
+            loadBluetooth();
+        },5000)
+    });
+
+    //检测蓝牙设备
+    function check()
+    {
+       /* if( bluetoothList.length == 0)
+        {
+            ysb_shade("正在搜寻设备...");
+            return
+        }*/
+        //alert(sessionStorage.getItem("bluetooth"));
+        if(sessionStorage.getItem("bluetooth") == null)
+        {
+            $("#btBox").show();
+            $("#shadeDiv").css("display","block");
+            return
+        }
+        btVal = sessionStorage.getItem("bluetooth");
+
+        if($("#flag").val() != 1)
+        {
+            if($("#flag").val() == 2)
+            {
+                var $btn = $("#bluetooth_read_btn").button('loading');
+                $("#shadeDiv").css("display","none");
+            }
+            else{
+                ysb_shade("蓝牙二合一设备正在读取中，请稍后……");
+            }
+
+            GetIDCardInfo('onReadIDCardFinish',btVal);
+
+        }
+        else{
+            try{
+                ysb_shade("蓝牙二合一设备正在读取中，请稍后……");
+                setTimeout(Reader.ReadCardNo(),80);
+            }catch(e){
+                ysb_unshade();
+                ysb_alert("提示","读卡失败，请重试或者人工输入"+e);
+                return false;
+            }
+        }
+    }
+
+    //选择蓝牙设备
+    function chooseBT(ele,val)
+    {
+        btVal = val;
+        sessionStorage.setItem("bluetooth",val);
+        $("#btBox").css("display","none");
+        check();
+    }
+
+    function getSelectBT()
+    {
+        return btVal;
+    }
+
+    function ysb_shade(message){
+        $("body").attr("style","overflow-y:hidden");
+        $("#shadeDiv").css("display","block");
+        $("#loadingDiv").css("display","block");
+        $("#loadingMessage").text(message);
+    }
+
+    function ysb_unshade(){
+        $("body").removeAttr("style");
+        $("#shadeDiv").css("display","none");
+        $("#loadingDiv").css("display","none");
+    }
+
+    function ysb_alert(title,message){
+        $("body").attr("style","overflow-y:hidden");
+        $("#shadeDiv").show("normal")
+        $("#alertDiv").show("normal");
+        $("#alertTitle").text(title);
+        $("#alertMessage").text(message);
+    }
+
+
+    function ysb_unalert(){
+        $("body").removeAttr("style");
+
+        $("#alertDiv").css("display","none");
+        if($("#alertMessage").text() == "读出卡号有问题，请重试或者人工输入")
+        {
+            if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+                $("#btBox").css("display", "block");
+                $("#shadeDiv").css("display", "block");
+            }else{
+                $("#shadeDiv").css("display","none");
+
+            }
+        }
+        else if($("#alertMessage").text() == "无法连接阅读器，请尝试关闭阅读器后再打开")
+        {
+            if (/ipad|iphone|mac/i.test(navigator.userAgent))
+            {
+                $("#btBox").css("display","block");
+                $("#shadeDiv").css("display","block");
+            }
+        }
+        else if($("#alertMessage").text() == "插件加载出错，请重新刷新页面")
+        {
+            window.location.reload();
+        }
+        else{
+            //$("#addBluetooth").show();
+            $("#loadingDiv").hide();
+            $("#shadeDiv").css("display","none");
+        }
+
+    }
+
+    //关闭弹窗
+    function cancel()
+    {
+        $('#addBluetooth').hide();
+        $("#shadeDiv").css("display","none");
+        $('#btBox').hide();
+        $("#loadingDiv").hide();
+    }
+
+    //加载蓝牙列表
+    function loadBluetooth()
+    {
+        $("div[name='btContent']").html("");
+        var content="";
+
+        for(var i=0;i<bluetoothList.length;i++)
+        {
+            var radio = ' <input style="position: absolute; top:9px; left:5px;" type="radio" name="select" onclick="chooseBT(this,\'' + bluetoothList[i].name + '\')"/>'
+            if(bluetoothList[i].name == sessionStorage.getItem("bluetooth"))
+            {
+                radio = ' <input style="position: absolute; top:9px; left:5px;" type="radio" name="select" onclick="chooseBT(this,\'' + bluetoothList[i].name + '\')" checked/>'
+            }
+            content += '<div style="padding: 5px 0px; position: relative; border-bottom:1px solid #eeeeee;">'
+                    +'<label>'
+                    +'<input type="hidden" name="btKey" value="' + bluetoothList[i].name + '">'
+                    + radio
+                    +'<span  style="display: block; margin:0px 70px 0px 30px; line-height: 26px;color:blue;">' + bluetoothList[i].name + '</span>'
+                    +'</label></div>'
+        }
+        $("div[name='btContent']").append(content);
+        if($("input[name='btKey']").length >= 5)
+        {
+            $("div[name='btContent']").css({"height":"200","overflow-y":"scroll" })
+        }
+    }
+
+
+
+</script>-->
+<script>
+
+
+</script>
+<!--确认框Begin-->

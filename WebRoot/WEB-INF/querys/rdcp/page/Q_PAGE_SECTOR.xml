@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--页面配置区域元素相关操作-->
+<query-config>
+
+    <!-- 区域列表 -->
+    <query id="Q_SECTOR_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+            SELECT s.ID,s.NAME,s.STATUS,s.NOTE,u.NAME AS CREATE_USER_NAME,s.CREATE_TIME
+            FROM RDC_CFG_SECTOR s
+            LEFT JOIN SYS_P_USER u ON u.ID=s.CREATE_USER
+            WHERE s.STATUS=0
+            <#if name??> AND s.NAME [like(name)]</#if>
+            ]]>
+        </stmt>
+        <param name="list-cols">id,name,create_user_name,create_time,note</param>
+    </query>
+
+    <!-- 查询区域详细信息 -->
+    <query id="Q_SECTOR_INFO" type="form_data">
+        <stmt>
+            <![CDATA[
+            SELECT s.*
+            FROM RDC_CFG_SECTOR s
+            WHERE s.ID=[id]
+            ]]>
+        </stmt>
+    </query>
+
+    <!-- 添加/修改区域 -->
+    <query id="Q_SECTOR_EDIT" type="auto-update">
+        <processor name="script" type="before" break="true" seq="1">
+            <param name="script">
+                <![CDATA[
+                try{
+                    //判断是添加还是修改
+                    var _id = __cxt.getParam("id");
+                    if(!com.sunrise.foundation.utils.StringUtil.isNull(_id)){
+                        __cxt.setParam("_edit","true")
+                    }
+                    var _xml = __cxt.getParam("defination");
+                    println("------------------------------");
+                    println(_xml);
+                    //对模板进行解析
+                    var _sectorConfig = com.sunrise.rdcp.config.TemplateConfigParser.parse(_xml);
+                    if(!com.sunrise.foundation.utils.StringUtil.isNull(_id) && !_id.equalsIgnoreCase(_sectorConfig.getId()))
+                        __result.block("不能对区域的ID进行修改 ");
+                    __cxt.setParam("name",_sectorConfig.getName());
+                    __cxt.setParam("id",_sectorConfig.getId());
+                }catch(e){__result.block("处理区域定义失败，请确认区域定义是否正确，详细信息如下："+e);}
+                ]]>
+            </param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+                    SELECT COUNT(1) FROM RDC_CFG_SECTOR
+                    WHERE (ID=[id] OR NAME=[name])<#if _edit??> AND ID<>[id]</#if>
+                    ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[区域ID或者名称已经被占用，请使用其它ID或名称]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if !_edit??>RDC_CFG_SECTOR s</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if _edit??>RDC_CFG_SECTOR s</#if>]]></param>
+        <param name="ex-cols"><![CDATA[<#if _edit??>s.ID,s.STATUS,s.CREATE_USER,</#if>s.CREATE_TIME]]></param>
+        <param name="col-vals"><![CDATA[<#if !_edit??>s.STATUS=0,s.CREATE_USER=[_CurrUser.id long]</#if>]]></param>
+    </query>
+
+    <!-- 删除区域，将状态设置为无效 -->
+    <query id="Q_SECTOR_DELETE" type="auto-update">
+        <param name="update-tables">RDC_CFG_SECTOR s</param>
+        <param name="update-cols">s.STATUS</param>
+        <param name="col-vals">s.STATUS=1</param>
+    </query>
+</query-config>

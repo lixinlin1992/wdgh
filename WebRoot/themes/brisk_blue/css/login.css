@@ -1,0 +1,159 @@
+@charset "utf-8";
+*{
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	}
+.clear{
+	clear:both;
+	}
+	
+/*登陆框样式---Begin*/
+body{
+	background:url(../images/login/shattered.png) repeat;
+}
+.liantongLogo{
+	width: 95%;
+	height: 100px;
+	margin: 0px auto;
+	background:url(../images/login/liantongLogo.png) no-repeat left center ;
+}
+.loginLogo{
+	width: 496px;
+	height: 60px;
+	margin: 0px auto;
+	background:url(../images/login/loginLogo.png) no-repeat center ;
+}
+.loginBox{
+	padding-top:80px;
+	width:442px;
+	height:214px;
+	margin:0px auto;
+	background:url(../images/login/loginBoxBg.png) no-repeat center;
+	font-size:14px;
+	color:#989898;
+	}
+.tips{
+	float:left;
+	width:80px;
+	line-height:36px;
+	height:36px;
+	text-indent:23px;
+	margin-left:8px;
+	}
+.write{
+	float:left;
+	}
+.userName{
+	height:36px;
+	width:274px;
+	margin:0px auto;
+	background:url(../images/login/longInput.png) no-repeat center;
+	}
+.userName .tips{
+	background:url(../images/login/userNameMark.png) no-repeat left center;
+	}
+.userName .write input{
+	height:14px;
+	line-height:14px;
+	padding:11px 5px;
+	border:none;
+	background:none;
+	outline:none;
+	font-size:14px;
+	width:130px;
+	}
+.password{
+	height:36px;
+	width:274px;
+	margin:10px auto;
+	background:url(../images/login/longInput.png) no-repeat center;
+	}
+.password .tips{
+	background:url(../images/login/passWordMark.png) no-repeat left center;
+	}
+.password .write input{
+	height:14px;
+	line-height:14px;
+	padding:11px 5px;
+	border:none;
+	background:none;
+	outline:none;
+	font-size:14px;
+	width:130px;
+	}
+.identifyingCode{
+	height:36px;
+	width:274px;
+	margin:0px auto;
+	background:url(../images/login/shortInput.png) no-repeat left center;
+}
+.identifyingCode .tips{
+	background:url(../images/login/identifyingCodeMark.png) no-repeat left center;
+	}
+.identifyingCode .write input{
+	height:14px;
+	line-height:14px;
+	padding:11px 5px;
+	border:none;
+	background:none;
+	outline:none;
+	width:50px;
+	font-size:14px;
+	}
+.identifyingCodeImg{
+	width:100px;
+	height:30px;
+	background:url(../images/login/identifyingCodeBg.png) no-repeat left;
+	float:right;
+	padding:3px 5px;
+	}
+.identifyingCodeImgContent{
+	background:#fff;
+	width:100px;
+	height:30px;
+	}
+.loginBoxBtn{
+	width:274px;
+	height:36px;
+	margin:10px auto;
+	}
+.loginBtn{
+	width:132px;
+	height:36px;
+	float:left;
+	}
+.loginBtn a{
+	display:block;
+	width:132px;
+	height:36px;
+	background:url(../images/login/loginBtn.png) no-repeat top center;
+	}
+.loginBtn a:hover{
+	display:block;
+	width:132px;
+	height:36px;
+	background:url(../images/login/loginBtn.png) no-repeat bottom center;
+	}
+.cancelBtn{
+	width:132px;
+	height:36px;
+	float:right;
+	}
+.cancelBtn a{
+	display:block;
+	width:132px;
+	height:36px;
+	background:url(../images/login/cancelBtn.png) no-repeat top center;
+	}
+.footer{
+	margin-top:50px; 
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	color: #888888;
+	background: url(../images/login/footerBg.png) no-repeat center top;
+	text-align: center;
+}
+/*登陆框样式---End*/
+

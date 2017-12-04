@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_ADVANCED_PEOPLE_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bap.id,bap.title,spc.name type,dept,spd.name as dept_name,view_times,spu.name create_user,bap.create_time
+				from bi_advanced_people bap
+				left join sys_pa_code spc on bap.type=spc.code_num and spc.code_table='BI_ADVANCED_PEOPLE' and spc.code_field='TYPE'
+				left join sys_p_user spu on bap.create_user=spu.id
+				left join sys_p_department spd on bap.dept=spd.id
+				where 1=1 order by create_time desc
+				<#if title??>
+				  and bap.title [like(title)]
+				</#if>
+				<#if content??>
+				  and dbms_lob.instr(bap.content, [content], 1, 1) > 0
+				</#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

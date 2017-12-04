@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+<query id="Q_LOAD_MOVIE_LIST" type="pagelist" result="easyui">
+	<stmt><![CDATA[
+		select t.ID,t.TITLE,t.MOVIE_TYPE,spu.ID imgID ,to_char(PLAY_TIME,'yyyy-mm-dd') PLAY_TIME,t.PLAY_PLACE,t.ACTORS
+		from ${table_name} t, SYS_FILE  spu
+		where t.type=[type] AND to_char(t.ID)=spu.BUSI_ID and spu.busi_type='BI_SCHOOL_CULTURE'
+		order by t.PLAY_TIME DESC
+
+        ]]></stmt>
+</query>
+</query-config>
+
+		<!--
+        <?xml version='1.0' encoding='UTF-8'?>
+        <query-config>
+            <query id="Q_LOAD_MOVIE_LIST" type="pagelist" result="easyui">
+                <stmt><![CDATA[
+                select id,title,movie_type,to_char(play_time,'yyyy-mm-dd') play_time, play_place,actors
+                from ${table_name}
+                where type=[type]
+                ]]></stmt>
+            </query>
+        </query-config>
+        -->

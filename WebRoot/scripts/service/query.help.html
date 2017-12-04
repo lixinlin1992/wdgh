@@ -1,0 +1,41 @@
+<div id='query_select_div___'>
+    <table border='0' width='100%'>
+        <tr>
+            <td width='170' valign='top'>
+                <div class='tree' style='width:160px;height:300px;overflow: auto;position:absolute;'
+                     id='query_select_module_tree___'></div>
+            </td>
+            <td width='380' valign='top'>
+                <div class="" style="width: 380px;" align="center">
+                    <form name="QuerySelectQueryForm_"
+                          onsubmit="GRID.reload('query_select_query_List_');return false;">
+                        <div class="barquerycontent" align="center">
+                            <input type='hidden' name='list-cols' value='code,queryName,sys_code,note'>
+                            <input type="hidden" name="sys_code" value=""/>
+                            <input type='hidden' name='moduleId' value=''/>
+                            <table class="content_List">
+                                <tr>
+                                    <td align="right" class="contenttd" style="width:40px">编码：</td>
+                                    <td align="left" style="width:80px">
+                                        <input name="code" class="textbox_css" style="width:80px"/>
+                                    </td>
+                                    <td align="right" class="contenttd" style="width:50px">名称：</td>
+                                    <td align="left">
+                                        <input type="text" name="queryName" class="textbox_css" style='width:80px;'/>
+                                        <input class="btnquery_mouseout"
+                                               onmouseover="this.className='btnquery_mouseover'"
+                                               onmouseout="this.className='btnquery_mouseout'" type="submit" value=""/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                    <div>
+                        <table id="query_select_query_List_" style="margin: 0; padding: 0;" align='left'></table>
+                        <div id="query_select_query_pagerdt_" style="margin: 0; padding: 0;"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

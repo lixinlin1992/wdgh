@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<query id="Q_LOAD_NEXT_MAN"  type="combos"	result="easyui-combobox">
+		<stmt><![CDATA[
+		<#if upOrDown??&&upOrDown=='UP'>
+			SELECT DISTINCT id,name,'false' as checked from(
+			    SELECT  U.ID,U.NAME, 'false' AS CHECKED,ROWNUM RN
+			    FROM SYS_P_USER U,SYS_P_USER_UG UG
+			    WHERE U.ID = UG.USER_ID AND UG.USER_GROUP_CODE  [in(group_codes)] AND U.status_id = 1
+			        AND U.DEPT_ID IN (
+                                 SELECT ID FROM SYS_P_DEPARTMENT O
+                                 START WITH O.ID = (SELECT DEPT_ID FROM SYS_P_USER WHERE ID = ${_CurrUser.id})
+                                 CONNECT BY PRIOR PARENT_ID = ID
+                                 )  and U.DEPT_ID != 1
+				<#if q??>
+					AND U.NAME [like(q)]
+				</#if>
+				ORDER BY NAME ASC
+				)
+			WHERE RN<15  AND ID <> ${_CurrUser.id}
+		</#if>
+        <#if upOrDown??&&upOrDown=='DOWN'>
+            SELECT DISTINCT id,name,'false' as checked from(
+			    SELECT  U.ID,U.NAME, 'false' AS CHECKED,ROWNUM RN
+			    FROM SYS_P_USER U,SYS_P_USER_UG UG
+			    WHERE U.ID = UG.USER_ID AND UG.USER_GROUP_CODE  [in(group_codes)] AND U.status_id = 1
+			        AND U.DEPT_ID IN (
+                                 SELECT ID FROM SYS_P_DEPARTMENT O
+                                 START WITH O.ID = (SELECT DEPT_ID FROM SYS_P_USER WHERE ID = ${_CurrUser.id})
+                                 CONNECT BY PRIOR  ID = PARENT_ID
+                                 )  and U.DEPT_ID != 1
+				<#if q??>
+					AND U.NAME [like(q)]
+				</#if>
+				ORDER BY NAME ASC
+				)
+			WHERE RN<15  AND ID <> ${_CurrUser.id}
+        </#if>
+        <#if upOrDown??&&upOrDown=='HISTORY'&&workOrderId??>
+            SELECT DISTINCT id,name,'false' as checked from(
+                SELECT  U.ID ,U.NAME,'false' as checked ,ROWNUM RN
+                FROM SYS_P_USER U,WF_RU_TASK T,WF_FLOW F
+                WHERE U.ID = T.HANDLE_MAN_ID AND T.NODE_ID = F.END_NODE_ID AND F.ID = [flowId] AND T.WORK_ORDER_ID = [workOrderId] AND U.status_id = 1
+				<#if q??>
+					AND U.NAME [like(q)]
+				</#if>
+				ORDER BY NAME ASC
+				)
+			WHERE RN<15  AND ID <> ${_CurrUser.id}
+        </#if>
+
+        ]]></stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="checked-col">checked</param>
+
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">group_codes</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT  N.GROUP_CODES FROM WF_FLOW F , WF_NODE N  WHERE F.END_NODE_ID = N.ID AND  F.ID = [flowId]
+				]]>
+            </param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">upOrDown</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT  F.UP_OR_DOWN FROM WF_FLOW F  WHERE   F.ID = [flowId]
+				]]>
+            </param>
+        </processor>
+
+	</query>
+
+
+</query-config>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="hnwy" ng-controller="AppCtrl">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<title>湖南物业管理系统</title>
+
+		<script type="text/javascript" src="rdcp/script/lib/jquery/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/jquery/jgestures.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/swiper/swiper.min.js"></script>
+
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Mall/UI/js/jquery.slides.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/rdcp.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/ajax/rdcp.ajax.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.adapter.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.array.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.string.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.dom.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/ui/rdcp.mask.js"></script>
+		<script type="text/javascript" src="rdcp/script/src/core/rdcp.core.all.js"></script>
+
+		<script type="text/javascript" src="System/Base/scripts/config.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/Base.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/update.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/local.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/ajax.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular.min.js"></script>
+		<script type="text/javascript" src="rdcp/script/lib/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="System/Base/scripts/app.js"></script>
+		<script type="text/javascript" src="Style/js/ripple.js"></script>
+		<!--
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/base.js"></script>
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/CmdTransClient.js"></script>
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/RWCardOCX.js"></script>
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/CBSS_RWCardScript.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/mobile_framework.js"></script>
+		<script type="text/javascript" src="../../../pages/mobile/ESale/Business/VirtualService/Phone/SimCard/scripts/rwCard.js"></script>
+		-->
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="Style/css/bootstrap.min.css">
+		<link rel="stylesheet" href="Style/css/style.css">
+		<link rel="stylesheet" href="Style/css/swiper.min.css">
+
+
+		<!--IOS电池栏样式-->
+		<link id="batteryBarCss" rel="stylesheet" href="" />
+		<script type="text/javascript">
+/*			function addBatteryBar() {
+				var batteryBarCss = document.getElementById("batteryBarCss");
+				var batteryBarBox = document.getElementById("batteryBarBox");
+				if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+					batteryBarCss.href = "Style/css/iosstyle.css";
+				} else {
+					batteryBarCss.href = "";
+				}
+			}
+			window.onload = function() {
+				addBatteryBar();
+			};*/
+		</script>
+
+	</head>
+
+	<body class="bgcolor">
+		<div id="batteryBarBox" class="batteryBarBox"></div>
+		<!--弹出框Begin-->
+		<div id="loadingDiv" class="com_alert" style="top: 150px;display: none;">
+			<h2 class="title">系统消息<a class="closed" href="javascript://" onclick="unmask();"></a></h2>
+
+			<div class="content">
+				<span class="loading"></span>
+				<span id="loadingMessage" class="loadingtxt">页面正在加载，请耐心等待</span>
+			</div>
+		</div>
+		<!--弹出框End-->
+
+		<!--头部Begin-->
+		<div ng-controller="IncludeController" style="display:{{titleVisible}};">
+			<div ng-include="template.header"></div>
+		</div>
+		<!--头部End-->
+
+		<!--主体内容-->
+		<section id="CONTAINER" ng-view style="top: {{titleHeight}};">
+		</section>
+		<!--主体内容End-->
+
+		<!--底部-->
+<!--		<div ng-controller="IncludeController">
+			<div ng-include="template.footer"></div>
+		</div>-->
+		<!--底部End-->
+<!--		<div ng-controller="IncludeController">
+			<div ng-include="template.rwcard"></div>
+			<div ng-include="template.base"></div>
+		</div>-->
+	</body>
+	<script type="text/javascript">
+		function onReadIDCardFinish(msg) {
+			try {
+				document.LegacyFrame.onReadIDCardFinish(msg);
+			} catch (e) {
+				console.error(e)
+			}
+		}
+	</script>
+
+</html>

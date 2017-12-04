@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_PROPERTY" type="trees" result="easyui-tree">
+		<stmt>
+			<![CDATA[
+				  SELECT 
+			        t.id, cast(t.name as varchar(100)) name, nvl(t.parent_id,0) parent_id,
+			        'area' as typeid,
+			        'area' as ptypeid,
+			        'true' opened
+			      FROM SYS_BI_COMM_ORG t
+			       WHERE 1=1  AND STATUS_ID=1
+			      and  (t.id is null or t.id IN (SELECT ORG_ID FROM SYS_P_USER_ORG WHERE USER_ID= ${_CurrUser.id}
+			       UNION ALL SELECT dog.ORG_ID FROM SYS_P_DEPT_ORG dog INNER JOIN SYS_P_USER u ON u.DEPT_ID=dog.DEPT_ID AND u.ID= ${_CurrUser.id}))
+			       union all select p.property_id as id,p.property_name name,p.area_id parent_id,'area' typeid,
+			        'area' as ptypeid, 'true' opened from bi_property p,sys_bi_comm_org o where p.area_id=o.id
+			      ORDER BY PARENT_ID ASC NULLS FIRST, ID ASC
+			]]>
+		</stmt>
+		<!-- 树节点的相关配置 -->
+        <param name="paging">true</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">typeId</param>
+        <param name="parent-type-col">ptypeId</param>
+        <param name="opened-col">opened</param>
+        <param name="root-flag">0</param>
+	</query>
+</query-config>

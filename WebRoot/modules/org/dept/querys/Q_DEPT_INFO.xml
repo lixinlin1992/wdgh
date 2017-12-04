@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_DEPT_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+            select dep.ID,dep.NAME,(CASE when dep.dept_type=0 then '集团' when dep.dept_type=1 then '公司' when dep.dept_type=2 then '部门' end)dept_type_name,
+                                 (select sdep.name from SYS_P_DEPARTMENT sdep where sdep.id = dep.parent_id) as PARENT_NAME ,dep.parent_id,
+            dep.NOTE,dep.MASTER_ID,u.NAME AS MASTER_NAME,dep.BUSINESS_CODE,dep.DEPT_TYPE,dep.DEPT_CODE
+
+          from SYS_P_DEPARTMENT dep ,SYS_P_USER u
+          where u.ID(+)=dep.MASTER_ID AND dep.id =[ID]
+		]]></stmt>
+    </query>
+</query-config>

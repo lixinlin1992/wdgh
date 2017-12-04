@@ -1,0 +1,179 @@
+@charset "utf-8";
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,p,input{
+ list-style-type: none;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ outline: 0;
+ font-size: 100%;
+ background: transparent;
+ border-color: transprent;
+       background-color:  transprent;
+       border:0px
+
+}
+.inputTable {
+	height: 1000px;
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;
+	min-width: 1000px;
+     width: expression_r( document.body.clientWidth < 1001 ? "1000px" : "auto" );
+}
+
+.inputTable a {
+	font-size: 12px;
+	color: #444;
+	text-decoration: none;
+}
+
+.guild {
+	height: 25px;
+	font-size: 12px;
+	background-color: #FFF;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.guild a {
+	line-height: 25px;
+	text-decoration: none;
+	color: #333;
+}
+
+.guildLeft {
+	float: left;
+	width: 50%;
+}
+
+
+.guildLeft .home {
+	background-image: url(../images/content/home.png);
+	float: left;
+	background-repeat: no-repeat;
+	font-weight: normal;
+}
+.guildLeft .home a {
+	margin-left: 30px;
+}
+
+
+.guildRight {
+	float: right;
+}
+.guildRight .add {
+	background-image: url(../images/content/add.png);
+	background-position: left center;
+	height: 25px;
+	width: 55px;
+	background-repeat: no-repeat;
+}
+.guildRight .add a {
+	display: block;
+	float: right;
+	width: 35px;
+}
+.inputTable .inputHeaderRow {
+	background-color: #f1efef;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+	color: #444;
+	line-height: 25px;
+	height: 25px;
+	text-align: center;
+}
+.inputTable .inputTableTitle {
+	background-color: #f1efef;
+	height: 28px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #444;
+	line-height: 28px;
+}
+.inputTable .inputTableTitleTips {
+	background-image: url(../images/content/writetitleytips.png);
+	background-position: 5px;
+	background-repeat: no-repeat;
+}
+.inputTable .inputTableTitleLeft {
+	width: 250px;
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.inputTable .inputTableTitleMark {
+	float: left;
+	height: 28px;
+	width: 28px;
+	background-image: url(../images/content/writetitleytips.png);
+}
+.inputTable .inputTableTitleRight {
+	width: 36px;
+	float: right;
+	height: 28px;
+}
+.inputTable .inputTableTitleRight a {
+	background-color: #C0F;
+	width: 36px;
+	height: 28px;
+	display: block;
+	background-image: url(../images/content/hidebtn.png);
+}
+.inputTable .inputTableTitleRight a:hover {
+	width: 36px;
+	height: 28px;
+	display: block;
+	background-image: url(../images/content/showbtn.png);
+}
+.inputTableContent {
+	width: 99%;
+	height: 120px;
+	border: 1px solid #CCC;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.inputTableContent input {
+	background-color: #FFF;
+	width: 200px;
+	border: 1px solid #CCC;
+	height: 22px;
+}
+.inputTable .inputTableContent table td {
+	line-height: 30px;
+
+}
+.inputTable .inputTableContent table {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.inputTable .inputTableContent table tr {
+	margin-top: 10px;
+}
+.inputTable .inputTableContentTitle {
+	text-align: right;
+}
+
+
+.inputTable .fooder {
+	font-size: 12px;
+	text-align: center;
+	color: #999;
+	line-height: 40px;
+}

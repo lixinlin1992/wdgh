@@ -1,0 +1,37 @@
+@charset "UTF-8";
+/**
+ * 
+ * @pang cong
+ * @date    2014-04-11 16:34:19
+ * @version V1.0
+ */
+
+/*样式初始化BeginI（如有重复请删除）*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px "宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;}
+a{color:#2d374b;text-decoration:none}
+a:hover{color:#cd0200;text-decoration:underline}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+table{border-collapse:collapse;border-spacing:0}
+p{word-wrap:break-word}
+ /*样式初始化End（如有重复请删除）*/
+
+/*界面样式Begin*/
+.downLoadTable{ overflow: hidden; width: 960px; margin: 0px auto; font-size: 12px;}
+.downLoadTable .SR_date{ height: 30px; line-height: 30px; margin-top: 10px; }
+.SR_choiceTable tr td .choiceAll{ height: 30px; line-height: 12px;  width: 80px; position: relative; margin-top: 10px;}
+.SR_choiceTable tr td .choiceAll span { position: absolute; top:0px; left:18px;*top:5px}
+.SR_choiceTable tr td .choiceAll input { position: absolute; top:0px;}
+.areaTable ul li{ width: 60px; height: 30px; float:left; margin: 5px; margin-top: 10px; position: relative;}
+.areaTable ul li span{ position: absolute; top:0px; left:18px;*top:5px}
+.areaTable ul li input{ position: absolute; top:0px; }
+.areaTable{ width: 100%; border-bottom: 1px solid #dddddd;}
+.messageTable{width: 100%; margin-top: 20px; border-bottom: 1px solid #dddddd;}
+.messageTable ul li{ width: 200px; height: 30px; float:left; margin: 5px; margin-top: 10px; position: relative;}
+.messageTable ul li span{ position: absolute; top:0px; left:18px;*top:5px}
+.messageTable ul li input{ position: absolute; top:0px; }
+.downLoadBtn{margin-top: 10px;}
+.downLoadBtn input{ width: 100px; height: 30px;}
+/*界面样式End*/

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查询当前用户在流程中所有的任务 -->
+    <query id="Q_PROCESS_USERTASK" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+		select t.proc_name,t.act_name,to_char(t.create_time,'yyyy-mm-dd hh:mm:ss'),t.task_id create_time 
+		from wf_task_inst t  
+		where t.assignee = [_CurrUser.id]            	
+			]]>
+        </stmt>
+    </query>
+    <!-- 查询部署流程定义 -->
+    <query id="Q_PROCESS_DEFLIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			select procdef.name_       as name,
+			       procdef.key_        as key,
+			       procdef.version_    as version,
+			       deploy.deploy_time_ as time
+			from act_re_procdef procdef, act_re_deployment deploy
+			where procdef.deployment_id_ = deploy.id_   	
+			]]>
+        </stmt>
+    </query>
+    <!-- 可选流程定义 -->
+    <query id="Q_WORKFLOW_PROCDEF_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			select id,procname,version from wf_proc_def where type = [type] 	
+			]]>
+        </stmt>
+    </query>
+    <!-- 流程实例列表 -->
+    <query id="Q_WORKFLOW_PROCINST_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			select 
+			wpi.procType,wpi.procTypeVer,spu.name,wpi.status as status_code,
+			wpi.status,wpi.procId,
+			wpi.bussinessKey,wpi.st,wpi.ed 
+			from WF_PROC_INST wpi,sys_p_user spu  
+			where wpi.start_user_id = spu.id
+			<#if procType??>
+			and wpi.procType [like(procType)]
+			</#if>
+			]]>
+        </stmt>
+    </query>
+    <!-- 流程实例拥有的任务列表 -->
+    <query id="Q_WORKFLOW_PROCINST_TASKINST_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			select 
+			t.name_ as ACTNAME,p.name as ASSIGNEE,t.id_ as TASKID
+			from act_ru_task t,sys_p_user p
+			where t.assignee_ =  p.id	
+			]]>
+        </stmt>
+    </query>
+    <!-- 查看环节历史信息 -->
+    <query id="Q_WORKFLOW_ACTIVITY_INFO" type="batchQuery" result="ftl">
+        <stmt><![CDATA[
+           <#-- 环节信息 -->
+			select t.name_ as name,
+			       to_char(t.start_time_, 'yyyy-mm-dd  hh:mm:ss') as st,
+			       to_char(t.end_time_, 'yyyy-mm-dd  hh:mm:ss') as ed
+			  from act_hi_taskinst t where t.id_ = [taskId];
+		   <#--处理人信息 -->		
+		   <#assign assigneeStr="-1">
+		   <@aslist name="assignee"/>
+		   <#list assignee as n>					
+	           <#assign assigneeStr=assigneeStr+","+n>
+		   </#list>
+		   <#-- 处理人名字 -->
+		   select p.name from sys_p_user p where p.id in (${assigneeStr});
+		   <#-- 处理人角色 -->
+		   select distinct ugroup.name from sys_p_user p,sys_p_user_group ugroup,sys_p_user_ug ug 
+		   where p.id = ug.user_id and ug.user_group_code = ugroup.code and p.id in (${assigneeStr});
+		   <#-- 处理人部门 -->
+		   select pd.name from sys_p_user t,sys_p_department pd where t.dept_id = pd.id and t.id in (${assigneeStr});
+        ]]></stmt>
+        <param name="ftl">template/workflow/T_PROCESS_ACTIVITY_HISTORY.ftl</param>
+    </query>
+    
+    
+    
+    <!-- 代办任务测试 -->
+    <query id="Q_WORKFLOW_STEP1" type="batchQuery" result="ftl">
+        <stmt>
+            <![CDATA[
+            insert into wf_test (id,name,price) values (wf_test_seq.nextval,[name],[price]);
+            select wf_test_seq.currval as result from dual;         	
+			]]>
+        </stmt>
+        <param name="trans">true</param>
+        <param name="paging">false</param>
+        <param name="ftl">template/test/WF_TEST_START.ftl</param>
+    </query>
+    <query id="Q_WORKFLOW_STEP2" type="update" result="json">
+        <stmt>
+            <![CDATA[
+            update wf_test set count = [count] where id = [id]          	
+			]]>
+        </stmt>
+    </query>
+    <query id="Q_WORKFLOW_STEP3" type="update" result="json">
+        <stmt>
+            <![CDATA[
+            update wf_test set count = [count] where id = [id]        	
+			]]>
+        </stmt>
+    </query>
+    <query id="Q_WORKFLOW_STEP4" type="update" result="json">
+        <stmt>
+            <![CDATA[
+            update wf_test set count = [count] where id = [id]          	
+			]]>
+        </stmt>
+    </query>
+    <query id="Q_WORKFLOW_STEP2_EDIT" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+            select name,price from wf_test where id = [id]          	
+			]]>
+        </stmt>
+    </query>
+</query-config>

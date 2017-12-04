@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <query id="Q_USER_MANAGE_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+             select distinct t.name,t.mobile_phone,t.email,t.account,
+                (select wmsys.wm_concat(to_char(u.user_group_code))s from sys_p_user_ug u where u.user_id=[var(RU.CUR_USER.id)]) as groupName
+              from sys_p_user t where id=[var(RU.CUR_USER.id)]
+             ]]>
+        </stmt>
+    </query>
+</query-config>

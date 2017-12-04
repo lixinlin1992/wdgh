@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+
+    <!-- 部署流程定义 -->
+    <ds name="DS_DEPLOYED_PROCESS" type="url">
+        <url><![CDATA[/_bpmAction.action?method=deployedProcess]]></url>
+    </ds>
+
+    <!-- 获取流程资源文件 BpmAction.getProcessResource -->
+    <ds name="DS_GET_PROCESS_RESOURCE" type="url" func="">
+        <url>/_bpmAction.action?method=getProcessResource</url>
+        <file></file>
+    </ds>
+    <!-- 获取流程当前节点资源 BpmAction.getCurActivityTraceResource -->
+    <ds name="DS_GET_CUR_ACTIVITY_TRACE_RESOURCE" type="url" func="">
+        <url>/_bpmAction.action?method=getCurActivityTraceResource</url>
+        <file></file>
+    </ds>
+    <!-- 删除一个已发布流程 BpmAction.unDeployProcess -->
+    <ds name="DS_UNDEPLOY_PROCESS" type="url" func="">
+        <url>/_bpmAction.action?method=unDeployProcess</url>
+        <file></file>
+    </ds>
+
+    <!-- 流程发起 BpmAction.startProcess -->
+    <ds name="DS_START_PROCESS" type="url" func="">
+        <url>/_bpmAction.action?method=startProcess</url>
+        <file></file>
+    </ds>
+
+    <!-- 删除流程实例 BpmAction.delProcInst -->
+    <ds name="DS_DEL_PROCINST" type="url" func="">
+        <url>/_bpmAction.action?method=delProcInst</url>
+        <file></file>
+    </ds>
+
+    <!-- 跳转到任务处理页面 BpmAction.forwardToTaskHandlePage -->
+    <ds name="DS_FORWARD_TO_TASK_HANDLE_PAGE" type="url" func="">
+        <url>/_bpmAction.action?method=forwardToTaskHandlePage</url>
+        <file></file>
+    </ds>
+
+    <!--获取当前任务实例数据 BpmAction.getTaskBeanData -->
+    <ds name="DS_GET_TASK_BEAN_DATA" type="url" func="">
+        <url>/_bpmAction.action?method=getTaskBeanData</url>
+        <file></file>
+    </ds>
+
+    <!--获取任务实例数据以及后续的相关信息 BpmAction.getTaskBeanDataForDriven -->
+    <ds name="DS_GET_TASK_BEAN_DATA_FOR_DRIVEN" type="url" func="">
+        <url>/_bpmAction.action?method=getTaskBeanDataForDriven</url>
+        <file></file>
+    </ds>
+
+    <!-- 获取流程启动需要的驱动信息 -->
+    <ds name="DS_GET_DRIVEN_INFO_FOR_LAUNCH" type="url">
+        <url>/_bpmAction.action?method=getDrivenInfoForLaunch</url>
+    </ds>
+
+    <!-- 根据流程定义Key获取流程定义信息 -->
+    <ds name="DS_GET_PROCDEF_BY_KEY" code="DS_GET_DRIVEN_INFO_FOR_LAUNCH" type="url">
+        <url>/_bpmAction.action?method=getProcDefByKey</url>
+    </ds>
+
+    <ds name="DS_GET_BPM_ASSIGNEE_SELECTOR_VIEW_LIST" type="url" func="">
+        <url>/_bpmAction.action?method=getAssigneeSelectorViewList</url>
+        <file></file>
+    </ds>
+
+    <!--保存任务数据 BpmAction.saveTaskData -->
+    <ds name="DS_SAVE_TASK_DATA" type="url" func="">
+        <url>/_bpmAction.action?method=saveTaskData</url>
+        <file></file>
+    </ds>
+    <!--保存任务数据 BpmAction.completeTask -->
+    <ds name="DS_COPMPLETE_TASK" type="url" func="">
+        <url>/_bpmAction.action?method=completeTask</url>
+        <file></file>
+    </ds>
+
+    <!--流程回退 ActBackAction.actFallback -->
+    <ds name="DS_ACTIVITY_FALLBACK" type="url" func="">
+        <url>/_activityBackAction.action?method=actFallback</url>
+        <file></file>
+    </ds>
+</datasources>

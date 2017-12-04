@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_LOAD_TRADE_APPLY_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+            <#if load_type=='add'>
+            select nvl(bti.account,spu.account) account,nvl(bti.name,spu.name) name,bti.sex,
+            to_char(birthday,'yyyy-mm-dd') birthday,political_status,nation,bti.email,card_type,card_no,
+            qualifications,degree,post,duties,memo,bti.dept_id,bti.tele_phone
+            from sys_p_user spu
+            left join bi_trade_info bti on spu.account=bti.account
+            where spu.id=${_CurrUser.id}
+            </#if>
+            <#if load_type=='view'>
+            select account,name,sex,birthday,political_status,nation,bti.email,card_type,card_no,
+            qualifications,degree,post,duties,memo,dept_id,tele_phone
+            from bi_trade_apply bti
+            where apply_id=[apply_id]
+            </#if>
+		]]></stmt>
+    </query>
+</query-config>

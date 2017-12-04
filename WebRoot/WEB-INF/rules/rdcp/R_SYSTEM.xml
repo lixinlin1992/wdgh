@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="SYS_BI_SYSTEM" name="业务系统" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>系统名称</name>
+            <constraint>100</constraint>
+            <preset></preset>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入系统名称</null-message>
+            <invalid-message>请输入正确的系统名称，最长50个汉字或者100个英文字母</invalid-message>
+        </field>
+        <field id="code" validate="true" null="false" type="int">
+            <name>系统编码</name>
+            <constraint>40</constraint>
+            <pattern><![CDATA[([a-z]|[A-Z]|[0-9]){1,40}]]></pattern>
+            <null-message>请输入系统编码</null-message>
+            <invalid-message>请输入正确的系统编码，只能使用英文字母或数字，最长40个字符</invalid-message>
+        </field>
+        <field id="master_name" validate="true" null="false" type="int">
+            <name>系统负责人</name>
+            <null-message>请选择系统负责人</null-message>
+        </field>
+    </form>
+
+    <!-- 系统模块数据校验 -->
+    <form id="R_SYS_P_MODULE" name="模块" validate="true">
+        <field id="sys_code" validate="true" null="false" type="string">
+            <name>上级模块</name>
+            <null-message>请选择上级模块</null-message>
+        </field>
+        <field id="name" validate="true" null="false" type="string">
+            <name>模块名称</name>
+            <constraint>50</constraint>
+            <null-message>请输入模块名称</null-message>
+            <invalid-message>请输入正确的模块名称，最长25个汉字或者50个英文字母</invalid-message>
+        </field>
+    </form>
+</rules>

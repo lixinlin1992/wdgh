@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+    <!-- 编码类型下拉框，只查询有效的编码 -->
+    <query id="Q_SYS_CODE_TYPE_SELECT" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+                SELECT NAME,CONCAT(CODE_TABLE,CONCAT('.',CODE_FIELD)) AS CODE
+                FROM SYS_PA_CODE_TYPE
+                WHERE 1=1
+                <#if edit_flag??>AND EDIT_FLAG=[edit_flag int]</#if>
+			    AND SYS_CODE=[sys_code]
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <param name="v-col">code</param>
+    </query>
+
+    <!-- 编码参数列表，只查询有效的编码 -->
+    <query id="Q_SYS_CODE_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			SELECT c.*,t.CODE_TABLE_NAME,t.CODE_FIELD_NAME,t.NAME AS TYPE_NAME,c.ID||','||t.EDIT_FLAG||','||c.STATUS_ID AS OP_COL
+			FROM SYS_PA_CODE c
+			LEFT JOIN SYS_PA_CODE_TYPE t ON t.CODE_TABLE=c.CODE_TABLE AND t.CODE_FIELD=c.CODE_FIELD
+			WHERE 1=1
+			<#if status_id??>AND c.STATUS_ID=[status_id int]</#if>
+			<#if code_name??>AND c.NAME [like(code_name)]</#if>
+			<#if code_type_name??>AND t.NAME [like(code_type_name)]</#if>
+			<#if code_type_id??>AND CONCAT(c.CODE_TABLE,CONCAT('.',c.CODE_FIELD))=[code_type_id]</#if>
+			<#if sys_code??>AND c.SYS_CODE=[sys_code]</#if>
+			]]>
+        </stmt>
+        <param name="id">ID</param>
+        <param name="list-cols">CODE_NUM,NAME,TYPE_NAME,ORDER_ID,CODE_TABLE_NAME,CODE_FIELD_NAME,NOTE,OP_COL</param>
+    </query>
+
+    <!-- 添加编码参数 -->
+    <query id="Q_SYS_CODE_ADD" type="auto-update" result="">
+        <param name="insert-tables">SYS_PA_CODE c</param>
+        <param name="col-vals">c.ID=SYS_PA_CODE_SEQ.NEXTVAL,c.STATUS_ID=1</param>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT COUNT(1)
+                FROM SYS_PA_CODE
+                WHERE CODE_TABLE=[code_table]
+                AND CODE_FIELD=[code_field]
+                AND (NAME=[name] OR CODE_NUM=[code_num])
+                AND SYS_CODE=[sys_code]
+                AND STATUS_ID=1
+                ]]>
+            </param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[该编码类型已经存在编码名称为[${name}]，或者存在编码为[${code_num}],请检查后进行操作！]]></param>
+        </processor>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">1</param>
+            <param name="msg">添加编码，name为[${name}]，note为[${note!}]</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 获取编码信息 -->
+    <query id="Q_SYS_CODE_INFO" type="form_data" result="ftl">
+        <stmt><![CDATA[
+            SELECT c.*,t.CODE_TABLE_NAME,t.CODE_FIELD_NAME,t.NAME AS TYPE_NAME
+            FROM SYS_PA_CODE c
+            LEFT JOIN SYS_PA_CODE_TYPE t ON t.CODE_TABLE=c.CODE_TABLE AND t.CODE_FIELD=c.CODE_FIELD
+            WHERE c.ID=[id long]
+		]]></stmt>
+        <param name="paging">false</param>
+        <param name="_ftl">template/service/basedata/T_FRAMEWORK_SERVICE_BASEDATA.ftl</param>
+    </query>
+
+    <!-- 修改编码参数，只修改 名称、备注、排序 -->
+    <query id="Q_SYS_CODE_UPDATE" type="auto-update" result="">
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT COUNT(1)
+                FROM SYS_PA_CODE
+                WHERE CODE_TABLE=[code_table]
+                AND CODE_FIELD=[code_field]
+                AND (NAME=[name] OR CODE_NUM=[code_num])
+                AND STATUS_ID=1
+                AND ID<>[id long]
+                ]]>
+            </param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[该编码类型已经存在编码名称为[${name}]，或者存在编码为[${code_num}],请检查后进行操作！]]></param>
+        </processor>
+        <param name="update-tables">SYS_PA_CODE c</param>
+        <param name="update-cols">c.NAME,c.NOTE,c.ORDER_ID</param>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改编码，id 为 [${id}]，name为[${name}]，note为[${note!}]</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 删除编码，只是将状态设置为无效 -->
+    <query id="Q_SYS_CODE_DELETE" type="auto-update" result="">
+        <param name="update-tables">SYS_PA_CODE c</param>
+        <param name="update-cols">c.STATUS_ID</param>
+        <param name="col-vals">c.STATUS_ID=0</param>
+    </query>
+
+    <!--恢复编码，将状态设置为有效，在恢复之前，需要检查是否已经存在相同名称或者编码的参数-->
+    <query id="Q_SYS_CODE_RESTORE" type="auto-update" result="">
+        <!--先查询出编码信息-->
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">code</param>
+            <param name="sql">
+                <![CDATA[
+                        SELECT NAME,CODE_NUM FROM SYS_PA_CODE WHERE ID=[id long]
+                        ]]>
+            </param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1)
+                    FROM SYS_PA_CODE
+                    WHERE CODE_TABLE=[code_table]
+                    AND CODE_FIELD=[code_field]
+                    AND (NAME=[code.name] OR CODE_NUM=[code.code_num int])
+                    AND STATUS_ID=1
+                    AND ID<>[id long]
+                        ]]>
+            </param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[不能恢复编码，名称 [${code.name}] 或者 编码 [${code.code_num}] 已被占用]]></param>
+        </processor>
+        <param name="update-tables">SYS_PA_CODE c</param>
+        <param name="update-cols">c.STATUS_ID</param>
+        <param name="col-vals">c.STATUS_ID=1</param>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 基础编码通用查询配置 -->
+    <query id="Q_SYS_CODE_LABEL_VALUE" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+			select name,code_num from sys_pa_code 
+			where 1=1
+			<#if codetypeid??>
+			and code_type_id=[codetypeid]
+			</#if>
+			<#if exceptcodeid??>
+			and id<>[exceptcodeid]
+			</#if>
+			<#if exceptcode??>
+			and code<>[exceptcode]
+			</#if>
+			
+			<#if code_table??>
+			and CODE_TABLE = [code_table]
+			</#if>
+			<#if code_field??>
+			and CODE_FIELD = [code_field]
+			</#if>
+			<#if sys_code??>
+			AND SYS_CODE=[sys_code]
+			</#if>
+			order by order_id asc
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <param name="v-col">code_num</param>
+    </query>
+</query-config>	

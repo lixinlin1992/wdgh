@@ -1,0 +1,33 @@
+<script src="ESale/Order/scripts/orderForProcess.js"></script>
+
+<!--主体内容-->
+<div>
+	<!--商品选购的手机列表begin-->
+	<div class="commodytyList">
+		<!--1条商品信息begin-->
+		<div class="com_one_list" ng-repeat="order in orders">
+			<a href="javascript://" ng-click="hrefJump('orderDetail',order.ID,order.BUSINESS_ID)" style="text-decoration: none;">
+				<div class="list_left"><img src="Style/images/goods/list.png" width="70" height="70" /></div>
+				<div class="list_right">
+					<p class="list_title">编号:{{order.CODE}}</p>
+					<p ng-if="order.GOODS_TITLE!=''" class="list_state red" style="margin-right: 0px;">商品:{{order.GOODS_TITLE}}<span ng-if="order.GOODS_ADD_TITLE_VAL!=''">({{order.GOODS_ADD_TITLE_VAL}})</span></p>
+					<p ng-if="order.GOODS_TITLE==''" class="list_state red" style="margin-right: 0px;">商品:{{order.BUSINESS_NAME}}</p>
+					<p class="list_description">{{order.CREATE_TIME}}</p>
+				</div>
+			</a>
+			<div class="clear"></div>
+			<div class="list_btn">
+				<p id="status_{{$index}}" ng-bind="orderStatus({{order.STATUS}},{{$index}})"></p>
+			</div>
+		</div>
+		<!--1条商品信息end-->
+	</div>
+	<!--商品选购的手机列表end-->
+
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a class="more_btn" href="javascript://" ng-click="addList()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+</div>
+<!--主体内容End-->

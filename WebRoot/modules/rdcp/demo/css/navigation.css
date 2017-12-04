@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+
+/*-=-=-=-=-=-=SR_navBox2的cssStart*-=-=-=-=-=-=*/
+.SR_navBox{
+	width: 100%;
+	height: 36px;
+	background:#344348;
+	overflow: hidden;
+	}
+
+.SR_navBox .SR_nav {
+	float: left;
+	overflow: hidden;
+	width: 900px;
+}
+
+.SR_navBox .SR_nav ul{
+	width:100%;
+	overflow:hidden;
+	}
+.SR_navBox .SR_nav li{
+	float: left;
+	overflow: hidden;
+	line-height: 36px;
+	height: 36px;
+	display: block;
+	}
+.SR_navBox .SR_nav ul li a {
+	height: 36px;
+	font-size: 12px;
+	font-weight: 700;
+	display: block;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+	padding-right: 15px;
+	padding-left: 15px;
+	overflow: hidden;
+	float: left;
+}
+.SR_navBox .SR_nav ul li a:hover {
+	color: #fff;
+	height: 36px;
+	display: block;
+	text-align: center;
+	background-color: #243135;
+	float: left;
+}
+.SR_navBox .SR_navRight {
+	display: block;
+	float: right;
+	overflow: hidden;
+}
+
+
+.SR_navBox .SR_navRight .navRightBtn {
+	display: block;
+	height: 36px;
+	width: 36px;
+	background-image: url(../images/navigation/icon_right_menunormal.png);
+	background-repeat: no-repeat;
+	float: right;
+}
+
+
+.SR_navBox .SR_navRight .navRightBtn:hover {
+	display: block;
+	height: 36px;
+	width: 36px;
+	background-image: url(../images/navigation/icon_right_menupressed.png);
+	background-repeat: no-repeat;
+}
+
+

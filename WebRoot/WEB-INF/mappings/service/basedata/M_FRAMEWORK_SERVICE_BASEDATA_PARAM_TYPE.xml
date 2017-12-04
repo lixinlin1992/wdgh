@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+    <!-- 参数类型展示表格 -->
+    <ds name="DS_SERVICE_PARAM_TYPE_GRID" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA_PARAM_TYPE.xml&_id=Q_SERVICE_PARAM_TYPE_GRID]]></url>
+    </ds>
+    
+    <!-- 校验规则的添加/修改 -->
+    <ds name="DS_SERVICE_PARAM_TYPE_EDIT" type="url">
+       <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA_PARAM_TYPE.xml&_id=Q_SERVICE_PARAM_TYPE_EDIT]]></url>
+    </ds>
+    
+    <!-- 初始化校验规则修改弹出框 -->
+    <ds name="DS_SERVICE_PARAM_TYPE_INIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA_PARAM_TYPE.xml&_id=Q_SERVICE_PARAM_TYPE_INIT]]></url>
+    </ds>
+
+    <!-- 删除校验规则 -->
+    <ds name="DS_SERVICE_PARAM_TYPE_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_BASEDATA_PARAM_TYPE.xml&_id=Q_SERVICE_PARAM_TYPE_DELETE]]></url>
+    </ds>
+</datasources>

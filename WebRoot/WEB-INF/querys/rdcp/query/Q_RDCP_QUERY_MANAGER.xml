@@ -1,0 +1,924 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!-- 查询管理显示列表 -->
+    <query id="Q_QUERY_MANAGER_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                select
+                    cq.id,
+                    cq.name as queryName,
+                    cq.code,
+                    cq.sys_code,
+                    m.NAME as moduleName,
+                    cq.edit_status,
+                    pu.name as editUser,
+                    cpu.name as createUser,
+                    cq.create_date,
+                    lpu.name as lastUser,
+                    cq.last_edit_date,
+                    cq.edit_user,
+                    cq.note
+                from
+                    RDC_CFG_QUERY cq,
+                    SYS_P_MODULE m,
+                    SYS_P_USER pu,
+                    SYS_P_USER cpu,
+                    SYS_P_USER lpu
+
+                where 1=1
+                    and cq.MODULE_ID = m.ID(+)
+                    and cq.EDIT_USER = pu.ID(+)
+                    and cq.CREATE_USER = cpu.ID(+)
+                    and cq.LAST_EDIT_USER = lpu.ID(+)
+                    <#if sys_code??>
+                        AND cq.SYS_CODE=[sys_code]
+                    </#if>
+                     <#if moduleId??>
+                       AND cq.MODULE_ID in(SELECT ID FROM sys_p_module connect by prior id=parent_id start with ID = [moduleId])
+                     </#if>
+                    <#if queryName??>
+                        and cq.NAME [like(queryName)]
+                    </#if>
+                    <#if code??>
+                        and cq.CODE [like(code)]
+                    </#if>
+			        AND [RdcpSecurity(cq.sys_code)]
+            ]]>
+        </stmt>
+        <param name="id">ID</param>
+        <param name="list-cols">id,queryName,code,sys_code,moduleName,createUser,create_date,lastUser,last_edit_date,editUser,edit_status,edit_user</param>
+    </query>
+
+    <!-- 查询模块功能树 -->
+    <query id="Q_QUERY_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            select * from(
+                <#if !(type??) >
+                    SELECT
+                        code AS ID,
+                        code AS SYS,
+                        NAME AS NAME,
+                        0 AS TYPE,
+                        to_char(0) AS parent_id,
+                        'true' AS isParent,
+                        code AS code,
+                        NAME AS SYS_NAME
+                    FROM sys_bi_system
+                    WHERE 1=1
+			        AND [RdcpSecurity(code)] <#if sys_code_??>and code = [sys_code_]</#if>
+                    <#else>
+                        SELECT
+                            to_char(m.ID) AS ID,
+                            m.sys_code AS SYS,
+                            m.NAME AS NAME,
+                            1 AS TYPE,
+                            to_char(m.sys_code) AS parent_id,
+                            'true' AS isParent,
+                            m.sys_code AS code,
+                            s.NAME AS SYS_NAME
+                        FROM sys_p_module m
+                        LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+                        where
+                            <#if (type=="0")>
+                                m.parent_id = 0
+                                and m.sys_code = [id]
+                                <#else>
+                                    m.parent_id = [id]
+                            </#if>
+			                AND [RdcpSecurity(m.sys_code)] <#if sys_code_??>and m.sys_code = [sys_code_]</#if>
+                        UNION
+                        SELECT
+                            to_char(q.ID) AS ID,
+                            q.sys_code AS SYS,
+                            q.NAME AS NAME,
+                            2 AS TYPE,
+                            to_char(q.MODULE_ID) AS parent_id,
+                            'false' AS isParent,
+                            q.code AS code,
+                            s.NAME AS SYS_NAME
+                        FROM RDC_CFG_QUERY q
+                        LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=q.SYS_CODE
+                        where
+                            <#if (type=="0")>
+                                q.MODULE_ID = 0
+                                <#else>
+                                 q.MODULE_ID = [id]
+                            </#if>
+			                AND [RdcpSecurity(q.sys_code)] <#if sys_code_??>and q.sys_code = [sys_code_]</#if>
+                </#if>
+                ) order by isParent desc,ID asc
+            ]]>
+        </stmt>
+        <!-- 树节点的相关配置
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">${id!"0"}</param>    -->
+
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/query/T_QUERY_TREE.ftl</param>
+    </query>
+
+    <!--查询处理器列表-->
+    <query id="Q_CFG_QUERY_PROCESSOR_LIST" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select
+                    cqp.ID,
+                    cqp.PROCESSOR_ID,
+                    qp.NAME,
+                    cqp.PROCESSOR_CLASS,
+                    cqp.TYPE,
+                    cqp.SEQ_NUM,
+                    cqp.BREAK_FLAG,
+                    cqp.NOTE
+                from
+                    RDC_CFG_QRY_PROCESSOR cqp,
+                    RDC_QRY_PROCESSOR qp,
+                    RDC_CFG_QUERY q
+                where
+                    1=1
+                    and cqp.PROCESSOR_ID = qp.ID(+)
+                    <#if queryId??>
+                        and cqp.QUERY_ID = [queryId int]
+                    </#if>
+                    AND cqp.QUERY_ID=q.ID(+)
+			        AND [RdcpSecurity(q.SYS_CODE)]
+            ]]>
+        </stmt>
+        <param name="list-cols">ID,PROCESSOR_ID,NAME,PROCESSOR_CLASS,TYPE,SEQ_NUM,BREAK_FLAG,NOTE</param>
+        <param name="paging">true</param>
+    </query>
+
+    <!--查询执行器列表-->
+    <query id="Q_QUERY_EXECUTOR_LIST" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select
+                    qe.ID,
+                    qe.NAME,
+                    qe.CODE,
+                    qe.CLASS,
+                    qe.RESULTS,
+                    qe.NOTE
+                from
+                    RDC_QRY_EXECUTOR qe
+                where
+                    1=1
+                    <#if name??>
+                        and qe.NAME [like(name)]
+                    </#if>
+                    <#if code??>
+                        and qe.CODE [like(code)]
+                    </#if>
+            ]]>
+        </stmt>
+        <param name="list-cols">ID,NAME,CODE,CLASS,RESULTS,NOTE</param>
+        <param name="paging">true</param>
+    </query>
+
+    <!--添加查询配置-->
+    <query id="Q_ADD_CFG_QUERY" type="auto-update">
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="0" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">select count(1) from RDC_CFG_QUERY where code=[code] and SYS_CODE =[sys_code]</param>
+            <param name="exp-count">0</param>
+            <param name="break-message">名称为[${code}]已经存在，请使用其它名称</param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">_queryId</param>
+            <param name="sql">
+                <![CDATA[
+                    select RDC_CFG_QUERY_SEQ.nextval from dual
+                ]]>
+            </param>
+        </processor>
+        <processor name="query-ref" type="after" seq="1" break="true">
+            <param name="ref-id">Q_ADD_CFG_QUERY_PARAMS</param>
+        </processor>
+
+        <processor name="query-ref" type="after" seq="2" break="true">
+            <param name="ref-id">Q_ADD_CFG_QUERY_STMT</param>
+        </processor>
+
+        <processor name="version-lock" type="after" seq="3" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${_queryId}]]></param>
+            <param name="table-name">RDC_CFG_QUERY</param>
+            <param name="object-name"><![CDATA[${name}]]></param>
+            <param name="sys-code"><![CDATA[${sys_code}]]></param>
+            <param name="type">create</param>
+        </processor>
+
+        <param name="insert-tables">RDC_CFG_QUERY rcq</param>
+        <param name="col-vals">
+            rcq.ID=[_queryId],rcq.CREATE_USER=[_CurrUser.id long],rcq.CREATE_DATE=SYSDATE,rcq.LAST_EDIT_USER=[_CurrUser.id long],rcq.LAST_EDIT_DATE=[_createTime date],rcq.EDIT_STATUS=0,cqp.ID=RDC_CFG_QUERY_PARAM_SEQ.nextval,cqp.QUERY_ID=[_queryId],cqp.NAME=[paramName],cqp.CODE=[paramCode],cqp.note=[paramNote]
+        </param>
+        <param name="trans">true</param>
+
+    </query>
+
+    <!--查询配置参数-->
+    <query id="Q_ADD_CFG_QUERY_PARAMS" type="batch" result="json">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[<#if sys_code?? && ""!=sys_code?trim!>SELECT [sys_code] FROM DUAL<#else>SELECT SYS_CODE FROM RDC_CFG_QUERY WHERE ID=[_queryId long]</#if>]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <stmt>
+            <![CDATA[
+                <@aslist name="paramName"/>
+                <@aslist name="paramCode"/>
+                <@aslist name="value"/>
+                <@aslist name="templateFlag"/>
+                <#assign i=0 />
+                <#list paramName as name>
+                <@aslist name="paramNote"/>
+                    insert into
+                        RDC_CFG_QUERY_PARAM
+                    (
+                        ID,
+                        QUERY_ID,
+                        NAME,
+                        CODE,
+                        VALUE,
+                        NOTE,
+                        TEMPLATE_FLAG
+                    )values
+                    (
+                        RDC_CFG_QUERY_PARAM_SEQ.nextval,
+                        [_queryId],
+                        [array(paramName,${i!},string)],
+                        [array(paramCode,${i!},string)],
+                        [array(value,${i!},string)],
+                        <#if paramNote[0]??>      <#--非必须写填写表单，当paramNote不为数组时候直接用改值-->
+                            [array(paramNote,${i!},string)],
+                            <#else>
+                            [paramNote],
+                        </#if>
+                        <#if templateFlag[i]??>
+                            ${templateFlag[i]}
+                            <#else>
+                            0
+                        </#if>
+                    );
+                    <#assign i=i+1 />
+                </#list>
+            ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+
+    <!--添加查询配置语句-->
+    <query id="Q_ADD_CFG_QUERY_STMT" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                <@aslist name="sql_stmt_item"/>
+                <@aslist name="query_model"/>
+
+                <#assign i=0 />
+                <#list sql_stmt_item as sql>
+                    insert into
+                        RDC_CFG_QRY_STMT
+                    (
+                        ID,
+                        QUERY_ID,
+                        STMT,
+                        DESIGN_DATA,
+                        ORDER_NUM
+                    )values
+                    (
+                        RDC_CFG_QRY_STMT_SEQ.nextval,
+                        [_queryId],
+                        [array(sql_stmt_item,${i!},string)],
+                        <#if query_model[0]??>                 <#--非必须写填写表单，当query_model不为数组时候直接用改值-->
+                            [array(query_model,${i!},string)],
+                            <#else>
+                            [query_model],
+                        </#if>
+                        '${i!}'
+                    );
+                    <#assign i=i+1 />
+                </#list>
+            ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+
+    <!--编辑查询配置-->
+    <query id="Q_EDITOR_CFG_QUERY" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            select
+                cq.name queryName,
+                cq.code queryCode,
+                bs.NAME sysName,
+                cq.SYS_CODE sysCode,
+                pm.NAME moduleName,
+                cq.MODULE_ID moduleId,
+                (case
+                    when cq.EXECUTOR_ID = -1 then '自定义执行器'
+                    else to_char(qe.name)
+                end) exeName,
+                cq.EXECUTOR_ID exeId,
+                cq.EXECUTOR_CLASS,
+                cq.EXECUTOR_RESULT,
+                cq.CUSTOM_RESULT,
+                cq.SQL_STMT,
+                cq.NOTE
+
+            from
+                RDC_CFG_QUERY cq,
+                SYS_BI_SYSTEM bs,
+                SYS_P_MODULE pm,
+                RDC_QRY_EXECUTOR qe
+            where
+                cq.ID=[id]
+                and bs.CODE(+) = cq.SYS_CODE
+                and pm.ID(+) = cq.MODULE_ID
+                and qe.ID(+) = cq.EXECUTOR_ID
+			    AND [RdcpSecurity(cq.SYS_CODE)]
+             ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/rdcp/query/T_CFG_QUERY_EDIT.ftl</param>
+
+        <!--
+        <processor name="query-ref" type="after" seq="1" break="true">
+            <param name="ref-id">Q_CFG_QUERY_UPDATE_STATUS</param>
+        </processor> -->
+        <param name="trans">true</param>
+    </query>
+
+    <!--更新查询配置编辑状态-->
+    <query id="Q_CFG_QUERY_UPDATE_STATUS" type="update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM RDC_CFG_QUERY WHERE ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <stmt>
+            update
+                RDC_CFG_QUERY
+            set
+                edit_status = [editStatus]
+            where
+                id = [id]
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+
+    <!--查询配置参数列表-->
+    <query id="Q_CFG_QUERY_PARAM_LIST" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select
+                    cqp.ID,
+                    cqp.NAME,
+                    cqp.CODE,
+                    cqp.TYPE,
+                    cqp.VALUE,
+                    cqp.NOTE
+                from
+                    RDC_CFG_QUERY_PARAM cqp,
+                    RDC_CFG_QUERY q
+                where
+                    cqp.QUERY_ID = [queryId]
+                    AND q.ID(+)=cqp.QUERY_ID
+			        AND [RdcpSecurity(q.SYS_CODE)]
+            ]]>
+        </stmt>
+        <param name="list-cols">ID,NAME,CODE,VALUE,NOTE</param>
+    </query>
+
+    <!--删除查询配置参数-->
+    <query id="Q_CFG_QUERY_PARAM_DEL" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,RDC_CFG_QUERY_PARAM qp WHERE q.ID(+)=qp.QUERY_ID AND qp.ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">delete</param>
+        </processor>
+        <param name="delete-tables">RDC_CFG_QUERY_PARAM cqp</param>
+        <param name="col-vals">cqp.id=[id]</param>
+    </query>
+
+    <!--装载查询配置参数-->
+    <query id="Q_CFG_QUERY_PARAM_EDITOR" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    cqp.QUERY_ID,
+                    cqp.NAME,
+                    cqp.CODE,
+                    cqp.TYPE,
+                    cqp.VALUE,
+                    cqp.TEMPLATE_FLAG,
+                    cqp.NOTE
+                from
+                    RDC_CFG_QUERY_PARAM cqp,
+                    RDC_CFG_QUERY q
+                where
+                    cqp.ID = [id]
+                    AND q.ID(+)=cqp.QUERY_ID
+			        AND [RdcpSecurity(q.SYS_CODE)]
+            ]]>
+        </stmt>
+        <param name="list-cols">QUERY_ID,NAME,CODE,TYPE,VALUE,TEMPLATE_FLAG,NOTE</param>
+        <param name="ftl">template/rdcp/query/T_CFG_QUERY_PARAM_EDIT.ftl</param>
+    </query>
+
+    <!--更新查询配置参数-->
+    <query id="Q_CFG_QUERY_PARAM_UPDATE" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,RDC_CFG_QUERY_PARAM qp WHERE q.ID(+)=qp.QUERY_ID AND qp.ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="update-tables">RDC_CFG_QUERY_PARAM cqp</param>
+        <param name="col-vals"><![CDATA[cqp.NAME=[paramName],cqp.CODE=[paramCode],cqp.NOTE=[paramNote],cqp.TEMPLATE_FLAG=<#if templateFlag??>1<#else>0</#if>]]></param>
+        <param name="ex-cols">cqp.QUERY_ID,cqp.TYPE</param>
+        <param name="trans">true</param>
+    </query>
+
+    <!--更新查询配置-->
+    <query id="Q_CFG_QUERY_UPDATE" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM RDC_CFG_QUERY WHERE ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="update-tables">RDC_CFG_QUERY cq</param>
+        <param name="col-vals">cq.LAST_EDIT_USER=[_CurrUser.id long],cq.LAST_EDIT_DATE=sysdate</param>
+        <param name="ex-cols">cq.CREATE_USER,cq.CREATE_DATE,cq.EDIT_STATUS,cq.EDIT_USER</param>
+
+        <processor name="version-lock" type="after" seq="1" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${id}]]></param>
+            <param name="table-name">RDC_CFG_QUERY</param>
+            <param name="object-name"><![CDATA[${name}]]></param>
+            <param name="sys-code"><![CDATA[${sys_code}]]></param>
+            <param name="type">update</param>
+        </processor>
+
+        <param name="trans">true</param>
+    </query>
+
+    <!--处理器列表-->
+    <query id="Q_QUERY_PROCESSOR_LIST" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select
+                    qp.ID,
+                    qp.NAME,
+                    qp.CODE,
+                    qp.CLASS,
+                    qp.NOTE
+                from
+                    RDC_QRY_PROCESSOR qp
+                where
+                    1=1
+                    <#if name??>
+                        and qp.NAME [like(name)]
+                    </#if>
+                    <#if code??>
+                        and qp.CODE [like(code)]
+                    </#if>
+            ]]>
+        </stmt>
+        <param name="list-cols">ID,NAME,CODE,CLASS,NOTE</param>
+        <param name="paging">true</param>
+    </query>
+
+    <!--保存处理器配置-->
+    <query id="Q_CFG_QUERY_PROCESSOR_ADD" type="auto-update" result="template">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q WHERE q.ID=[query_id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <processor name="set-value" type="before" seq="2" break="true">
+            <param name="var">id</param>
+            <param name="sql"><![CDATA[select RDC_QRY_PROCESSOR_SEQ.nextval from dual]]></param>
+        </processor>
+        <param name="insert-tables">RDC_CFG_QRY_PROCESSOR cqp</param>
+        <param name="col-vals"><![CDATA[cqp.id=${id}]]></param>
+        <param name="template"><![CDATA[${id}]]></param>
+
+
+        <processor name="version-lock" type="before" seq="1" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${query_id}]]></param>
+            <param name="table-name">RDC_CFG_QUERY</param>
+            <param name="object-name"><![CDATA[${processor_name}]]></param>
+            <param name="sys-code"><![CDATA[${sys_code}]]></param>
+            <param name="type">update</param>
+        </processor>
+    </query>
+
+    <!--装载处理器配置表单-->
+    <query id="Q_LOAD_CFG_QUERY_PROCESSOR" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    cqp.ID,
+                    cqp.QUERY_ID,
+                    cqp.PROCESSOR_ID,
+                    (case
+                        when cqp.PROCESSOR_ID = -1 then '自定义处理器'
+                        else to_char(qp.NAME)
+                    end) NAME,
+                    cqp.PROCESSOR_CLASS,
+                    cqp.TYPE,
+                    cqp.SEQ_NUM,
+                    cqp.BREAK_FLAG,
+                    cqp.NOTE
+                from
+                    RDC_CFG_QRY_PROCESSOR cqp,
+                    RDC_QRY_PROCESSOR qp,
+                    RDC_CFG_QUERY q
+                where
+                    1=1
+                    and cqp.ID = [id]
+                    and cqp.PROCESSOR_ID = qp.ID(+)
+                    AND q.ID(+)=cqp.QUERY_ID
+			        AND [RdcpSecurity(q.SYS_CODE)]
+            ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/rdcp/query/T_CFG_QUERY_PROCESSOR_EDIT.ftl</param>
+    </query>
+
+    <!--更新处理器配置-->
+    <query id="Q_CFG_QUERY_PROCESSOR_UPDATE" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,RDC_CFG_QRY_PROCESSOR qp WHERE q.ID(+)=qp.QUERY_ID AND qp.ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="update-tables">RDC_CFG_QRY_PROCESSOR cqp</param>
+    </query>
+
+    <!--删除处理器配置-->
+    <query id="Q_CFG_QUERY_PROCESSOR_DEL" type="auto-update" result="">
+        <param name="delete-tables">RDC_CFG_QRY_PROCESSOR cqp,RDC_CFG_PROCESSOR_PARAM cpp</param>
+        <param name="col-vals">cpp.PROCESSOR_ID=[id double]</param>
+        <param name="key-cols">cpp.PROCESSOR_ID</param>
+        <param name="trans">true</param>
+    </query>
+
+    <!--删除查询配置-->
+    <query id="Q_CFG_QUERY_DEL" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM RDC_CFG_QUERY WHERE ID=[id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">delete</param>
+        </processor>
+        <!--判读是否有删除操作权限-->
+        <processor name="version-lock" type="before" seq="2" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${id}]]></param>
+            <param name="table-name">RDC_CFG_QUERY</param>
+            <param name="type">check</param>
+        </processor>
+        <!--删除操作的版本控制-->
+        <processor name="version-lock" type="before" seq="3" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${id}]]></param>
+            <param name="table-name">RDC_CFG_QUERY</param>
+            <param name="object-name"><![CDATA[${objectName}]]></param>
+            <param name="sys-code"><![CDATA[${sys_code}]]></param>
+            <param name="type">delete</param>
+        </processor>
+
+        <param name="delete-tables">RDC_CFG_QUERY cq,RDC_CFG_QUERY_PARAM cqp,RDC_CFG_QRY_PROCESSOR cqpro,RDC_CFG_PROCESSOR_PARAM cpp</param>
+        <param name="key-cols">cqp.QUERY_ID,cqpro.QUERY_ID,cpp.QUERY_ID</param>
+        <param name="trans">true</param>
+    </query>
+
+    <!--添加执行器-->
+    <query id="Q_CFG_EXECUTOR_ADD" type="auto-update" result="">
+        <param name="insert-tables">RDC_QRY_EXECUTOR qe</param>
+        <param name="col-vals">qe.id=RDC_QRY_EXECUTOR_SEQ.nextval</param>
+    </query>
+
+    <!--装载执行器表单-->
+    <query id="Q_LOAD_QUERY_EXECUTOR" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    qe.ID,
+                    qe.NAME,
+                    qe.CODE,
+                    qe.CLASS,
+                    qe.RESULTS,
+                    qe.NOTE
+                from
+                    RDC_QRY_EXECUTOR qe
+                where
+                    qe.ID = [id]
+            ]]>
+        </stmt>
+        <param name="ftl">template/rdcp/query/T_CFG_EXECUTOR_EDIT.ftl</param>
+        <param name="paging">true</param>
+    </query>
+
+    <!--编辑执行器-->
+    <query id="Q_CFG_EXECUTOR_EDITOR" type="auto-update" result="">
+        <param name="update-tables">RDC_QRY_EXECUTOR qe</param>
+    </query>
+
+    <!--删除执行器-->
+    <query id="Q_CFG_EXECUTOR_DEL" type="auto-update" result="">
+        <param name="delete-tables">RDC_QRY_EXECUTOR qe</param>
+    </query>
+
+    <!--添加处理器-->
+    <query id="Q_CFG_PROCESSOR_ADD" type="auto-update" result="">
+        <param name="insert-tables">RDC_QRY_PROCESSOR qp</param>
+        <param name="col-vals">qp.id=RDC_QRY_PROCESSOR_SEQ.nextval</param>
+    </query>
+
+    <!--装载处理器表单-->
+    <query id="Q_LOAD_QUERY_PROCESSOR" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    qp.ID,
+                    qp.NAME,
+                    qp.CODE,
+                    qp.CLASS,
+                    qp.NOTE
+                from
+                    RDC_QRY_PROCESSOR qp
+                where
+                    qp.id=[id]
+            ]]>
+        </stmt>
+        <param name="ftl">template/rdcp/query/T_CFG_PROCESSOR_EDIT.ftl</param>
+        <param name="paging">true</param>
+    </query>
+
+    <!--编辑处理器-->
+    <query id="Q_CFG_PROCESSOR_EDITOR" type="auto-update" result="">
+        <param name="update-tables">RDC_QRY_PROCESSOR qp</param>
+    </query>
+
+    <!--删除处理器-->
+    <query id="Q_CFG_PROCESSOR_DEL" type="auto-update" result="">
+        <param name="delete-tables">RDC_QRY_PROCESSOR qp</param>
+    </query>
+
+
+    <!--保存处理器参数-->
+    <query id="Q_CFG_QUERY_PROCESSOR_PARAM_ADD" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q WHERE q.ID=[query_id long]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <processor name="set-value" type="before" seq="2" break="true">
+            <param name="var">id</param>
+            <param name="sql"><![CDATA[select RDC_CFG_PROCESSOR_PARAM_SEQ.nextval from dual]]></param>
+        </processor>
+        <param name="insert-tables">RDC_CFG_PROCESSOR_PARAM cpp</param>
+        <param name="col-vals"><![CDATA[cpp.id=${id}]]></param>
+    </query>
+
+    <!--处理器参数列表-->
+    <query id="Q_PROCESSOR_PARAM_LIST" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select
+                    cpp.id,
+                    cpp.name,
+                    cpp.code,
+                    cpp.value,
+                    cpp.note
+                from
+                    RDC_CFG_PROCESSOR_PARAM cpp
+                where
+                    1=1
+                    and cpp.PROCESSOR_ID = [processor_id]
+            ]]>
+        </stmt>
+        <param name="paging">true</param>
+    </query>
+
+    <!--装载处理器参数表单-->
+    <query id="Q_CFG_LOAD_PROCESSOR_PARAM" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    cpp.id,
+                    cpp.processor_id,
+                    cpp.query_id,
+                    cpp.name,
+                    cpp.code,
+                    cpp.value,
+                    cpp.note
+                from
+                    RDC_CFG_PROCESSOR_PARAM cpp
+                where
+                    1=1
+                    and cpp.id=[id]
+            ]]>
+        </stmt>
+        <param name="ftl">template/rdcp/query/T_PROCESSOR_PARAM_EDIT.ftl</param>
+    </query>
+
+
+    <!--更新处理器参数-->
+    <query id="Q_CFG_QUERY_PROCESSOR_PARAM_UPDATE" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,RDC_CFG_PROCESSOR_PARAM cpp where q.ID(+) = cpp.QUERY_ID and cpp.id=[id]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="update-tables">RDC_CFG_PROCESSOR_PARAM cpp</param>
+    </query>
+
+    <!--删除处理器参数-->
+    <query id="Q_CFG_QUERY_PROCESSOR_PARAM_DEL" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,RDC_CFG_PROCESSOR_PARAM cpp where q.ID(+) = cpp.QUERY_ID and cpp.id=[id]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="delete-tables">RDC_CFG_PROCESSOR_PARAM cpp</param>
+    </query>
+
+
+    <!--加载查询对应的执行器信息-->
+    <query id="Q_CFG_QRY_EXECUTOR_INFO" type="form_data">
+        <stmt>
+            <![CDATA[
+            SELECT e.*
+            FROM RDC_QRY_EXECUTOR e,RDC_CFG_QUERY q
+            WHERE e.ID=q.EXECUTOR_ID
+            AND q.ID=[id long]
+            ]]>
+        </stmt>
+    </query>
+
+    <!--查询语句列表-->
+    <query id="Q_QUERY_STMT_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+            SELECT ID, query_id, order_num, stmt, design_data
+                FROM rdc_cfg_qry_stmt
+            WHERE query_id = [queryId]
+            ]]>
+        </stmt>
+    </query>
+
+    <!--删除查询语句-->
+    <query id="Q_QUERY_STMT_DEL" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,rdc_cfg_qry_stmt cqs where q.ID(+) = cqs.QUERY_ID and cqs.id=[id]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="delete-tables">rdc_cfg_qry_stmt cqs</param>
+    </query>
+
+    <!--更新查询语句-->
+    <query id="Q_QUERY_STMT_UPDATE" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q,rdc_cfg_qry_stmt cqs where q.ID(+) = cqs.QUERY_ID and cqs.id=[id]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <param name="update-tables">rdc_cfg_qry_stmt cqs</param>
+        <param name="col-vals">cqs.STMT=[sql_stmt_item],cqs.DESIGN_DATA=[query_model]</param>
+        <param name="ex-cols">cqs.QUERY_ID,cqs.ORDER_NUM</param>
+    </query>
+
+    <!--装载查询语句-->
+    <query id="Q_LOAD_QUERY_STMT" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select
+                    cqs.ID,
+                    cqs.STMT,
+                    cqs.DESIGN_DATA
+                from
+                    RDC_CFG_QRY_STMT cqs
+                where
+                    1=1
+                    and cqs.id=[id]
+            ]]>
+        </stmt>
+        <param name="ftl">template/rdcp/query/T_CFG_QUERY_STMT_EDIT.ftl</param>
+    </query>
+
+    <!--添加查询语句-->
+    <query id="Q_QUERY_STMT_ADD" type="auto-update" result="">
+        <!--设置系统编码值-->
+        <processor name="set-value" type="before" seq="0" break="true">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT q.SYS_CODE FROM RDC_CFG_QUERY q where q.ID =[query_id]]]></param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">edit</param>
+        </processor>
+        <processor name="set-value" type="before" seq="2" break="true">
+            <param name="var">orderNum</param>
+            <param name="sql"><![CDATA[select ORDER_NUM+1 from (select ORDER_NUM from RDC_CFG_QRY_STMT where QUERY_ID = [query_id] order by ORDER_NUM desc) where rownum =1]]></param>
+        </processor>
+        <param name="insert-tables">rdc_cfg_qry_stmt cqs</param>
+        <param name="col-vals">cqs.id=RDC_CFG_QRY_STMT_SEQ.nextval,cqs.QUERY_ID=[query_id],cqs.STMT=[sql_stmt_item],cqs.DESIGN_DATA=[query_model],cqs.ORDER_NUM=${orderNum!0}</param>
+    </query>
+</query-config>

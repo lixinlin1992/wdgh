@@ -1,0 +1,278 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, p, input {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+}
+
+.tableList {
+    width: 99%;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    color: #444;
+    min-width: 1100px;
+    width: expression( document.body.clientWidth < 1001 ? "1000px" : "auto" );
+}
+
+.titleBox {
+    background-color: #f1efef;
+    font-size: 12px;
+    font-weight: 700;
+    width: 100px;
+}
+
+/*搜索条件表格的样式Begin*/
+.searchRow {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.searchRow .searchHeader {
+    height: 30px;
+    line-height: 30px;
+    background-color: #f1efef;
+    margin-bottom: 10px;
+}
+
+.searchRow .searchHeader input {
+    float: right;
+    height: 30px;
+    width: 80px;
+    display: block;
+    font-size: 12px;
+    color: #444;
+    text-decoration: none;
+    cursor: pointer;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    background-image: url(../images/content/listSearchBtn.png);
+}
+
+.searchRow .searchHeader a{
+    float: right;
+    display: block;
+    font-size: 12px;
+    color: #444;
+    text-decoration: none;
+    cursor: pointer;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+.searchRow .searchHeader a:hover{
+    float: right;
+    display: block;
+    font-size: 12px;
+    color: #b90504;
+    text-decoration: none;
+    cursor: pointer;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    margin-top: 8px;
+}
+
+.searchRow .searchHeader span {
+    float: left;
+    height: 30px;
+    width: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #444;
+    background-image: url(../images/content/writetitleytips.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.searchRow table {
+    width: 100%;
+    text-align: center;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCC;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #ccc;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.searchRow table td {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: #CCC;
+    border-right-color: #CCC;
+    border-bottom-color: #CCC;
+    border-left-color: #CCC;
+    line-height: 24px;
+    height: 24px;
+
+}
+
+.searchRow table td input {
+    width: 100%;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    height: 24px;
+    border-color: transparent;
+    background-color: transparent;
+    border: 0px;
+    line-height: 24px;
+}
+
+.searchRow table td select {
+    width: 100%;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    height: 22px;
+    border-color: transparent;
+    background-color: transparent;
+    border: 0px;
+    line-height: 22px;
+}
+
+.dateSelect table {
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+
+.dateSelect table tr td {
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+
+.dateSelect table tr input {
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    width: 150px;
+}
+
+/*搜索条件表格的样式End*/
+
+/*展示列表数据表格Begin*/
+.showRow {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.showRow .showHeader {
+    height: 30px;
+    line-height: 30px;
+    background-color: #f1efef;
+}
+
+.showRow .showHeader span {
+    float: left;
+    height: 30px;
+    width: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #444;
+    background-image: url(../images/content/writetitleytips.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.showRow .showHeader a {
+    float: right;
+    display: block;
+    font-size: 12px;
+    color: #444;
+    text-decoration: none;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.showRow .showHeader a:hover {
+    float: right;
+    display: block;
+    font-size: 12px;
+    color: #b90504;
+    text-decoration: none;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.showRow table {
+    width: 99%;
+    text-align: center;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCC;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #ccc;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.showRow table td {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: #CCC;
+    border-right-color: #CCC;
+    border-bottom-color: #CCC;
+    border-left-color: #CCC;
+    line-height: 22px;
+    height: 22px;
+
+}
+
+.showRow table th {
+    border-bottom-style: solid;
+    border-left-style: solid;
+    line-height: 22px;
+    height: 22px;
+    background-color: #f1efef;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+}
+
+/*展示列表数据表格End*/

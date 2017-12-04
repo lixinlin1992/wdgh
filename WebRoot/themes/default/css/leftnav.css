@@ -1,0 +1,25 @@
+@charset "utf-8";
+/*-=-=-=-=-=mainLeftNav左边菜单栏样式Start-=-=-=-=-=*/
+.SR_mainLeftNav {width:200px; font-size:12px; background:#f00; float:left; display:block;background:#e8e8e8 ;  }
+.SR_mainLeftNav ul {width:200px; overflow:hidden;  }
+.SR_mainLeftNav .SR_navTitle   { width: 200px; height: 40px; border-top:#FFF solid 1px;  background:url(../images/leftnav/listBg.png) repeat-x; font-weight:700; color:#444444;}
+.SR_mainLeftNav .SR_navTitleContent{display:none; }
+.SR_mainLeftNav .SR_navTitle .aNormal   {width: 200px; display: block; height: 40px; line-height: 35px; text-indent: 50px; text-decoration: none; color:#444; font-size:12px; background:url(../images/leftnav/down.gif) 180px center no-repeat;}
+/*点击变化样式Begin*/
+.SR_mainLeftNav .SR_navTitle .aHover   {width: 200px; display: block; height: 40px; line-height: 35px; text-indent: 50px; text-decoration: none; color:#444; font-size:12px; background:url(../images/leftnav/up.gif) 180px center no-repeat;}
+/*点击变化样式End*/
+.SR_mainLeftNav .SR_navSecondTitle    { width: 200px; height: 40px; border-bottom:1px solid #ebeaea;}
+
+.SR_mainLeftNav .SR_navSecond    {width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f4f4f4;}
+
+.SR_mainLeftNav .SR_navSecondTitle a    {width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background: url(../images/leftnav/secondNavMarknormal.gif) no-repeat 40px; }
+.SR_mainLeftNav .SR_navSecondTitle a:hover{ width: 200px; height: 40px; line-height:40px; color:#ffffff; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f47603;}
+
+	
+/*当前页面样式Begin*/
+.SR_mainLeftNav .SR_navSecondTitle .aSecondHover{ width: 200px; height: 40px; line-height:40px; color:#444; display: block; text-decoration: none; text-indent:60px; background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f5fcfe; }
+.controlBtn{ width:12px; height:63px; background:url(../images/leftnav/controlHide.png.png) no-repeat center;; position:absolute; top:60px; right:5px; margin-top:100px; cursor:pointer;}
+/*当前页面样式Begin*/
+
+.leftBg{ background:#e8e8e8 url(../images/leftnav/line.gif) repeat-y  200px 0px; }
+/*SR_mainLeftNavBox====================End*/

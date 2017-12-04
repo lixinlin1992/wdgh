@@ -1,0 +1,45 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/chooseContractCtrl.js"></script>
+
+<!--主体内容-->
+
+	<!--商品选购搜索框begin-->
+	<!--<div class="shop_search">
+		<div class="shop_search_container">
+			<input type="text" class="search_text" value="请输入您想要搜索的内容" ng-model="queryparam" />
+			<a href="javascript://" class="go_search" ng-click="search()">搜索</a>
+		</div>
+	</div>-->
+	<!--商品选购搜索框End-->
+
+	<!--大块商品Begin-->
+	<div class="container-fluid com_biggoodslist" style="margin-bottom: 20px;">
+		<div class="row">
+			<div id="img_div" class="col-xs-6 col-md-6 list" ng-repeat="r in results" ng-if="$index<(page*pageSize)">
+				<a class="com_biggoods" id="product_{{$index}}" ng-click="nextPage($index)" data="{{r.ID}}" packageId="{{r.PACKAGE_ID}}">
+					<!--图片显示Begin-->
+					<div class="goodsshow">
+						<!--如果没有图片,则按顺序显示系统默认图片-->
+						<img ng-src="Style/images/goods/bg{{$index%4+1}}.png" alt="" ng-if="r.PIC_ID==null" />
+						<!--有图片id的情况-->
+						<img ng-src="{{imgScr}}{{r.PIC_ID}}" ng-if="r.PIC_ID!=null" alt="" />
+					</div>
+					<!--图片显示End-->
+					<div class="introduce">
+						<p>{{r.NAME}}</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var width=$("#img_div").width();
+		$("#img_div img").attr("height",width+"px");
+	</script>
+	<!--大块商品End-->
+
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a id="more" class="more_btn" href="javascript://" ng-click="more()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+<!--主体内容End-->

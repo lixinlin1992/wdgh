@@ -1,0 +1,17 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: 10;
+}
+a {
+	text-decoration: none;
+}
+
+
+.clear {
+	clear: both;
+}
+
+li {
+	list-style-type: none;
+}

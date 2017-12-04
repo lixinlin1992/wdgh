@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<!-- 我的公告列表 -->
+	<!-- 
+		列名：录入时间,主题,状态,录入人
+	-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_MAN_LIST" type="pagelist"
+		result="json">
+		<stmt><![CDATA[
+		select t.start_date,t.title,c.name as status_name,
+		p.name ,t.id,t.status_id,t.content from sys_n_notice t,sys_p_user p ,sys_pa_code c where 
+		t.publish_user_id=p.id and 
+		c.code_num(+)= t.status_id and 
+		c.code_table='SYS_N_NOTICE' and c.code_field='STATUS_ID'
+		order by start_date desc
+		]]></stmt>
+        <!-- id参数建议提供，如果没有指定，则取第一个字段作为ID，该id的值在页面的grid中使用 -->
+        <param name="id">id</param>
+	</query>
+	<!-- 公告修改 -->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_MAN_EDIT" type="pagelist"
+		result="ftl">
+		<stmt><![CDATA[
+		 	select title,type_id,urgence_id,end_date,content from sys_n_notice
+		 	 where id = [noticeId]
+		]]></stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/service/notice/T_FRAMEWORK_SERVICE_NOTICE_DETAIL_EDIT.ftl
+		</param>
+	</query>	
+	<!-- 删除公告-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_MAN_DEL" type="batch"
+		result="json">
+		<stmt><![CDATA[
+			delete from sys_n_visit where notice_id = [noticeId];
+			delete from sys_n_notice where id = [noticeId];
+		]]></stmt>    batch
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">3</param>
+            <param name="msg">删除公告，id为[${announcementId}]</param>
+        </processor>		
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	</query>		
+</query-config>

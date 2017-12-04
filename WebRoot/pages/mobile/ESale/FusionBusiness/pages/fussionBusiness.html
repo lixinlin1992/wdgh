@@ -1,0 +1,145 @@
+<script src="ESale/FusionBusiness/scripts/fusionBusiness.js"></script>
+<script src="ESale/FusionBusiness/scripts/fusionBase.js"></script>
+<!--进度条Begin-->
+<div class="com_progress">
+    <img src="ESale/FusionBusiness/images/amalg_1.png" alt=""/>
+</div>
+<!--进度条End-
+<!-- 办理类型模块begin-->
+<div class="layout_centent" id="select_type" style="display:block;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择办理类型</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox">
+            <div class="col-md-6 col-xs-6 list">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="newType" ng-click="typeClick('newType','新装宽带')">
+                    新装宽带
+                </a>
+                <!--常用btn-->
+            </div>
+            <div class="col-md-6 col-xs-6 list">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="oldType" ng-click="typeClick('oldType','已有宽带')">
+                    已有宽带
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 办理类型模块End-->
+<!-- 选择城市模块begin-->
+<div class="layout_centent" id="selectCity" style="display:none;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择城市</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox">
+            <div class="col-md-4 col-xs-4 list" style="margin-bottom: 5px" ng-repeat="type in typeRows">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="city{{$index}}" ng-click="selectCity('city'+$index,type.CITY)">
+                    {{type.CITY}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 选择城市模块End-->
+<!-- 选择营销中心begin-->
+<div class="layout_centent" id="marketingSelect" style="display:none;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择营销中心</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox">
+            <div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="market in marketRows">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="{{market.CODE}}" ng-click="selectMarket(market.CODE,market.SALE)">
+                    {{market.SALE}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 选择营销中心模块End-->
+
+<!-- 选择标准地址begin-->
+<div class="layout_centent" id="addressSelect" style="display:none;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择标准地址</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="changAddr" style="display: none">
+            <!-- 记录页数-->
+            <input type="hidden" id="pageIndex" />
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" href="javascript://" ng-click="changAddress()">
+                    换一组地址
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">关键字：</p>
+            </div>
+            <div class="form_last">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="searchBtn" href="javascript://" ng-click="searchAddr()">
+                    搜索
+                </a>
+                <!--常用btn-->
+            </div>
+            <div class="form_threeline_right">
+                <input type="text" class="input_normal" id="keyWord">
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="row com_selectbox" style="display: none" id="addressDataRows">
+            <div class="col-md-12 col-xs-12 list" style="margin-bottom: 5px" ng-repeat="data in addressData">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="addr{{$index}}" ng-click="selectAddress('addr'+$index,data.CODE)">
+                    {{data.ADDR}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 选择标准地址模块End-->
+
+<div class="com_normalbox" id="nextPage" style="display: none;margin-bottom: 20px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" href="javascript://" ng-click="fusionTwoPage()">
+                    下一步
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+</div>

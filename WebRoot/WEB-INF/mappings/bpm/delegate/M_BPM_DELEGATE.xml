@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 查询委托任务 -->
+	<ds name="DS_TASK_DELEGATE_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/delegate/Q_BPM_DELEGATE.xml&_id=Q_TASK_DELEGATE_LIST]]></url>
+	</ds>
+	
+	<!-- 添加委托任务 -->
+	<ds name="DS_ADD_DELEGATE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/delegate/Q_BPM_DELEGATE.xml&_id=Q_ADD_DELEGATE]]></url>
+	</ds>
+	
+	<!-- 装载修改委托表单 -->
+	<ds name="DS_LOAD_DELEGATE_FORM" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/delegate/Q_BPM_DELEGATE.xml&_id=Q_LOAD_DELEGATE_FORM]]></url>
+	</ds>
+	
+	<!-- 修改委托 -->
+	<ds name="DS_MODIFY_DELEGATE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/delegate/Q_BPM_DELEGATE.xml&_id=Q_MODIFY_DELEGATE]]></url>
+	</ds>
+	
+	<!-- 删除委托 -->
+	<ds name="DS_DELETE_DELEGATE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=bpm/delegate/Q_BPM_DELEGATE.xml&_id=Q_DELETE_DELEGATE]]></url>
+	</ds>
+</datasources>

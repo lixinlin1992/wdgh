@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="TEST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT * FROM SYS_P_USER
+                ]]></stmt>
+        <processor class="!rdcp/~java/Processor" type="before" break="false" seq="1"/>
+</query>
+</query-config>

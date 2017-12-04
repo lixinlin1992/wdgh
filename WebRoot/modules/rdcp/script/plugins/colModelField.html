@@ -1,0 +1,96 @@
+<div id="_colModelField_plugin_dlg" style="display: none;">
+    <table>
+        <tr>
+            <!-- 左边是一个列表 -->
+            <td valign="top">
+                <table id="_colModelField_plugin_list" cellspacing="1" cellpadding="1" border="1"
+                       style="border-collapse: collapse;" width="600">
+                    <tr>
+		                <th width="80">表头名称</th>
+		                <th width="80">表头编码</th>
+		                <th width="80">表头宽度</th>
+		                <th width="80">布局</th>
+		                <th width="80">是否排序</th>
+		                <th width="80">是否隐藏</th>
+		                <!-- <th width="80">格式化函数</th> -->
+		                <th width="80">操作</th>
+                    </tr>
+                </table>
+            </td>
+            <!-- 右边是一个属性编辑器 -->
+            <td rowspan="2" valign="top">
+                <table id="_colModelField_plugin_field_editor" width="350"></table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="_colModelField_plugin_add_dlg" style="display: none;">
+    <form name="_ColModelField_Plugin_Add_Form">
+        <table width="100%">
+            <tr>
+                <td width="120px;" align="left">表头名称:</td>
+                <td align="left"><input type="text" name="name"/></td>
+            </tr>
+            <tr>
+                <td width="120px;" align="left">表头编码:</td>
+                <td align="left"><input type="text" name="index"/></td>
+            </tr>
+            <tr>
+                <td width="120px;" align="left">复合表头标签:</td>
+                <td align="left"><input type="text" name="label"/></td>
+            </tr>     
+            <tr>
+                <td width="120px;" align="left">表头宽度:</td>
+                <td align="left"><input type="text" name="width"/></td>
+            </tr>     
+            <tr>
+                <td width="120px;" align="left">宽度是否为百分比:</td>
+                <td align="left"><input type="checkbox" name="percentwidth"/></td>
+            </tr>         
+            <tr>
+                <td width="120px;" align="left">布局:</td>
+                <td align="left">
+                	<select name="align">
+                		<option value="left">左对齐</option>
+                		<option value="center">居中</option>
+                		<option value="right">右对齐</option>
+                	</select>
+                </td>
+            </tr>            
+            <tr>
+                <td width="120px;" align="left">能否排序:</td>
+                <td align="left"><input type="checkbox" name="sortable"/></td>
+            </tr>            
+            <tr>
+                <td width="120px;" align="left">是否隐藏列:</td>
+                <td align="left"><input type="checkbox" name="hidden"/></td>
+            </tr>            
+            <tr>
+                <td width="120px;" align="left">格式化函数:</td>
+                <td align="left">
+	                <input type="button" value="说明" onclick="__formatterInfo()"/>                
+                </td>
+            </tr>
+            <tr>
+            	<td align="left" colspan="2">function(cell, options, row, tr, td) {</td>
+            </tr>
+            <tr>
+            	<td align="left" colspan="2">
+                	<textarea name="formatter" id="__formatter" style="width:98%;height:80px;">return cell;</textarea>
+            	</td>
+            </tr>
+            <tr>
+            	<td align="left" colspan="2">}</td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- 格式化函数使用说明 -->
+<div id="__formatterInfoDiv" style="display:none;">
+格式化函数的作用是在生成列表单元格时执行的方法，方法要求输出单元格最后显示的结果。<br/>
+列表控件会提供(cell, options, row, tr, td)5个参数，其中:<br/>
+cell:数据库查询返回的结果,如果不填写格式化函数默认将其作为单元格显示的结果<br/>
+options:表格的列定义<br/>
+row:该行的其他单元格查询结果数据,可以使用row["编码"]获取其他列的数据<br/>
+tr,td:改行或该单元格的节点对象
+</div>

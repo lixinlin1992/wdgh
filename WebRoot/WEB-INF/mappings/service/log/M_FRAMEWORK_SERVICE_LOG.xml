@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 日志管理/用户管理   数据源配置 -->
+	
+	<!-- 用户管理日志-->
+	<ds name="DS_OP_LOG_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/log/Q_OP_LOG.xml&_id=Q_OP_LOG_LIST]]></url>
+	</ds>
+	<!-- 用户日志删除-->
+	<ds name="DS_OP_LOG_DEL" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/log/Q_OP_LOG.xml&_id=Q_OP_LOG_DEL]]></url>
+	</ds>
+</datasources>

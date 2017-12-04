@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+
+    <query id="CHECK_COMPLETE" type="resultset">
+        <stmt>
+            <![CDATA[
+            SELECT ID FROM SYS_P_USER WHERE ID=1
+            ]]>
+        </stmt>
+        <param name="handler">com.sunrise.foundation.dbutil.StringArrayHandler</param>
+    </query>
+
+</query-config>

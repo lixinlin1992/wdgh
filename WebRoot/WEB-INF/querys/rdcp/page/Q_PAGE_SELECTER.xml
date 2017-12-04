@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--页面选择器-->
+<query-config>
+
+    <!-- 区域列表 -->
+    <query id="Q_PAGE_SELECTER_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+			select id,code,name,sys_code,note,module_id  from rdc_cfg_page  
+			where 1=1
+			<#if _pgCode??>
+			and	code [Like(_pgCode)]
+			</#if>
+			<#if _pgName??>
+			and	name [Like(_pgName)]
+			</#if>
+			<#if sys??>
+			and	sys_code [Like(sys)]
+			</#if>
+			<#if mol_id??>
+			and module_id [Like(mol_id)]
+			</#if>			
+            ]]>
+        </stmt>
+        <param name="list-cols">id,code,name,sys_code,note</param>
+    </query>
+</query-config>

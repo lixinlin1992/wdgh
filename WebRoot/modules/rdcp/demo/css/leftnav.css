@@ -1,0 +1,66 @@
+@charset "utf-8";
+/*-=-=-=-=-=mainLeftNav左边菜单栏样式Start-=-=-=-=-=*/
+.SR_mainLeftNav {
+	width:200px;
+	background-color:#fff;
+	overflow:hidden;
+	font-size:12px;
+	background:#e7eff1;
+}
+.SR_mainLeftNav ul {
+	width:200px;
+	overflow:hidden;
+	
+}
+.SR_mainLeftNav .SR_navTitle   {
+	width: 200px;
+	height: 35px;
+    border-top:#FFF solid 1px;
+	border-bottom:#ebeaea solid 1px;
+	background: url(../images/leftnav/navMark1.gif) no-repeat 20px #f3f7f8;
+}
+.SR_mainLeftNav .SR_navTitle a   {
+	width: 200px;
+	display: block;
+	height: 35px;
+	line-height: 35px;
+	text-indent: 50px;
+	text-decoration: none;
+	color:#444;
+	font-size:12px;
+	background:url(../images/leftnav/down.gif) 180px center no-repeat;
+}
+.SR_mainLeftNav .SR_navTitle a:hover   {
+	width: 200px;
+	display: block;
+	height: 35px;
+	line-height: 35px;
+	text-indent: 50px;
+	text-decoration: none;
+	color:#444;
+	font-size:12px;
+	background:url(../images/leftnav/up.gif) 180px center no-repeat;
+}
+.SR_mainLeftNav .SR_navSecondTitle    {
+	width: 200px;
+	height: 35px;
+	border-bottom:1px solid #ebeaea;
+}
+.SR_mainLeftNav .SR_navSecondTitle a    {
+	width: 200px;
+	height: 35px;
+	line-height:35px;
+	color:#444;
+	display: block;
+	text-decoration: none;
+	text-indent:60px;
+	background: url(../images/leftnav/secondNavMarknormal.gif) no-repeat 40px;
+	}
+.SR_mainLeftNav .SR_navSecondTitle a:hover{
+	background:url(../images/leftnav/secondNavMarkpressed.gif) no-repeat 40px #f5fcfe;
+	color:#444;
+	}
+.leftBg{
+	background:#e7eff1;
+	}
+/*-=-=-=-=-=mainLeftNav左边菜单栏样式End-=-=-=-=-=*/

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_QUIT_MANAGE_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bti.account,bti.name,spd.name dept_name,bti.card_no,bti.tele_phone,bti.email,
+				to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.trade_status status,
+				decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status
+				from bi_trade_info bti
+				left join sys_p_department spd on bti.dept_id=spd.id
+				where 1=1 and bti.trade_status=[operate]
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

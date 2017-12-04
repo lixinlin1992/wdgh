@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 校验规则展示列表 -->
+	<query id="Q_VALID_RULE_GRID" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[ 
+			SELECT NAME,
+				   VALID_PATTERN,
+			       NOTE, 
+			       '' as cz,
+			       ID 
+			  FROM RDC_VALIDATE_RULE
+			  WHERE 1 = 1
+			  <#if ruleName??>
+			  AND name [Like(ruleName)]
+			  </#if>
+			  
+			  <#if validateRule??>
+			  AND VALID_PATTERN [Like(validateRule)]
+			  </#if>
+			  
+			  <#if ruleNote??>
+			   AND NOTE [Like(ruleNote)] 	
+			  </#if>
+			  order by id asc
+    	 ]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+	<!-- 菜单添加/修改 -->
+	<query id="Q_VALID_RULE_EDIT" type="auto-update">
+        <!--进行数据的校验-->
+        <processor name="check-count" type="before" break="true" seq="1">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM RDC_VALIDATE_RULE WHERE NAME =[name]		  		
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[规则名称已经被占用，请使用其它名称。]]></param>
+        </processor>		
+		<param name="insert-tables"><![CDATA[<#if id??><#else>RDC_VALIDATE_RULE s</#if>]]></param>	
+		<param name="update-tables"><![CDATA[<#if id??>RDC_VALIDATE_RULE s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=RDC_VALIDATE_RULE_SEQ.NEXTVAL</#if>]]></param>
+		<param name="trans">true</param>
+	</query>	
+	<!-- 初始化校验规则修改弹出框 -->
+	<query id="Q_VALID_RULE_TEBLE_INIT" type="form_map" result="ftl">
+		<stmt>
+			<![CDATA[ 
+		SELECT NAME,
+			   VALID_PATTERN,
+			   NOTE, 
+	           ID 
+          FROM RDC_VALIDATE_RULE
+         WHERE ID = [id]			  
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>		
+		<param name="ftl">
+			template/rdcp/config/T_VALID_RULE_TABLE.ftl
+		</param>		
+	</query>   	
+	 <!-- 删除校验规则 -->
+	<query id="Q_VALID_RULE_DELETE" type="auto-update">
+
+		<param name="delete-tables">RDC_VALIDATE_RULE s</param>
+		<param name="key-cols">s.id</param>
+	</query>	
+</query-config>

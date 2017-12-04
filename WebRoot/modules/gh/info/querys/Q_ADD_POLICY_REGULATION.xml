@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_POLICY_REGULATION" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_policy_regulation(id,title,type,content,view_times,create_user,create_time)
+            values(bi_policy_regulation_seq.nextval,[title],[type],[content],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'))
+            ]]>
+        </stmt>
+    </query>
+</query-config>

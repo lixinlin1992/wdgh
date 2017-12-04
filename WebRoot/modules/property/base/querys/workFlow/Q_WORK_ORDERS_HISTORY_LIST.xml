@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_WORK_ORDERS_HISTORY_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				SELECT V.TASK_ID,O.ID WO_ID, O.ID,O.OBJECT_ID,COUNT(T.ID) NUM,NVL2( V.WO_ID, V.HANDLE_MAN||':'||V.NODE_NAME , '已结束') CURR_STATUS,O.TITLE WO_TITLE,P.NAME WO_TYPE,O.NOTE
+                FROM  WF_WORK_ORDER O,WF_PROCESS P,V$GET_WF_CURR V,WF_RU_TASK T
+                WHERE    O.PROCESS_ID = P.ID(+)
+                         AND O.ID = V.WO_ID(+)
+
+                         AND O.ID IN (SELECT T.WORK_ORDER_ID　FROM WF_RU_TASK T WHERE T.HANDLE_MAN_ID =  ${_CurrUser.id})
+                        AND O.ID = T.WORK_ORDER_ID
+		        <#if work_order_title??>
+		        	and O.TITLE  [like(work_order_title)]
+		        </#if>
+		        <#if work_order_number??>
+		        	and O.ID  [like(work_order_number)]
+		        </#if>
+		        <#if work_order_type??>
+		        	and P.NAME  [like(work_order_type)]
+		        </#if>　
+		        GROUP BY V.TASK_ID,O.ID,O.OBJECT_ID,V.WO_ID,V.HANDLE_MAN,V.NODE_NAME,O.TITLE,P.NAME,O.NOTE
+		        ORDER BY NVL2(V.WO_ID,0,1), O.ID DESC
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

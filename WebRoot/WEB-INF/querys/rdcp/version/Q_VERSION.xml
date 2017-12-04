@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!--版本信息列表-->
+    <query id="Q_VERSION_INFO_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                select
+                    rv.ID,
+                    rv.OBJ_NAME,
+                    rv.VERSION_NO,
+                    bs.NAME SYS_NAME,
+                    rv.TABLE_NAME,
+                    rv.STATUS,
+                    pu.NAME,
+                    rv.EDIT_START_TIME,
+                    rv.EDIT_END_TIME,
+                    rv.LAST_SAVE_TIME,
+                    rv.ACTION,
+                    rv.NOTE,
+                    rv.KEY_COL,
+                    rv.OBJ_ID,
+                    rv.SYS_CODE,
+                    rv.EDIT_USER
+                from
+                    RDC_REV_VERSIONS rv,
+                    SYS_P_USER pu,
+                    SYS_BI_SYSTEM bs
+                where
+                    1=1
+                    and pu.ID = rv.EDIT_USER
+                    and rv.SYS_CODE = bs.CODE
+                    <#if versionNo??>
+                        and rv.VERSION_NO = [versionNo int]
+                    </#if>
+                    <#if name??>
+                        and rv.OBJ_NAME [like(name)]
+                    </#if>
+                    <#if editorData??>
+                        and rv.STATUS = [editorData]
+                    </#if>
+                    <#if currID??>
+                        and rv.EDIT_USER = [currID int]
+                    </#if>
+                    AND [RdcpSecurity(rv.sys_code)]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LEGAL_AID_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bla.id,bla.title,bla.content,spu.name create_user,to_char(bla.create_date,'yyyy-mm-dd') create_time,view_times
+				from bi_legal_aid bla
+				left join sys_p_user spu on bla.create_user=spu.id
+				where 1=1
+				<#if title??>
+				  and bgi.title [like(title)]
+				</#if>
+				<#if content??>
+				  and dbms_lob.instr(bgi.content, [content], 1, 1) > 0
+				</#if>
+				order by bla.create_date desc
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

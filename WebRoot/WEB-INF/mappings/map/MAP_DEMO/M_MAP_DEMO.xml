@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+    <!-- 列表查询数据资源配置 -->
+    <ds name="DS_MAP_DEMO_LIST" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>data2</file>
+       </ds>   
+       
+       <ds name="DS_MAP_DEMO_LIST_1" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area1</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_2" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area2</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_3" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area3</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_4" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area4</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_5" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area5</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_6" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area6</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_7" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area7</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_8" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area8</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_9" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>area9</file>
+       </ds> 
+       <ds name="DS_MAP_DEMO_LIST_0" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/MAP_DEMO/Q_MAP_DEMO.xml&id=Q_MAP_DEMO_LIST]]></url>
+      	<file>data2</file>
+       </ds> 
+     <!-- 添加数据资源配置 -->
+    <ds name="DS_MAP_BI_PROPERTY_ADD" type="file" func="">
+        <url><![CDATA[/_commonQuery.action?file=map/BI_PROPERTY/Q_MAP_BI_PROPERTY.xml&id=Q_MAP_BI_PROPERTY_ADD]]></url>
+        <file></file>
+    </ds> 
+     
+</datasources>

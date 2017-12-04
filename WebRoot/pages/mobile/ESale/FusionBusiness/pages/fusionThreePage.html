@@ -1,0 +1,71 @@
+<script src="ESale/FusionBusiness/scripts/fusionThreePage.js"></script>
+<script src="ESale/FusionBusiness/scripts/fusionBase.js"></script>
+<!--进度条Begin-->
+<div class="com_progress">
+    <img src="ESale/FusionBusiness/images/amalg_3.png" alt=""/>
+</div>
+<!--进度条End-->
+<!-- 选择号码模块begin-->
+<div class="layout_centent" id="fusionPhone" style="display:block;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>选择号码</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="changPhoneNum" style="display: none">
+            <!-- 记录页数-->
+            <input type="hidden" id="pageIndex" value="1" />
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn green_btn" href="javascript://" ng-click="changPhone()">
+                    摇一摇，换号码
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+        <div class="formlist">
+            <div class="form_left">
+                <p class="form_title">号码：</p>
+            </div>
+            <div class="form_last">
+                <!--常用btn-->
+                <a class="com_btn theme_btn" id="searchBtn" href="javascript://" ng-click="searchPhoneNum()">
+                    搜索
+                </a>
+                <!--常用btn-->
+            </div>
+            <div class="form_threeline_right">
+                <input type="text" class="input_normal" id="phoneNum">
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="row com_selectbox" style="display: block" id="fusionPhoneData">
+            <div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="phone in phoneNumberData">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" id="phone{{$index}}" ng-click="selPhoneNumber('phone'+$index,phone.ID,phone.TITLE)">
+                    {{phone.TITLE}}
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 选择号码模块End-->
+
+<div class="com_normalbox" id="threePage" style="display: none;margin-bottom: 20px;margin-top: 20px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 list">
+                <!--常用btn-->
+                <a class="com_btn green_btn" href="javascript://" ng-click="fusionFourPage()">
+                    下一步
+                </a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+</div>

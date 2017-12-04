@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_TRADE_STATUS_QUIT" type="update" result="easyui">
+        <stmt>
+        <![CDATA[
+          update bi_trade_info set trade_status=3
+          where account=[account]
+        ]]>
+        </stmt>
+    </query>
+</query-config>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 删除角色，需要同时删除角色的授权、角色与用户的对应关系等 -->
+    <query id="Q_USERGROUP_DEL" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_USER_GROUP WHERE CODE=[code];
+                    DELETE FROM SYS_P_USER_UG WHERE USER_GROUP_CODE=[code];
+                    DELETE FROM SYS_P_USER_GROUP_F WHERE USER_GROUP_CODE=[code];
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 页面关联功能 -->
+    <ds name="DS_PAGE_REF_FUNCTION" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_REF_FUNCTION]]></url>
+    </ds>
+
+    <!-- 页面配置列表数据 -->
+    <ds name="DS_PAGE_MANAGER_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_MANAGER_LIST]]></url>
+    </ds>
+
+    <!-- 模块页面树 -->
+    <ds name="DS_PAGE_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_TREE]]></url>
+    </ds>
+    
+    <!-- 模块-功能 选择树 -->
+    <ds name="DS_PAGE_MODUEL_FUNCTION_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_MODUEL_FUNCTION_TREE]]></url>
+    </ds>
+    
+    <!-- 页面保存 -->
+    <ds name="DS_PAGE_SAVE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_SAVE]]></url>
+    </ds>
+
+	<!-- 删除页面 -->
+    <ds name="DS_PAGE_DEL" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_DEL]]></url>
+    </ds>
+
+	<!-- 批量删除页面 -->
+    <ds name="DS_PAGES_DEL" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGES_DEL]]></url>
+    </ds>    
+
+    <!-- 页面编辑 -->
+    <ds name="DS_PAGE_LOAD" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_LOAD]]></url>
+    </ds>
+
+	<!-- 获取所有模板 -->
+    <ds name="DS_TEMPLATE_SELECT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_TEMPLATE_SELECT]]></url>
+    </ds>
+
+	<!-- 克隆一个页面 -->
+    <ds name="DS_PAGE_CLONE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_CLONE]]></url>
+    </ds>
+
+    <!-- 获取实例配置属性 -->
+    <ds name="DS_PAGE_PROPERTY_LIST" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=properties]]></url>
+    </ds>
+
+    <!-- 生成页面 -->
+    <ds name="DS_PAGE_GENERATE" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=generatePage]]></url>
+    </ds>
+
+    <!-- 保存实例属性 -->
+    <ds name="DS_PAGE_PROPERTY_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_PROPERTY_EDIT]]></url>
+    </ds>
+    
+    <!-- 获取自定义模板结构 -->
+    <ds name="DS_PAGE_TEMPLATE_GET" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=generateJson]]></url>
+    </ds>  
+    
+    <!-- 获取自定义模板结构 -->
+    <ds name="DS_PAGE_TEMPLATE_SET" type="url">
+        <url><![CDATA[/_rdcpAction.action?method=saveJson]]></url>
+    </ds>        
+    
+    <!-- 获取sector列表 -->
+    <ds name="DS_PAGE_SECTOR_SELECT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_SECTOR_SELECT]]></url>
+    </ds>    
+    <!-- 获取container列表 -->
+    <ds name="DS_PAGE_CONTAINER_SELECT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/page/Q_RDCP_PAGE_CONFIG.xml&_id=Q_PAGE_CONTAINER_SELECT]]></url>
+    </ds>        
+</datasources>

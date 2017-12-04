@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!--功能树-->
+    <ds name="DS_RDCP_FUNCTION_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_FUNCTION.xml&_id=Q_FUNCTION_TREE]]></url>
+    </ds>
+
+    <!--业务系统功能列表-->
+    <ds name="DS_RDCP_FUNCTION_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_FUNCTION.xml&_id=Q_FUNCTION_LIST]]></url>
+    </ds>
+
+    <!--添加/修改功能-->
+    <ds name="DS_RDCP_FUNCTION_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_FUNCTION.xml&_id=Q_FUNCTION_EDIT]]></url>
+    </ds>
+
+    <!--获取功能详细信息-->
+    <ds name="DS_RDCP_FUNCTION_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_FUNCTION.xml&_id=Q_FUNCTION_INFO]]></url>
+    </ds>
+
+    <!--删除功能-->
+    <ds name="DS_RDCP_FUNCTION_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_FUNCTION.xml&_id=Q_FUNCTION_DELETE]]></url>
+    </ds>
+
+</datasources>

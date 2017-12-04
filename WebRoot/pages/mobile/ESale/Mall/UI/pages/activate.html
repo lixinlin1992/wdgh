@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="esaleb" ng-controller="AppCtrl">
+
+<head>
+    <base href="../../../../">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="Style/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Style/css/style.css">
+    <script type="text/javascript" src="System/Base/scripts/local.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="rdcp/script/lib/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/config.js"></script>
+    <script type="text/javascript" src="System/Base/scripts/app.js"></script>
+    <script type="text/javascript" src="ESale/Mall/UI/scripts/login.js"></script>
+
+    <title>登录易售宝客户端</title>
+
+    <script type="text/javascript">
+
+        function showForm(e) {
+        }
+        function changeHeight() {
+            var footertop = document.getElementById('loginfooter');
+            footertop.style.top = document.body.scrollHeight - 80 + "px";
+            if (footertop.offsetTop <= 480) {
+                footertop.style.top = 440 + "px";
+            }
+        }
+        window.onload = changeHeight;
+        window.onresize = changeHeight;
+    </script>
+</head>
+
+<body ng-controller="LoginController" class="loginbodyBg">
+
+<!--验证码Begin-->
+<div class="com_loginbox com_verification" id="SmsCode">
+    <a class="{{smsCodeSendBtnClass}}" id="SmsCodeSendBtn" href="javascript://" ng-click="reSendSms()">
+        {{smsCodeSendBtnLabel}}
+    </a>
+
+    <div class="loginform">
+        <div class="login_inputbox">
+            <div class="right" style="margin-right: 120px; margin-left: 5px;">
+                <input type="tel" value="" id="SMSLoginCode" ng-model="smsCode" placeholder="请输入短信验证码"/>
+            </div>
+        </div>
+    </div>
+    <a class="loginbtn" href="javascript://" ng-click="validateSmsCode()">激活</a>
+</div>
+<!--验证码End-->
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        login.loginControllerScope.smsCodeBtnCountDown(60);
+        var account = localStorage.getItem('account');
+        if (account) {
+            $('#loginForm_id input[name=loginName]').val(account);
+        }
+    });
+</script>
+<script type="text/javascript" src="rdcp/script/src/rdcp.js"></script>
+<script type="text/javascript" src="rdcp/script/src/ajax/rdcp.ajax.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.adapter.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.array.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.string.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.dom.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.core.all.js"></script>
+<script type="text/javascript" src="rdcp/script/src/core/rdcp.json.js"></script>
+<script type="text/javascript" src="rdcp/script/src/ui/rdcp.mask.js"></script>
+<script type="text/javascript" src="System/Base/scripts/Base.js"></script>
+<script type="text/javascript" src="System/Base/scripts/ajax.js"></script>
+<script type="text/javascript" src="System/Base/scripts/button.js"></script>
+</body>
+
+</html>
+

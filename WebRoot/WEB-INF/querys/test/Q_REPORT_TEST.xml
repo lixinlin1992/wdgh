@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <query id="Q_RPT_TEST_1" type="report" result="html">
+        <stmt><![CDATA[SELECT id,name,(CASE WHEN ID<50 THEN '普通用户' WHEN ID<100 THEN '管理员' ELSE '领导' END) AS type FROM SYS_P_USER
+            ORDER BY id ASC]]></stmt>
+        <param name="value-col">id</param>
+        <param name="xaxis-col">name</param>
+        <param name="series-col">type</param>
+        <param name="content-type">text/html</param>
+    </query>
+
+    <query type="report" id="Q_RPT_TEST" result="html">
+        <stmt><![CDATA[SELECT b.PROPERTY_NAME,p.PROPERTY_ID,p.PLAN_POWER1,p.PLAN_POWER2,p.PLAN_POWER3,p.PLAN_POWER4,p.PLAN_POWER5,p.PLAN_POWER6,
+           p.PLAN_POWER7,p.PLAN_POWER8,p.PLAN_POWER9,p.PLAN_POWER10,p.PLAN_POWER11,p.PLAN_POWER12
+           FROM ELEC_PLAN p
+           LEFT JOIN BI_PROPERTY b ON b.PROPERTY_ID=p.PROPERTY_ID
+           --WHERE ROWNUM<=10
+           ORDER BY p.PROPERTY_ID ASC]]></stmt>
+        <param name="xaxis-col">PROPERTY_ID</param>
+        <!--<param name="xaxis-provider">com.sunrise.service.report.impl.SQLXAxisProvider</param>-->
+        <!--<param name="xaxis-sql"><![CDATA[SELECT PROPERTY_ID AS VALUE,PROPERTY_NAME AS LABEL FROM BI_PROPERTY WHERE PROPERTY_ID IN (43740,38243,38320,38568,38680,38304,38333,39756,40301,40317)]]></param>-->
+        <param name="xaxis-label-col">PROPERTY_NAME</param>
+        <param name="resultset-type">static</param>
+        <param name="series-provider"></param>
+        <param name="series">
+            <![CDATA[{
+            "values":["PLAN_POWER1","PLAN_POWER2","PLAN_POWER3","PLAN_POWER4",
+            "PLAN_POWER5","PLAN_POWER6","PLAN_POWER7","PLAN_POWER8","PLAN_POWER9","PLAN_POWER10",
+            "PLAN_POWER11","PLAN_POWER12"],
+            "labels":["1月份","2月份","3月份","4月份","5月份","6月份","7月份",
+            "8月份","9月份","10月份","11月份","12月份"]}]]></param>
+    </query>
+
+</query-config>

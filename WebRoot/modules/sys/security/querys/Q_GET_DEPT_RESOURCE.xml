@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--返回已经授权给指定部门的资源-->
+    <query id="Q_GET_DEPT_RESOURCE" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT r.*, ORA_HASH(r.MODULE_PATH||'/'||r.RES_PATH) AS ID
+                FROM SYS_P_DEPT_RESOURCE r
+                WHERE r.DEPT_ID=[dept_id]
+                ]]></stmt>
+        <param name="paging">false</param>
+    </query>
+</query-config>

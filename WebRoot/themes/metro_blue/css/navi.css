@@ -1,0 +1,249 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, p {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.box-navi {
+    position: fixed;
+    top: 0px;
+    background-color: #9CF;
+    min-width: 1150px;
+    width: 100%;
+}
+
+.box-navi #top {
+    background-repeat: no-repeat;
+    background-position: left;
+    width: 100%;
+    height: 64px;
+    background-color: #1798c5;
+
+}
+
+.box-navi #top #logo {
+    background-image: url(../images/logo.png);
+    float: left;
+    height: 64px;
+    width: 530px;
+}
+
+#topleft {
+    height: 64px;
+    width: 270px;
+    float: left;
+}
+
+#topleft .search {
+    background-image: url(../images/searchbg.gif);
+    height: 30px;
+    width: 250px;
+    margin-top: 18px;
+    margin-left: 10px;
+}
+
+#topleft .search  input {
+    margin-top: 5px;
+    width: 200px;
+    margin-left: 5px;
+    width: 200px;
+    border-color: transprent;
+    background-color: transprent;
+    border: 0px;
+    float: left;
+
+}
+
+.searchbox {
+    background-color: #C60;
+    height: 64px;
+    width: 300px;
+    float: left;
+    margin-left: 550px;
+}
+
+#topleft .search .searchbutton {
+    background-image: url(../images/search.gif);
+    float: right;
+    height: 25px;
+    width: 25px;
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+.box-navi #top-right {
+    height: 64px;
+    width: 350px;
+    float: right;
+}
+
+.box-navi #top #top-right ul li {
+    float: left;
+    width: 85px;
+}
+
+#top-right .list-btn1 a {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-1.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+#top-right .list-btn1 a:hover {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-1.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+    background-color: #5fb8d6;
+}
+
+#top-right .list-btn2 a {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-2.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+#top-right .list-btn2 a:hover {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-2.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+    background-color: #5fb8d6;
+}
+
+#top-right .list-btn3 a {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-3.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+#top-right .list-btn3 a:hover {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-3.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+    background-color: #5fb8d6;
+}
+
+#top-right .list-btn4 a {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-4.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+#top-right .list-btn4 a:hover {
+    display: block;
+    line-height: 64px;
+    text-align: right;
+    background-image: url(../images/icon-top-4.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding-right: 10px;
+    background-color: #5fb8d6;
+}
+
+.box-navi #navi-box {
+    background-color: #068dbd;
+    height: 36px;
+    width: 100%;
+}
+
+.box-navi #navi-box #navi ul .navi-btn {
+    float: left;
+    width: 90px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 36px;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.box-navi #navi-box #navi ul .navi-btnhover {
+    float: left;
+    width: 90px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 36px;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #5fb8d6;
+}
+
+.box-navi .navi-right {
+    background-image: url(../images/icon-right-menunormal.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    float: right;
+    height: 36px;
+    width: 36px;
+
+}
+
+.box-navi .navi-righthover {
+    background-image: url(../images/icon-right-menupressed.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    float: right;
+    height: 36px;
+    width: 36px;
+}

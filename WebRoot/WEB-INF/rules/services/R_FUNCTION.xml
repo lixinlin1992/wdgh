@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="SYS_P_FUNCTION" name="系统功能" validate="true">
+        <field id="name" validate="true" null="false" type="string">
+            <name>功能名称</name>
+            <constraint>50</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>请输入功能名称</null-message>
+            <invalid-message>请输入正确的功能名称，最长25个汉字或者50个英文字母</invalid-message>
+        </field>
+        <field id="code" validate="true" null="true" type="string">
+            <name>功能码</name>
+            <constraint>500</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message></null-message>
+            <invalid-message>请输入正确的功能码，最长为250个汉字或者500个英文字母</invalid-message>
+        </field>
+        <field id="module_id" validate="true" null="false" type="int">
+            <name>所属模块</name>
+            <constraint></constraint>
+            <pattern><![CDATA[\d+]]></pattern>
+            <null-message>请选择功能所属模块</null-message>
+            <invalid-message></invalid-message>
+        </field>
+        <field id="id" validate="true" null="false" type="int">
+            <name>功能编号</name>
+            <constraint></constraint>
+            <pattern><![CDATA[\d+]]></pattern>
+            <null-message>请输入功能编号</null-message>
+            <invalid-message>请输入正确的功能编号</invalid-message>
+        </field>
+    </form>
+</rules>

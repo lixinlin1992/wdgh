@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!-- 页面列表 -->
+    <query id="Q_PAGE_MANAGER_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+					select
+					s.name as SYS_NAME,m.name as MODUEL_NAME,t.name as TEMPLATE_NAME,p.name as PAGE_NAME,
+					u.NAME AS EDIT_USER_NAME,p.EDIT_USER,p.EDIT_STATUS,'',
+					t.id as TEMPLATE_ID,p.id as PAGE_ID,p.sys_code as SYS_CODE,(case when p.defination is null then '否' else '是' end) as HAS_DEF
+					from rdc_cfg_page p,rdc_cfg_template t,sys_bi_system s,sys_p_module m,
+					SYS_P_USER u
+					where p.template_id = t.id(+) and
+						  p.module_id = m.id(+) and
+						  p.sys_code = s.code and
+						  u.ID(+)=p.EDIT_USER
+						  AND [RdcpSecurity(p.sys_code,p.module_id)]
+				   <#if moduleId??>
+						  and p.module_id = [moduleId int]
+				   </#if>
+				   <#if pageName??>
+						  and p.NAME [like(pageName)]
+				   </#if>
+				   <#if templateName??>
+						  and p.template_id [like(templateName)]
+				   </#if>
+				   <#if sysId??>
+						  and p.sys_code [like(sysId)]
+				   </#if>
+				   <#if pageId??>
+						  and p.id = [pageId int]
+				   </#if>
+                    ]]>
+        </stmt>
+        <param name="id">PAGE_ID</param>
+    </query>
+
+    <!-- 查询指定页面信息 -->
+    <query id="Q_PAGE_LOAD" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT t.*,m.name as module_name,s.name as sys_text,(case when t.defination is null then 0 else 1 end) as has_def
+                    FROM RDC_CFG_PAGE t,SYS_P_MODULE m,SYS_BI_SYSTEM s
+                    WHERE t.module_id = m.id and t.ID=[id] and t.sys_code = s.code and
+					      [RdcpSecurity(t.sys_code,t.module_id)]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 保存页面配置 -->
+    <query id="Q_PAGE_SAVE" type="batch" result="">
+        <processor name="set-value" type="before" seq="-2" break="false">
+            <param name="var">function_code</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[select 'framework.do?ds=DS_RDCP_RUN_PAGE&page_code='||[code]  from dual]]></param>
+        </processor>
+        <processor name="set-value" type="before" seq="-1" break="false">
+            <param name="var">page_info</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[<#if id?? && id!=''>SELECT ID,NAME,SYS_CODE FROM RDC_CFG_PAGE WHERE ID=[id long]<#else>SELECT RDC_CFG_PAGE_SEQ.NEXTVAL AS ID,[name] AS NAME,[sys_code] AS SYS_CODE FROM DUAL</#if>]]></param>
+        </processor>
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">edit</param>
+		</processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+                    SELECT COUNT(1) FROM rdc_cfg_page
+                    WHERE code=[code] <#if id??> and id != [id]</#if>
+            ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[页面编码已经被占用，请使用其它编码]]></param>
+        </processor>
+		<stmt><![CDATA[
+			<#if id??>
+			update rdc_cfg_page set name=[name],note=[note],dyna_flag = [dyna_flag],
+			code = [code],sys_code=[sys_code],module_id=[module_id] where id = [id];
+			<#else>
+				<#if from??&&from=="template">
+					<#if has_def??&&has_def?string="on">
+						insert into rdc_cfg_page (id,name,note,code,sys_code,module_id,defination,dyna_flag)
+						select [page_info.id],[name],[note],[code],[sys_code],[module_id],TEMPLATE_CONTENT,[dyna_flag]
+						from RDC_CFG_TEMPLATE where ID = [template_id];
+					<#else>
+						insert into rdc_cfg_page (id,name,note,template_id,code,sys_code,module_id,dyna_flag)
+						values ([page_info.id],[name],[note],[template_id],[code],[sys_code],[module_id],[dyna_flag]);
+					</#if>
+				<#else>
+					insert into rdc_cfg_page (id,name,note,code,sys_code,module_id,defination,dyna_flag)
+					select [page_info.id],[name],[note],[code],[sys_code],[module_id],defination,[dyna_flag]
+					from rdc_cfg_container where ID = [container_id];
+				</#if>
+				<#if ref_function_id??>
+					UPDATE SYS_P_FUNCTION SET CODE = [function_code] where ID = [ref_function_id];
+				<#else>
+					INSERT INTO SYS_P_FUNCTION(ID,SYS_CODE,MODULE_ID,NAME,CODE,TYPE,ACCESS_RULE,DEPEND_ID,NOTE) 
+					VALUES (SYS_P_FUNCTION_SEQ.NEXTVAL,[sys_code],[module_id],[name],[function_code],1,0,null,null);
+				</#if>
+			</#if>
+		  ]]>
+		</stmt>
+		<param name="trans">true</param>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${page_info.id}]]></param>
+            <param name="table-name">RDC_CFG_PAGE</param>
+            <param name="object-name"><![CDATA[${page_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${page_info.sys_code}]]></param>
+            <param name="type"><![CDATA[<#if id??>update<#else>create</#if>]]></param>
+        </processor>
+    </query>
+
+    <!--页面删除-->
+	<query id="Q_PAGE_DEL" type="batch" result="">
+        <processor name="set-value" type="before" seq="-1" break="false">
+            <param name="var">page_info</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[SELECT ID,NAME,SYS_CODE FROM RDC_CFG_PAGE WHERE ID=[id long]]]></param>
+        </processor>
+		<stmt><![CDATA[
+			DELETE FROM RDC_CFG_PAGE WHERE ID = [id];
+			DELETE FROM RDC_CFG_PAGE_PROPERTY WHERE PAGE_ID = [id]
+		  ]]>
+		</stmt>
+        <param name="trans">true</param>
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">delete</param>
+		</processor>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${page_info.id}]]></param>
+            <param name="table-name">RDC_CFG_PAGE</param>
+            <param name="object-name"><![CDATA[${page_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${page_info.sys_code}]]></param>
+            <param name="type"><![CDATA[delete]]></param>
+        </processor>
+	</query>
+
+    <!--批量页面删除-->
+	<query id="Q_PAGES_DEL" type="batch" result="">
+		<stmt><![CDATA[
+		   <#assign index=0>
+		   <@aslist name="id"/>
+		   <#list id as n>		
+				DELETE FROM RDC_CFG_PAGE WHERE ID = ${n};
+				DELETE FROM RDC_CFG_PAGE_PROPERTY WHERE PAGE_ID = ${n};
+           <#assign index=index+1>
+		   </#list>
+		  ]]>
+		</stmt>
+        <param name="trans">true</param>
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">delete</param>
+		</processor>
+	</query>
+
+    <!--页面参数克隆-->
+	<query id="Q_PAGE_CLONE" type="batch" result="">
+        <processor name="set-value" type="before" seq="-2" break="false">
+            <param name="var">function_code</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[select 'framework.do?ds=DS_RDCP_RUN_PAGE&page_code='||[code]  from dual]]></param>
+        </processor>
+        <processor name="set-value" type="before" seq="-1" break="false">
+            <param name="var">id</param>
+            <param name="sql"><![CDATA[SELECT RDC_CFG_PAGE_SEQ.NEXTVAL FROM DUAL]]></param>
+        </processor>
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[
+                    SELECT COUNT(1) FROM rdc_cfg_page
+                    WHERE code=[code]
+            ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[页面编码已经被占用，请使用其它编码]]></param>
+        </processor>
+		<stmt><![CDATA[
+		  <#-- 
+ 		  <#if has_def??&&has_def?string="on">
+		  INSERT INTO RDC_CFG_PAGE (ID,NAME,CODE,NOTE,TEMPLATE_ID,SYS_CODE,MODULE_ID,defination,dyna_flag)
+		  select [id],[name],[code],[note],[template_id],[sys_code],[module_id],defination,[dyna_flag]
+		  from RDC_CFG_PAGE where id = [SourcePageId];
+		  <#else>
+		  INSERT INTO RDC_CFG_PAGE (ID,NAME,CODE,NOTE,TEMPLATE_ID,SYS_CODE,MODULE_ID,dyna_flag)
+		  select [id],[name],[code],[note],[template_id],[sys_code],[module_id],[dyna_flag]
+		  from RDC_CFG_PAGE where id = [SourcePageId];
+		  </#if>
+		  -->
+		  
+		  INSERT INTO RDC_CFG_PAGE (ID,NAME,CODE,NOTE,TEMPLATE_ID,SYS_CODE,MODULE_ID,defination,dyna_flag)
+		  select [id],[name],[code],[note],[template_id],[sys_code],[module_id],defination,[dyna_flag]
+		  from RDC_CFG_PAGE where id = [SourcePageId];
+		  
+		  <#if ref_function_id??>
+		  UPDATE SYS_P_FUNCTION SET CODE = [function_code] where ID = [ref_function_id];
+		  <#else>
+		  INSERT INTO SYS_P_FUNCTION(ID,SYS_CODE,MODULE_ID,NAME,CODE,TYPE,ACCESS_RULE,DEPEND_ID,NOTE) 
+		  VALUES (SYS_P_FUNCTION_SEQ.NEXTVAL,[sys_code],[module_id],[name],[function_code],1,0,null,null);
+		  </#if>
+		  
+		  INSERT INTO RDC_CFG_PAGE_PROPERTY(ID,PAGE_ID,ELEMENT_ID,NAME,TYPE_CODE,VALUE)
+		  SELECT RDC_CFG_PAGE_PROPERTY_SEQ.NEXTVAL,[id],ELEMENT_ID,NAME,TYPE_CODE,VALUE
+		  FROM
+		  RDC_CFG_PAGE_PROPERTY
+		  WHERE PAGE_ID = [SourcePageId]
+		  ]]>
+		</stmt>
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">edit</param>
+		</processor>
+        <param name="trans">true</param>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${id}]]></param>
+            <param name="table-name">RDC_CFG_PAGE</param>
+            <param name="object-name"><![CDATA[${name}]]></param>
+            <param name="sys-code"><![CDATA[${sys_code}]]></param>
+            <param name="type"><![CDATA[create]]></param>
+        </processor>
+	</query>
+
+    <!-- 查询模块功能树 -->
+    <query id="Q_PAGE_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            select * from(
+                <#if !(type??) >
+                    SELECT
+                        code AS ID,
+                        code AS SYS,
+                        NAME AS NAME,
+                        0 AS TYPE,
+                        to_char(0) AS parent_id,
+                        null as code,
+                        'true' AS isParent
+                    FROM sys_bi_system
+					where [RdcpSecurity(code,module_id)] <#if sys_code_??>and code = [sys_code_]</#if>
+                    <#else>
+                        SELECT
+                            to_char(ID) AS ID,
+                            sys_code AS SYS,
+                            NAME AS NAME,
+                            1 AS TYPE,
+                            to_char(sys_code) AS parent_id,
+                            null as code,
+                            'true' AS isParent
+                        FROM sys_p_module
+                        where
+                            <#if (type=="0")>
+                                parent_id = 0
+                                and sys_code = [id]
+                            <#else>
+                                parent_id = [id]
+                            </#if>
+							and [RdcpSecurity(sys_code,id)] <#if sys_code_??>and sys_code = [sys_code_]</#if>
+                        UNION
+                        SELECT
+                            to_char(ID) AS ID,
+                            sys_code AS SYS,
+                            NAME AS NAME,
+                            2 AS TYPE,
+                            to_char(MODULE_ID) AS parent_id,
+                            code,
+                            'false' AS isParent
+                        FROM rdc_cfg_page
+                        where
+                            <#if (type=="0")>
+                                MODULE_ID = 0
+                            <#else>
+                                 MODULE_ID = [id]
+                            </#if>
+							and [RdcpSecurity(sys_code,module_id)] <#if sys_code_??>and sys_code = [sys_code_]</#if>
+                </#if>
+                ) order by isParent desc,ID asc
+            ]]>
+        </stmt>
+        <!-- 树节点的相关配置
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">${id!"0"}</param>    -->
+
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/page/T_PAGE_TREE.ftl</param>
+    </query>
+
+    <!-- 获取所有模板 -->
+    <query id="Q_TEMPLATE_SELECT" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+				select ID,NAME from rdc_cfg_template
+			]]>
+        </stmt>
+        <param name="l-col">NAME</param>
+        <param name="v-col">ID</param>
+    </query>
+    
+    <!-- 获取所有SECTOR -->
+    <query id="Q_PAGE_SECTOR_SELECT" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+				select id,name from rdc_cfg_sector where status = 0
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <param name="v-col">id</param>
+    </query>        
+    <!-- 获取所有CONTAINER -->
+    <query id="Q_PAGE_CONTAINER_SELECT" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+				select id,name from rdc_cfg_container where status = 0 order by id asc
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <param name="v-col">id</param>
+    </query>    
+
+
+    <!-- 查询模板实例信息 -->
+    <query id="Q_TEMPLATE_PAGE_INFO" type="" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT *
+                    FROM RDC_CFG_PAGE
+                    WHERE ID=[id]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 查询模板实例的属性配置 -->
+    <query id="Q_PAGE_PROPERTY_LIST" type="" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT *
+                    FROM RDC_CFG_PAGE_PROPERTY
+                    WHERE PAGE_ID =[instance_id long]
+                    <#if element_id?exists>
+                    AND ELEMENT_ID=[element_id]
+                    </#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 保存模板实例的属性配置 -->
+    <query id="Q_PAGE_PROPERTY_EDIT" type="batch" result="">
+        <processor name="set-value" type="before" seq="-1" break="false">
+            <param name="var">page_info</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[SELECT ID,NAME,SYS_CODE FROM RDC_CFG_PAGE WHERE ID=[page_id long]]]></param>
+        </processor>
+        <stmt>
+            <![CDATA[
+                    DELETE FROM RDC_CFG_PAGE_PROPERTY WHERE PAGE_ID = [page_id long] AND ELEMENT_ID=[element_id];
+                    <@aslist name="names"/>
+                    <#assign index=0>
+                    <#list names as n>
+                    INSERT INTO RDC_CFG_PAGE_PROPERTY(ID,PAGE_ID,ELEMENT_ID,NAME,TYPE_CODE,VALUE)
+                    VALUES(RDC_CFG_PAGE_PROPERTY_SEQ.NEXTVAL,[page_id long],[element_id],[array(names,${index})],[array(types,${index})],[array(values,${index})]);
+                    <#assign index=index+1>
+                    </#list>
+                    
+                    UPDATE RDC_CFG_PAGE SET last_edit_date = sysdate where ID = [page_id long];
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${page_info.id}]]></param>
+            <param name="table-name">RDC_CFG_PAGE</param>
+            <param name="object-name"><![CDATA[${page_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${page_info.sys_code}]]></param>
+            <param name="type"><![CDATA[update]]></param>
+        </processor>
+    </query>
+
+    <!-- 关联页面和功能的关系 -->
+    <query id="Q_PAGE_REF_FUNCTION" type="update" result="">
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">code</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[select code from rdc_cfg_page where id = [pageId]]]></param>
+        </processor>
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">function_code</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[select 'framework.do?ds=DS_RDCP_RUN_PAGE&page_code='||[code]  from dual]]></param>
+        </processor>
+        <stmt>
+            <![CDATA[ 
+            UPDATE SYS_P_FUNCTION SET CODE = [function_code] where ID = [function_id]
+                    ]]>
+        </stmt>
+    </query>
+
+
+    <!-- 查询模块功能树 -->
+    <query id="Q_PAGE_MODUEL_FUNCTION_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            select * from(
+                <#if !(type??) >
+                    SELECT
+                        code AS ID,
+                        NAME AS NAME,
+                        0 AS TYPE,
+                        to_char(0) AS parent_id,
+                        'true' AS isParent
+                    FROM sys_bi_system
+					where [RdcpSecurity(code,module_id)]
+                    <#else>
+                        SELECT
+                            to_char(ID) AS ID,
+                            NAME AS NAME,
+                            1 AS TYPE,
+                            to_char(sys_code) AS parent_id,
+                            'true' AS isParent
+                        FROM sys_p_module
+                        where
+                            <#if (type=="0")>
+                                parent_id = 0
+                                and sys_code = [id]
+                            <#else>
+                                parent_id = [id]
+                            </#if>
+							and [RdcpSecurity(sys_code,id)]
+                        UNION
+                        SELECT
+                            to_char(ID) AS ID,
+                            NAME AS NAME,
+                            2 AS TYPE,
+                            to_char(MODULE_ID) AS parent_id,
+                            'false' AS isParent
+                        FROM sys_p_function
+                        where
+                            <#if (type=="0")>
+                                MODULE_ID = 0
+                            <#else>
+                                 MODULE_ID = [id]
+                            </#if>
+							and [RdcpSecurity(sys_code,module_id)]
+                </#if>
+                ) order by isParent desc,ID asc
+            ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/page/T_MODUEL_FUNC_TREE.ftl</param>
+    </query>
+
+</query-config>

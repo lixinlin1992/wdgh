@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>我的</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+		<!-- 手机端自定义样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<!--<script src="../js/jquery.min.js"></script>-->
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<!--<script src="../js/bootstrap.min.js"></script>-->
+
+		<!--商品详细页面CSS-->
+		<link rel="stylesheet" href="../css/styles.css" />
+
+		<!--IOS电池栏样式-->
+		<link id="batteryBarCss" rel="stylesheet" href=""/>
+
+		<script type="text/javascript">
+			function addBatteryBar(){
+				var batteryBarCss = document.getElementById("batteryBarCss");
+				var batteryBarBox = document.getElementById("batteryBarBox");
+				if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+//					alert("iOS Platform");
+					batteryBarCss.href="../css/iosstyle.css";
+				}
+				else{
+//					alert("another");
+					batteryBarCss.href="";
+				}
+			}
+			window.onload=addBatteryBar;
+		</script>
+	</head>
+
+	<body>
+		<div id="batteryBarBox" class="batteryBarBox"></div>
+		<!--头部-->
+		<header>
+			<!--顶部导航：nav_top-->
+			<!--顶部导航Begin-->
+			<div class="nav_top">
+				<h1 class="title">我的</h1>
+				<a class="btn_left icon_left" href="javascript://"></a>
+				<a class="btn_right icon_home" href="javascript://"></a>
+			</div>
+			<!--顶部导航End-->
+			<!--装饰线-->
+			<div class="com_decoration_line">
+				<img src="../images/common/decoration.png" alt="" />
+			</div>
+			<!--END装饰线-->
+		</header>
+		<!--头部End-->
+
+		<!--主体内容-->
+		<section style="background: #FFFFFF;">
+			<!--头像信息 begin-->
+			<div class="my_header">
+				<!--页面列表模块Begin-->
+					<div class="circle"><div class="logo"><img src="../images/mine/mylogo.png" width="110px" alt="" /></div></div>
+					<div class="font">李小天</div>
+					<a href="javascript://" class="tips"></a>
+				<!--页面列表模块Begin-->
+			</div>
+			<!--头像信息 end-->
+			<div class="clear"></div>
+			<!--信息列表begin-->
+			<div class="com_myDetail">
+				<!--页面列表模块Begin-->
+				<a href="javascript://" class="com_list">
+					<div class="list_mark"><img src="../images/bottom_menu/bottom05.png" class="smallImg" alt="" /></div>
+					<div class="title">&nbsp;&nbsp;&nbsp;我的帐号</div>
+					<div class="enter marginRight"></div>
+					<div class="tips"></div>
+				</a>
+				<!--页面列表模块Begin-->
+				<!--页面列表模块Begin-->
+				<a href="javascript://" class="com_list">
+					<div class="list_mark"><img src="../images/bottom_menu/bottom02.png" class="smallImg" alt="" /></div>
+					<div class="title">&nbsp;&nbsp;&nbsp;关于APP</div>
+					<div class="enter marginRight"></div>
+					<div class="tips"></div>
+				</a>
+				<!--页面列表模块Begin-->
+				<!--页面列表模块Begin-->
+				<a href="javascript://" class="com_list">
+					<div class="list_mark"><img src="../images/bottom_menu/bottom04.png" class="smallImg" alt="" /></div>
+					<div class="title">&nbsp;&nbsp;&nbsp;退出登录</div>
+					<div class="enter marginRight"></div>
+					<div class="tips"></div>
+				</a>
+				<!--页面列表模块Begin-->
+			</div>
+			<!--信息列表end-->
+		</section>
+		<!--主体内容End-->
+		<!--底部-->
+		<footer>
+			<!--底部导航begin-->
+			<div class="bottom_menu">
+				<div class="bottombtn btn1">
+					<a href="javascript://">
+                待处理
+            </a>
+				</div>
+				<div class="bottombtn btn2">
+					<a href="javascript://">
+                订单
+            </a>
+				</div>
+				<div class="bottombtn btn3">
+					<a class="active" href="javascript://">
+                首页
+            </a>
+				</div>
+				<div class="bottombtn btn4">
+					<a href="javascript://">
+                写卡
+            </a>
+				</div>
+				<div class="bottombtn btn5">
+					<a href="javascript://">
+                我的
+            </a>
+				</div>
+			</div>
+			<!--底部导航End-->
+		</footer>
+		<!--底部End-->
+	</body>
+</html>

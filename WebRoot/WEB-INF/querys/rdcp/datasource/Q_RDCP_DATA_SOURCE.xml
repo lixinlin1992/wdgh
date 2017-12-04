@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <!-- 查询数据源树 -->
+    <query id="Q_DATA_SOURCE_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            <#-- type在这里用来区分类型,0为业务系统,1为模块,2为数据源 -->
+            <#if type?exists && type!='2'>
+            select * from(
+	            SELECT to_char(CODE) AS ID,
+				       to_char(CODE) AS SYS,
+				       to_char(NAME) AS NAME,
+				       TO_CHAR('0') AS TYPE,
+				       TO_CHAR('') AS PARENT_ID,
+				       to_char('true') as isParent,
+				       NAME AS SYS_NAME
+	          FROM SYS_BI_SYSTEM
+	          
+	          where 1 = 1
+	           and [RdcpSecurity(CODE)] <#if sys_code_??>and code = [sys_code_]</#if>
+	          
+	        UNION
+	        SELECT to_char(m.ID) AS ID, to_char(m.SYS_CODE) AS SYS,to_char(m.NAME) AS NAME, TO_CHAR('1') AS TYPE, to_char(m.sys_code) AS PARENT_ID,
+	        	   to_char('true') as isParent,s.NAME AS SYS_NAME
+	          FROM SYS_P_MODULE m
+	          LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+	         WHERE m.PARENT_ID = 0
+	           and [RdcpSecurity(m.SYS_CODE,m.ID)] <#if sys_code_??>and m.sys_code = [sys_code_]</#if>
+	        UNION
+	        SELECT to_char(m.ID) AS ID, to_char(m.SYS_CODE) AS SYS, to_char(m.NAME) AS NAME, TO_CHAR('1') AS TYPE,to_char(m.PARENT_ID) AS PARENT_ID,
+	        	   to_char('true') as isParent,s.NAME AS SYS_NAME
+	          FROM SYS_P_MODULE m
+	          LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=m.SYS_CODE
+	         WHERE m.PARENT_ID <> 0
+	         and [RdcpSecurity(m.SYS_CODE,m.ID)] <#if sys_code_??>and m.sys_code = [sys_code_]</#if>
+	         	<#if inx?? && inx=='1'>    
+				 UNION
+				 SELECT to_char(ID) AS ID,
+				        to_char(sys_code) AS SYS,
+				        to_char(NAME)AS NAME,
+				        TO_CHAR('2') AS TYPE,
+				        to_char(module_id) AS parent_id,
+				        to_char('') as isParent,'' AS SYS_NAME
+				  FROM RDC_CFG_DATASOURCE
+				 </#if>	           
+	        )tt where tt.PARENT_ID = [id]
+	         order by tt.type asc
+            <#else>
+	            SELECT CODE AS ID,
+                CODE AS SYS,
+       			NAME AS NAME,
+       			TO_CHAR('0') AS TYPE,
+       			TO_CHAR('') AS PARENT_ID,
+       			 to_char('true') as isParent,NAME AS SYS_NAME
+ 	 			FROM SYS_BI_SYSTEM
+ 	 			where 1=1
+ 	 			 and [RdcpSecurity(CODE)] <#if sys_code_??>and code = [sys_code_]</#if>
+             </#if>
+             ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">
+            template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl
+        </param>
+    </query>
+    <!-- 数据源展示列表 -->
+    <query id="Q_DATA_SOURCE_GRID" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+	    	SELECT T.NAME, 
+	    		   T.CODE AS CODE,
+	    		   --T.LOG_CONTENT,
+	    		   U.NAME AS SYS_NAME,
+	    		   Y.NAME AS MODULE_NAME,
+	    		   T.LAST_EDIT_DATE,
+	    		   I.NAME AS LAST_EDIT_USER_NAME,
+	    		   eu.NAME AS EDIT_USER_NAME,
+	    		   T.NOTE,
+	    		   T.EDIT_STATUS,
+	    		   to_char('') as DD,
+	    		   T.id as id,
+	    		   T.EDIT_USER,
+	    		   U.CODE AS SYS_CODE
+			  FROM RDC_CFG_DATASOURCE T,SYS_P_MODULE Y,SYS_BI_SYSTEM U,sys_p_user I,SYS_P_USER eu
+			 WHERE 1 = 1
+			   AND T.MODULE_ID = Y.ID
+			   AND T.SYS_CODE = U.CODE
+			   AND T.LAST_EDIT_USER = I.id(+)
+			   AND eu.ID(+)=T.EDIT_USER
+			   and [RdcpSecurity(T.SYS_CODE,Y.ID)]
+			 <#if sys??>
+			   AND T.SYS_CODE = [sys]
+			 </#if>
+			 
+			 <#if mol_id??>
+			   AND T.MODULE_ID in(SELECT ID FROM sys_p_module connect by prior id=parent_id start with ID = [mol_id])
+			 </#if>
+			 
+			 <#if ds_id??>
+			   AND T.ID = [ds_id]
+			 </#if>
+			 
+			 <#if _dsName??>
+			 	AND T.NAME [Like(_dsName)]
+			 </#if>
+			 <#if _daCode??>
+			 	AND T.CODE [Like(_daCode)]
+			 </#if>
+			 
+			 order by t.id asc
+    	 ]]>
+        </stmt>
+        <param name="paging">true</param>
+        <param name="id">id</param>
+        <param name="list-cols">name,code,sys_name,module_name,last_edit_date,last_edit_user_name,edit_user_name,edit_status,id,id,edit_user,sys_code</param>
+    </query>
+    <!-- 数据源属性编辑器 -->
+    <query id="Q_DS_PROPERTY_GRID" type="form_map" result="ftl">
+        <stmt>
+            <![CDATA[
+			SELECT a.ID,
+			       a.NAME,
+			       a.CODE,
+			       a.LOG_CONTENT,
+			       a.SYS_CODE,
+			       e.name as SYS_NAME,
+			       a.NOTE,
+			       a.SOURCE,
+			       a.TYPE,
+			       a.DEMO_DATA,
+			       a.QUERY_CODE,
+			       a.LOG_FLAG,
+			       b.id as CREATE_USER,
+			       a.CREATE_DATE as create_date,
+			       a.LAST_EDIT_DATE,
+			       c.name as LAST_EDIT_USER,
+			       a.EDIT_STATUS,
+			       d.name as EDIT_USER,
+			       a.module_id ,
+			       f.name as module_name
+			  FROM RDC_CFG_DATASOURCE a,sys_p_user b,sys_p_user c,sys_p_user d,SYS_BI_SYSTEM e,SYS_P_MODULE f
+			  where 1=1 
+			  and a.CREATE_USER = b.id(+)
+			  and a.LAST_EDIT_USER = c.id(+)
+			  and a.EDIT_USER = d.id(+)
+			  and a.sys_code = e.code(+)
+			  and a.module_id = f.id(+)
+			  and [RdcpSecurity(f.SYS_CODE,f.ID)]
+			  <#if id??>
+			    and a.ID = [id]
+			  </#if>
+			  and rownum <2
+			  
+    	 ]]>
+        </stmt>
+        <param name="paging">false</param>
+
+        <param name="ftl">
+            template/rdcp/datasource/T_DS_PROPERTY_GRID.ftl
+        </param>
+    </query>
+    <!-- 数据源添加/修改 -->
+    <query id="Q_DATA_SOURCE_ADD" type="auto-update">
+        <processor name="set-value" type="before" seq="-1" break="false">
+            <param name="var">ds_info</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[<#if id??>SELECT ID,NAME,SYS_CODE FROM RDC_CFG_DATASOURCE WHERE ID=[id long]<#else>SELECT RDC_CFG_DATASOURCE_SEQ.NEXTVAL AS ID,[name] AS NAME,[sys_code] AS SYS_CODE FROM DUAL</#if>]]></param>
+        </processor>
+        <!-- 权限 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor"
+                   type="before" break="true" seq="1">
+            <param name="type">edit</param>
+        </processor>
+        <!--进行数据的校验-->
+        <processor name="check-count" type="before" break="true"
+                   seq="2">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT  count(1) 	FROM RDC_CFG_DATASOURCE WHERE NAME =[name]
+		  		AND SYS_CODE = [sys_code]
+		  		<#if id??>AND ID<>[id long]</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前系统已存在相同的数据源名字,请重命名!]]></param>
+        </processor>
+        <processor name="check-count" type="before" break="true"
+                   seq="3">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT  count(1)
+		  		FROM RDC_CFG_DATASOURCE WHERE CODE =[code]
+		  		AND SYS_CODE = [sys_code]
+		  		<#if id??>AND ID<>[id long]</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前系统已存在相同的数据源编码,请重命名!]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if id??><#else>RDC_CFG_DATASOURCE s</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if id??>RDC_CFG_DATASOURCE s</#if>]]></param>
+        <param name="col-vals"><![CDATA[<#if id??><#else>s.ID=${ds_info.id}</#if>]]></param>
+        <param name="ex-cols">s.CREATE_USER,s.CREATE_DATE,s.EDIT_USER,s.last_edit_date,s.last_edit_user,s.edit_status</param>
+        <param name="trans">true</param>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${ds_info.id}]]></param>
+            <param name="table-name">RDC_CFG_DATASOURCE</param>
+            <param name="object-name"><![CDATA[${ds_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${ds_info.sys_code}]]></param>
+            <param name="type"><![CDATA[<#if id??>update<#else>create</#if>]]></param>
+        </processor>
+        <!-- 刷新数据源以及参数缓存 -->
+        <processor name="script" type="after" seq="1" break="false">
+            <param name="script">
+                <![CDATA[
+                            //刷新数据源缓存
+                            com.sunrise.rdcp.engine.RDCPDataSourceConfigAdapter.reloadDataSource(sys_code,code);
+                        ]]>
+            </param>
+        </processor>
+
+    </query>
+
+    <!-- 参数列表 -->
+    <query id="Q_DATA_SOURCE_PARAM_GRID" type="pagelist"
+           result="json">
+        <stmt>
+            <![CDATA[
+		SELECT T.NAME,
+		       T.CODE,
+		       (CASE
+		         WHEN T.TYPE = 0 THEN
+		          '文本'
+		         WHEN T.TYPE = 1 THEN
+		          '整数'
+		         WHEN T.TYPE = 2 THEN
+		          '浮点数'
+		         WHEN T.TYPE = 3 THEN
+		          '短日期'
+		         WHEN T.TYPE = 4 THEN
+		          '长日期'
+		       END) AS TYPE,
+		       (CASE
+		         WHEN T.VAL_REQUIRED = 0 THEN
+		          '不是必须'
+		         WHEN T.VAL_REQUIRED = 1 THEN
+		          '必须'
+		       END) AS VAL_REQUIRED,
+		       '' as  dd,
+		       T.id as id
+		  FROM RDC_CFG_DS_PARAM T
+		  WHERE T.DATASOURCE_ID = [_dsId]
+		  order by T.ID ASC
+    	 ]]>
+        </stmt>
+        <param name="paging">false</param>
+    </query>
+    <!-- 校验规则下拉框 -->
+    <query id="Q_CHECK_RULE" type="labelvalue" result="json">
+        <stmt><![CDATA[
+			SELECT id,name FROM RDC_VALIDATE_RULE
+			]]>
+        </stmt>
+        <param name="l-col">name</param>
+        <param name="v-col">ID</param>
+    </query>
+    <!-- 参数添加 -->
+    <query id="Q_DATA_SOURCE_PARAM_ADD" type="auto-update">
+        <processor name="set-value" type="before" break="false" seq="-1">
+            <param name="var">ds_info</param>
+            <param name="type">map</param>
+            <param name="sql"><![CDATA[
+            <#if id??>
+            SELECT d.ID,d.NAME,d.SYS_CODE FROM RDC_CFG_DATASOURCE d,RDC_CFG_DS_PARAM dp WHERE d.ID(+)=dp.DATASOURCE_ID AND dp.ID=[id long]
+            <#else>
+            SELECT ID,NAME,SYS_CODE FROM RDC_CFG_DATASOURCE WHERE ID=[datasource_id long]
+            </#if>]]>
+            </param>
+        </processor>
+        <processor break="true" name="check-count" seq="1"
+                   type="before">
+            <param name="count-sql">
+                <![CDATA[SELECT COUNT(1) FROM RDC_CFG_DS_PARAM WHERE NAME=[name] and DATASOURCE_ID =[DATASOURCE_ID] <#if id??> AND ID<>[id]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前数据源下的参数[${name}]已经被占用，请使用其它名称。]]></param>
+        </processor>
+        <processor break="true" name="check-count" seq="2"
+                   type="before">
+            <param name="count-sql">
+                <![CDATA[SELECT COUNT(1) FROM RDC_CFG_DS_PARAM WHERE CODE=[code] and DATASOURCE_ID =[DATASOURCE_ID] <#if id??>AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前数据源下的编码[${code}]已经被占用，请使用其它编码。]]></param>
+        </processor>
+        <!--
+        <processor name="set-value" type="before" seq="3" break="false">
+            <param name="var">SYS_CODE</param>
+            <param name="sql">
+                <![CDATA[SELECT SYS_CODE FROM RDC_CFG_DATASOURCE WHERE ID [in(datasource_id long)]]]></param>
+            <param name="type">array</param>
+        </processor>
+        -->
+        <param name="insert-tables"><![CDATA[<#if id??><#else>RDC_CFG_DS_PARAM s</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if id??>RDC_CFG_DS_PARAM s</#if>]]></param>
+        <param name="col-vals"><![CDATA[<#if id??><#else>s.ID=RDC_CFG_DS_PARAM_SEQ.NEXTVAL</#if>]]></param>
+
+        <!--版本控制处理-->
+        <processor name="version-lock" type="after" seq="0" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${ds_info.id}]]></param>
+            <param name="table-name">RDC_CFG_DATASOURCE</param>
+            <param name="object-name"><![CDATA[${ds_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${ds_info.sys_code}]]></param>
+            <param name="type"><![CDATA[update]]></param>
+        </processor>
+        <!-- 刷新数据源以及参数缓存 -->
+        <processor name="script" type="after" seq="1" break="false">
+            <param name="script">
+                <![CDATA[
+                        var codes = __cxt.getParams().get("sys_ds_code");
+                        for(var i=0;i<codes.size();i++){
+                            //刷新数据源参数缓存
+                            com.sunrise.rdcp.engine.RDCPFormRuleAdapter.reloadRule(codes.get(i)[0],codes.get(i)[1]);
+                        }
+                        ]]>
+            </param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+    <!-- 参数属性编辑器 -->
+    <query id="Q_DS_PARAM_TABLE" type="form_map" result="ftl">
+        <stmt>
+            <![CDATA[
+			SELECT  
+				a.id,
+				a.name,
+				a.CODE,
+				a.TYPE,
+				a.VALID_CHECK,
+				a.VAL_REQUIRED,
+				a.MULTI_FLAG,
+				a.VAL_LENGTH,
+				a.VAL_PRECISION,
+				a.PATTERN_ID,
+				a.VALID_PATTERN,
+				a.DEFAULT_VAL
+				from rdc_cfg_ds_param a	
+				where 1=1
+			  <#if id??>
+			    and a.ID = [id]
+			  </#if>
+			  and rownum <2
+    	 ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">
+            template/rdcp/datasource/T_DS_PARAM_TABLE.ftl
+        </param>
+    </query>
+    <!-- 删除数据源 -->
+    <query id="Q_DATA_SOURCE_DEL_KV" type="auto-update">
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">SYS_CODE</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM RDC_CFG_DATASOURCE WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+        </processor>
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor"
+                   type="before" break="true" seq="2">
+            <param name="type">delete</param>
+        </processor>
+        <!-- 获取业务系统以及数据源编码刷新数据源以及参数缓存 -->
+        <processor name="set-value" type="before" seq="3" break="false">
+            <param name="var">sys_ds_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE,CODE FROM RDC_CFG_DATASOURCE WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+            <param name="rows">all</param>
+        </processor>
+
+        <!--版本控制处理 -->
+        <processor name="version-lock" type="before" seq="4" break="true">
+            <param name="key">ID</param>
+            <param name="key-value"><![CDATA[${ds_info.id}]]></param>
+            <param name="table-name">RDC_CFG_DATASOURCE</param>
+            <param name="object-name"><![CDATA[${ds_info.name}]]></param>
+            <param name="sys-code"><![CDATA[${ds_info.sys_code}]]></param>
+            <param name="type"><![CDATA[delete]]></param>
+        </processor>
+        
+        <param name="delete-tables"><![CDATA[RDC_CFG_DATASOURCE s]]></param>
+        <param name="batch-tables">s=id</param>
+        <param name="trans">true</param>
+
+        <!-- 刷新数据源以及参数缓存 -->
+        <processor name="script" type="after" seq="1" break="false">
+            <param name="script">
+                <![CDATA[
+                        var codes = __cxt.getParams().get("sys_ds_code");
+                        for(var i=0;i<codes.size();i++){
+                            var sysCode = codes.get(i)[0];
+                            var dsCode = codes.get(i)[1];
+
+                            //删除数据源缓存
+                            com.sunrise.rdcp.engine.RDCPDataSourceConfigAdapter.removeDataSource(sysCode,dsCode);
+                            //删除数据源参数缓存
+                            com.sunrise.rdcp.engine.RDCPFormRuleAdapter.removeRule(sysCode,dsCode);
+                        }
+                        ]]>
+            </param>
+        </processor>
+    </query>
+
+    <!-- 删除参数 -->
+    <query id="Q_DS_PARAM_DEL_KV" type="auto-update">
+        <!-- 获取业务系统以及数据源编码刷新数据源以及参数缓存 -->
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">sys_ds_code</param>
+            <param name="sql">
+                <![CDATA[SELECT d.SYS_CODE,d.CODE FROM RDC_CFG_DATASOURCE d WHERE d.ID IN (SELECT DATASOURCE_ID FROM RDC_CFG_DS_PARAM IN[in(id long)])]]></param>
+            <param name="type">array</param>
+            <param name="rows">all</param>
+        </processor>
+        <param name="delete-tables"><![CDATA[RDC_CFG_DS_PARAM s]]></param>
+        <param name="batch-tables">s=id</param>
+        <!-- 刷新数据源以及参数缓存 -->
+        <processor name="script" type="after" seq="1" break="false">
+            <param name="script">
+                <![CDATA[
+                        var codes = __cxt.getParams().get("sys_ds_code");
+                        for(var i=0;i<codes.size();i++){
+                            //刷新数据源参数缓存
+                            com.sunrise.rdcp.engine.RDCPFormRuleAdapter.reloadRule(codes.get(i)[0],codes.get(i)[1]);
+                        }
+                        ]]>
+            </param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

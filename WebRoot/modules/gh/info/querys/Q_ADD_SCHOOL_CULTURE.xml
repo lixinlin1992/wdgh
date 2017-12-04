@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ADD_SCHOOL_CULTURE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_school_culture(id,title,movie_type,play_time,play_place,actors,type,content,view_times,create_user,create_time)
+            values([culture_id],[title],[movie_type],to_date([play_time],'YYYY-MM-DD HH24:MI:SS'),[play_place],[actors],[type],[content],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'))
+            ]]>
+        </stmt>
+    </query>
+</query-config>

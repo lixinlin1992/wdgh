@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- 公用组织机构相关配置 -->
+<datasources>
+
+    <!-- 组织机构树 -->
+    <ds name="DS_COMMORG_TREE" type="url" func="">
+        <url>
+            <![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_COMMORG.xml&_id=Q_COMMORG_TREE]]></url>
+        <file>/sys/code-label-value.json</file>
+    </ds>
+
+    <!-- 组织机构查询 -->
+    <ds name="DS_COMMORG_LIST" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_COMMORG.xml&_id=Q_COMMORG_LIST]]></url>
+    </ds>
+
+    <!-- 添加组织机构 -->
+    <ds name="DS_COMMORG_EDIT" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_COMMORG.xml&_id=Q_COMMORG_EDIT]]></url>
+    </ds>
+
+    <!-- 删除组织机构 -->
+    <ds name="DS_COMMORG_DEL" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_COMMORG.xml&_id=Q_COMMORG_DEL]]></url>
+    </ds>
+
+    <!-- 获取组织机构信息 -->
+    <ds name="DS_COMMORG_INFO" type="url" func="">
+        <url><![CDATA[/_commonQuery.action?_file=service/basedata/Q_FRAMEWORK_SERVICE_COMMORG.xml&_id=Q_COMMORG_INFO]]></url>
+    </ds>
+</datasources>

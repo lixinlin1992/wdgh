@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!-- 业务系统查询 -->
+	<ds name="DS_SYSTEM_LIST" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM.xml&_id=Q_SYSTEM_LIST]]></url>
+	</ds>
+	
+	<!-- 添加/修改业务系统 -->
+	<ds name="DS_SYSTEM_EDIT" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM.xml&_id=Q_SYSTEM_EDIT]]></url>
+	</ds>
+	
+	<!-- 装载业务系统信息 -->
+	<ds name="DS_SYSTEM_INFO" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM.xml&_id=Q_SYSTEM_INFO]]></url>
+	</ds>
+	
+	<!-- 删除业务系统 -->
+	<ds name="DS_SYSTEM_DELETE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM.xml&_id=Q_SYSTEM_DELETE]]></url>
+	</ds>
+
+    <!--业务系统下拉框-->
+    <ds name="DS_SYSTEM_SELECT_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYSTEM.xml&_id=Q_SYSTEM_SELECT_LIST]]></url>
+    </ds>
+    
+    <!--业务系统打包-->
+    <ds name="DS_SYSTEM_PACKAGE" type="url">
+        <url>/appManager.action?method=packageApp</url>
+    </ds>  
+    
+    <!--业务系统安装-->
+    <ds name="DS_SYSTEM_INSTALL" type="url">
+        <url>/appManager.action?method=installApp</url>
+    </ds>        
+
+    <!--业务系统数据同步-->
+    <ds name="DS_SYSTEM_SYNC" type="url">
+        <url>/appManager.action?method=synchronizeTableData</url>
+    </ds>            
+    
+    <!--业务系统打包安装设置-->
+    <ds name="DS_SYSTEM_SET" type="url">
+        <url>/appManager.action?method=appSetting</url>
+    </ds>        
+    
+    <!--业务系统打包处理器-->
+    <ds name="DS_PACKAGE_HANDLERS_LIST" type="url">
+        <url>/appManager.action?method=packageHandlerList</url>
+    </ds>      
+    
+    <!--业务系统数据同步表-->
+    <ds name="DS_SYSTEM_SYNC_TABLE" type="url">
+        <url>/appManager.action?method=synchronizeTableList</url>
+    </ds>     
+    
+    <!--业务系统安装清单-->
+    <ds name="DS_INSTALL_LIST" type="url">
+        <url>/appManager.action?method=installList</url>
+    </ds>
+
+    <!--业务系统安装清单-->
+    <ds name="DS_PROJECT_SYNC" type="url">
+        <url>/_rdcpProjectSync.action</url>
+    </ds>
+
+    <ds name="DS_PROJECT_FILE_DOWNLOAD" type="url">
+        <url>/_rdcpProjectSync.action?method=downloadFile</url>
+    </ds>
+</datasources>

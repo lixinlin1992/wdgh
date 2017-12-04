@@ -1,0 +1,116 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard.js"></script>
+<!--主体部分-->
+<form action="" method="post"  onSubmit="return false;">
+	<div class="appForum">
+		<div class="inputInline inputLg">
+			<label>选择基站：</label>
+			<input type="text" class="form-control iptHasBtn"  value="{{mylist.PROP_CODE}}"/>
+			<a href="javascript://" class="btnChse" onclick="javascript:history.back()">选择</a>
+		</div>
+		<div class="inputInline inputLg">
+			<label>基站名称：</label>
+			<input type="text" class="form-control"  value="{{mylist.PROP_NAME}}"/>
+		</div>
+		<div class="inputInline inputLg">
+			<label>基站类型：</label>
+			<input type="text" class="form-control"  value="{{mylist.PROPERTY_TYPE_NAME}}"/>
+		</div>
+	</div>
+	<div class="appForum" ng-repeat="row in mylist2">
+		<div class="meterInfo">
+			<div class="baseItem">
+				<span>电费合同：</span>
+				<p>{{row.CODE}}</p>
+			</div>
+			<div class="baseItem">
+				<span>电　　表：</span>
+				<p>{{row.DEVICE_CODE}}</p>
+			</div>
+		</div>
+<!--		<div class="whiteBtns">
+			<a href="javascript://" class="wBtn btnNone">本次没抄表</a>
+			<a href="javascript://" class="wBtn btnTurn">翻转电表</a>
+		</div>-->
+		<div class="addMark">
+			<div class="inputInline inputMd">
+				<label>上次抄表日期：</label>
+				<input type="text" class="form-control iptHasBtn" readonly="readonly" value="{{row.DATE_READING}}"/>
+				<a href="javascript://" class="btnDate"></a>
+			</div>
+			<div class="inputInline inputMd">
+				<label>上次抄表读数：</label>
+				<input type="text" class="form-control" readonly="readonly" value="{{row.DATA_READING}}"/>
+			</div>
+			<div class="inputInline inputMd">
+				<label class="vi">本次抄表日期：</label>
+				<input id="currenttime{{$index}}" type="text" class="form-control iptHasBtn" placeholder="日期格式为：2016-05-05"/>
+				<a href="javascript://" class="btnDate" attr="{{$index}}" ng-click="getcurrenttime($event)"></a>
+			</div>
+			<div class="inputInline inputMd">
+				<label class="vi">本次抄表读数：</label>
+				<input id="currentnum{{$index}}" type="text" class="form-control" />
+			</div>
+			<div class="inputInline inputSm">
+				<label>当前抄表翻转轮数:</label>
+				<input type="text" class="form-control" />
+			</div>
+			<div class="inputInline inputSm">
+				<label>上次抄表翻转轮数:</label>
+				<input type="text" class="form-control" readonly="readonly" value="{{row.ROUND_NUMBER}}"/>
+			</div>
+		</div>
+<!--		<div class="blkBorBtns">
+			<div class="blkDiv">
+				<a href="javascript://" class="blkFileBtn">上传附件</a>
+				<input type="" class="blkFile" ng-click="g_getlocalphoto()" />
+			</div>
+			<div class="blkDiv">
+				<a href="javascript://" class="blkPicBtn" ng-click="g_elephoto('ele')">电表拍照</a>
+			</div>
+			<div class="blkDiv">
+				<a href="javascript://" class="blkPicBtn" ng-click="g_cellphoto('cell')">基站拍照</a>
+			</div>
+		</div>-->
+		<div class="container-fluid goods_show_list">
+			<div class="row">
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div class="goods_img">
+						<span class="imgprice" attr="{{$index}}" AMMETER_READING_ID="{{row.AMMETER_READING_ID}}" div_name="{{$index}}" table_name="PAY_AMMETER_READING" note="PAY_AMMETER_READING" ng-click="g_getlocalphoto($event)">上传附件</span>
+						<img src="Style/images/common2.0/id.png" alt="" id="localimg{{$index}}">
+					</div>
+				</div>
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div class="goods_img">
+						<span class="imgprice" attr="{{$index}}" AMMETER_READING_ID="{{row.AMMETER_READING_ID}}" div_name="{{$index}}" table_name="PAY_AMMETER_READING" note="AMMETER"  ng-click="g_elephoto($event)">电表拍照</span>
+						<img src="Style/images/common2.0/id.png" alt="" id="AMMETER{{$index}}">
+					</div>
+				</div>
+				<div class="col-xs-4 col-md-4 goods_box">
+					<div class="goods_img">
+						<span class="imgprice" attr="{{$index}}" AMMETER_READING_ID="{{row.AMMETER_READING_ID}}" div_name="{{$index}}"  table_name="PAY_AMMETER_READING"  note="PROPERTY"  ng-click="g_cellphoto($event)">基站拍照</span>
+						<img src="Style/images/common2.0/id.png" alt="" id="PROPERTY{{$index}}">
+					</div>
+				</div>
+			</div>
+			<div class="submitBtns">
+				<button attr="{{$index}}"  class="btn btn-block btnSubmit" ng-click="save($event)">保存</button>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<!--主体部分end-->
+<input type="file" accept="image/jpeg,image/png"
+	   style="display: block; opacity:0;" data-param="ele1" id="ele1"
+	   onchange="uploadImg('ele');" single>
+
+<input type="file" accept="image/jpeg,image/png"
+	   style="display: block; opacity:0;" data-param="cell" id="cell"
+	   onchange="uploadImg('cell');" single>
+
+<!--<img src="" id="getImage" style="display: none;width: 120px;height: 120px;"/>
+<img src="" id="getImageLocal" style="display: none;width: 120px;height: 120px;"/>
+<img src="" id="getImageUpload" style="display: none;width: 120px;height: 120px;"/>-->
+<script src="Business/CompirControl/scripts/Messageforphoto.js"></script>
+

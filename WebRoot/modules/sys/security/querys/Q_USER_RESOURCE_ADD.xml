@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--添加资源用户授权-->
+    <query id="Q_USER_RESOURCE_ADD" type="batch">
+        <stmt><![CDATA[
+        <@aslist name="res_path"/>
+        <@aslist name="module_path"/>
+        <#list res_path as r>
+        INSERT INTO SYS_P_USER_RESOURCE(USER_ID,MODULE_PATH,RES_PATH)
+        VALUES([user_id],${func(array(module_path,r_index),"string")},${func(r,"string")});
+        </#list>
+                ]]></stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

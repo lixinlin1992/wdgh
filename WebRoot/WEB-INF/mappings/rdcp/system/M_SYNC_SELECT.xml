@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+    <!-- 同步对象 -->
+	<ds name="DS_SYNC_OBJECT" type="url">
+        <url>/appManager.action?method=syncTableData</url>
+	</ds>
+	
+    <!-- 模块选择 -->
+	<ds name="DS_SYNC_MODULE" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_MODULE]]></url>
+	</ds>
+	
+	<!-- 功能选择 -->
+	<ds name="DS_SYNC_FUNCTION" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_FUNCTION]]></url>
+	</ds>
+	
+	<!-- 菜单选择 -->
+	<ds name="DS_SYNC_MENU" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_MENU]]></url>
+	</ds>
+	
+	<!-- 执行器选择 -->
+	<ds name="DS_SYNC_EXEC" type="url">
+		<url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_EXEC]]></url>
+	</ds>
+
+    <!--处理器选择-->
+    <ds name="DS_SYNC_PROC" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_PROC]]></url>
+    </ds>
+
+    <!--区域模板选择-->
+    <ds name="DS_SYNC_SECTOR" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_SECTOR]]></url>
+    </ds>
+
+    <!--容器模板选择-->
+    <ds name="DS_SYNC_CON" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_SYNC_SELECT.xml&_id=Q_SYNC_CON]]></url>
+    </ds>                     
+</datasources>

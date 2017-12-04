@@ -1,0 +1,281 @@
+<script type="text/javascript" src="ESale/Order/scripts/terminalOrderDetail.js"></script>
+
+<!--</head>-->
+
+<div>
+
+	<!--主体内容-->
+	<div class="layout_centent">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>订单基本信息</span>
+		</div>
+		<!--标题一End-->
+		<!--信息列表Begin-->
+		<table style="margin-left: 10px;">
+			<tr>
+				<td class="summarize">订单编码：</td>
+				<td>
+					<span class="big_font orange_font" ng-bind="orders.code"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="summarize">订单业务：</td>
+				<td>{{orders.business_id=="Terminal"?"终端订购":"终端销售"}}
+			</tr>
+			<tr>
+				<td class="summarize">供货商：</td>
+				<td ng-bind="gbl[0].memberName"></td>
+			</tr>
+			<tr>
+				<td class="summarize">创建时间：</td>
+				<td ng-bind="orders.create_time"></td>
+			</tr>
+			<tr>
+				<td class="summarize">创建人：</td>
+				<td ng-bind="orders.creator_member_name"></td>
+			</tr>
+			<tr>
+				<td class="summarize">订单价格：</td>
+				<td><span class="big_font red_font">{{orders.fee  | currency : '￥'}}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!--信息列表End-->
+	<!--二级布局Begin-->
+	<div class="layout_secondbox" style="margin-top: 10px;" ng-controller="Status" ng-init="isShow">
+		<!--标题一Begin-->
+		<div class="com_title second_title">
+			<span>订单状态信息</span>
+			<!-- 伸缩的定义 点击伸出 Begin -->
+			<a class="morebtn" href="javascript://" ng-click="isShow=!isShow" ng-bind="showMore(isShow,{{'orderStatus.length'}})"></a>
+			<!-- 伸缩的定义 end -->
+		</div>
+		<!--标题一End-->
+		<!--流程Begin-->
+		<div class="com_technological">
+			<ul>
+				<div ng-repeat="status in orderStatus">
+					<!-- 第一个样式 begin -->
+					<div ng-if="orderStatus.length==1">
+						<div ng-if="$first">
+							<li class="one">
+								<div class="right">
+									<p class="time"><span ng-bind="status.STATUS_TIME"></span></p>
+
+									<p>操作人：<span ng-bind="status.LOG_USER_NAME"></span></p>
+
+									<p>操作事件：<span ng-bind="statusDeal('{{status.STATUS_TYPE}}','{{status.STATUS_OLD}}','{{status.STATUS_NEW}}','{{status.STATUS_NOTE}}')"></span>
+									</p>
+								</div>
+							</li>
+						</div>
+					</div>
+
+					<div ng-if="orderStatus.length!=1">
+						<div ng-if="$first">
+							<li class="first">
+								<div class="right">
+									<p class="time"><span ng-bind="status.STATUS_TIME"></span></p>
+
+									<p>操作人：<span ng-bind="status.LOG_USER_NAME"></span></p>
+
+									<p>操作事件：<span ng-bind="statusDeal('{{status.STATUS_TYPE}}','{{status.STATUS_OLD}}','{{status.STATUS_NEW}}','{{status.STATUS_NOTE}}')"></span>
+									</p>
+								</div>
+							</li>
+						</div>
+					</div>
+					<!-- 第一个样式 end-->
+
+					<!-- 判断伸缩Begin-->
+					<div ng-if="isShow">
+						<!-- 中间样式 begin -->
+						<div ng-if="$middle">
+							<li>
+								<div class="right">
+									<p class="time"><span ng-bind="status.STATUS_TIME"></span></p>
+
+									<p>操作人：<span ng-bind="status.LOG_USER_NAME"></span></p>
+
+									<p>操作事件：<span ng-bind="statusDeal('{{status.STATUS_TYPE}}','{{status.STATUS_OLD}}','{{status.STATUS_NEW}}','{{status.STATUS_NOTE}}')"></span>
+									</p>
+								</div>
+							</li>
+						</div>
+						<!-- 中间样式 end -->
+					</div>
+					<!-- 判断伸缩End-->
+
+					<!-- 最后一个样式 begin -->
+					<!--没展开显示第二个begin-->
+					<div ng-if="$index>=1 && !isShow">
+						<div ng-if="$last">
+							<li class="last">
+								<div class="right">
+									<p class="time"><span ng-bind="orderStatus[1].STATUS_TIME"></span></p>
+
+									<p>操作人：<span ng-bind="orderStatus[1].LOG_USER_NAME"></span></p>
+
+									<p>操作事件：<span ng-bind="statusDeal('{{orderStatus[1].STATUS_TYPE}}','{{orderStatus[1].STATUS_OLD}}','{{orderStatus[1].STATUS_NEW}}','{{orderStatus[1].STATUS_NOTE}}')"></span>
+									</p>
+								</div>
+							</li>
+						</div>
+					</div>
+					<!--没展开显示第二个end-->
+					<div ng-if="$index>=1 && isShow">
+						<div ng-if="$last">
+							<li class="last">
+								<div class="right">
+									<p class="time">{{status.STATUS_TIME}}</p>
+
+									<p>操作人：{{status.LOG_USER_NAME}}</p>
+
+									<p>操作事件：<span ng-bind="statusDeal('{{status.STATUS_TYPE}}','{{status.STATUS_OLD}}','{{status.STATUS_NEW}}','{{status.STATUS_NOTE}}')"></span>
+									</p>
+								</div>
+							</li>
+						</div>
+					</div>
+					<!-- 最后一个样式end -->
+				</div>
+			</ul>
+		</div>
+		<!--流程End-->
+	</div>
+	<!--二级布局End-->
+	<!--二级布局Begin-->
+	<div class="layout_secondbox" style="margin-top: 10px;">
+		<!--标题一Begin-->
+		<div class="com_title second_title">
+			<span>订单业务信息</span>
+		</div>
+		<!--标题一End-->
+		<!--展示表格Begin-->
+		<div class="com_showtable">
+			<table ng-repeat="good in orderGoods" style="margin-bottom: 10px;">
+				<tr>
+					<td>名称</td>
+					<td ng-bind="good.TITLE"></td>
+				</tr>
+				<tr>
+					<td>颜色</td>
+					<td ng-bind="good.COLOR"></td>
+				</tr>
+				<tr>
+					<td>内存</td>
+					<td ng-bind="good.MEMBER"></td>
+				</tr>
+				<tr>
+					<td>价格</td>
+					<td ng-bind="good.PRICE"></td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td ng-bind="good.COUNT"></td>
+				</tr>
+				<tr>
+					<td>返利金额</td>
+					<td ng-bind="good.RETURN_FEES"></td>
+				</tr>
+				<tr ng-if="good.CONTRACT!=''">
+					<td>合约产品</td>
+					<td ng-bind="good.CONTRACT"></td>
+				</tr>
+				<tr ng-if="good.CHUANHAO!=''">
+					<td>串号</td>
+					<td style="word-break: break-all;word-wrap: break-word;width: 60%;">{{good.CHUANHAO}}</td>
+				</tr>
+			</table>
+		</div>
+		<!--展示表格End-->
+	</div>
+	<!--二级布局End-->
+
+	<!--二级布局Begin-->
+	<div class="layout_secondbox" style="margin-top: 10px;">
+		<!--标题一Begin-->
+		<div class="com_title second_title">
+			<span>物流信息</span>
+		</div>
+		<!--标题一End-->
+		<!--展示表格Begin-->
+		<div class="com_showtable">
+			<table>
+				<tr>
+					<td>物流公司</td>
+					<td ng-bind="express"></td>
+				</tr>
+				<tr>
+					<td>物流号</td>
+					<td ng-bind="express_num"></td>
+				</tr>
+				<tr>
+					<td>收货人</td>
+					<td ng-bind="expressInfo.contacts"></td>
+				</tr>
+				<tr>
+					<td>运费</td>
+					<td ng-bind="express_fee"></td>
+				</tr>
+				<tr>
+					<td>联系电话</td>
+					<td ng-bind="expressInfo.phone"></td>
+				</tr>
+				<tr>
+					<td>联系地址</td>
+					<td><span ng-bind="expressInfo.area"></span><span ng-bind="expressInfo.address"></span></td>
+				</tr>
+				<tr>
+					<td>E-mail</td>
+					<td ng-bind="expressInfo.email"></td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td ng-bind="orders.note"></td>
+				</tr>
+			</table>
+		</div>
+		<!--展示表格End-->
+	</div>
+	<!--二级布局End-->
+
+</div>
+<!--100%布局End-->
+
+<!--主体内容End-->
+
+<!--底部-->
+<!--<footer>-->
+<!--&lt;!&ndash;底部导航：nav_buttom&ndash;&gt;-->
+<!--&lt;!&ndash;底部导航Begin&ndash;&gt;-->
+<!--<div class="nav_bottom" style="border-top:1px solid #dddddd; height: 52px; margin-bottom: 60px;">-->
+<!--<div class="box">-->
+<!--<div class="container-fluid">-->
+<!--<div class="row com_selectbox">-->
+<!--<div class="col-md-6 col-xs-6 list">-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--<a class="com_btn green_btn" href="javascript://">-->
+<!--刷新-->
+<!--</a>-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="col-md-6 col-xs-6 list">-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--<a class="com_btn green_btn" href="javascript://">-->
+<!--返回-->
+<!--</a>-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;底部导航End&ndash;&gt;-->
+<!--</footer>-->
+<!--底部End-->
+
+<!--</html>-->

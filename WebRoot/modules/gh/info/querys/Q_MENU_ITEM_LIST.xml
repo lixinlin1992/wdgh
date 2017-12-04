@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_MENU_ITEM_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select bim.menu_id,bim.menu_name,decode(bim.menu_type,1,'一级菜单',2,'二级菜单') menu_type,
+				bim2.menu_name p_menu_name,
+				bim.menu_url
+				from bi_index_menu bim
+				left join bi_index_menu bim2 on bim.p_menu_id=bim2.menu_id
+				where 1=1
+				<#if menuname??>
+				  and bsc.menu_name [like(menuname)]
+				</#if>
+				order by bim.menu_type
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

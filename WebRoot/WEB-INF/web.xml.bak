@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/modules/property/base/querys/workFlow/Q_LOAD_FLOWS_BY_NODE_ID.xml</param-value>
+    </context-param>
+
+    <!-- 此Filter必需排在第一位 -->
+    <filter>
+        <filter-name>CoreFilter</filter-name>
+        <filter-class>com.sunrise.framework.core.CoreFilter</filter-class>
+        <!--<init-param>
+            <param-name>init-class</param-name>
+            <param-value>com.launch.LogicInfoLauncher</param-value>
+        </init-param>-->
+    </filter>
+    <filter-mapping>
+        <filter-name>CoreFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>SiantController</filter-name>
+        <filter-class>
+            com.siant.assp.ias.sp.saml11.control.SiantController
+        </filter-class>
+        <init-param>
+            <param-name>SPConfig</param-name>
+            <param-value>/WEB-INF/config/AgentConfig.xml</param-value>
+        </init-param>
+
+        <!--		是否使用过滤器，自定义（true使用；false不使用）	-->
+        <init-param>
+            <param-name>filtFlag</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SiantController</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SiantController</filter-name>
+        <url-pattern>/servlet/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>ModuleFilter</filter-name>
+        <filter-class>com.sunrise.framework.module.dispatch.ModuleDispatchFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ModuleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>com.sunrise.service.security.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    -->
+    <!--主题切换过滤器，需要放在登录校验过滤器后面-->
+    <filter>
+        <filter-name>ThemeFilter</filter-name>
+        <filter-class>com.sunrise.framework.theme.ThemeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ThemeFilter</filter-name>
+        <url-pattern>/themes/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ThemeFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>DataSourceFilter</filter-name>
+        <filter-class>com.sunrise.framework.core.DataSourceFilter</filter-class>
+        <init-param>
+            <param-name>ds-config</param-name>
+            <param-value>WEB-INF/dsconfig.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>file-encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validate-rule-dir</param-name>
+            <param-value>WEB-INF/rules</param-value>
+        </init-param>
+        <init-param>
+            <param-name>uncheck-datasource</param-name>
+            <param-value>DS_FRAMEWORK_SECURITY_VALIDATE_CODE,DS_USER_LOGIN,DS_USER_LDAP_LOGIN</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DataSourceFilter</filter-name>
+        <url-pattern>/framework.do</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>struts</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>/pages/home.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/pages/framework/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/framework/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/pages/framework/500.jsp</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>6000000</session-timeout>
+    </session-config>
+    
+    <listener>
+        <listener-class>com.sunrise.framework.core.SessionContext</listener-class>
+    </listener>
+</web-app>

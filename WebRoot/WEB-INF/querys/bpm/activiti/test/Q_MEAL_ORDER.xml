@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+	<!-- 查询菜单 -->
+	<query id="Q_GET_MENU_LIST" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+			select m.menu_name from meal_menu m
+			]]>
+		</stmt>
+	</query>
+
+	<!-- 查询菜单 -->
+	<query id="Q_GET_MEAL_ORDER_BY_ID" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+			select p.name, to_char(m.create_time, 'yyyy-mm-dd hh:mi:ss'), m.note note
+			  from meal_order m, sys_p_user p
+			 where m.order_id = [mealOrderId]
+			   and m.create_user_id = p.id(+)
+			]]>
+		</stmt>
+	</query>
+</query-config>

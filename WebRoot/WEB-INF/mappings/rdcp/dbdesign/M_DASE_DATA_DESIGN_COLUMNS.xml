@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+     <!-- 业务库表字段展示列表 -->
+    <ds name="DS_DES_TABLE_COLS_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN_COLUMNS.xml&_id=Q_DES_TABLE_COLS_LIST]]></url>
+    </ds>
+     <!-- 下拉框（业务库表）-->
+    <ds name="DS_SYS_TABLE_SELECT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN_COLUMNS.xml&_id=Q_SYS_TABLE_SELECT]]></url>
+    </ds>
+     <!-- 根据表下列框拿到表名 -->
+    <ds name="DS_GET_TABLE_NAME" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN_COLUMNS.xml&_id=Q_GET_TABLE_NAME]]></url>
+    </ds>
+     <!-- 添加/编辑 表字段 -->
+    <ds name="DS_BASE_DATA_TABLE_COLUMNS_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN_COLUMNS.xml&_id=Q_BASE_DATA_TABLE_COLUMNS_EDIT]]></url>
+    </ds>
+     <!-- 添加/编辑 表字段 -->
+    <ds name="DS_DATA_BASE_TABLE_COLUMNS_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/dbdesign/Q_DASE_DATA_DESIGN_COLUMNS.xml&_id=Q_DATA_BASE_TABLE_COLUMNS_DELETE]]></url>
+    </ds>
+    
+</datasources>

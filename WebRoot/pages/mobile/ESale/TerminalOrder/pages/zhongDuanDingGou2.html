@@ -1,0 +1,264 @@
+<script src="ESale/TerminalOrder/scripts/zhongDuanDingGou2.js"></script>
+
+<div>
+	<!--商品展示模块Begin-->
+	<div class="imgbox">
+		<img onload="AutoResizeImage(260,260,this)" ng-src="{{imgHttp}}{{img}}" alt="" ng-repeat="img in pictures1" ng-if="show.img" />
+		<!--轮播Begin-->
+		<div style="width:70%; margin:0px auto;" ng-if="show.slides">
+			<div class="slideContainer">
+				<div id="slides">
+					<img onload="AutoResizeImage(260,260,this)" ng-src="{{imgHttp}}{{img}}" alt="" ng-repeat="img in pictures2" />
+				</div>
+			</div>
+		</div>
+		<!--轮播End-->
+	</div>
+	<!--商品展示模块End-->
+
+	<!--商品描述begin-->
+	<div>
+		<div style="padding-left: 10px;line-height: 24px;background: #ffffff;">
+			<span ng-bind="form2.sub_title"></span>
+		</div>
+	</div>
+	<!--商品描述end-->
+
+	<!--价格模块Begin-->
+	<div class="com_list" style="background: #ffffff;">
+		<div class="title" style="padding-left: 10px;float:none;">
+			<span style="width:70px;display:block;float:left;">价格</span>
+			<span class="money" style="font-size: 1.2em;font-weight: bold;">￥<span ng-bind="form2.price"></span></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<!--价格模块end-->
+
+	<div class="com_list" style="background: #ffffff;">
+		<div class="title" style="padding-left: 10px;">
+			<span style="width: 70px;display: block;float: left;">供货商</span>
+			<span class="money" ng-bind="form2.memberName"></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+	<div class="com_list" style="background: #ffffff;">
+		<div class="title" style="padding-left: 10px;">
+			<span style="width: 70px;display: block;float: left;">库存</span>
+			<span class="money" ng-bind="form2.stock"></span>
+			<span ng-click="request.loadCuanHao('1')">&nbsp;(查看串号)</span>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="layout_centent" style="padding-bottom: 0;"id="simulationDIV"ng-show="form2.simulation_id!=''">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>真机模拟</span>
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-6 col-xs-6 list" style="padding: 0 5px;">
+					<a class="com_btn theme_btn" style="display: block;" id="appearance" href="javascript://" ng-click="request.showTerminal('1')">外观模拟</a>
+				</div>
+				<div class="col-md-6 col-xs-6 list" style="padding: 0 5px;">
+					<a class="com_btn theme_btn" style="display: block;" id="func" href="javascript://" ng-click="request.showTerminal('2')">功能模拟</a>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+
+	<div class="clear"></div>
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>机身颜色</span>
+
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in ram_rows">
+					<a id="ram_{{$index}}" ng-click="event.ram_select($index)" class="com_selectbtn" href="javascript://"><span ng-bind="row.RAM"></span></a>
+				</div>
+
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<div class="clear"></div>
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>机身容量</span>
+
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="row com_selectbox" style="margin-bottom:0;">
+				<div class="col-md-4 col-xs-4 list" style="margin-bottom: 7px;" ng-repeat="row in color_rows">
+					<a id="color_{{$index}}" ng-click="event.color_select($index)" class="com_selectbtn" href="javascript://"><span ng-bind="row.COLOR"></span></a>
+				</div>
+
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<div class="clear"></div>
+
+	<div class="layout_centent" style="padding-bottom: 0;">
+		<!--标题一Begin-->
+		<div class="com_title first_title">
+			<span>购买数量</span>
+		</div>
+		<!--标题一End-->
+		<!--选择按钮Begin-->
+		<div class="container-fluid">
+			<div class="clear"></div>
+			<div class="com_list" style="background: #ffffff;">
+				<div style="background: #ffffff;height:46px;width:60%;margin: auto;">
+					<div style="float: left;width:30%;" ng-click="event.subtract()">
+						<span style="display:block;margin-right:10px;float:right;width:34px;height:34px;background-image:url('ESale/TerminalOrder/images/subtract.png');background-size: 24px 24px;background-position: center;"></span>
+					</div>
+					<div style="float: right;width:30%;" ng-click="event.add()">
+						<span style="display:block;margin-left:10px;float: left;width:34px;height:34px;background-image:url('ESale/TerminalOrder/images/add.png');background-size: 24px 24px;background-position: center;"></span>
+					</div>
+					<input type="tel" id="numbers" ng-model="form2.numbers" ng-blur="event.updateQuantity()" onkeyup="this.value=this.value.replace(/\D/g,'')" class="input_normal" style="width:40%;text-align: center;" />
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+
+			<div style="background: #ffffff;line-height: 36px;">
+				<div style="padding-left: 10px;background: #ffffff;">
+					<span style="display: block;float: left;height: 36px;">月销量：<span class="money" ng-bind="form2.month_sale"></span>&nbsp;&nbsp;&nbsp;</span>
+					<span style="display: block;float: left;height: 36px;">总销量：<span class="money" ng-bind="form2.sum_sale"></span>&nbsp;&nbsp;&nbsp;</span>
+					<span style="display: block;float: left;height: 36px;">返利金额：<span class="money" ng-bind="form2.back_money"></span></span>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			<div id="prev_and_nextPage" style="display: block;background: #FFFFFF;padding: 14px 10px;">
+				<div class="container-fluid">
+					<div class="row">
+
+						<div class="col-md-6 col-xs-6 list" style="padding: 0 5px;" >
+							<a ng-show="form2.contract_id!=''" class="com_btn theme_btn" style="display: block;" id="contractTerminal" href="javascript://" ng-click="request.contractTerminal()">合约销售</a>
+						</div>
+						<div class="col-md-6 col-xs-6 list" style="padding: 0 5px;">
+							<a class="com_btn theme_btn" style="display: block;" id="nextBtn" href="javascript://" ng-click="request.shop()">裸机销售</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--主体页面头部end-->
+			<div class="goodDetail_Under">
+				<!--选项卡头部begin-->
+				<div class="tabs">
+					<div><a href="javascript://" style="width: 50%;" class="tabList tabList_selected" id="tabListNum1">基本信息</a></div>
+					<div><a href="javascript://" style="width: 50%;" class="tabList" id="tabListNum2">规格参数</a></div>
+					<div class="clear"></div>
+				</div>
+				<!--选项卡头部end-->
+			</div>
+			<!--主体页面内容begin-->
+			<div class="goodDetail_main">
+				<div class="Main_tabListNum1 goodDetail_Under setImage">
+					<div ng-bind-html="form2.description" style="padding: 10px;"></div>
+				</div>
+				<!--主体页面内容begin-->
+				<div class="Main_tabListNum2 goodDetail_Under" style="display: none;">
+					<div class="list">
+						<ul class="content" style="padding-left: 15px;margin-bottom:0 ;">
+							<li ng-repeat="row in detail_rows">
+								<span ng-bind="row.cell['2']"></span>
+								<span>：</span>
+								<span ng-bind="row.cell['3']"></span>
+							</li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!--选项卡内容end-->
+			</div>
+			<!--主体页面内容end-->
+			<div class="com_alert" id="alertCuanHao" style="top: 150px;position: fixed;" ng-show="show.box">
+				<h2 class="title">串号列表<a class="closed" href="javascript://" ng-click="event.close()"></a></h2>
+				<div class="content">
+					<span class="message" style="padding-left: 15px;">串号模糊匹配</span>
+					<input class="smallinput" type="text" style="width: 175px;" ng-model="form2.sn" />
+				</div>
+				<div class="content">
+					<div class="container-fluid">
+						<div class="row com_selectbox" style="margin-bottom:0;padding:3px 7px;">
+							<div class="col-md-6 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rowsCuanHao">
+								<a class="com_selectbtn" href="javascript://" ng-bind="row.SN"></a>
+							</div>
+						</div>
+					</div>
+					<div class="bottom_btnbox">
+						<div class="left">
+							<a class="theme_btn" href="javascript://" ng-click="request.loadCuanHao_search()">搜索</a>
+						</div>
+						<div class="right">
+							<a class="theme_btn" href="javascript://" ng-click="request.loadCuanHao_Next()">下一页</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--选择按钮End-->
+	</div>
+	<!--
+
+	<div class="clear"></div>
+	<div class="com_list" style="background: #ffffff;margin-top:8px;margin-bottom: 0px;">
+		&lt;!&ndash;这里比较特殊，需要margin-top:8px&ndash;&gt;
+		<div class="title" style="padding-left: 10px;">购买数量</div>
+		<div class="clear"></div>
+	</div>-->
+
+	<!--遮罩层Begin-->
+	<div class="com_shade" id='shadeCuanHao' style="position:fixed;height: 100%;" ng-show="show.shade"></div>
+	<!--遮罩层End-->
+
+
+
+
+	<!--主体页面内容end-->
+	<div class="com_alert" id="alertStock" style="top: 150px;position: fixed;" ng-show="show.stock">
+		<h2 class="title">提示<a class="closed" href="javascript://" ng-click="event.exit_false()"></a></h2>
+
+		<div class="content">
+			<div class="content"><span id="alertMessage" class="loadingtxt" style="margin-top: 15px;font-size:1.2em;">当前库存低于您购买的数量</span></div>
+			<div class="bottom_btnbox">
+				<div class="left"><a class="normal_btn" href="javascript://" ng-click="event.exit_sall()">订购</a></div>
+				<div class="right"><a class="normal_btn" href="javascript://" ng-click="event.exit_false()">关闭</a></div></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function() {
+		$(".tabs a").click(function() {
+			$(".tabs a").removeClass("tabList_selected"),
+				$(this).addClass("tabList_selected");
+			var a = ".Main_" + $(this).attr("id");
+			$(a).siblings().hide(),
+				$(a).show()
+		})
+	});
+</script>
+<style type="text/css">
+	.setImage img {
+		width: 100%;
+		border: none;
+	}
+</style>

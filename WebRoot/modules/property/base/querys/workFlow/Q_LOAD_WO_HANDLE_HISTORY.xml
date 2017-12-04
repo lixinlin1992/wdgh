@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_WO_HANDLE_HISTORY" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+
+                    SELECT U.NAME handler,to_char(T.END_TIME,'yyyy-mm-dd hh24:mi:ss') handletime,N.NODE_NAME nodename,nvl(T.HANDLE_NOTE,'无') handlenote,F.TITLE HANDLERESULT
+                    FROM WF_RU_TASK T,SYS_P_USER U,WF_NODE N,WF_FLOW F
+                    WHERE T.HANDLE_MAN_ID = U.ID(+) AND T.NODE_ID = N.ID (+) AND T.HANDLE_ID = F.ID(+)
+                    AND T.WORK_ORDER_ID = [woId]
+                    AND T.END_TIME IS NOT NULL
+                    order by T.END_TIME,T.ID
+				
+			]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

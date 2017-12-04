@@ -1,0 +1,1265 @@
+*{margin:0;padding:0;}
+/** 页面主体body样式 包括字体边框的调整**/
+body {font-family: Helvetica, Arial, sans-serif;font-size:12px; margin:0; padding:0;}
+/** 左边导航 宽高 背景颜色 边框等的调整**/
+p {line-height: 1.5em;}
+
+/** 去掉默认的 **/
+ul,li{list-style-type:none;}
+img{border:0px;}
+
+/** 设置表格,列表,段落,各种自定义标题的统一边框等样式**/
+form,ul,li,p,h1,h2,h3,h4,h5,h6{ margin:0px;padding:0px;}
+/** 设置文本框,下拉框 的统一字体大小以及对象的行高**/
+input,select{font-size:12px;line-height:16px;}
+
+/** 超链接的各种行为样式的统一调整**/
+a:link{font-size:12px;color:#000;text-decoration:none;}
+a:visited{font-size:12px;color:#FF0000;text-decoration:underline;}
+a:hover{font-size:12px;color:#FF0000;text-decoration:none;}
+a:active{font-size:12px;color:#000000;text-decoration:none;}
+
+/*网点管理 内按钮*/
+.btnbg{background:url(../images/common/btnbgg.png) no-repeat 0 0;text-indent:4px;width:40px;height:23px;line-height:23px;border:none;cursor:pointer;}
+.btnbg:hover{background:url(../images/common/btnbgg2.png) no-repeat 0 0;text-indent:4px;width:40px;height:23px;line-height:23px;border:none;cursor:pointer;}
+
+/* 按钮 */
+/* 搜索按钮*/
+.btnquery_mouseout{ CURSOR: hand; COLOR:black;width:57px;height:23px; background:url(../images/common/sbtn1.jpg) no-repeat; border:0px;cursor:pointer;}
+.btnquery_mouseover{width:57px; CURSOR: hand;height:23px;border: 0;background-image:url(../images/common/sbtn2.jpg) ;cursor:pointer;}
+
+.errorClew{color:#FF0000;}/**少数地方用到 定义某种颜色**/
+
+
+/*table 表格样式*/
+/* 文本框 图片元素 行内的对齐方式*/
+input,img{vertical-align:middle;}
+/* 表格样式统一修改*/
+/* 表格的字体 宽度 边框 背景颜色 文本对齐方式等的修改*/
+table.content_List{font-size:12px;width:99%;border-collapse:collapse;color:#000;background:#F9F9F9;text-align:left;}
+table.content_List td {border: 1px solid #CAD6E2;padding:0px 2px 0px 2px;}
+
+.barquerycontent{width:100%;margin-bottom:8px;}
+.barquerycontentadd{border-left:1px solid #DCDDDF;border-right:1px solid #DCDDDF;border-bottom:1px solid #DCDDDF;border-top:1px solid #D7E0E9;padding:10px; text-align:center;}
+.querytable{ margin-top:3px; height:2px; border-bottom:2px solid #2B6CBD;}
+/* 表格内文字所在td 所调用的样式*/
+.contenttd{background-color:#EBF5FF;text-align:right;}
+
+
+/**============================================================================
+ *
+ * 输入表单部分的样式
+ *
+ *=============================================================================*/
+.main{width:750px; margin:0 auto;}
+.formRow{clear:both;font-size:12px;}
+/*.formLabel,.main .formField,.main .formClew{float:left;}*/
+.formLabel{text-align:right;}
+.formField{text-align:left; padding-bottom:0px; overflow:hidden;}
+.formField input.type1{ border:1px #7f9cba solid; padding:0px;}
+.formClew{text-align:right;}
+*:lang(en) .main .formClew{padding-left:5px;}
+.main .radioBox{padding-top:1px;}
+.errorClew{color:#FF0000;}
+
+
+/*** tabs 按钮切换 ***/
+OL LI {MARGIN: 8px}
+#con {FONT-SIZE: 12px; MARGIN: 0px auto; WIDTH: 100%;padding-top:10px;}
+.tags {PADDING: 0px; MARGIN: 0px 0px 0px 10px; WIDTH: 99%;HEIGHT: 23px}
+.tags LI {BACKGROUND:url(../images/common/tagleft.gif) no-repeat left bottom; FLOAT: left; MARGIN-RIGHT: 1px; LIST-STYLE-TYPE: none; HEIGHT: 23px;}
+.tags LI A {PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND:url(../images/common/tagright.gif) no-repeat right bottom; FLOAT: left; PADDING-BOTTOM: 0px; COLOR: #000 !important;LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-DECORATION: none; text-decoration:none !important;}
+.tags LI.emptyTag {BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 4px;}
+.tags LI.selectTag {BACKGROUND-POSITION: left top; MARGIN-BOTTOM: -2px; POSITION: relative; HEIGHT: 25px;}
+.tags LI.selectTag A {BACKGROUND-POSITION: right top; COLOR: #000; LINE-HEIGHT: 25px; HEIGHT: 25px;}
+.tagContent {PADDING-RIGHT: 10px; DISPLAY: none; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; WIDTH:98%; COLOR: #474747; PADDING-TOP: 10px; ;}
+div.selectTag {display: block;}
+.errorfont{color:#FF0000;}/**红色字体**/
+
+
+
+
+/*扩展部分样式*/
+/*jqgrid表格单元格换行显示问题*/
+.jqgrow td{word-break:keep-all !important;white-space:nowrap !important;overflow:hidden !important;}
+/*表格中的按钮在鼠标移上去时加背景*/
+.grid_btn:hover{background-color: #5c9ccc;}
+
+
+/*================================================================================================================
+/** 统一的按钮样式，2011-11-04 后所有按钮使用以下样式 ***/
+/**图标大小 32×32 **/
+/* 固定最小宽度，保证IE6兼容，去掉IE6将不能出现图片 */
+.btn32 a{
+	width:expression(document.body.clientWidth > 32? "32px": "auto" );
+	}
+/* 按钮样式 */
+.btn_edit32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px 0px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display:block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_delete32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -34px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display:block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+
+}
+.btn_commit32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position: 0px -68px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display:block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_calendar32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -102px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display:block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_fav32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -136px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_document32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -170px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_folder_close32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -204px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_folder_open32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -236px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_form32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -272px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_history32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -306px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_processor32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -340px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_add32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -374px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_exp_word32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -408px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+	}
+.btn_exp_excel32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -442px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_exp_ppt32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -476px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_arrow_up32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -510px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_arrow_down32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -544px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_arrow_left32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -578px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_arrow_right32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -612px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_warn32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -646px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_save32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -680px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_undo32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -714px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_cancel32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -748px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_ok32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -782px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+
+}
+.btn_refresh32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -816px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_auth32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -850px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_help32 {
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -884px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_exclude32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -918px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_copy32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -952px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_config32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -986px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_menu32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1020px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_package32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1054px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_param32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1088px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_run32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1122px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_sync32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1156px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_browse32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1190px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+.btn_view32{
+	background-image: url(../images/common/buttons32.gif);
+	background-repeat: no-repeat;
+	background-position:0px -1224px;
+	float:left;
+	height: 32px;
+	min-width: 32px;
+	text-indent: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	color: #1798c5;
+	text-decoration: none;
+}
+
+
+
+/*================================================================================================================
+/**图标大小 32×32 **/
+/* 固定最小宽度，保证IE6兼容，去掉IE6将不能出现图片 */
+.btn,.btn16 a{
+	width:expression(document.body.clientWidth > 16? "16px": "auto" ); 
+	}
+/* 按钮样式 */ 
+.btn_edit,.btn_edit16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px 0px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_delete,.btn_delete16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -18px;
+	/*float:left;*/
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+	
+}
+.btn_commit,.btn_commit16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -36px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_calendar,.btn_calendar16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -54px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_fav,.btn_fav16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -72px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_document,.btn_document16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -90px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_folder_close,.btn_folder_close16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -108px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_folder_open,.btn_folder_open16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -126px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_form,.btn_form16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -144px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_history,.btn_history16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -162px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_processor,.btn_processor16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -180px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+/*.btn_edit{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px 0px;}*/
+.btn_add,.btn_add16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -198px;
+	/*float:left;*/
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	/*text-decoration: none;*/
+	vertical-align:bottom;
+}
+.btn_exp_word,.btn_exp_word16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -216px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+	}
+.btn_exp_excel,.btn_exp_excel16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -234px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:inline-block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_exp_ppt,.btn_exp_ppt16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -252px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_arrow_up,.btn_arrow_up16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -270px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_arrow_down,.btn_arrow_down16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -288px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_arrow_left,.btn_arrow_left16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -306px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_arrow_right,.btn_arrow_right16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -324px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_warn,.btn_warn16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -342px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_save,.btn_save16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -360px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_undo,.btn_undo16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -378px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_cancel,.btn_cancel16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -396px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_ok,.btn_ok16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -414px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+	
+}
+.btn_refresh,.btn_refresh16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -432px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_auth,.btn_auth16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -450px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_help,.btn_help16 {
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -468px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_exclude,.btn_exclude16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -486px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_copy,.btn_copy16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -504px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_config,.btn_config16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -522px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_menu,.btn_menu16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -540px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_package,.btn_package16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -558px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_param,.btn_param16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -576px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_run,.btn_run16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -594px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_sync,.btn_sync16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -612px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_browse,.btn_browse16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -630px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+.btn_view,.btn_view16{
+	background-image: url(../images/common/buttons16.gif);
+	background-repeat: no-repeat;
+	background-position:0px -648px;
+	float:left;
+	height: 16px;
+	min-width: 16px;
+	text-indent: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	display:block;
+	font-size: 12px;
+	color: #1798c5;
+	text-decoration: none;
+	vertical-align:bottom;
+}
+
+
+.clear {
+	clear: both;
+}
+/*================================================================================================================

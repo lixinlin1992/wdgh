@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <form id="RDC_CFG_DATASOURCE" name="数据源" validate="true">
+        <field id="NAME" validate="true" null="false" type="string">
+            <name>名称</name>
+            <constraint>50</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message>数据源名称</null-message>
+            <invalid-message>请输入正确的功能名称，最长25个汉字或者50个英文字母</invalid-message>
+        </field>
+        <field id="CODE" validate="true" null="false" type="string">
+            <name>数据源编码</name>
+            <constraint>500</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message></null-message>
+            <invalid-message>请输入正确的功能码，最长为250个汉字或者500个英文字母</invalid-message>
+        </field>
+        <field id="MODULE_NAME" validate="true" null="false" type="string">
+            <name>模块</name>
+            <constraint>500</constraint>
+            <pattern><![CDATA[]]></pattern>
+            <null-message></null-message>
+            <invalid-message>请选择模块!</invalid-message>
+        </field>
+    </form>
+</rules>

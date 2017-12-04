@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <query id="Q_COMM_ORG_COMBOBOX" type="combos"	result="easyui-combobox">
+        <stmt><![CDATA[
+        select  to_char('-1') as id,to_char('--请选择--') as name,'true' as checked from dual
+        union all
+		select to_char(id) as id,to_char(name) as name,'false' as checked from(
+		select id,name,'false' as checked,rownum rn from SYS_BI_ADMIN_ORG
+		where 1=1
+		and (id is null or [commorg(id)])
+		<#if q??>
+		    and name [like(q)]
+		</#if>
+		)
+		where rn<30
+        ]]></stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="checked-col">checked</param>
+    </query>
+</query-config>

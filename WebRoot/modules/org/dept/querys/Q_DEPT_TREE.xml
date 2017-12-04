@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!--查询部门树-->
+    <query id="Q_DEPT_TREE" type="trees" result="easyui-tree">
+        <stmt>
+            <![CDATA[
+                    SELECT d.ID,d.NAME,d.PARENT_ID, 'DEPT' AS TYPE_ID, 'DEPT' AS P_TYPE_ID, 'true' AS OPENED,
+                    d.DEPT_TYPE, d.MASTER_ID, d.BUSINESS_CODE, d. DEPT_CODE
+                     FROM SYS_P_DEPARTMENT d
+                     START WITH <#if parent_id??>d.PARENT_ID=[parent_id]<#else>d.PARENT_ID IS NULL</#if>
+                     CONNECT BY PRIOR d.ID=d.PARENT_ID
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type_id</param>
+        <param name="parent-type-col">p_type_id</param>
+        <param name="opened-col">opened</param>
+        <param name="root-flag"></param>
+    </query>
+</query-config>

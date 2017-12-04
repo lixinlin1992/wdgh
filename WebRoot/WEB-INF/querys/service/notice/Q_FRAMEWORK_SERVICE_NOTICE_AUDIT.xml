@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<!-- 审核列表 -->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_LIST"
+		type="pagelist" result="json">
+		<stmt><![CDATA[
+	select t.start_date,t.title,
+		p.name,c.name as status_name,t.status_id,t.id
+    from sys_n_notice t,sys_p_user p,sys_pa_code c
+    where t.publish_user_id=p.id and
+    	  c.code_num(+)=t.status_id and
+  		  c.code_table='SYS_N_NOTICE' and c.code_field='STATUS_ID'
+		<#if statusid?exists>
+		and t.status_id [like(statusid)]
+		</#if>
+		order by start_date desc
+		]]></stmt>
+	<param name="id">id</param>	
+	</query>
+	<!-- 审核查看 -->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_EDIT" type="pagelist"
+		result="ftl">
+		<stmt><![CDATA[
+		select t.title,p.name,t.start_date,t.content,t.status_id from sys_n_notice t,sys_p_user p where p.id=t.publish_user_id and t.id=[noticeId]
+		]]></stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/service/notice/T_FRAMEWORK_SERVICE_NOTICE_DETAIL_EDIT.ftl
+		</param>
+	</query>
+	<!-- 审核设置 -->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_UPDATE" type="update"
+		result="json">
+		<stmt><![CDATA[
+		update sys_n_notice t set t.status_id=[statusid],t.audit_user_id=0  where t.id=[noticeId]
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改信息公告审核，id为[${noticeId}]</param>
+        </processor>
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	</query>	
+	<!-- 公告查阅记录 -->
+	<!-- 
+		列名：查阅者，查阅次数，最后查阅时间
+	-->
+	<query id="Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_LOOKBACK_LIST" type="pagelist"
+		result="json">
+		<stmt><![CDATA[
+			select p.name,a.num,a.visit_date
+			from 
+			sys_p_user p,
+			(select user_id,count(user_id) as num,max(visit_date) as visit_date from
+			sys_n_visit where notice_id = [nId]
+			group by user_id) a
+			where p.id = a.user_id 
+		]]></stmt>
+	</query>		
+</query-config>

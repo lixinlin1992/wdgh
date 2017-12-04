@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LOAD_USER_BASE_INFO" type="pagelist" result="easyui">
+        <stmt>
+            <![CDATA[
+        select bti.trade_status,spuu.user_group_code from sys_p_user spu
+        left join sys_p_user_ug spuu on spu.id=spuu.user_id
+        left join bi_trade_info bti on spu.account=bti.account
+        where spu.id=${_CurrUser.id}
+            ]]>
+        </stmt>
+    </query>
+</query-config>

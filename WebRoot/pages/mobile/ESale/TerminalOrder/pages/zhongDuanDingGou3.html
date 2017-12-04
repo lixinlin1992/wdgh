@@ -1,0 +1,70 @@
+<script src="ESale/TerminalOrder/scripts/zhongDuanDingGou3.js"></script>
+
+<div id="shoppingCarDiv">
+	<!--购物车操作Begin-->
+	<div class="com_shoppingcar" ng-repeat="row in rows">
+		<!-- 商品Begin-->
+		<div class="goods_detail" style="padding-left:20px;">
+			<a class="com_checkoxon" style="left:15px;"></a>
+			<div class="left">
+				<div class="goods_img">
+					<img ng-src="{{imgScr}}{{row.GOODS_PICTURE_ID}}" alt="" />
+				</div>
+			</div>
+			<div class="right">
+				<div class="name" ng-bind="row.GOODS_TITLE"></div>
+				<div class="attribute">供货商：<span ng-bind="row.GOODS_PROVIDER_NAME"></span></div>
+				<div class="attribute">返利金额：￥<span ng-bind="row.RETURN_FEE"></span></div>
+				<div class="price">单价:￥<span ng-bind="row.FEE"></span>&nbsp;&times;&nbsp;<span ng-bind="row.QUANTITY"></span></div>
+			</div>
+		</div>
+		<!-- 商品End-->
+	</div>
+	<!--购物车操作End-->
+
+	<div class="com_settlement">
+		<ul style="margin-bottom: 0;">
+			<li>货款：<span class="money">￥<span ng-bind="params.sureFee"></span></span>
+			</li>
+			<li>邮费：<span class="money">￥<span ng-bind="params.expressFee"></span></span>
+			</li>
+			<li>总金额：<span class="money">￥<span ng-bind="finalMoney()"></span></span>
+			</li>
+			<li>返利金额：<span class="money">￥<span ng-bind="params.returnFee"></span></span>
+			</li>
+			<li>需支付金额：<span class="money">￥<span ng-bind="finalMoney()"></span></span>
+			</li>
+			<li>收货地址：<span ng-bind="address.area"></span><span ng-bind="address.address"></span></li>
+			<li>姓名：<span ng-bind="address.contacts"></span></li>
+			<li>手机：<span ng-bind="address.phone"></span></li>
+			<li>邮箱：<span ng-bind="address.email"></span></li>
+			<li style="margin-bottom:10px"><a class="com_btn normal_btn" href="javascript://" onclick="hrefJump('address')">选择收货地址</a></li>
+			<div ng-repeat="row in rowsPhoneCuanHao">
+				<li>请输入<span ng-bind="row.title" class="red_font"></span>的串号,用“,”隔开,如66666,88888<span class="red_font" ng-if="row.sn_type==1">(必填)</span><span class="red_font" ng-if="row.sn_type==0">(非必填)</span></li>
+				<li>
+					<div class="formlist" style="background: #ffffff;padding: 0;">
+						<textarea ng-blur="event.blur($index,row.quantity)" class="textarea_normal" style="height: 62px;" ng-model="rowsPhoneCuanHao[$index].value" cols="30" rows="10"></textarea>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li id="SNN_{{row.id}}" class="red_font" name="message"></li>
+			</div>
+			<li>备注：</li>
+			<li>
+				<!--表单排版Begin-->
+				<div class="formlist" style="background: #ffffff;">
+					<!--多行文本框Begin-->
+					<textarea class="textarea_normal" style="height: 62px;" ng-model="params.note" cols="30" rows="10"></textarea>
+					<!--多行文本框End-->
+					<div class="clear"></div>
+				</div>
+				<!--表单排版End-->
+			</li>
+		</ul>
+
+		<div style="padding:5px 0px 10px 0px;">
+			<a class="com_btn theme_btn" href="javascript://" ng-click="request.creatOrder()">提交</a>
+		</div>
+	</div>
+
+</div>

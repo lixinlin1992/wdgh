@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_APPROVEMANU" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_manu set state=[state], remarks = [remarks]
+            where id=[manu_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

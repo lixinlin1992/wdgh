@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+    <!--
+     配置简单说明
+     目前支持的 type 如下：
+     1. pagelist  支持分页、自动排序的查询，result 可为 json、srcField、ftl
+     2. update    执行更新语句、DDL语句
+     3. batch     执行多条语句，语句间用半角的 ; 分开
+     4. call      调用存储过程、函数等（单条）
+     5. batchcall 调用多个存储过程、函数等，语句间用半角的 ; 分开
+     -->
+    <query id="example-pagelist" type="pagelist" result="ftl">
+        <stmt><![CDATA[
+		select 
+		logid,date_format(starttime,'%Y-%m-%d %H:%i') as starttime,
+		date_format(endtime,'%Y-%m-%d') as endtime,
+		date_format(confirmtime,'%Y%m%d') as confirmtime,
+		description
+		from tbldevicewarnlog
+		where 1=1 and endtime=[endtime date]
+		<#if startTime?exist>
+		and date_format(starttime,'%Y-%m-%d')>=[startTime date]
+		</#if>
+		]]></stmt>
+        <!-- id参数建议提供，如果没有指定，则取第一个字段作为ID，该id的值在页面的grid中使用 -->
+        <param name="id">logid</param>
+        <!-- list-cols参数为可选参数，如果没指定，则按照结果集中默认的字段排序进行输出 -->
+        <param name="list-cols">logid,starttime,endtime,confirmtime,description</param>
+        <!-- exp-cols指定了要导出的字段，当 result=srcField 的时候使用，如果要使用导出功能，必须指定该参数 -->
+        <param name="exp-cols">logid,starttime,endtime,confirmtime,description</param>
+        <!-- exp-names指定了导出Excel的表头，如果没有指定，则直接使用exp-cols作为表头，与exp-cols一一对应 -->
+        <param name="exp-names">日志ID,开始时间,结束时间,确认时间,描述</param>
+        <!-- 另外，这里没有指定user_status的表头，将直接使用user_status作为表头 -->
+        <!-- 导出的文件名，可在参数中通过 fileName 指定 -->
+        <param name="exp-file">通用查询功能导出</param>
+        <!-- 可在这里配置输出的模板，传入参数时，可使用这里的模板，如 result=ftl&ftl=_ftl -->
+        <param name="ftl">template/example/example-query.ftl</param>
+    </query>
+
+    <!-- labelvalue查询器样例，result暂时只支持json -->
+    <query id="labelvalue-example" type="labelvalue" result="json">
+        <stmt>
+            <![CDATA[
+			select user_id,user_name from sys_user where 1=1 
+			<#if username?exists>
+			and user_name [like(username)]
+			</#if>
+			]]>
+        </stmt>
+        <param name="l-col">user_name</param>
+        <!-- label的字段名，作为option的标签值。必需 -->
+        <param name="v-col">user_id</param>
+        <!-- value的字段名，作为option的value。必需 -->
+        <param name="date-fmt">yyyyMMddkkmmss</param>
+        <!-- 日期输出格式。可选（不提供将采用默认的 yyyy-MM-dd） -->
+        <param name="num-fmt">#,##0.##</param>
+        <!-- 数字输出格式。可选（不提供将采用默认的 #.#） -->
+    </query>
+
+
+    <!-- 更新SQL语句配置样例 -->
+    <query id="example-update" type="update" result="">
+        <stmt>
+            <![CDATA[
+			update sys_p_user set status_id=2 where id = [userid]
+			]]>
+        </stmt>
+    </query>
+
+    <!-- 批量更新SQL语句配置样例 -->
+    <query id="example-batch-update" type="batch" result="">
+        <stmt>
+            <![CDATA[
+			create distTable t_tmp(a nvarchar2(100) null,b nvarchar2(100) null);
+			insert into t_tmp(a,b) values('1','2');
+			insert into t_tmp(a,b) values('3','4');
+			update t_tmp set a=[a] where b=[b];
+			delete from t_tmp;
+			drop distTable t_tmp;
+			]]>
+        </stmt>
+        <!-- 设置是否启用事务，默认不启用 -->
+        <param name="trans">true</param>
+
+        <processor name="query-ref" type="after" break="true" seq="1">
+            <param name="ref-id">Q_XXX</param>
+        </processor>
+    </query>
+
+    <!-- 存储过程调用配置样例 -->
+    <query id="example-call" type="call" result="">
+        <stmt>
+            <![CDATA[
+
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 批量存储过程调用配置样例 -->
+    <query id="example-batchcall" type="batchcall" result="">
+        <processor name="check-count" type="before" seq="" break="true">
+            <param name="count-sql">select count(1) from sys_p_user where name=[name]</param>
+            <param name="max-count">0</param>
+            <param name="min-count">0</param>
+            <param name="exp-count">0</param>
+            <param name="break-message">用户名称[${name}]已经被占用，请使用其它名称</param>
+        </processor>
+        <stmt>
+            <![CDATA[
+
+                    ]]>
+        </stmt>
+        <processor name="cocheck-count" type="before" seq="" break="true">
+            <param name="count-sql">select count(1) from sys_p_user where type_id=[type]</param>
+            <param name="max-count">0</param>
+            <param name="min-count">0</param>
+            <param name="exp-count">0</param>
+            <param name="break-message">相同类型下的用户名称[${name}]已经被占用，请使用其它名称</param>
+        </processor>
+        <!-- 设置是否启用事务，默认不启用 -->
+        <param name="trans">true</param>
+    </query>
+</query-config>

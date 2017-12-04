@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+2012-08-10 kinz 增加登录策略和登录成功后跳转策略的配置
+-->
+<dsconfig>
+    <!-- 本文件存放在WEB-INF目录下 -->
+    <mapping-location>WEB-INF/mappings,rdcp_cache/dataservice,rdcp_cache/pages,rdcp_cache/query</mapping-location>
+    <auto-reload>true</auto-reload>
+    <!-- 是否自动重新装载更改过的配置文件 -->
+    <recursive>true</recursive>
+    <!-- 是否装载子目录下的配置文件 -->
+    <datasource-type></datasource-type>
+    <!-- 如果为空，以具体映射配置中为准，否则以这里为准 -->
+    <file-location>WEB-INF/datafiles</file-location>
+    <!-- 数据资源文件根目录 -->
+    <access-checker></access-checker>
+    <!-- 数据源功能权限校验 -->
+
+    <!-- 表单数据校验相关配置 -->
+    <!-- kinz 2011-09-16 新的框架将不需要该标记 -->
+    <validate-field>_formId</validate-field>
+    <!-- 表单校验标记，当出现这个参数字段的时候，将启动校验，如果不填则表示不使用校验功能 -->
+    <validate-output>template/framework/T_VALIDATE_RESULT.ftl</validate-output>
+    <validate-outtype>ftl</validate-outtype>
+
+
+    <!-- 请求事件监听配置(可配置多个事件监听器，使用半角逗号隔开)-->
+    <param name="request-listeners"></param>
+
+    <!--登录设置-->
+    <param name="login-validate-code-timeout">0</param>
+    <!-- 验证码超时时间，如果设置为0时验证码永不超时，单位为分钟 -->
+    <param name="mobile-login-page"></param>
+    <!-- 手机页面登录页面 -->
+
+    <!-- 以下两个参数已经无用 -->
+    <param name="login-captcha-test">true</param>
+    <!-- 是否打开测试状态的校验码，测试状态校验码为 88888 -->
+    <param name="common-validate-code">88888</param>
+    <!-- 通用验证码，不填写默认为88888 -->
+
+    <!-- 扩展登录设置 -->
+    <param name="login-terminal-policy"></param>
+    <!-- 登录终端策略，格式 {用户类型,终端1，终端2...}，只对要限制终端的用户类型进行配置，没有配置的用户类型将不限制登录终端 -->
+    <param name="login-default-policy">2</param>
+    <!-- 默认的登录策略，如果没有指定，则采用该策略 -->
+    <param name="login-default-terminal">WEB</param>
+    <!-- 默认登录终端，如果登录的时候没有传入终端则使用该终端 -->
+    <param name="login-policy"><![CDATA[{,,0}]]></param>
+    <!-- 登录策略，格式 {用户类型,终端,策略}{...}，用户类型和终端由业务系统定义，策略：0 单会话不踢，1 单会话踢除，2 多会话。如果为空则表示不限定，指定的优先级高 -->
+    <param name="login-default-redirect-policy"><![CDATA[]]></param>
+    <!-- 默认的登录跳转策略，如果没有指定，则采用该策略 -->
+    <param name="login-redirect-policy"><![CDATA[{,,login.jsp}]]></param>
+    <!-- 登录成功后跳转策略，格式 {用户类型,终端,策略}{...}，策略即为跳转地址。为空则不限定，限定的优先级高。暂未实现 -->
+    <param name="login-captcha-policy">{rdcp,0,}{WEB,2,888888}</param>
+    <!-- 登录校验码策略，格式：{终端,策略,通用校验码}{...}，策略：0 不使用校验码，1 使用校验码（但不使用通用校验码），2 使用校验码并且使用通用校验码 -->
+    <!--  2013.01.07 取消该配置，使用新的策略配置 -->
+    <param name="login-max-idle"></param>
+    <!-- 登录会话持续时间（最大空闲时间），单位为分钟。不指定则默认为 30 分钟 -->
+    <param name="login-timeout-policy">{,WEB,30}</param>
+    <!-- 会话超时策略，格式：{用户类型,终端,超时时间}{....}，没有指定的将默认使用30分钟。-->
+
+    <param name="login-adapters"></param>
+    <!-- 登录适配器，可通过适配器来确定已经登录的用户。需要实现 com.sunrise.service.security.ILoginAdapter接口 -->
+
+
+    <!-- 错误信息处理配置 -->
+    <error-handlertype>ftl</error-handlertype>
+    <!-- ftl, jsp, custom-->
+
+    <!--是否使用数据权限-->
+    <param name="data-permissions">true</param>
+
+
+    <!-- 公用参数配置 -->
+    <param name="system-code">PLS_CHANGE</param>
+    <!-- 业务系统编码 -->
+    <param name="system-name">武汉大学工会服务教职工系统</param>
+
+    <param name="dsconfig-adapter">com.sunrise.rdcp.engine.RDCPDataSourceConfigAdapter</param>
+    <!-- 数据源配置适配器 -->
+    <param name="formrule-adapter">com.sunrise.rdcp.engine.RDCPFormRuleAdapter</param>
+
+    <param name="content-type">text/html</param>
+    <param name="encoding">UTF-8</param>
+    <param name="error-output">template/framework/T_Error_Handle.ftl</param>
+    <param name="default-pagesize">10</param>
+    <!-- 默认的分页大小 -->
+    <param name="upload-package">/uploadfile</param>
+    <param name="temp-script-dir">scripts/temp</param>
+    <!-- 临时脚本存放目录 -->
+
+    <param name="excel-exp-cache-rows">1000</param>
+    <!-- 默认导出excel缓存大小，防止内存溢出 -->
+
+    <param name="date-format">yyyy-MM-dd</param>
+    <!--系统日期格式配置，短日期-->
+    <param name="datetime-format">yyyy-MM-dd kk:mm:ss</param>
+    <!--系统日期格式配置，长日期-->
+    <param name="number-format">#0.####</param>
+    <!--数字格式配置-->
+
+    <!--主题的配置-->
+    <param name="theme-root-dir">themes</param>
+    <!-- 基于WebRoot的目录 -->
+    <param name="default-theme">brisk_orange</param>
+    <!-- 默认的主题 -->
+
+    <!-- 工作流引擎 -->
+    <param name="Assignee-Adapter">com.sunrise.workflow.SimpleAssigneeAdapter</param>
+
+    <param name="project-sync-path">projectFile</param>
+
+    <!-- RDCP相关配置 -->
+    <param name="rdcp-dmp-location">rdcp_dmp</param>
+    <!-- RDCP导出DMP目录 -->
+    <param name="rdcp-page-base-url"></param>
+    <!-- 当生成规则是2的时候，生成的jsp页面base路径 -->
+    <param name="rdcp-ds-load-once">true</param>
+    <!-- 是否每次访问数据源都重新加载 -->
+    <param name="rdcp-template-encoding">GBK</param>
+    <!-- 在解析模版xml的时候使用到 -->
+    <param name="rdcp-cache-location">rdcp_cache</param>
+    <!-- RDCP引擎缓存目录 -->
+    <param name="rdcp-cache-jsp-encoding">UTF-8</param>
+    <!-- RDCP引擎缓存jsp文件编码 -->
+    <param name="rdcp-cache-html-encoding">GBK</param>
+    <!-- RDCP引擎缓存html文件编码 -->
+    <param name="rdcp-cache-xml-encoding">UTF-8</param>
+    <!-- RDCP引擎缓存xml文件编码，包括查询配置和数据服务配置 -->
+    <param name="rdcp-cache-gen-policy">0</param>
+    <!-- RDCP页面生成策略，0 表示每次都生成，1 表示有新版本才生成，2 表示只生成一次 -->
+
+    <!-- QUERY查询文件配置，配置基于WebRoot目录的相对路径 -->
+    <param name="variable_query_file">WEB-INF/modules/var/querys/Q_QUERY_VAR.xml</param>
+
+
+    <param name="module_config">extends/module.config.xml</param>
+    <param name="module_dev_dir"></param>
+    <param name="module_runtime_dir">WEB-INF/runtime</param>
+</dsconfig>

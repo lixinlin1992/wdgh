@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_UPDATE_CONTRIBUTION" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_contribution set title=[title],author_one=[author_one],author_two=[author_two],
+            author_three=[author_three],content=[content]
+            where id=[manu_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

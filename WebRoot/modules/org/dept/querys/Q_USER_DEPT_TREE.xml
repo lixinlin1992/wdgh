@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <query id="Q_USER_DEPT_TREE" type="trees" result="easyui-tree">
+        <stmt>
+            <![CDATA[
+
+            select id,name,parent_id,to_char(dept_type) AS TYPE_ID, '1' AS P_TYPE_ID, 'false' AS OPENED
+             from SYS_P_DEPARTMENT
+             union all
+             SELECT ID,NAME,dept_id, '3' AS TYPE_ID, '2' AS P_TYPE_ID, 'true' AS OPENED
+             FROM SYS_P_USER where status_id=1
+             ORDER BY TYPE_ID
+             ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type_id</param>
+        <param name="parent-type-col">p_type_id</param>
+        <param name="opened-col">opened</param>
+        <param name="root-flag"></param>
+    </query>
+</query-config>

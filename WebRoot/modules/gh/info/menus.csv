@@ -1,0 +1,23 @@
+﻿#菜单定义
+#可以使用变量 ${module_path}
+#
+# 格式：
+# 菜单路径          排序（小的在前）                                        菜单资源路径
+信息发布          0
+信息发布/信息发布         1
+信息发布/信息发布/工会概况                1   !gh/info/~/pages/ghInfo.jsp
+信息发布/信息发布/民主管理                2   !gh/info/~/pages/demoInfo.jsp
+信息发布/信息发布/文体天地                3   !gh/info/~/pages/schoolCulture.jsp
+信息发布/信息发布/电子相册                5   !gh/info/~/pages/electronicPhoto.jsp
+信息发布/信息发布/先进人物                6   !gh/info/~/pages/advancedPeople.jsp
+信息发布/信息发布/政策法规                7   !gh/info/~/pages/policyRegulation.jsp
+信息发布/信息发布/新闻中心                8   !gh/info/~/pages/newsCenter.jsp
+信息发布/教工服务         2
+信息发布/教工服务/教工服务信息           1   !gh/info/~/pages/infoDiffusion.jsp
+信息发布/教工服务/法律援助               2   !gh/info/~/pages/legalAid.jsp
+信息发布/通知下载         3
+信息发布/通知下载/通知公告               7   !gh/info/~/pages/noticeManage.jsp
+信息发布/通知下载/下载中心               7   !gh/info/~/pages/downloadCenter.jsp
+信息发布/首页管理         4
+信息发布/首页管理/首页菜单管理           1   !gh/info/~/pages/menuManage.jsp
+信息发布/首页管理/首页图片管理           2   !gh/info/~/pages/indexImgManage.jsp

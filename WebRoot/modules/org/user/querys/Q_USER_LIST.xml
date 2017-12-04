@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!--kinz 2014年6月3日 在模块配置文件中需要指定能能通过统一功能来管理的用户类型-->
+    <!--查询用户列表-->
+    <query id="Q_USER_LIST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+            SELECT
+                ID, ACCOUNT, NAME,
+                replace(ltrim(max(sys_connect_by_path(GROUP_NAME, '#')), '#'), '#', ',') AS GROUP_NAME,
+                MOBILE_PHONE, STATUS_ID, DEPT_NAME
+            FROM (SELECT
+                      ID, ACCOUNT, NAME, GROUP_NAME, MOBILE_PHONE, STATUS_ID, DEPT_NAME,
+                      rnFirst,
+                      lead(rnFirst)
+                      OVER (PARTITION BY ID
+                          ORDER BY rnFirst) rnNext
+                  FROM (SELECT
+                            u.ID, u.ACCOUNT, u.NAME, ug.name AS              GROUP_NAME, u.MOBILE_PHONE,
+                                                     (CASE WHEN u.STATUS_ID = 1 THEN '有效'
+                                                      ELSE '已注销' END)        STATUS_ID,
+                                                     d.NAME  AS              DEPT_NAME,
+                                                     row_number()
+                                                     OVER (
+                                                         ORDER BY u.ID DESC) rnFirst
+                        FROM sys_p_user u
+                            LEFT JOIN SYS_P_DEPARTMENT d ON d.ID = u.DEPT_ID
+                            LEFT JOIN sys_p_user_ug r ON r.user_id = u.id
+                            LEFT JOIN sys_p_user_group ug ON ug.code = r.user_group_code
+                        WHERE 1 = 1
+                              <#if username??>
+            AND u.name [LIKE(username)]
+            </#if>
+            <#if useraccount??>
+            AND u.account [LIKE(useraccount)]
+            </#if>
+            <#if mobilephone??>
+            AND u.mobile_phone [LIKE(mobilephone)]
+            </#if>
+            <#if statusid??>
+            AND u.status_id=[statusid]
+            </#if>
+            <#if dept_id??>
+            AND u.DEPT_ID IN (SELECT ID FROM SYS_P_DEPARTMENT START WITH ID =[dept_id LONG] CONNECT BY PRIOR ID =PARENT_ID)
+            </#if>
+            <#if var("MODULE_CONFIG.org/user.params.manage_able_types")??>
+            AND u.TYPE_ID IN (${var("MODULE_CONFIG.org/user.params.manage_able_types")})
+            </#if>
+            ORDER BY status_id DESC, ID
+            ) tmpTable1) tmpTable2
+            START WITH rnNext IS NULL
+            CONNECT BY rnNext = PRIOR rnFirst
+            GROUP BY ID, ACCOUNT, NAME,MOBILE_PHONE, STATUS_ID, DEPT_NAME
+            ]]></stmt>
+        <param name="id">id</param>
+        <param name="list-cols">ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME,ID</param>
+        <param name="exp-cols">ID,ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME</param>
+        <param name="exp-names">用户ID,帐号,姓名,角色,手机,状态,部门</param>
+        <param name="exp-file">用户信息</param>
+    </query>
+</query-config>

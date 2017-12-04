@@ -1,0 +1,10 @@
+#菜单定义
+#可以使用变量 ${module_path}
+#
+# 格式：
+# 菜单路径          排序（小的在前）                                        菜单资源路径
+
+系统管理/系统监控/资源访问监控                              0                       ${module_path}/~/pages/resourceAccessMonitor.jsp?old
+#系统管理/系统监控/资源访问统计                              1                       ${module_path}/~/pages/resourceAccessStatis.jsp?old
+系统管理/系统监控/在线用户登录统计                              2                       ${module_path}/~/pages/onlineUser.jsp?old
+系统管理/系统监控/用户登录日志                              3                       ${module_path}/~/pages/loginLogQuery.jsp?old

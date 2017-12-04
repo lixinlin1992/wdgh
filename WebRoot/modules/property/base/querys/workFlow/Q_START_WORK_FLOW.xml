@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+    <query id="Q_START_WORK_FLOW" type="batchQuery" result="template">
+        <stmt><![CDATA[
+
+
+                INSERT INTO WF_WORK_ORDER (ID,PROCESS_ID,OBJECT_ID,TITLE,NOTE) SELECT WF_WORK_ORDER_SEQ.NEXTVAL,P.ID , [objectId], [orderTitle], [note]   FROM WF_PROCESS P WHERE P.CODE = [processCode] ;
+
+                INSERT INTO WF_RU_TASK (ID,WORK_ORDER_ID,NODE_ID,HANDLE_MAN_ID,START_TIME,END_TIME,HANDLE_ID) VALUES
+                                       (WF_RU_TASK_SEQ.NEXTVAL,WF_WORK_ORDER_SEQ.CURRVAL , [startNodeId]  ,${_CurrUser.id}  ,SYSDATE,SYSDATE,(SELECT MAX(ID) FROM WF_FLOW WHERE START_NODE_ID = [startNodeId] )) ;
+
+                INSERT INTO WF_RU_TASK (ID , WORK_ORDER_ID , NODE_ID , HANDLE_MAN_ID , START_TIME)
+                                       SELECT WF_RU_TASK_SEQ.NEXTVAL,WF_WORK_ORDER_SEQ.CURRVAL , F.END_NODE_ID  , ${_CurrUser.id}  ,SYSDATE FROM WF_NODE N,WF_FLOW F WHERE N.ID = F.START_NODE_ID AND N.ID = [startNodeId] ;
+
+                SELECT WF_WORK_ORDER_SEQ.CURRVAL AS workOrderId,WF_RU_TASK_SEQ.CURRVAL as taskId FROM DUAL;
+
+            ]]></stmt>
+
+        <param name="template" freemarker="false">
+            <![CDATA[
+				{
+                    <#list resultSet_0.rows as i>
+                    "workOrderId":"${i.workOrderId!}",
+                    "taskId":"${i.taskId!}"
+                    </#list>
+                }
+		    ]]>
+        </param>
+
+        <param name="trans">true</param>
+
+        <processor name="check-count" type="before" seq="0" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) C FROM WF_PROCESS P WHERE P.CODE = [processCode]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[编码为[processCode]的流程流程未配置，请与管理员联系！]]></param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) C
+                    FROM WF_NODE N , WF_PROCESS P
+                    WHERE N.PROCESS_ID = P.ID
+                        AND N.NODE_TYPE = 3
+                        AND P.CODE = [processCode]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[编码为[processCode]的流程流程未配置起始节点无法创建流程实例，请与管理员联系！]]></param>
+        </processor>
+
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">startNodeId</param>
+            <param name="sql">
+                <![CDATA[
+					SELECT N.ID startNodeId
+                    FROM WF_NODE N , WF_PROCESS P
+                    WHERE N.PROCESS_ID = P.ID
+                        AND N.NODE_TYPE = 3
+                        AND P.CODE = [processCode]
+				]]>
+            </param>
+        </processor>
+
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                    SELECT COUNT(1) FROM WF_NODE N,WF_FLOW F WHERE N.ID = F.START_NODE_ID AND N.ID = [startNodeId]
+				]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[编码为[processCode]的流程流程未配置起始节点的下一步处理节点无法创建流程实例，请与管理员联系！]]></param>
+        </processor>
+
+    </query>
+</query-config>

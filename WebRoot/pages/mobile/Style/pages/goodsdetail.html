@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<title></title>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+
+<!-- Esale自定义样式 -->
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="../js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="../js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+window.onload=function()
+{
+	var deepLi1=document.getElementById("detailTitle1");
+	var deepLi2=document.getElementById("detailTitle2");
+	var deepCt1=document.getElementById("detailBox1");
+	var deepCt2=document.getElementById("detailBox2");
+	deepLi1.onclick=function()
+	{
+		deepLi1.className="deeptabActive";
+		deepLi2.className="deeptabNormal";
+		deepCt1.style.display="block"
+		deepCt2.style.display="none"
+		};
+	deepLi2.onclick=function()
+	{
+		deepLi2.className="deeptabActive";
+		deepLi1.className="deeptabNormal";
+		deepCt2.style.display="block"
+		deepCt1.style.display="none"
+		};
+	};
+</script>
+</head>
+<body>
+
+<!--导航Begin-->
+<header class="header" style="height:50px; position:relative;">
+	<a href="javascript://"  class="headerleftBtn">返回</a>
+	<h1 class="headerTitle" >商品参数选择</h1>
+</header>
+<!--导航End-->
+
+<!-- 轮播Begin-->
+<div style="width:100%; text-align:center; ">
+   <img style="max-width: 100%;" src="../images/goods/goods1.jpg" alt="">
+</div>
+<!-- 轮播End-->
+
+<!-- 商品信息Begin-->
+<div class="container-fluid" >
+	<div class="row">
+    	<div class="col-md-12">
+        	<h2 class="goodsTitle b_bottom">三星GALAXY手机 note3 sm-n9008v 新款移动4G手机，送礼包</h2>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="col-md-12">
+        	<p><span class="goodsPrice">￥69.00</span> <span style=" margin-right:5px;background:#f7be23; font-size:0.4em;  color:#ffffff;">价格</span><span  style=" background:#e84c3d; font-size:0.4em; margin-right:5px; color:#ffffff;">优惠3%</span></p>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+    	<div class="col-md-12">
+        	<a href="javascript://" class="btnColor9 " style="display:block; border:1px solid #eeeeee; height:40px; line-height:40px; text-indent:10px; position:relative;">更多服务，优惠，活动信息<span class="glyphicon glyphicon-chevron-right" style="position:absolute; right:10px; top:10px;"></span></a>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+    	<div class="col-md-12">
+        	<a href="javascript://" class="btnColor9" style="display:block; border:1px solid #eeeeee; height:40px; line-height:40px; text-indent:10px; position:relative;">请选择尺码，颜 <span class="glyphicon glyphicon-chevron-right" style="position:absolute; right:10px; top:10px;"></span>色</a>
+        </div>
+    </div>
+</div>
+<!-- 商品信息End-->
+
+<!-- 商品信息Begin-->
+<div class="container-fluid" style="margin-top:30px;">
+	<div class="row">
+    	<div class="col-md-6 col-sm-6 col-xs-6">
+        	<button type="button" class="btn btn-primary btn-block">加入购物车</button>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+        	<button type="button" class="btn btn-warning btn-block">立即购买</button>
+        </div>
+    </div>
+</div>
+<!-- 商品信息End-->
+
+<!--商品详情Begin-->
+<div class="container-fluid" style="margin-top:30px;">
+	<div class="row">
+    	<div class="col-md-6 col-sm-6 col-xs-6" style="border:1px solid #eeeeee;padding:0px;">
+        	<div id="detailTitle1" class="deeptabActive" >商品详情</div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6"  style="border:1px solid #eeeeee; padding:0px;">
+        	<div id="detailTitle2" class="deeptabNormal" >手机信息</div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+    	<div class="col-md-12">
+            <div>
+            	<div id="detailBox1">
+            		<table class="table table-bordered">
+                    	<tr>
+                        	<th>标题</th>
+                            <th>标题</th>
+                        </tr>
+                        <tr>
+                        	<td>111</td>
+                            <td>111</td>
+                        </tr>
+                        <tr>
+                        	<td>111</td>
+                            <td>111</td>
+                        </tr>
+                        <tr>
+                        	<td>111</td>
+                            <td>111</td>
+                        </tr>
+					</table>
+            	</div>
+            	<div id="detailBox2" style="display:none;">
+            		<table class="table table-bordered">
+                    	<tr>
+                        	<th>标题</th>
+                            <th>标题</th>
+                        </tr>
+                        <tr>
+                        	<td>222</td>
+                            <td>222</td>
+                        </tr>
+                        <tr>
+                        	<td>222</td>
+                            <td>222</td>
+                        </tr>
+                        <tr>
+                        	<td>222</td>
+                            <td>222</td>
+                        </tr>
+					</table>
+            	</div>
+            </div>  
+        </div>
+    </div>
+</div>
+<!--商品详情End-->
+
+<footer class="footer">
+<div class="footer_txt">易售宝手机平板端@Copyright 2014-2016</div>
+</footer>
+
+</body>
+</html>

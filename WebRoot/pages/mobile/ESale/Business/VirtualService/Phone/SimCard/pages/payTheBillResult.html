@@ -1,0 +1,37 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/payTheBillResult.js"></script>
+
+<div class="layout_centent">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>充值状态</span>
+		<!--<a class="morebtn" href="javascript://">更多选择</a>-->
+	</div>
+	<!--标题一End-->
+	<!--信息列表Begin-->
+	<div class="com_table">
+		<p class="recharge_message">您的充值我们已经受理，将在一个工作日内为你处理</p>
+		<table>
+			<tr>
+				<td class="summarize">充值号码</td>
+				<td><span class="big_font orange_font" ng-bind="form.phone"></span></td>
+			</tr>
+			<tr>
+				<td class="summarize">充值金额</td>
+				<td><span class="big_font red_font">￥<span ng-bind="form.finalMoney"></span></span></td>
+			</tr>
+			<tr>
+				<td class="summarize">充值结果</td>
+				<td class="recharge_message_processing" id="chargeStatus"><span ng-bind="form.chargeStatus"></span><span ng-bind="form.circle"></span></td>
+			</tr>
+			<!--<tr>
+				<td class="summarize">充值结果</td>
+				<td class="recharge_message_fail">充值失败</td>
+			</tr>
+			<tr>
+				<td class="summarize">充值结果</td>
+				<td class="recharge_message_sucess">充值成功</td>
+			</tr>-->
+		</table>
+	</div>
+	<!--信息列表End-->
+</div>

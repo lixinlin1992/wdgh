@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+
+    <!-- 角色信息 -->
+    <query id="Q_USERGROUP_INFO" type="form_data" result="">
+        <stmt><![CDATA[
+		select * from sys_p_user_group t where t.code=[code]
+		]]></stmt>
+    </query>
+</query-config>

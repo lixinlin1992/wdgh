@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_LEGAL_AID_FORM" type="form_data" result="easyui">
+		<stmt>
+			<![CDATA[
+				select id legal_aid_id,title,content from bi_legal_aid
+				where id=[id]
+			]]>
+		</stmt>
+	</query>
+</query-config>

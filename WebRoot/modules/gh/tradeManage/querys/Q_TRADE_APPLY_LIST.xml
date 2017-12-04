@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_TRADE_APPLY_LIST" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+				select apply_id,bta.account,bta.name user_name,spd.name dept_name,
+				to_char(apply_time,'yyyy-mm-dd') apply_time,bta.apply_status apply_status_id,
+				decode(bta.apply_status,0,'驳回',1,'二级工会管理员审核',2,'校工会管理员审核',3,'审核通过') apply_status
+				from bi_trade_apply bta
+				left join sys_p_department spd on bta.dept_id=spd.id
+				where 1=1 and dept_id in (
+				select id from sys_p_department start with id=(
+				select dept_id from sys_p_user where id=${_CurrUser.id})
+				connect by prior id=parent_id)
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+</query-config>

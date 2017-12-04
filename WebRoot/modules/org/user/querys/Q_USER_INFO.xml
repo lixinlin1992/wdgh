@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!--用户编辑-->
+    <query id="Q_USER_INFO" type="form_data" result="">
+        <stmt><![CDATA[
+            SELECT
+                u.*, d.NAME AS DEPT_NAME
+            FROM SYS_P_USER u
+                LEFT JOIN SYS_P_DEPARTMENT d ON d.ID = u.DEPT_ID
+            WHERE u.ID = [ID]
+            ]]></stmt>
+    </query>
+
+</query-config>

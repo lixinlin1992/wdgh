@@ -1,0 +1,443 @@
+[
+    {
+        "id": "21",
+        "text": "系统管理",
+        "type": "1",
+        "checked": "true",
+        "state": "closed",
+        "attributes": {
+            "testcol2": "test2",
+            "testcol": "test"
+        },
+        "children": [
+            {
+                "id": "206",
+                "text": "基础数据管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "182",
+                        "text": "处理器管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "207",
+                        "text": "校验规则管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "321",
+                        "text": "页面模板容器管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "322",
+                        "text": "页面模板区域管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "81",
+                        "text": "模板管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "181",
+                        "text": "执行器管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "244",
+                        "text": "登录IP规则管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": "101",
+                "text": "用户权限管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "203",
+                        "text": "角色管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "201",
+                        "text": "用户管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "202",
+                        "text": "部门管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "204",
+                        "text": "个人信息设置",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "205",
+                        "text": "修改密码",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "25",
+        "text": "开发平台",
+        "type": "1",
+        "checked": "true",
+        "state": "opened",
+        "attributes": {
+            "testcol2": "test2",
+            "testcol": "test"
+        },
+        "children": [
+            {
+                "id": "26",
+                "text": "业务系统管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "122",
+                        "text": "开发人员管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "141",
+                        "text": "系统菜单管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "61",
+                        "text": "模块功能管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "208",
+                        "text": "编码管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "221",
+                        "text": "编码类型管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "27",
+                        "text": "业务系统管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "566",
+                        "text": "业务数据库配置",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": "41",
+                "text": "配置管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "82",
+                        "text": "页面管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "43",
+                        "text": "数据源管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "44",
+                        "text": "查询管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "183",
+                        "text": "版本信息",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "890287",
+        "text": "工作流平台",
+        "type": "1",
+        "checked": "true",
+        "state": "opened",
+        "attributes": {
+            "testcol2": "test2",
+            "testcol": "test"
+        },
+        "children": [
+            {
+                "id": "890288",
+                "text": "流程管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "890308",
+                        "text": "流程管理",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": "890289",
+                "text": "任务管理",
+                "type": "1",
+                "checked": "true",
+                "state": "opened",
+                "attributes": {
+                    "testcol2": "test2",
+                    "testcol": "test"
+                },
+                "children": [
+                    {
+                        "id": "890347",
+                        "text": "流程监控",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "890307",
+                        "text": "待办任务",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    },
+                    {
+                        "id": "890327",
+                        "text": "委托任务",
+                        "type": "1",
+                        "checked": "true",
+                        "state": "opened",
+                        "attributes": {
+                            "testcol2": "test2",
+                            "testcol": "test"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]

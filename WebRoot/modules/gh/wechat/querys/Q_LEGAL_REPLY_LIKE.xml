@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LEGAL_REPLY_LIKE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update BI_LEGAL_AID_DETAIL set like_times = like_times + [num]
+            where id = [commentId]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

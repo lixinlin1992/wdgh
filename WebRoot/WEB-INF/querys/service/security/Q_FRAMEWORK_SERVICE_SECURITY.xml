@@ -1,0 +1,1338 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!-- 查询功能 -->
+    <query id="Q_FUNCTION_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT f.*,m.NAME AS MODULE_NAME,
+                    f1.NAME AS DEPEND_FUNC_NAME
+                    FROM SYS_P_FUNCTION f
+                    LEFT JOIN SYS_P_MODULE m ON m.ID=f.MODULE_ID
+                    LEFT JOIN SYS_P_FUNCTION f1 ON f1.ID=f.DEPEND_ID
+                    WHERE 1=1
+                    <#if func_name?exists>
+                    AND f.NAME [like(func_name)]
+                    </#if>
+                    <#if module_id?exists>
+                    AND f.MODULE_ID IN (
+                    SELECT ID FROM SYS_P_MODULE START WITH ID=[module_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="id">id</param>
+        <param name="list-cols">id,module_name,name,code,type,access_rule,depend_func_name,note</param>
+        <param name="exp-cols">id,module_name,name,code,type,access_rule,depend_func_name,note</param>
+        <param name="exp-names">编号,模块,名称,功能码,类型,授权规则,依赖功能,备注</param>
+    </query>
+
+    <!-- 查询模块功能树 -->
+    <query id="Q_FUNCTION_TREE" type="tree" result="">
+        <processor name="script" type="before" seq="1" break="false">
+            <param name="var">sys_code</param>
+            <param name="script">
+                <![CDATA[
+                        com.sunrise.framework.core.ApplicationManager.getSystemCode()
+                    ]]>
+            </param>
+        </processor>
+        <stmt>
+            <![CDATA[
+            SELECT * FROM (
+                    SELECT TO_CHAR(CODE) AS ID,NAME,'-1' AS PARENT_ID,-1 AS TYPE,-1 AS PARENT_TYPE
+                    FROM SYS_BI_SYSTEM WHERE 1=1 <#if sys_code??> AND CODE=[sys_code]</#if>
+                    UNION ALL
+                    SELECT TO_CHAR(ID),NAME,TO_CHAR(SYS_CODE) AS PARENT_ID,0 AS TYPE,-1 AS PARENT_TYPE
+                    FROM SYS_P_MODULE WHERE <#if sys_code?? && sys_code!="RDCP">STATUS=1</#if> AND PARENT_ID=0 <#if sys_code??> AND SYS_CODE=[sys_code]</#if>
+                    UNION ALL
+                    SELECT TO_CHAR(ID),NAME,TO_CHAR(PARENT_ID) AS PARENT_ID,0 AS TYPE,0 AS PARENT_TYPE
+                    FROM SYS_P_MODULE WHERE <#if sys_code?? && sys_code!="RDCP">STATUS=1</#if> AND PARENT_ID<>0 <#if sys_code??> AND SYS_CODE=[sys_code]</#if>
+                    <#if loadFunction?exists>
+                    UNION ALL
+                    SELECT TO_CHAR(ID),NAME,TO_CHAR(MODULE_ID) AS PARENT_ID,1 AS TYPE,0 AS PARENT_TYPE
+                    FROM SYS_P_FUNCTION
+                    WHERE 1=1 
+                    <#if sys_code?? && sys_code!="RDCP">AND STATUS=1</#if> 
+                    <#if sys_code??> AND SYS_CODE=[sys_code]</#if>
+                    <#if access_rule?exists> AND ACCESS_RULE [in(access_rule int)]</#if>
+                        <#if type??&& type=='0'>
+                            <#if id?exists>
+                            AND MODULE_ID IN (
+                            SELECT ID FROM SYS_P_MODULE START WITH ID=[id] CONNECT BY PRIOR ID=PARENT_ID
+                            )
+                            </#if>
+                        </#if>
+                    </#if>
+                    )
+                    ORDER BY PARENT_ID ASC NULLS FIRST,ID ASC
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">-1</param>
+        <param name="ftl">template/service/security/T_FUNC_TREE.ftl</param>
+    </query>
+
+    <!-- 添加功能 -->
+    <query id="Q_FUNCTION_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    INSERT INTO SYS_P_FUNCTION (ID,MODULE_ID,NAME,CODE,TYPE,ACCESS_RULE,DEPEND_ID,NOTE)
+                    VALUES([id long],[module_id long],[name],[code],[type int],[access_rule int],[depend_id long],[note])
+                    ]]>
+        </stmt>
+        <!-- 检查模块是否存在 -->
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">SELECT COUNT(1) FROM SYS_P_MODULE WHERE ID=${module_id!-1}</param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[请确保选择的模块存在于系统中！]]></param>
+        </processor>
+        <!-- 检查功能编号是否被占用 -->
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql">SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE ID=${id}</param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[功能编号已经被占用，请使用其它编号！]]></param>
+        </processor>
+        <!-- 检查是否指定了依赖功能，且依赖功能是否存在，当授权类型为依赖授权的时候进行检查 -->
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                        <#if access_rule?exists>
+                            <#if access_rule=='2'>
+                                SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE ID=${depend_id!-1}
+                            <#else>
+                                SELECT 1 AS COUNT_A FROM DUAL
+                            </#if>
+                        <#else>
+                        SELECT 1 AS COUNT_A FROM DUAL
+                        </#if>
+                        ]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[依赖授权模式必需指定有效的依赖功能！]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 装载功能信息以供修改 -->
+    <query id="Q_FUNCTION_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT f.*,m.NAME AS MODULE_NAME,df.NAME AS DEPEND_NAME
+                    FROM SYS_P_FUNCTION f,SYS_P_MODULE m,SYS_P_FUNCTION df
+                    WHERE m.ID(+)=f.MODULE_ID AND df.ID(+)=f.DEPEND_ID AND f.ID=[id]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 对功能进行更新 -->
+    <query id="Q_FUNCTION_UPDATE" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    UPDATE SYS_P_FUNCTION SET
+                    NAME=[name],CODE=[code],TYPE=[type int],ACCESS_RULE=[access_rule int],DEPEND_ID=[depend_id long],NOTE=[note]
+                    WHERE ID=[id]
+                    ]]>
+        </stmt>
+        <!-- 检查是否指定了依赖功能，且依赖功能是否存在，当授权类型为依赖授权的时候进行检查 -->
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                        <#if access_rule?exists>
+                            <#if access_rule=='2'>
+                                SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE ID=${depend_id!-1}
+                            <#else>
+                                SELECT 1 AS COUNT_A FROM DUAL
+                            </#if>
+                        <#else>
+                        SELECT 1 AS COUNT_A FROM DUAL
+                        </#if>
+                        ]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[依赖授权模式必需指定有效的依赖功能！]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+        <processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="2" break="false"/>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+
+    <!-- 删除功能，同时将对应的菜单也一并删除(暂时先不考虑) -->
+    <query id="Q_FUNCTION_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_FUNCTION WHERE ID=[id]
+                    ]]>
+        </stmt>
+        <processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+    </query>
+
+    <!-- 为功能分配菜单，将功能ID写入到指定的菜单 -->
+    <query id="Q_FUNCTION_MENU_ASSIGN" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    UPDATE SYS_P_MENU SET FUNCTION_ID=[function_id]
+                    WHERE ID=[menu_id]
+                    ]]>
+        </stmt>
+        <processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="1" break="false"/>
+    </query>
+
+    <!-- 添加功能要使用到的数据源 -->
+    <query id="Q_FUNC_DATASOURCE_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+            INSERT INTO SYS_P_FUNC_DATASOURCE(FUNCTION_ID,DATASOURCE_ID,DATASOURCE_NOTE,MAIN_FLAG)
+            VALUES([function_id long],[datasource_id],[datasource_note],[main_flag int])
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql"><![CDATA[
+            <#if main_flag=="1">
+            SELECT COUNT(1) FROM SYS_P_FUNC_DATASOURCE WHERE (DATASOURCE_ID=[datasource_id] OR FUNCTION_ID=[function_id long]) AND MAIN_FLAG=1
+            <#else>SELECT 0 FROM DUAL</#if>
+            ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[该数据源已经被其它功能设置为主标记，或者本功能已经存在主数据源，不能再为该功能设置主标记]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.FunctionDataSourceProcessor" type="after" seq="1" break="false"/>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 删除功能要用到的数据源 -->
+    <query id="Q_FUNC_DATASOURCE_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_FUNC_DATASOURCE WHERE 1=2 OR (
+                    FUNCTION_ID=[function_id long]
+                    AND DATASOURCE_ID=[datasource_id]
+                    )
+            ]]>
+        </stmt>
+    </query>
+
+    <!-- 查询功能使用到的数据源 -->
+    <query id="Q_FUNC_DATASOURCE_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID,DATASOURCE_ID,DATASOURCE_NOTE,MAIN_FLAG
+                    FROM SYS_P_FUNC_DATASOURCE
+                    WHERE 1=1
+                    <#if function_id?exists>
+                    AND FUNCTION_ID=[function_id long]
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="list-cols">datasource_id,datasource_note,main_flag,function_id</param>
+    </query>
+
+    <!-- 查询所有使用到指定数据源的功能信息 -->
+    <query id="Q_DATASOURCE_FUNC_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID,DATASOURCE_ID,DATASOURCE_NOTE,MAIN_FLAG
+                    FROM SYS_P_FUNC_DATASOURCE
+                    WHERE 1=1
+                    <#if datasource_id?exists>
+                    AND DATASOURCE_ID=[datasource_id]
+                    </#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 添加/修改模块信息 -->
+    <query id="Q_MODULE_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    <#-- 判断是修改还是添加，通过是否传入id的值来判断，有则表示修改，否则是添加 -->
+                    <#if id?exists>
+                    UPDATE SYS_P_MODULE SET
+                    NAME=[name],NOTE=[note]
+                    WHERE ID=[id]
+                    <#else>
+                    INSERT INTO SYS_P_MODULE(ID,NAME,PARENT_ID,NOTE)
+                    VALUES(SYS_P_MODULE_SEQ.NEXTVAL,[name],[parent_id long],[note])
+                    </#if>
+                    ]]>
+        </stmt>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 获取模块信息 -->
+    <query id="Q_MODULE_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT m.*,p.NAME AS PARENT_NAME
+                    FROM SYS_P_MODULE m,SYS_P_MODULE p
+                    WHERE p.ID(+)=m.PARENT_ID AND m.ID=[id long]
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 删除模块 -->
+    <query id="Q_MODULE_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_MODULE WHERE ID=[id long]
+                    ]]>
+        </stmt>
+        <!-- 检查该模块下是否有功能点数据，如果有则不允许删除 -->
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE MODULE_ID=[id long]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[选中模块下存在功能点，不能删除]]></param>
+        </processor>
+        <!-- 检查模块下是否有子模块，如果有则不允许删除 -->
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MODULE WHERE PARENT_ID=[id long]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[选中模块下存在子模块，不能删除]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="1" break="false"/>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 查询用户授权树结构信息 -->
+    <query id="Q_USER_FUNC_ACCESS_TREE" type="_access_tree" result="">
+        <stmt>
+            <![CDATA[
+                SELECT *
+                  FROM (SELECT ID,
+                               NAME,
+                               PARENT_ID AS PARENT_ID,
+                               0 AS TYPE,
+                               0 AS PARENT_TYPE,
+                               'false' AS CHECKED,
+                               -1 AS GRANT_TYPE
+                          FROM SYS_P_MODULE
+                         WHERE 1 = 1
+                        UNION ALL
+                        SELECT f.ID,
+                               f.NAME,
+                               f.MODULE_ID AS PARENT_ID,
+                               1 AS TYPE,
+                               0 AS PARENT_TYPE,
+                               (CASE
+                                 WHEN uf.USER_ID IS NULL THEN
+                                  'false'
+                                 ELSE
+                                  'true'
+                               END) AS CHECKED,
+                               (CASE
+                                 WHEN uf.SOURCE IS NULL THEN
+                                  -1
+                                 ELSE
+                                  uf.SOURCE
+                               END) AS GRANT_TYPE
+                          FROM SYS_P_FUNCTION f, SYS_P_USER_F uf
+                         WHERE uf.FUNCTION_ID(+) = f.ID AND uf.USER_ID(+)=[user_id])
+                 ORDER BY TYPE ASC, ID ASC, PARENT_ID ASC NULLS FIRST
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">0</param>
+        <param name="ftl">template/service/security/T_USER_ACCESS_TREE.ftl</param>
+    </query>
+
+
+    <!-- 查询角色授权信息 -->
+    <query id="Q_USER_GROUP_FUNCTION" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID FROM SYS_P_USER_GROUP_F WHERE USER_GROUP_CODE=[user_group_code]
+                    ]]>
+        </stmt>
+        <param name="ftl">template/service/security/T_USER_GROUP_FUNC.ftl</param>
+        <param name="paging">false</param>
+    </query>
+
+    <!-- 角色功能授权设置 -->
+    <query id="Q_USER_GROUP_FUNCTION_SET" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_USER_GROUP_F WHERE USER_GROUP_CODE=[user_group_code];
+                    <@aslist name="function_id"/>
+                    <#list function_id as f>
+                    INSERT INTO SYS_P_USER_GROUP_F(USER_GROUP_CODE,FUNCTION_ID)
+                    VALUES([user_group_code],${func(f,"long")});
+                    </#list>
+                    ]]>
+        </stmt>
+        <processor class="com.sunrise.service.security.pro.UserFunctionUpdateProcessor" type="after" seq="1"
+                   break="false"/>
+        <param name="trans">true</param>
+    </query>
+
+    <!--
+    查询角色功能授权树
+    -->
+    <query id="Q_USERGROUP_ACCESS_TREE" type="_access_tree" result="">
+        <stmt>
+            <![CDATA[
+            SELECT *
+                  FROM (SELECT ID,
+                               NAME,
+                               PARENT_ID AS PARENT_ID,
+                               0 AS TYPE,
+                               0 AS PARENT_TYPE,
+                               'false' AS CHECKED
+                          FROM SYS_P_MODULE
+                         WHERE 1 = 1
+                        UNION ALL
+                        SELECT f.ID,
+                               f.NAME,
+                               f.MODULE_ID AS PARENT_ID,
+                               1 AS TYPE,
+                               0 AS PARENT_TYPE,
+                               (CASE
+                                 WHEN uf.USER_GROUP_CODE IS NULL THEN
+                                  'false'
+                                 ELSE
+                                  'true'
+                               END) AS CHECKED
+                          FROM SYS_P_FUNCTION f, SYS_P_USER_GROUP_F uf
+                         WHERE uf.FUNCTION_ID(+) = f.ID AND uf.USER_GROUP_CODE(+)=[user_group_code])
+                 ORDER BY TYPE ASC, ID ASC, PARENT_ID ASC NULLS FIRST
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">0</param>
+        <param name="ftl">template/service/security/T_USER_ACCESS_TREE.ftl</param>
+    </query>
+
+    <!--查询系统模块信息语句-->
+    <query id="Q_MODULE_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT * FROM SYS_P_MODULE WHERE 1=1
+                    <#if name?exists>
+                    AND NAME [like(name)]
+                    </#if>
+                    <#if parent_id?exists>
+                    AND PARENT_ID IN (
+                    SELECT ID FROM SYS_P_MODULE START WITH ID=[parent_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 查询系统菜单数据 -->
+    <query id="Q_MENU_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT m.*,f.NAME AS FUNCTION_NAME,mp.NAME AS PARENT_NAME,f.CODE AS MENU_URL
+                    FROM SYS_P_MENU m,SYS_P_FUNCTION f,SYS_P_MENU mp
+                    WHERE f.ID(+)=m.FUNCTION_ID AND mp.ID(+)=m.PARENT_ID
+                    <#if name?exists>
+                    AND m.NAME [like(name)]
+                    </#if>
+                    <#if function_name?exists>
+                    AND f.NAME [like(function_name)]
+                    </#if>
+                    <#if parent_id?exists>
+                    AND m.ID IN (
+                    SELECT ID FROM SYS_P_MENU START WITH ID=[parent_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    ORDER BY m.ORDER_ID ASC NULLS LAST
+                    ]]>
+        </stmt>
+        <param name="list-cols">id,name,level_id,order_id,parent_name,function_name,note</param>
+    </query>
+
+    <!-- 查询菜单树结构数据 -->
+    <query id="Q_MENU_TREE" type="tree" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT * FROM SYS_P_MENU
+                    WHERE 1=1
+                    <#if level_id?exists>
+                    AND LEVEL_ID [in(level_id)]
+                    </#if>
+                    ORDER BY PARENT_ID ASC NULLS FIRST, ORDER_ID ASC,ID ASC
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col"></param>
+        <param name="parent-type-col"></param>
+        <param name="root-flag">${id!"0"}</param>
+    </query>
+
+    <!-- 查询菜单信息以供修改 -->
+    <query id="Q_MENU_INFO" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+                    SELECT m.*,mp.NAME AS PARENT_NAME,f.NAME AS FUNCTION_NAME,
+                    CASE WHEN m.LEVEL_ID=1 THEN '一级菜单' WHEN m.LEVEL_ID=2 THEN '二级菜单' ELSE '三级菜单' END AS LEVEL_NAME
+                    FROM SYS_P_MENU m,SYS_P_MENU mp,SYS_P_FUNCTION f
+                    WHERE m.ID=[id] AND mp.ID(+)=m.PARENT_ID AND f.ID(+)=m.FUNCTION_ID
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 添加/修改菜单项信息 -->
+    <query id="Q_MENU_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    <#-- 判断是添加还是修改，id没传入则表示添加 -->
+                    <#if id?exists>
+                    UPDATE SYS_P_MENU SET
+                    NAME=[name],ORDER_ID=[order_id],NOTE=[note],FUNCTION_ID=[function_id]
+                    WHERE ID=[id]
+                    <#else>
+                    INSERT INTO SYS_P_MENU(ID,NAME,PARENT_ID,LEVEL_ID,ORDER_ID,NOTE,FUNCTION_ID)
+                    VALUES(SYS_P_MENU_SEQ.NEXTVAL,[name],[parent_id long],[level_id int],[order_id int],[note],[function_id int])
+                    </#if>
+                    ]]>
+        </stmt>
+        <!-- 进行相关的逻辑判断 -->
+        <!-- 相同父节点下不能存在两个同名的菜单项 -->
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[SELECT COUNT(1) FROM SYS_P_MENU WHERE NAME=[name] AND PARENT_ID=[parent_id] AND ID<>[id]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[相同上级菜单下已经存在名称为的 [${name}] 菜单项，请使用其它名称]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="1" break="false"/>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 删除菜单 -->
+    <query id="Q_MENU_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_MENU WHERE ID=[id]
+                    ]]>
+        </stmt>
+        <!-- 检查是否有子菜单，如果有则不允许删除 -->
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MENU WHERE PARENT_ID=[id]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[选中的菜单中存在子菜单，不允许删除]]></param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="1" break="false"/>
+    </query>
+
+    <!-- 查询用户权限 -->
+    <query id="Q_USER_FUNCTION" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID
+                    FROM SYS_P_USER_F
+                    WHERE USER_ID=[user_id long]
+                    <#if loadAll?exists && loadAll=="true">
+                    UNION ALL
+                    SELECT ugf.FUNCTION_ID
+                    FROM SYS_P_USER_GROUP_F ugf
+                    WHERE ugf.USER_GROUP_CODE IN (SELECT USER_GROUP_CODE FROM SYS_P_USER_UG WHERE USER_ID=[user_id long])
+                    AND ugf.FUNCTION_ID NOT IN (SELECT FUNCTION_ID FROM SYS_P_USER_FUNC_EXCLUDE WHERE USER_ID=[user_id long])
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/service/security/T_USER_GROUP_FUNC.ftl</param>
+    </query>
+
+
+    <!-- 装载用户的菜单信息 -->
+    <query id="Q_USER_MENU" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            <#assign user_id=_session.attrs._com_sunrise_UserSesion.id>
+          select distinct  e.ID, e.NAME,e.newid as id,e.MENU_URL,e.LEVEL_ID,e.ORDER_ID from
+           (
+           SELECT m.ID, m.NAME,m.ID as newid,f.CODE AS MENU_URL,m.LEVEL_ID,m.order_id
+           FROM
+         (
+         select * from SYS_P_MENU b where  b.id in (
+            select distinct g.parent_id from SYS_P_MENU g where g.function_id in
+           (select c.function_id from sys_p_user_f c where c.user_id=${user_id}))
+            union all
+
+         select * from SYS_P_MENU a where a.id in (
+         select b.parent_id from SYS_P_MENU b where  b.id in (
+            select distinct g.parent_id from SYS_P_MENU g where g.function_id in
+           (select c.function_id from sys_p_user_f c where c.user_id=${user_id})))
+           )m,SYS_P_FUNCTION f
+           where f.Id=m.function_id
+           <#if parentId?exists>
+           AND m.PARENT_ID=[parentId] and m.function_id is null
+           <#else>
+           AND m.PARENT_ID IS NULL and m.function_id is null
+           </#if>
+           union all
+           SELECT m.ID, m.NAME,m.ID,f.code MENU_URL,m.LEVEL_ID,m.order_id
+           FROM SYS_P_MENU m,sys_p_function f
+           where m.function_id=f.id and
+           f.id in (select c.function_id from sys_p_user_f c where c.user_id=${user_id} and c.function_id in
+                          (select b.function_id from SYS_P_MENU b  where b.id in
+                          ( select a.id from SYS_P_MENU a where 1=1
+           <#if parentId?exists>
+           AND m.PARENT_ID=[parentId]
+           <#else>
+           AND m.PARENT_ID IS NULL
+           </#if>
+                          ))
+                )
+          )e ORDER BY e.ORDER_ID ASC
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/service/security/T_USER_MENU.ftl</param>
+    </query>
+
+
+    <!--author:蒋杰龙-->
+    <!-- 用户登录 -->
+    <!--
+         验证用户登录信息
+         kinz 2012年2月27日 增加用户状态的判断
+     -->
+    <query id="Q_LOGIN_USER_INFO" type="bean">
+        <stmt><![CDATA[
+		select * from sys_p_user where account=[loginName] and UPPER(password)=UPPER([password]) and STATUS_ID=1
+		]]></stmt>
+        <param name="class">com.sunrise.service.security.entity.SysPUser</param>
+    </query>
+
+    <query id="Q_FRAMEWORK_SERVICE_SECURITY_USER_IMPOWER" type="tree" result="">
+        <stmt>
+            <![CDATA[
+            SELECT * FROM (
+                    SELECT m.ID,m.NAME,m.PARENT_ID AS PARENT_ID,0 AS TYPE,0 AS PARENT_TYPE,NULL as code ,0 as source ,m.id as function_id ,' ' as checked
+                    FROM SYS_P_MODULE m
+                    UNION ALL
+                    SELECT f.ID,NAME,f.MODULE_ID AS PARENT_ID,1 AS TYPE,0 AS PARENT_TYPE,f.CODE, u.source ,f.id as function_id , decode(u.source,0,'false','true')
+                    FROM SYS_P_FUNCTION f , SYS_P_USER_F u where f.id = u.function_id and u.user_id ='33159'
+                    )
+                    ORDER BY ID ASC,PARENT_ID ASC NULLS FIRST
+                    ]]>
+        </stmt>
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col">type</param>
+        <param name="parent-type-col">parent_type</param>
+        <param name="root-flag">0</param>
+    </query>
+
+    <!-- 用户功能授权设置 -->
+    <query id="Q_USER_FUNCTION_SET" type="batch" result="json">
+        <stmt>
+            <![CDATA[
+			DELETE FROM SYS_P_USER_F T WHERE t.USER_ID=[user_id long];
+			<@aslist name="function_id"/>
+			<#list function_id as f>
+			INSERT INTO SYS_P_USER_F(USER_ID,FUNCTION_ID,SOURCE)
+			VALUES([user_id long],${func(f,"long")},1);
+			</#list>
+            ]]>
+        </stmt>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">1</param>
+            <param name="msg">设置用户的功能权限，用户ID:${user_id}</param>
+        </processor>
+        <processor class="com.sunrise.service.security.pro.UserFunctionUpdateProcessor" type="after" seq="2"
+                   break="false">
+            <param name="user">${user_id}</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 用户删除功能权限 -->
+    <query id="Q_FRAMEWORK_SERVICE_SECURITY_USER_FUNCTION_DEL" type="batch" result="json">
+        <stmt>
+            <![CDATA[
+			delete from sys_p_user_f f where f.user_id in(select p.user_id from sys_p_user_ug p where p.user_group_code=[user_group_code])
+			and f.source=0;
+			insert into  sys_p_user_f (function_id,user_id,source)
+           		 select   a.function_id,w.user_id,0 from sys_p_user_group_f a,(select p.user_id from sys_p_user_ug p where p.user_group_code=[user_group_code])w
+           		 where a.function_id not in
+     		 ( select  f.function_id  from sys_p_user_f  f where f.user_id in(select p.user_id from sys_p_user_ug p where p.user_group_code=[user_group_code]) and  f.source=1)
+     		 and a.function_id in
+     		 (
+      			select distinct  g.function_id from sys_p_user_group_f g where g.user_group_code in(
+			      select u.user_group_code from sys_p_user_ug u where u.user_id in(select p.user_id from sys_p_user_ug p where p.user_group_code=[user_group_code]))
+     		 ) and a.user_group_code=[user_group_code];
+
+            ]]>
+        </stmt>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">3</param>
+            <param name="msg">删除用户功能权限（批量）</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!--用户信息-->
+    <query id="Q_USER_INFO" type="pagelist" result="ftl">
+        <stmt><![CDATA[
+        select distinct t.name,t.mobile_phone,t.email,t.account,
+        (select wmsys.wm_concat(to_char(u.user_group_code))s from sys_p_user_ug u where u.user_id=${_session.attrs._com_sunrise_UserSesion.id}) as groupName
+        from sys_p_user t <#--,sys_p_user_ug u,sys_p_user_group g--> where t.id=${_session.attrs._com_sunrise_UserSesion.id}
+        ]]></stmt>
+        <param name="paging">false</param>
+        <param name="_ftl">
+            template/service/security/T_USER_INFO_MANAGE.ftl
+        </param>
+    </query>
+
+
+    <!-- 修改用户信息-->
+    <query id="Q_USER_INFO_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update sys_p_user t set t.name=[name],t.mobile_phone=[mobile_phone],t.email=[email] where t.id=${_session.attrs._com_sunrise_UserSesion.id}
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">select count(1) from sys_p_user where (name in [name]) and (id not in
+                ${_session.attrs._com_sunrise_UserSesion.id})
+            </param>
+            <param name="exp-count">0</param>
+            <param name="min-count">0</param>
+            <param name="max-count">1</param>
+            <param name="break-message"><![CDATA[已经有用户名称为[${name}]，请输入其他进行操作！]]></param>
+        </processor>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改用户信息：Id为[${_session.attrs._com_sunrise_UserSesion.id}]</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+
+    <!-- 组织机构管理树 -->
+    <!--
+        2012/9/6 蒋杰龙 添加数据权限
+    -->
+    <query id="Q_DEPARTMENT" type="pagelist" result="ftl">
+        <processor name="script" type="before" seq="1" break="false">
+            <param name="var">isPermissions</param>
+            <param name="script">
+                <![CDATA[
+                        com.sunrise.framework.core.FrameworkConfig.getInstance().getParam("data-permissions","false");
+                    ]]>
+            </param>
+        </processor>
+        <stmt>
+            <![CDATA[
+				select id,name,1 as types,DEPT_TYPE,NOTE
+			    from SYS_P_DEPARTMENT where 1=1
+				<#if id?exists>
+					and PARENT_ID=[id long]
+				<#else>
+				    <#if isPermissions=='true'>
+				        and id = (select pu.dept_id from sys_p_user pu where pu.id=[_CurrUser.id])
+				        <#else>
+				        and PARENT_ID is null
+				    </#if>
+				</#if>
+				<#if loadUser?exists && loadUser=="true" && id?exists>
+				union
+				SELECT ID,NAME,2 AS TYPES,0 AS DEPT_TYPE,NOTE
+				FROM SYS_P_USER
+				WHERE DEPT_ID=[id long]
+				</#if>
+				ORDER BY DEPT_TYPE DESC,NAME ASC
+			]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/service/security/T_DEPARTMENT_TREE.ftl</param>
+    </query>
+
+    <!-- 查找,编辑组织机构 -->
+    <query id="Q_DEPARTMENT_DETAIL" type="form_data" result="">
+        <stmt><![CDATA[
+            select dep.ID,dep.NAME,(CASE when dep.dept_type=0 then '集团' when dep.dept_type=1 then '公司' when dep.dept_type=2 then '部门' end)dept_type_name,
+            (select sdep.name from SYS_P_DEPARTMENT sdep where sdep.id = dep.parent_id) as PARENT_NAME ,
+            dep.NOTE,u.NAME AS MASTER_NAME,dep.BUSINESS_CODE,dep.DEPT_TYPE,dep.DEPT_CODE,
+            dep.admin_org,
+            org.name as admin_org_name
+            from SYS_P_DEPARTMENT dep ,SYS_P_USER u,SYS_BI_ADMIN_ORG org
+            where u.ID(+)=dep.MASTER_ID AND dep.id =[ID] AND org.id (+)=dep.admin_org 
+		]]></stmt>
+    </query>
+
+    <!-- 行政组织树  -->
+    <query id="Q_SYS_BI_ADMIN_ORG_TREE" type="tree" result="ftl">
+        <stmt>
+            <![CDATA[
+                    SELECT * FROM SYS_BI_ADMIN_ORG
+                    ORDER BY PARENT_ID ASC NULLS FIRST
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">ID</param>
+        <param name="name-col">NAME</param>
+        <param name="parent-col">PARENT_ID</param>
+        <param name="type-col"></param>
+        <param name="parent-type-col"></param>
+        <param name="root-flag">${id!""}</param>
+    </query>
+    
+    <!--修改部门-->
+    <query id="Q_DEPARTMENT_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+                <#if id?exists>
+                UPDATE SYS_P_DEPARTMENT SET
+                NAME=[name],NOTE=[note],MASTER_ID=[master_id long],
+                BUSINESS_CODE=[business_code],DEPT_CODE=[dept_code],ADMIN_ORG=[admin_org]
+                WHERE ID=[id long]
+                <#else>
+                INSERT INTO SYS_P_DEPARTMENT(ID,NAME,DEPT_TYPE,PARENT_ID,NOTE,MASTER_ID,BUSINESS_CODE,DEPT_CODE,ADMIN_ORG)
+                VALUES(SYS_P_DEPARTMENT_SEQ.nextval,[name],[DEPT_TYPE long],[parent_id long],[note],[master_id long],[business_code],[dept_code],[admin_org])
+                </#if>
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT COUNT(1) FROM SYS_P_DEPARTMENT
+                WHERE NAME=[name] AND
+                <#if parent_id?exists>PARENT_ID=[parent_id long]
+                <#else>PARENT_ID IS NULL
+                </#if><#if id?exists> AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[部门/公司 [${name}] 已经存在，请使用其它名称]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 组织结构关联下的用户 -->
+    <!--
+        2012/9/6 蒋杰龙 添加数据权限
+    -->
+    <query id="Q_DEPARTMENT_USERS" type="pagelist" result="json">
+        <processor name="script" type="before" seq="1" break="false">
+            <param name="var">isPermissions</param>
+            <param name="script">
+                <![CDATA[
+                        com.sunrise.framework.core.FrameworkConfig.getInstance().getParam("data-permissions","false");
+                    ]]>
+            </param>
+        </processor>
+        <processor name="set-value" type="before" seq="2" break="false">
+            <param name="var">depId</param>
+            <param name="sql">
+                <![CDATA[
+                        select pu.dept_id from sys_p_user pu where pu.id=[_CurrUser.id]
+                    ]]>
+            </param>
+        </processor>
+        <stmt><![CDATA[
+		<#assign DEPT_ID_TEMP=1/>
+		select u.ID,u.ACCOUNT,u.NAME,u.MOBILE_PHONE,(case when u.STATUS_ID=0 then '未开通' when u.STATUS_ID=1 then '有效' when STATUS_ID=2 then '注销' end)STATUS_ID,u.EMAIL,DEPT_ID,u.NOTE,
+		d.NAME AS DEPT_NAME
+		from SYS_P_USER u
+		LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=u.DEPT_ID
+  		where 1=1
+		<#if !(DEPT_ID??)>
+		    <#if isPermissions=="true">
+		        <#assign DEPT_ID_TEMP=depId/>
+		        <#else>
+		            <#assign DEPT_ID_TEMP=1/>
+		    </#if>
+		    <#else>
+		        <#assign DEPT_ID_TEMP=DEPT_ID/>
+		</#if>
+
+        and u.DEPT_ID in (select dep_tree.id from (select ia.id,ia.name,ia.dept_type from SYS_P_DEPARTMENT ia start with ia.id=${DEPT_ID_TEMP} connect by prior ia.id=ia.parent_id) dep_tree where 1=1
+        <#if nqDEPT_TYPE?exists>
+            and dep_tree.dept_type=[nqDEPT_TYPE]
+        </#if>
+        <#if nqname?exists>
+            and dep_tree.name=[nqname]
+        </#if>
+        )
+		]]></stmt>
+        <param name="id">id</param>
+        <param name="list-cols">ACCOUNT,NAME,MOBILE_PHONE,STATUS_ID,EMAIL,DEPT_NAME</param>
+    </query>
+
+    <!-- 角色管理列表 -->
+    <query id="Q_USER_GROUP_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+            SELECT t.CODE,t.NAME,t.TYPE_ID,t.NOTE,t.SUPER_ADMIN FROM SYS_P_USER_GROUP t WHERE 1=1
+             <#if code??>
+             AND t.CODE [like(code)]
+             </#if>
+             <#if name??>
+             AND t.NAME [like(name)]
+             </#if>
+             <#if user_id??>
+             AND t.CODE IN (SELECT USER_GROUP_CODE FROM SYS_P_USER_UG WHERE USER_ID=[user_id long])
+             </#if>
+            ]]>
+        </stmt>
+        <param name="list-cols">code,name,note,type_id</param>
+    </query>
+
+    <!-- 角色信息 -->
+    <query id="Q_USER_GROUP_INFO" type="form_data" result="">
+        <stmt><![CDATA[
+		select * from sys_p_user_group t where t.code=[code]
+		]]></stmt>
+    </query>
+
+    <!-- 删除角色，需要同时删除角色的授权、角色与用户的对应关系等 -->
+    <query id="Q_USER_GROUP_DEL" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_USER_GROUP WHERE CODE=[code];
+                    DELETE FROM SYS_P_USER_UG WHERE USER_GROUP_CODE=[code];
+                    DELETE FROM SYS_P_USER_GROUP_F WHERE USER_GROUP_CODE=[code];
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+
+    <!--修改角色信息-->
+    <query id="Q_USER_GROUP_EDIT" type="update" result="json">
+        <stmt><![CDATA[
+		<#if update?exists && update="true">
+		UPDATE SYS_P_USER_GROUP T SET T.NAME=[name],T.NOTE=[note] WHERE T.CODE=[code]
+		<#else>
+		INSERT INTO SYS_P_USER_GROUP(CODE,NAME,NOTE,TYPE_ID,USER_ID,CREATE_TIME)
+		VALUES(
+		[code],[name],[note],1,${_session.attrs._com_sunrise_UserSesion.id},TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS'))
+		)
+		</#if>
+		]]></stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[select count(1) from sys_p_user_group where NAME=[name] 
+                <#if update?exists && update="true">and CODE<>[code]
+                <#else>or CODE = [code]
+                </#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="min-count">0</param>
+            <param name="max-count">1</param>
+            <param name="break-message"><![CDATA[已经存在角色名称[${name}]或者编码[${code}]，请输入其他进行操作！]]></param>
+        </processor>
+        <processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">2</param>
+            <param name="msg">修改角色：code为${code}，name为${name}</param>
+        </processor>
+        <param name="trans">true</param>
+        <param name="paging">false</param>
+    </query>
+
+    <!-- 部门树查询 -->
+    <query id="Q_DEPT_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+            SELECT d.ID,d.NAME,d.PARENT_ID,d.MASTER_ID,d.DEPT_TYPE,d.BUSINESS_CODE,COUNT(d1.ID) AS CHILDREN_COUNT
+            FROM SYS_P_DEPARTMENT d
+            LEFT JOIN SYS_P_DEPARTMENT d1 ON d1.PARENT_ID=d.ID
+            WHERE 1=1
+            <#if id??>
+            AND d.PARENT_ID=[id long]
+            <#else>
+            AND d.PARENT_ID IS NULL
+            </#if>
+            GROUP BY d.ID,d.NAME,d.PARENT_ID,d.MASTER_ID,d.DEPT_TYPE,d.BUSINESS_CODE
+            ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/service/security/T_DEPT_TREE.ftl</param>
+    </query>
+
+    <!-- 构建部门用户授权树 -->
+    <query id="Q_DEPT_USER_ORG_TREE" type="tree" result="">
+        <stmt>
+            <![CDATA[
+            SELECT o.ID,o.NAME,o.PARENT_ID,(CASE WHEN <#if dept_id?exists>dog.DEPT_ID<#else>uo.USER_ID</#if> IS NULL THEN 'false' ELSE 'true' END) AS CHECKED
+            FROM SYS_BI_COMM_ORG o
+            <#if dept_id?exists>
+            LEFT JOIN SYS_P_DEPT_ORG dog ON dog.ORG_ID=o.ID AND dog.DEPT_ID=[dept_id long]
+            <#else>
+            LEFT JOIN SYS_P_USER_ORG uo ON uo.ORG_ID=o.ID AND uo.USER_ID=[user_id long]
+            </#if>
+                    ORDER BY PARENT_ID ASC NULLS FIRST,ID ASC
+                    ]]>
+        </stmt>
+        <!-- 树节点的相关配置 -->
+        <param name="id-col">id</param>
+        <param name="name-col">name</param>
+        <param name="parent-col">parent_id</param>
+        <param name="type-col"></param>
+        <param name="parent-type-col"></param>
+        <param name="root-flag"></param>
+    </query>
+
+    <!-- 查询部门或者用户的机构授权信息 -->
+    <query id="Q_DEPT_USER_ORG_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT o.NAME AS ORG_NAME,u.NAME AS OBJ_NAME,uo.EXT_FLAG,1 AS TYPE_ID
+                    FROM SYS_P_USER_ORG uo
+                    LEFT JOIN SYS_BI_COMM_ORG o ON o.ID=uo.ORG_ID
+                    LEFT JOIN SYS_P_USER u ON u.ID=uo.USER_ID
+                    WHERE 1=1
+                    <#if user_id?exists> AND uo.USER_ID=[user_id long]</#if>
+                    <#if dept_id?exists> AND u.DEPT_ID IN(
+                    SELECT ID FROM SYS_P_DEPARTMENT START WITH ID=[dept_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )</#if>
+                    UNION ALL
+                    SELECT o.NAME AS ORG_NAME,d.NAME AS OBJ_NAME,dog.EXT_FLAG,2 AS TYPE_ID
+                    FROM SYS_P_DEPT_ORG dog
+                    LEFT JOIN SYS_BI_COMM_ORG o ON o.ID=dog.ORG_ID
+                    LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=dog.DEPT_ID
+                    WHERE 1=1
+                    <#if dept_id?exists> AND dog.DEPT_ID IN(
+                    SELECT ID FROM SYS_P_DEPARTMENT START WITH ID=[dept_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )</#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 添加部门机构授权 -->
+    <query id="Q_DEPT_ORG_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    INSERT INTO SYS_P_DEPT_ORG(DEPT_ID,ORG_ID,EXT_FLAG)
+                    VALUES([dept_id long],[org_id long],[ext_flag int])
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 删除部门机构授权 -->
+    <query id="Q_DEPT_ORG_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_DEPT_ORG WHERE DEPT_ID=[dept_id long]
+                    <#if org_id?exists> AND ORG_ID=[org_id long]</#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 添加用户机构授权 -->
+    <query id="Q_USER_ORG_ADD" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    INSERT INTO SYS_P_USER_ORG(USER_ID,ORG_ID,EXT_FLAG)
+                    VALUES([user_id long],[org_id long],[ext_flag int])
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 删除用户机构授权 -->
+    <query id="Q_USER_ORG_DEL" type="update" result="">
+        <stmt>
+            <![CDATA[
+                    DELETE FROM SYS_P_USER_ORG WHERE USER_ID=[user_id long]
+                    <#if org_id?exists> AND ORG_ID=[org_id long]</#if>
+                    ]]>
+        </stmt>
+    </query>
+
+    <!-- 查询部门或者用户的机构授权 -->
+    <query id="Q_DEPT_USER_ORGS" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    <#if user_id?exists>
+                    SELECT ORG_ID FROM SYS_P_USER_ORG WHERE USER_ID=[user_id long]
+                    <#if dept_id?exists>
+                    UNION ALL
+                    </#if>
+                    <#elseif dept_id?exists>
+                    SELECT ORG_ID FROM SYS_P_DEPT_ORG WHERE DEPT_ID=[dept_id long]
+                    <#else>
+                    SELECT 0 AS ORG_ID FROM DUAL WHERE 1=2
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/service/security/T_DEPT_USER_ORGS.ftl</param>
+    </query>
+
+    <!-- 增加部门或者用户的机构授权 -->
+    <query id="Q_DEPT_USER_ORG_ADD" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    <#if dept_id?exists>
+                    DELETE FROM SYS_P_DEPT_ORG WHERE DEPT_ID=[dept_id long];
+                    <#elseif user_id?exists>
+                    DELETE FROM SYS_P_USER_ORG WHERE USER_ID=[user_id long];
+                    <#else>
+                    SELECT 1 FROM DUAL;
+                    </#if>
+                    <@aslist name="org_id"/>
+                    <#list org_id as o>
+                    <#if dept_id?exists>
+                    INSERT INTO SYS_P_DEPT_ORG(DEPT_ID,ORG_ID)
+                    VALUES([dept_id long],${func(o,"long")});
+                    <#elseif user_id?exists>
+                    INSERT INTO SYS_P_USER_ORG(USER_ID,ORG_ID)
+                    VALUES([user_id long],${func(o,"long")});
+                    </#if>
+                    </#list>
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 添加用户排除的功能 -->
+    <query id="Q_USER_FUNC_EXCLUDE_SET" type="batch" result="">
+        <stmt>
+            <![CDATA[
+                    <#-- 先删除指定用户所有的排除功能 -->
+                    DELETE FROM SYS_P_USER_FUNC_EXCLUDE WHERE USER_ID=[user_id long];
+                    <@aslist name="function_id"/>
+                    <#list function_id as f>
+                    INSERT INTO SYS_P_USER_FUNC_EXCLUDE(USER_ID,FUNCTION_ID)
+                    VALUES([user_id long],${func(f,"long")});
+                    </#list>
+                    ]]>
+        </stmt>
+        <processor class="com.sunrise.service.security.pro.UserFunctionUpdateProcessor" type="after" seq="1"
+                   break="false">
+            <param name="user">${user_id}</param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+
+    <!-- 查询用户排除的功能信息 -->
+    <query id="Q_USER_FUNC_EXCLUDE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID FROM SYS_P_USER_FUNC_EXCLUDE WHERE USER_ID=[user_id long]
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/service/security/T_USER_GROUP_FUNC.ftl</param>
+    </query>
+    <!--检查用户所在片区是否拥有该物业的授权-->
+    <query id="Q_CHECK_ORG_PROPERTY_TYPE_SECURITY" type="pagelist" result="">
+        <stmt>
+            <![CDATA[
+                select count(*)
+                from
+                    SYS_P_USER_ORG userOrg,
+                    SYS_P_USER_PROPERTY_TYPE userPro
+                where
+                    1=1
+                    and userOrg.USER_ID = userPro.USER_ID
+                    and userPro.PROPERTY_TYPE_ID = [proTypeId]
+                    and userOrg.ORG_ID = [orgId]
+            ]]>
+        </stmt>
+    </query>
+
+    <!-- 获取用户所拥有的所有功能授权 -->
+    <query id="Q_LOAD_ALL_USER_FUNCTION" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    SELECT FUNCTION_ID FROM SYS_P_USER_F WHERE USER_ID=[userId]
+                    UNION
+                    select userGroupF.FUNCTION_ID
+                    from
+                        SYS_P_USER_GROUP_F userGroupF,
+                        SYS_P_USER sysUser,
+                        SYS_P_USER_UG userUg
+                    where
+                        sysUser.ID = [userId]
+                        and sysUser.ID = userUg.USER_ID
+                        and userUg.USER_GROUP_CODE = userGroupF.USER_GROUP_CODE
+                        and not exists(
+                            select userFuncEx.FUNCTION_ID
+                            from
+                                SYS_P_USER_FUNC_EXCLUDE userFuncEx
+                            where
+                                userFuncEx.USER_ID = [userId]
+                                and userFuncEx.FUNCTION_ID = userGroupF.FUNCTION_ID
+                        )
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="ftl">template/service/security/T_USER_GROUP_FUNC.ftl</param>
+    </query>
+    
+    <!-- 获取业务系统对象属性类型 -->
+    <query id="Q_PROPERTYSECURTY_TYPE_GET" type="labelvalue" result="">
+		<stmt>
+			<![CDATA[
+				select t.code,t.name from sys_p_roperty_type t
+			]]>
+		</stmt>
+		<param name="l-col">name</param>
+		<param name="v-col">code</param>
+    </query>    
+    
+    <!-- 获取业务系统对象属性 -->
+    <query id="Q_PROPERTYSECURTY_GET" type="labelvalue" result="">
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">getPropertySql</param>
+            <param name="sql"><![CDATA[select t.sql from sys_p_roperty_type t where t.code = [code]]]></param>
+        </processor>
+		<stmt>
+			<![CDATA[
+				${getPropertySql}
+			]]>
+		</stmt>
+		<param name="l-col">name</param>
+		<param name="v-col">id</param>
+    </query>        
+    
+    <!-- 角色属性授权管理列表 -->
+    <query id="Q_PROPERTYSECURTY_USERGROUP_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[            
+            select m.code,m.name,m.note from sys_p_property_usergroup t,sys_p_user_group m
+			where m.code = t.user_group_code and t.property_type_code = [typecode] 
+			<#if property_id??>
+			and t.property_id = [property_id]
+            </#if>
+            <#-- 搜索 -->
+            <#if UserGroupCode??>
+             AND m.CODE [like(UserGroupCode)]
+            </#if>
+            <#if name??>
+             AND m.NAME [like(UserGroupName)]
+            </#if>
+            <#if user_id??>
+             AND m.CODE IN (SELECT USER_GROUP_CODE FROM SYS_P_USER_UG WHERE USER_ID=[user_id long])
+            </#if>
+            ]]>
+        </stmt>
+    </query>  
+
+    <!--用户属性授权列表-->
+    <query id="Q_PROPERTYSECURTY_USER_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+		select ID,NAME,
+		       replace(ltrim(max(sys_connect_by_path(GROUP_NAME, '#')), '#'),'#',',') as GROUP_NAME,
+		       DEPT_NAME,SOURCE
+		  from (select 
+		               ID,NAME,GROUP_NAME,DEPT_NAME,SOURCE,
+		               rnFirst, 
+		               lead(rnFirst) over(partition by ID order by rnFirst) rnNext 
+		          from (select 
+		                  u.ID,u.NAME,ug.name as GROUP_NAME,d.NAME AS DEPT_NAME,m.SOURCE,
+		                  row_number() over(order by u.ID desc) rnFirst 
+		                  from sys_p_property_user m
+		                  LEFT JOIN sys_p_user u ON m.user_id = u.id  
+                  		  LEFT JOIN SYS_P_DEPARTMENT d ON d.ID=u.DEPT_ID
+		                  LEFT JOIN sys_p_user_ug r ON r.user_id = u.id
+		                  LEFT JOIN sys_p_user_group ug ON ug.code = r.user_group_code
+		                  where 1=1 and u.status_id = 1 and m.property_type_code = [typecode]   
+		          			<#if property_id??>
+							and m.property_id = [property_id]
+            				</#if>
+		                    <#if username?exists>
+							and u.name [like(username)]
+						    </#if>
+							<#if useraccount?exists>
+							and u.account [like(useraccount)]
+							</#if>
+							<#if mobilephone?exists>
+							and u.mobile_phone [like(mobilephone)]
+							</#if>
+							<#if statusid?exists>
+							and u.status_id=[statusid]
+							</#if>
+							<#if dept_id??> 
+							AND u.DEPT_ID IN (SELECT ID FROM SYS_P_DEPARTMENT START WITH ID=[dept_id long] CONNECT BY PRIOR ID=PARENT_ID)
+							</#if>
+							order by status_id desc,id
+		               ) tmpTable1) tmpTable2 
+		start with rnNext is null 
+		connect by rnNext = prior rnFirst 
+		group by ID,NAME,DEPT_NAME,SOURCE
+		]]></stmt>
+		<param name="id">id</param>
+	</query>    
+
+    <!-- 添加角色到属性授权 -->
+    <query id="Q_PROPERTYSECURTY_ADDUG" type="batch" result="">
+        <stmt>
+            <![CDATA[
+            delete from sys_p_property_usergroup where user_group_code = [code] and property_type_code = [typecode] and property_id = [property_id];
+			delete from sys_p_property_user where user_id in (
+				select t.user_id from sys_p_user_ug t where t.user_group_code = [code]
+			) and property_type_code = [typecode] and property_id = [property_id];
+			insert into sys_p_property_usergroup (property_type_code,property_id,user_group_code)
+			values ([typecode],[property_id],[code]);
+			insert into sys_p_property_user (property_type_code,property_id,user_id,source)
+			select [typecode],[property_id],t.user_id,1 from sys_p_user_ug t
+			where t.user_group_code = [code] 
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>
+    
+    <!-- 添加角色组到属性授权 -->
+    <query id="Q_PROPERTYSECURTY_ADDUSER" type="update" result="">
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql"><![CDATA[
+                    SELECT COUNT(1) FROM sys_p_property_user
+                    WHERE user_id=[id] and property_type_code = [typecode] and property_id = [property_id]
+            ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[改用户已经授权！无法继续授权]]></param>
+        </processor>    
+        <stmt>
+            <![CDATA[
+			insert into sys_p_property_user (property_type_code,property_id,user_id,source)
+			values ([typecode],[property_id],[id],0)
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>     
+    
+    <!-- 删除属性授权中的用户组 -->
+    <query id="Q_PROPERTYSECURTY_DELUG" type="batch" result="">
+        <stmt>
+            <![CDATA[
+            delete from sys_p_property_usergroup where user_group_code = [code] and property_type_code = [typecode] and property_id = [property_id];
+			delete from sys_p_property_user where user_id in (
+				select t.user_id from sys_p_user_ug t where t.user_group_code = [code]
+			)  and property_type_code = [typecode] and property_id = [property_id];
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>    
+    
+    <!-- 删除属性授权中的用户 -->
+    <query id="Q_PROPERTYSECURTY_DELUSER" type="update" result="">
+        <stmt>
+            <![CDATA[
+            delete from sys_p_property_user where property_type_code = [typecode] and user_id = [id] and property_id = [property_id]
+                    ]]>
+        </stmt>
+        <param name="trans">true</param>
+    </query>    
+</query-config>

@@ -1,0 +1,201 @@
+<!--<script type="text/javascript" src="ESale/Mall/UI/js/anotherCtrl.js"></script>-->
+
+<!--<div ng-controller="TestCtrl">-->
+<!--{{name}} <input type="button" value="Click Me" ng-click="clickMe()">-->
+<!--<table>-->
+<!--<tr ng-repeat="p in persons">-->
+<!--<td>{{p.name}}</td>-->
+<!--<td>{{p.gender}}</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+<!--<a href="#/activate">激活</a>-->
+<!--轮播Begin-->
+<div class="slideContainer">
+	<div id="slides">
+		<img src="Style/images/show/example-slide-1.png">
+		<img src="Style/images/show/example-slide-2.png">
+		<img src="Style/images/show/example-slide-3.png">
+		<img src="Style/images/show/example-slide-4.png">
+	</div>
+</div>
+<script>
+	$.ajax({
+		type: "POST",
+		url: APP_CONFIG.SERVER_URL + "!ESale/Mall/UI/~query/Q_INDEX_SHOW_ADVERT",
+		data: {
+			"CODE": "INDEX_ADS_APP"
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.header.code == 0) {
+				if (data.body.rows.length == 0) {
+					addjs(true);
+					return;
+				} else {
+					//如果网速很慢，没有及时返回图片。显示在前端的是默认图片
+					var html = "";
+					for (var i = 0; i < data.body.rows.length; i++) {
+						var src = APP_CONFIG.SERVER_URL + "!service/file/~java/Downloader.get?id=" + data.body.rows[i].MEDIA_SRC;
+						html += "<img src='" + src + "'/>";
+					}
+					$("#slides").empty();
+					$("#slides").append(html);
+					//图片只有一张时，不启动轮播功能
+					if (data.body.rows.length == 1) {
+						//不进行轮播
+						addjs(false);
+						$("#slides img:first").css("left", "0px");
+					} else {
+						//进行轮播
+						addjs(true);
+					}
+				}
+			} else {
+				setTimeout(function() {
+					alert("抱歉", "加载图片失败，请刷新重试", "error");
+				}, 2000);
+				addjs();
+			}
+		},
+		error: function() {
+			addjs(true);
+		}
+	});
+
+	function addjs(flag) {
+		$('#slides').slidesjs({
+			width: 940,
+			height: 450,
+			navigation: false,
+			generateNextPrev: false,
+			play: {
+				active: false,
+				auto: flag,
+				interval: 4000,
+				swap: true
+			}
+		});
+		Base.updateHref();
+	}
+	
+	//底部导航样式变化
+	setTimeout(function() {
+		replaceClass('home');
+	}, 100);
+</script>
+<!--轮播End-->
+
+<!--首页圆形菜单导航begin-->
+<div class="circle_memu" style="margin-bottom:10px;">
+	<div class="container_circle">
+		<a class="btn1" lc=true href="javascript://" onclick="hrefJump('buyNumCard/1')">
+            买号卡
+        </a>
+	</div>
+	<div class="container_circle">
+		<!--<a class="btn2" lc=true href="javascript://" onclick="hrefJump('chooseContract')">-->
+		<a class="btn2" lc=true href="javascript://" onclick="hrefJump('handleContract/1')">
+            办合约
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn3" href="javascript://" onclick="hrefJump('kuanDai1')">
+            装宽带
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn4" href="javascript://" onclick="hrefJump('payTheBill')">
+            缴话费
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn5" lc=true href="javascript://" onclick="hrefJump('amalgamation_1')">
+		<!--<a class="btn5" lc=true href="javascript://" onclick="hrefJump('rongHe1')">-->
+            做融合
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn6" href="javascript://" onclick="hrefJump('zhongDuanDingGou1')">
+            购终端
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn7" href="javascript:alert('对不起，您需要授权才能访问此功能！')">
+            定配件
+        </a>
+	</div>
+	<div class="container_circle">
+		<a class="btn8" onclick="hrefJump('oldUser1')">
+            老用户
+        </a>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--首页圆形菜单导航end-->
+<!-- 特色服务 开始 -->
+<div class="serve" style="margin-bottom:10px">
+	<div class="s_left">
+		<!--<a lc=true href="#/frame/smartWOHome">-->
+		<a lc=true href="javascript://" onclick="hrefJump('fusionBusiness')">
+			<img src="Style/images/index/servebg.png" />
+		</a>
+	</div>
+	<div class="s_right">
+		<div class="s_r_top">
+			<a href="javascript://" onclick="hrefJump('realNameReg')">
+				<!--<a href="#/readNameSys">-->
+				<!--<a href="#/frame/realName">-->
+				<img src="Style/images/index/activity01.png" />
+			</a>
+		</div>
+		<div class="s_r_bottom">
+			<a href="javascript://" onclick="hrefJump('fourGGroupOrder')">
+				<img src="Style/images/index/activity02.png" />
+			</a>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<!-- 特色服务 结束 -->
+<!-- 活动专题 开始-->
+<div class="con_event">
+	<div class="e_left" style="margin-left: -1px;border-right:1px solid #dddddd;">
+		<a href="javascript://" onclick="hrefJump('threeGKaiHu')"><img src="Style/images/index/activity03.png" /></a>
+	</div>
+	<div class="e_right">
+		<a href="javascript://" onclick="hrefJump('fourGYiTiHua')"><img src="Style/images/index/activity04.png" /></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<!-- 活动专题 结束-->
+<!-- 活动专题 开始-->
+<div class="con_event" style="border-top:1px solid #dddddd; margin-bottom: 10px;">
+	<div class="e_left" style="margin-left: -1px; border-right:1px solid #dddddd;">
+		<a href="javascript://" onclick="hrefJump('twoGKaiHu')"><img src="Style/images/index/activity05.png" /></a>
+	</div>
+	<div class="e_right">
+		<a href="javascript://" onclick="hrefJump('YSBinputlist')"><img src="Style/images/index/activity06.png" /></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<!-- 活动专题 结束-->
+<!-- 活动专题 开始-->
+<!--<div class="con_event" style="border-top:1px solid #dddddd; margin-bottom: 10px;">
+	<div class="e_left" style="margin-left: -1px; border-right:1px solid #dddddd;">
+		<a href="javascript://" onclick="hrefJump('twoGKaiHu')"><img src="Style/images/index/activity05.png" /></a>
+	</div>
+	<div class="e_right">
+		<a href="javascript://" onclick="hrefJump('fixedNetwork')">宽带固网</a>
+	</div>
+	<div class="clear"></div>
+</div>-->
+<!-- 活动专题 结束-->
+<!-- 活动专题 开始-->
+<div class="con_event" style="margin-bottom: 10px;">
+	<a href="javascript://" onclick="hrefJump('realNameReg_bj')"><img style="width: 100%;" src="Style/images/index/activity07.png" /></a>
+
+	<div class="clear"></div>
+</div>
+<!-- 活动专题 结束-->
+<div class="clear"></div>

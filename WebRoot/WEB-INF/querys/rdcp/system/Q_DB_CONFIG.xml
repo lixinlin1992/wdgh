@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 数据库配置查询列表 -->
+	<query id="Q_DB_CONFIG_LIST" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[  
+				SELECT A.ID           AS ID,
+				       A.SYS_CODE     AS SYS_CODE,
+				       B.NAME         AS SYS_NAME,
+				       A.NAME         AS NAME,
+				       A.DB_TYPE      AS DB_TYPE,
+				       A.DB_URL       AS DB_URL,
+				       A.DB_VERSION   AS DB_VERSION,
+				       A.DB_USER      AS DB_USER,
+				       A.DB_PASSWORD  AS DB_PASSWORD,
+				       A.DEFAULT_FLAG AS DEFAULT_FLAG,
+				       A.DRIVER_CLASS AS DRIVER_CLASS,
+				       to_char('') as DD
+				  FROM RDC_SYS_DBCONFIG A, SYS_BI_SYSTEM B
+				 WHERE A.SYS_CODE = B.CODE	
+				 <#if s_name??>
+				 	AND A.NAME [Like(s_name)]
+				 </#if>		
+				 <#if s_sysName??>	
+				 	AND B.NAME [Like(s_sysName)]
+				 </#if>	 
+				 <#if id??>
+				 	AND A.ID = [id]
+				 </#if>
+				 <#if ssyscode??>
+				 	AND A.SYS_CODE = [ssyscode]
+				 </#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+	<!-- 系统下拉框 -->
+	<query id="Q_SYS_SELECT_4_DB_CONFIG" type="labelvalue"
+		result="json">
+		<stmt><![CDATA[
+			select CODE,NAME FROM Sys_Bi_System
+			]]>
+		</stmt>
+		<param name="l-col">NAME</param>
+		<param name="v-col">CODE</param>
+	</query>
+
+	<!-- 数据库配置的添加/修改 -->
+	<query id="Q_EDIT_4_DB_CONFIG" type="auto-update">
+		<!--进行数据的校验-->
+		<processor name="check-count" type="before" break="true"
+			seq="1">
+			<param name="count-sql">
+				<![CDATA[ 
+                SELECT  count(1) FROM RDC_SYS_DBCONFIG WHERE NAME =[name]		  		
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message"><![CDATA[${name}已经被占用，请使用其它名称。]]></param>
+		</processor>
+        <processor class="com.sunrise.rdcp.pro.DBConfigEditProcessor"
+                   type="before" break="true" seq="2">
+        </processor>			
+		<param name="insert-tables"><![CDATA[<#if id??><#else>RDC_SYS_DBCONFIG s</#if>]]></param>
+		<param name="update-tables"><![CDATA[<#if id??>RDC_SYS_DBCONFIG s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=RDC_SYS_DBCONFIG_SEQ.NEXTVAL</#if>]]></param>
+		<param name="trans">true</param>
+        <processor name="script" type="after" break="true" seq="3">
+            <param name="script"><![CDATA[
+                try{
+                	if(default_flag==1){
+                  		com.sunrise.rdcp.system.DBconfigLoader.loadDBconfig(sys_code);
+                	}
+                }catch(e){__result.block("请检查系统编码，详细信息如下："+e);}
+                ]]></param>
+        </processor>		
+	</query>
+	
+	<!-- 初始编辑框 -->
+	<query id="Q_INIT_DB_CONFIG_EDIT" type="form_map" result="ftl">
+		<stmt>
+		 <![CDATA[
+				SELECT A.ID           AS ID,
+				       A.SYS_CODE     AS SYS_CODE,
+				       B.NAME         AS SYS_NAME,
+				       A.NAME         AS NAME,
+				       A.DB_TYPE      AS DB_TYPE,
+				       A.DB_URL       AS DB_URL,
+				       A.DB_VERSION   AS DB_VERSION,
+				       A.DB_USER      AS DB_USER,
+				       A.DB_PASSWORD  AS DB_PASSWORD,
+				       A.DEFAULT_FLAG AS DEFAULT_FLAG,
+				       A.DRIVER_CLASS AS DRIVER_CLASS,
+				       to_char('') as DD
+				  FROM RDC_SYS_DBCONFIG A, SYS_BI_SYSTEM B
+				 WHERE A.SYS_CODE = B.CODE	
+				 <#if s_name??>
+				 	AND A.NAME [Like(s_name)]
+				 </#if>		
+				 <#if s_sysName??>	
+				 	AND B.NAME [Like(s_sysName)]
+				 </#if>	 
+				 <#if id??>
+				 	AND A.ID = [id]
+				 </#if>			
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>
+        <param name="ftl">
+            template/rdcp/system/T_DBCONFIG.ftl
+        </param>	
+	</query>
+	<!-- 删除配置 -->
+	<query id="Q_DB_CONFIG_DELETE" type="auto-update">
+        <processor name="set-value" type="before" seq="1" break="false">
+            <param name="var">SYS_CODE</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM RDC_SYS_DBCONFIG WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+        </processor>	
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor"
+                   type="before" break="true" seq="2">
+            <param name="type">delete</param>
+        </processor>	
+		<param name="delete-tables">RDC_SYS_DBCONFIG s</param>
+		<param name="batch-tables">s=id</param>
+	</query>		
+</query-config>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!--修改部门-->
+    <query id="Q_DEPT_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+                <#if id?exists>
+                UPDATE SYS_P_DEPARTMENT SET
+                NAME=[name],NOTE=[note],MASTER_ID=[master_id long],
+                BUSINESS_CODE=[business_code],DEPT_CODE=[dept_code]
+                WHERE ID=[id long]
+                <#else>
+                INSERT INTO SYS_P_DEPARTMENT(ID,NAME,DEPT_TYPE,PARENT_ID,NOTE,MASTER_ID,BUSINESS_CODE,DEPT_CODE)
+                VALUES(SYS_P_DEPARTMENT_SEQ.nextval,[name],[DEPT_TYPE long],[parent_id long],[note],[master_id long],[business_code],[dept_code])
+                </#if>
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT COUNT(1) FROM SYS_P_DEPARTMENT
+                WHERE NAME=[name] AND
+                <#if parent_id?exists>PARENT_ID=[parent_id long]
+                <#else>PARENT_ID IS NULL
+                </#if><#if id?exists> AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[部门/公司 [${name}] 已经存在，请使用其它名称]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>

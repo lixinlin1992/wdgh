@@ -1,0 +1,1 @@
+{<#list resultSet.rows as i>"name":"${i.name!}","mobile_phone":"${i.mobile_phone!}","email":"${i.email!}","account":"${i.account!}","groupName":"${i.groupName!}"</#list>}

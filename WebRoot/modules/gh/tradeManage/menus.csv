@@ -1,0 +1,17 @@
+﻿#菜单定义
+#可以使用变量 ${module_path}
+#
+# 格式：
+# 菜单路径          排序（小的在前）                                        菜单资源路径
+会员管理          2
+会员管理/会员管理         1
+会员管理/会员管理/会籍查询                1   !gh/tradeManage/~/pages/tradeQuery.jsp
+#会员管理/会员管理/会员管理                2   !gh/tradeManage/~/pages/tradeManage.jsp
+#会员管理/会员管理/个人会藉信息           3   !gh/tradeManage/~/pages/userTradeInfo.jsp
+会员管理/会员管理/个人会藉管理           4  !gh/tradeManage/~/pages/userTradeManage.jsp
+#会员管理/会员管理/入会申请管理            5   !gh/tradeManage/~/pages/applyToTradeManage.jsp
+会员管理/会员管理/入会申请审核            6   !gh/tradeManage/~/pages/auditApplyToTrade.jsp
+会员管理/会员管理/入会申请审批            7   !gh/tradeManage/~/pages/approveApplyToTrade.jsp
+会员管理/会员管理/会籍编辑审核            8   !gh/tradeManage/~/pages/auditApplyEdit.jsp
+会员管理/会员管理/退会申请审核            9   !gh/tradeManage/~/pages/auditApplyQuit.jsp
+会员管理/会员管理/欠费退会管理          10   !gh/tradeManage/~/pages/arrearageManage.jsp

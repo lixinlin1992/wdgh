@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <query id="Q_FILE_GET_FILE_LIST" type="pagelist" result="json">
+        <stmt><![CDATA[
+            select t.id         as id,
+                   t.busi_id    as busiId,
+                   t.busi_type  as busiType,
+                   t.name       as name,
+                   t.type       as type,
+                   t.path       as path,
+                   t.thumb_path as thumbPath,
+                   t.note       as note,
+             	   t.create_time as create_time
+           		   from sys_file t
+                where busi_id=[busiId]
+                and busi_type=[busiType]
+                order by t.create_time desc
+
+        ]]></stmt>
+    </query>
+
+</query-config>

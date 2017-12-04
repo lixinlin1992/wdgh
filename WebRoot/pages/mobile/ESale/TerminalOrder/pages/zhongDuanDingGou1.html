@@ -1,0 +1,41 @@
+<script src="ESale/TerminalOrder/scripts/zhongDuanDingGou1.js"></script>
+
+<div>
+	<!--大块商品Begin-->
+	<div class="container-fluid com_biggoodslist" style="margin-bottom: 20px;">
+		<div class="row">
+			<div id="img_div" class="col-xs-6 col-md-3 list" ng-repeat="r in results" style="cursor: pointer;">
+				<a class="com_biggoods" id="product_{{$index}}" ng-click="nextPage($index)" data="{{r.ID}}">
+					<!--图片显示Begin-->
+					<div class="goodsshow">
+						<!--如果没有图片,则按顺序显示系统默认图片-->
+						<img style="border: none;" ng-src="Style/images/goods/bg{{$index%4+1}}.png" alt="" ng-if="r.PICTURE_ID==null" />
+						<!--有图片id的情况-->
+						<img style="border: none;" ng-src="{{imgScr}}{{r.PICTURE_ID}}" ng-if="r.PICTURE_ID!=null" alt="" />
+					</div>
+					<!--图片显示End-->
+					<div class="introduce">
+						<p><strong ng-bind="r.TITLE"></strong></p>
+						<p>价格：<span ng-bind="r.FEE" class="money"></span></p>
+						<!--<p>颜色：<span ng-bind="r.PRO_ATTR_1"></span></p>-->
+						<!--<p>容量：<span ng-bind="r.PRO_ATTR_2"></span></p>-->
+						<p>最高返利：<span ng-bind="r.BACK_MONEY" class="money"></span></p>
+						<p>供货商：<span ng-bind="r.NAME"></span></p>
+						<!--<p>月销量：<span ng-bind="r.MONTH_SALE"></span></p>-->
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var width = $("#img_div").width();
+		$("#img_div img").attr("height", width + "px");
+	</script>
+	<!--大块商品End-->
+	
+	<!--点击加载更多Begin-->
+	<div class="com_showmore">
+		<a id="more" class="more_btn" href="javascript://" ng-click="more()">点击加载更多</a>
+	</div>
+	<!--点击加载更多End-->
+</div>

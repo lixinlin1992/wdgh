@@ -1,0 +1,98 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/handleContract.js"></script>
+
+<style>
+    .list {
+        margin-top: 10px
+    }
+</style>
+<div class="layout_centent ng-scope">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>筛选</span>
+        <!--<a class="btn_add" href="javascript://"></a>-->
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+
+        <div class="row com_selectbox" id="brand">
+            <div class="col-md-4 col-xs-4 list" ng-click="event.btnon($event);event.brand()">
+                <!--常用btn-->
+                <a class="com_selectbtn com_selectbtnon" href="javascript://" brandId="">全部</a>
+                <!--常用btn-->
+            </div>
+            <div class="col-md-4 col-xs-4 list" ng-repeat="br in brand" ng-click="event.btnon($event);event.brand()">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" brandId="{{br.ID}}">{{br.NAME}}</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" id="net" ng-if="form.brandId!=''&& net.length>1">
+            <div class="col-md-4 col-xs-4 list" ng-click="event.btnon($event);">
+                <!--常用btn-->
+                <a class="com_selectbtn com_selectbtnon" href="javascript://" netId="">全部</a>
+                <!--常用btn-->
+            </div>
+            <div class="col-md-4 col-xs-4 list" ng-repeat="ne in net" ng-click="event.btnon($event);event.net()">
+                <!--常用btn-->
+                <a class="com_selectbtn" href="javascript://" netId="{{ne.ID}}">{{ne.NAME}}</a>
+                <!--常用btn-->
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+
+    <!--选择按钮Begin-->
+    <!-- 套餐过滤-->
+    <div class="container-fluid" ng-if="form.brandId!=''&&policy.length>1">
+        <div class="row com_selectbox" id="policy">
+            <div class="col-md-4 col-xs-4 list" ng-click="event.btnon($event);event.policy()">
+                <a class="com_selectbtn com_selectbtnon" href="javascript://" netId="">全部</a>
+            </div>
+            <div class="col-md-4 col-xs-4 list" ng-repeat="po in policy" ng-click="event.btnon($event);event.policy()">
+                <a class="com_selectbtn" href="javascript://" netId="{{po.ID}}">{{po.NAME}}</a>
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>商品列表</span>
+        <!--<a class="morebtn" href="javascript://">更多选择</a>-->
+    </div>
+    <!--标题一End-->
+    <div class="container-fluid com_smallgoodslist">
+        <div class="row">
+            <div class="col-md-3 col-xs-6 list" ng-repeat='hy in hyProduct' ng-class="selectLast($index)"
+                 ng-click="event.goods($event,hy.ID,hy.NAME,hy.PACKAGE_ID,hy.CARD_FEE,hy.IS_CUS,hy.BRAND_ID,hy.CARD_FEE)">
+                <a class="com_smallgoods" href="javascript://">
+                    <span class="choiced" style="display: none"></span>
+
+                    <div class="goodsshow" style="overflow: hidden;">
+                        <!--<p></p>-->
+                        <img ng-src="{{imgScr}}{{hy.PIC_ID}}" alt="">
+                    </div>
+                    <div class="introduce">
+                        <p>{{hy.NAME}}</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div class="com_showmore">
+        <a class="more_btn" href="javascript://" ng-click="event.more()">点击加载更多</a>
+    </div>
+    <div style="height: 18px"></div>
+    <div class="nav_bottom" style="border-top:1px solid #dddddd; height: 52px;bottom:59px">
+        <div class="formlist" style="padding: 0">
+            <a class="com_btn theme_btn" href="javascript://" ng-click="event.next()">下一步</a>
+        </div>
+
+    </div>
+</div>

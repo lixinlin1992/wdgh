@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 校验规则数据源 -->
+	<ds name="DS_VALID_RULE" type="url">
+		<url>/_frameworkAction.action?method=getValidateRule</url>
+		<file>/</file>
+	</ds>
+
+    <ds name="DS_DATASOURCE" type="url">
+        <url>/_frameworkAction.action?_result=datasource</url>
+        <file></file>
+    </ds>
+
+    <!--设置主题-->
+    <ds name="DS_SET_THEME" type="url">
+        <url><![CDATA[/_themeAction.action]]></url>
+    </ds>
+
+    <!-- 获取主题列表 -->
+    <ds name="DS_THEME_LIST" type="url">
+        <url><![CDATA[/_themeAction.action?method=themeList]]></url>
+    </ds>
+
+	<!-- 生成通用代码数据源 -->
+	<ds name="DS_CODE_GEN" type="url">
+		<url>/framework_code_gen.action?method=generate</url>
+		<file>/</file>
+	</ds>	
+
+	<ds name="DS_TABLE_FIELDS" type="url">
+		<url><![CDATA[/_commonQuery.action?file=framework/codegen.xml&id=Q_TABLE_FIELDS]]></url>
+		<file>/</file>
+	</ds>		
+
+	<ds name="DS_PDM_PRASE" type="url">
+		<url>/framework_code_gen.action?method=prase</url>
+		<file>/</file>
+	</ds>		
+	
+	<ds name="DS_TABLES" type="url">
+		<url><![CDATA[/_commonQuery.action?file=framework/codegen.xml&id=Q_TABLES]]></url>
+		<file>/</file>
+	</ds>		
+	
+	<!-- 下载数据源 -->
+	<ds name="DS_FRAMEWORK_SERVICE_DOWNLOAD" type="url" func="">
+        <url>/framework_service_download.action?method=download</url>
+	</ds>		
+</datasources>

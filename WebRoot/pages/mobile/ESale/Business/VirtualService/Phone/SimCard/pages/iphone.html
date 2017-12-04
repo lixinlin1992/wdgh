@@ -1,0 +1,37 @@
+<!--<script type="text/javascript" src="System/Base/scripts/cordova.js"></script>-->
+<!--<script type="text/javascript" src="ESale/Business/VirtualService/Phone/SimCard/scripts/mobile_framework.js"></script>-->
+<script type="text/javascript">
+	var _isOnReady = false;
+	// Wait for device API libraries to load
+	//
+	document.addEventListener("deviceready", onDeviceReady, false);
+	// device APIs are available
+	//
+	function onDeviceReady() {
+		try {
+			/*if(/ipad|iphone|mac/i.test(navigator.userAgent)) {
+			    makecard.setDeviceListEvent(function (list) {
+			        bluetoothList = rdcp.str2json(list);
+			        sessionStorage.setItem("allBluetooth", rdcp.json2str(bluetoothList));
+
+			    }, null, []);
+			}*/
+			if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+				if ($("#flag").attr("data") == 0) {
+					makecard.init();
+					$("#flag").attr("data","1");
+				}
+			}
+			_isOnReady = true;
+			//  unmask();
+		} catch (e) {
+			alert(e.message);
+		}
+	}
+	setTimeout(function() {
+		if (!_isOnReady) {
+			unmask();
+			//ysb_alert("提示", "插件加载出错，请重新刷新页面")
+		}
+	}, 15000);
+</script>

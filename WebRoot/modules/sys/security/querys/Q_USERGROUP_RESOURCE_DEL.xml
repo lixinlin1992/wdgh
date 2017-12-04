@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_USERGROUP_RESOURCE_DEL" type="batch">
+        <stmt><![CDATA[
+                <@aslist name="res_path"/>
+                <@aslist name="module_path"/>
+                <#list res_path as r>
+                DELETE FROM SYS_P_USERGROUP_RESOURCE WHERE GROUP_CODE=[group_code]
+                AND MODULE_PATH=${func(array(module_path,r_index),"string")}
+                AND RES_PATH=${func(r,"string")}
+                ;
+                </#list>
+                ]]></stmt>
+        <param name="trans">true</param>
+    </query>
+</query-config>

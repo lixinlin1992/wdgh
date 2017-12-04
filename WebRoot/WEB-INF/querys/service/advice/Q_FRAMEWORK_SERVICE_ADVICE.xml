@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query-config>
+	<!-- 投诉与建议列表-->
+	<!-- 
+		列名：'投诉人','投诉日期','投诉类型','操作'
+	-->
+	<query id="DS_FRAMEWORK_SERVICE_ADVICE_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+	select p.name,t.title,t.advice_date,c.name as type_name,
+	(select count(1) from sys_a_reply where advice_id = t.id) as reply_count,
+	t.id
+  from sys_a_advice t,sys_p_user p,sys_pa_code c 
+  where
+  t.user_id = p.id and
+  t.type_id = c.code_num and 
+  c.code_table='SYS_A_ADVICE' and c.code_field='TYPE_ID'
+  
+  and t.status = 0
+    <#if start_date?exists>
+    and to_char(t.advice_date,'yyyymmdd')>=replace([start_date],'-') 
+    </#if>
+    <#if end_date?exists>
+    and to_char(t.advice_date,'yyyymmdd')<=replace([end_date],'-') 
+    </#if>
+    <#if type_id?exists>
+    and t.type_id=[type_id]
+    </#if>
+			]]></stmt>
+	<param name="id">id</param>
+	</query>
+	<!-- 投诉与建议的回复删除 -->
+	<query id="Q_FRAMEWORK_SERVICE_ADVICE_REPLY_DEL" type="update"
+		result="json">
+		<stmt><![CDATA[
+		update sys_a_reply r set r.status=1 where r.id=[replyId]
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">3</param>
+            <param name="msg">删除投诉与建议的回复，投诉与建议的ID为[${replyId}]</param>
+        </processor>
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	</query>
+	<!-- 投诉与建议删除 -->
+	<query id="Q_FRAMEWORK_SERVICE_ADVICE_DEL" type="update"
+		result="json">
+		<stmt><![CDATA[
+		update sys_a_advice t set t.status=1 where t.id=[adviceId]
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">3</param>
+            <param name="msg">删除投诉与建议，投诉与建议的ID为[${adviceId}]</param>
+        </processor>
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	</query>
+	<!-- 投诉与建议增加 -->
+	<query id="Q_FRAMEWORK_SERVICE_ADVICE_ADD" type="update"
+		result="json">
+		<stmt><![CDATA[
+		INSERT INTO sys_a_advice (id,user_id,title,type_id,content,status) 
+		VALUES 
+		(sys_a_advice_seq.nextval,${_session.attrs._com_sunrise_UserSesion.id},[title],[type_id],[content],0)
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">1</param>
+            <param name="msg">增加投诉与建议，title为[${title}]，content为[${content}]</param>
+        </processor>
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	<!-- 投诉与建议回复列表 -->
+	</query>
+		<query id="Q_FRAMEWORK_SERVICE_ADVICE_REPLY_LIST" type="pagelist"
+		result="json">
+		<stmt><![CDATA[
+		select t.content,u.name,t.reply_date,t.id from sys_a_reply t,sys_p_user u where t.user_id=u.id and t.advice_id=[adviceId] and t.status=0
+		]]></stmt>
+	</query>
+	<!-- 投诉与建议回复增加 -->
+	<query id="Q_FRAMEWORK_SERVICE_ADVICE_REPLY_ADD" type="update"
+		result="json">
+		<stmt><![CDATA[
+		INSERT INTO sys_a_reply  (id,advice_id,content,user_id) values 
+		(sys_a_reply_seq.nextval,[adviceId],[content],${_session.attrs._com_sunrise_UserSesion.id})
+		]]></stmt>
+		<processor name="log-op" type="after" seq="1" break="true">
+            <param name="type">1</param>
+            <param name="msg">增加投诉与建议回复，adviceId为[${adviceId}]，content为[${content}]</param>
+        </processor>
+        <param name="trans">true</param>
+		<param name="paging">false</param>
+	</query>
+	<!-- 投诉与建议详情 -->
+	<query id="Q_FRAMEWORK_SERVICE_ADVICE_SHOW" type="pagelist"
+		result="ftl">
+		<stmt><![CDATA[
+		select u.name,t.advice_date,t.title,t.content,t.note from sys_a_advice t,sys_p_user u where u.id=t.user_id and t.id=[adviceId]
+		]]></stmt>
+		<param name="paging">false</param>
+		<param name="_ftl">
+			template/service/advice/T_FRAMEWORK_SERVICE_ADVICE_SHOW.ftl
+		</param>
+	</query>
+</query-config>

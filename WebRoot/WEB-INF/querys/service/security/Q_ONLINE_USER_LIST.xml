@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 在线用户 -->
+<query-config>
+
+     <!--查询用户列表-->
+    <query id="Q_ONLINE_USER_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+		select * from
+		(
+			SELECT B.ACCOUNT AS USERNAME,
+			       B.NAME AS NAME,
+			       to_char(A.LOGIN_TIME,'yyyy-MM-dd hh:mm:ss') AS LOGIN_TIME,
+			       (SELECT to_char(C.LOGIN_TIME,'yyyy-MM-dd hh:mm:ss') FROM SYS_L_LOGIN C WHERE C.NEXT_ID = A.ID) AS BEFORE_LOGIN_TIME_TIME,
+			       (SELECT to_char(C.LOGOUT_TIME,'yyyy-MM-dd hh:mm:ss') FROM SYS_L_LOGIN C WHERE C.NEXT_ID = A.ID) AS BEFORE_LOGOUT_TIME,
+             A.login_ip AS login_ip,
+           (SELECT COUNT(c.user_id) FROM SYS_L_LOGIN C WHERE C.Login_Ip = A.LOGIN_IP AND  C.user_id = A.USER_ID)AS login_ip_count,             
+             (SELECT COUNT(c.user_id) FROM SYS_L_LOGIN C WHERE C.user_id = A.USER_ID)AS login_count,
+             A.ID AS ID
+        FROM SYS_L_LOGIN A, SYS_P_USER B
+       WHERE A.USER_ID = B.ID
+         AND A.LOGOUT_TIME IS NULL
+     )tt where 1 = 1
+		 <#if loginUserName??>
+		 	and tt.USERNAME [Like(loginUserName)]
+		 </#if>
+		 <#if loginName??>
+		 	and tt.NAME [Like(loginName)]
+		 </#if>
+		 <#if loginCount??>
+		 	and tt.login_count = [loginCount]
+		 </#if>
+		 ORDER BY tt.ID asc
+		]]></stmt>
+		<param name="id">ID</param>
+		<param name="paging">true</param>
+	</query>
+
+     <!--查询用户登录历史-->
+    <query id="Q_ONLINE_USER_HISTORY_LIST" type="pagelist" result="json">
+		<stmt><![CDATA[
+			SELECT B.ACCOUNT AS USERNAME,
+			       B.NAME AS NAME,
+			       A.LOGIN_TIME AS LOGIN_TIME,
+			       A.LOGOUT_TIME AS LOGOUT_TIME,
+			       A.ID AS ID
+			  FROM SYS_L_LOGIN A, SYS_P_USER B
+			 WHERE A.USER_ID = B.ID
+			   AND A.LOGOUT_TIME IS NOT NULL 
+			   
+			   <#if loginUserName??>
+			  	   AND B.ACCOUNT [Like(loginUserName)]
+			   </#if> 
+			   
+			   <#if loginName??>
+			   	  AND B.NAME [Like(loginName)]
+			   </#if>
+			   
+			   <#if startTime??>
+			   	  AND to_char(A.LOGIN_TIME,'yyyy-mm-dd') >=[startTime]
+			   </#if>
+			   
+			   <#if endTime??>
+			   	  AND to_char(A.LOGOUT_TIME,'yyyy-mm-dd') <=[endTime]
+			   </#if>
+		]]></stmt>
+		<param name="paging">true</param>
+	</query>
+    
+</query-config>

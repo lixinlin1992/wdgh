@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!--模块树结构-->
+    <ds name="DS_RDCP_MODULE_TREE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_MODULE.xml&_id=Q_MODULE_TREE]]></url>
+    </ds>
+
+    <!--模块列表-->
+    <ds name="DS_RDCP_MODULE_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_MODULE.xml&_id=Q_MODULE_LIST]]></url>
+    </ds>
+
+    <!--查询模块信息-->
+    <ds name="DS_RDCP_MODULE_INFO" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_MODULE.xml&_id=Q_MODULE_INFO]]></url>
+    </ds>
+
+    <!--添加/修改模块-->
+    <ds name="DS_RDCP_MODULE_EDIT" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_MODULE.xml&_id=Q_MODULE_EDIT]]></url>
+    </ds>
+
+    <!--删除模块-->
+    <ds name="DS_RDCP_MODULE_DELETE" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_MODULE.xml&_id=Q_MODULE_DELETE]]></url>
+    </ds>
+
+</datasources>

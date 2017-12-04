@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_INFO_PICS" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+			select id,name from sys_file
+			where busi_id=[busiId] and busi_type=[busiType]
+		]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

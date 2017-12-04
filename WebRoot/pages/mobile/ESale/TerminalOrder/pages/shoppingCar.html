@@ -1,0 +1,76 @@
+<script src="ESale/TerminalOrder/scripts/shoppingCar.js"></script>
+<div id="shoppingCarContent">
+
+	<div class="com_shoppingcar">
+		<div class="shop_name">
+			<a class="com_checkox" ng-click="event.allCheckBox()" id="allCheckBox"></a>
+			<span class="name">全部</span>
+		</div>
+	</div>
+
+	<div id="shoppingCarDiv">
+		<!--购物车操作Begin-->
+		<div class="com_shoppingcar" ng-repeat="row in rows">
+			<!-- 商品Begin-->
+			<div class="goods_detail">
+				<a class="com_checkox" id="checkBox_{{$index}}" data="{{row.ID}}" ng-click="event.select($index)" provider="{{row.GOODS_PROVIDER_NAME}}"></a>
+				<a class="btn_delete" ng-click="event.updateCar(row.GOODS_ID,'null','all')" href="javascript://"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+				<a class="btn_edit" href="javascript://" ng-click="event.editBox($index,row.TERMINAL_COLOR,row.TERMINAL_SIZE,row.GOODS_ID,row.QUANTITY)">编辑</a>
+				<div class="left">
+					<div class="goods_img">
+						<img ng-src="{{imgScr}}{{row.GOODS_PICTURE_ID}}" alt="" />
+					</div>
+				</div>
+				<div class="right">
+					<div class="name" ng-bind="row.GOODS_TITLE"></div>
+					<div class="attribute">供货商：<span ng-bind="row.GOODS_PROVIDER_NAME"></span></div>
+					<div class="attribute">返利金额：￥<span ng-bind="row.RETURN_FEE"></span></div>
+					<div class="price">单价:￥<span data="{{row.FEE}}" ng-bind="row.FEE"></span>&nbsp;&times;&nbsp;<span data="{{row.QUANTITY}}" ng-bind="row.QUANTITY"></span></div>
+				</div>
+			</div>
+			<!-- 商品End-->
+		</div>
+		<!--购物车操作End-->
+	</div>
+
+	<div class="com_shoppingcar nav_bottom" style="position: static;height:40px;">
+		<div class="pricebox">
+			<div>&nbsp;&nbsp;&nbsp;商品总价：<span class="price">￥<span ng-bind="finalMoney"></span></span><span> (不含运费)</span></div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div>
+		<a class="com_btn theme_btn" style="margin:10px;" href="javascript://" ng-click="event.nextPage()">结算</a>
+	</div>
+	
+	<div id="shadeDiv2" class="com_shade" style="display: none;position: fixed;"></div>
+	<div id="editBox" class="com_alert" style="position: fixed;top:120px;display: none;">
+		<div>
+			<h2 id="alertTitle" class="title">提示</h2>
+			<a class="closed" onclick="edit_false();" href="javascript://"></a>
+		</div>
+		<div class="content"><span class="message">购买数量：</span>
+			<div class="operation">
+				<a class="delete" href="javascript://" ng-click="event.removeOneCar(edit.index)">-</a>
+				<input type="text" id="quantity_{{edit.index}}" ng-model="edit.QUANTITY" onkeyup="this.value=this.value.replace(/\D/g,'')" ng-blur="event.input_blur(edit.index)" style="text-align:center" />
+				<a class="add" href="javascript://" ng-click="event.addOneCar(edit.index)">+</a>
+			</div>
+		</div>
+		<div class="content">
+			<span class="message">颜色：<span id="color" ng-bind="edit.color"></span></span>
+		</div>
+		<div class="content">
+			<span class="message">容量：<span id="ram" ng-bind="edit.ram"></span></span>
+		</div>
+		<div class="bottom_btnbox">
+			<div class="left">
+				<a class="normal_btn" href="javascript://" ng-click="event.updateQuantity(edit.index,edit.oldQuantity,edit.GOODS_ID)">确定</a>
+			</div>
+			<div class="right">
+				<a class="normal_btn" href="javascript://" onclick="edit_false()">取消</a>
+			</div>
+		</div>
+	</div>
+</div>

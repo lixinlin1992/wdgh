@@ -1,0 +1,220 @@
+<script src="ESale/Business/VirtualService/Phone/SimCard/scripts/buyNumCard.js"></script>
+
+
+
+<div class="shop_search">
+
+    <div class="shop_search_container">
+
+        <input type="text" class="search_text" placeholder="请输入您想要搜索的内容">
+
+        <a href="javascript://" class="go_search" ng-click="event.NumSearch()">搜索</a>
+
+    </div>
+
+</div>
+
+<div class="com_area">
+
+    <div class="right" style="width: 100%;" id="brandBtnAll">
+
+        <a class="choice_btn choiceon_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px"
+
+           href="javascript://" ng-click="event.brandBtnAll()"
+
+           brand_id="">全部</a>
+
+        <a class="choice_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://"
+
+           ng-repeat="bra in brand" brand_id="{{bra.ID}}" ng-click="event.brandBtn($event)">{{bra.NAME}}</a>
+
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="com_area" ng-show="net" id="netBtnAll">
+
+    <div class="right" style="width: 100%;">
+
+        <a class="choice_btn choiceon_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px"
+
+           href="javascript://"  ng-click="event.netBtnAll()"
+
+           net_id="">全部</a>
+
+        <a class="choice_btn" style="display: inline-block;padding: 0 10px;margin-top: 5px" href="javascript://"
+
+           ng-repeat="net in net" net_id="{{net.ID}}" ng-click="event.netBtn($event)">{{net.NAME}}</a>
+
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="layout_centent ng-scope">
+
+
+
+    <div class="container-fluid com_smallgoodslist">
+
+        <div class="row">
+
+            <div class="col-md-3 col-xs-4 list" ng-repeat='dks in dk' ng-class="selectLast($index)"
+
+                 ng-click="event.goods($event,dks.ID,dks.IS_WHITE,dks.NAME,dks.IS_RELE,dks.NETWORK,dks.CARD_FEE,dks.PRODUCT_TYPE)">
+
+                <a class="com_smallgoods" href="javascript://">
+
+                    <span class="choiced" style="display: none"></span>
+
+
+
+                    <div class="goodsshow" style="overflow: hidden;">
+
+                        <!--<p></p>-->
+
+                        <img ng-src="{{imgScr}}{{dks.PIC_ID}}">
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--标题一Begin-->
+
+    <div class="com_title ">
+
+        <!--<span>品牌选择</span>-->
+
+        <a class="morebtn" id="moreProduct" href="javascript://" ng-click='event.dk_pageSize()'>更多选择</a>
+
+    </div>
+
+    <!--标题一End-->
+
+</div>
+
+<div class="com_area ng-scope" id="card-type">
+    <div class="left">
+        <span>卡号类型：</span>
+        <!--<a class="area_btn" href="javascript://">内蒙古自治区</a>-->
+    </div>
+    <div class="right">
+        <a class="choice_btn choiceon_btn" href="javascript://" ng-click="event.cardType(1)">白卡</a>
+        <a class="choice_btn " href="javascript://" ng-click="event.cardType(2)">成卡</a>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<div class="formlist" ng-show="CBSS_hide==1">
+
+    <div class="form_right" style="width:200px;margin: 0 auto">
+
+        <!--单选按钮Begin-->
+
+        <a class="radiobtn radiobtnon" ng-click="event.sub($event,0)">平台商获取</a>
+
+        <a class="radiobtn" ng-click="event.sub($event,1)">CBSS获取</a>
+
+        <!--单选按钮End-->
+
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="com_selectnumber">
+
+    <ul ng-if="type==0">
+
+        <li ng-repeat="num in numlist" ng-click='event.next(num.ID,num.TITLE,num.BUSI_ID,num.BRAND_ID,num.FEE)'>
+
+            <div class="number_top">
+
+                <span class="normalcolor">{{num.TITLE.substring(start,3)}}</span>
+
+                <span class="importantcolor">{{num.TITLE.substring(3,6)}}</span>
+
+                <span class="normalcolor">{{num.TITLE.substring(6,end)}}</span>
+
+            </div>
+
+            <div class="number_bottom">
+
+                <p>
+
+                    <img class="hot" src="Style/images/common/hot.png" alt="">
+
+                    <span class="price">{{num.FEE | currency : '￥'}}</span>
+
+                    <span class="tips">区域：{{num.AREA_NAME}}</span>
+
+                </p>
+
+            </div>
+
+        </li>
+
+
+
+    </ul>
+
+    <ul ng-if="type==1">
+
+        <li ng-repeat="num in numAndFee" ng-click='event.CBSS_next(num[0],num[1])'>
+
+            <div class="number_top">
+
+                <span class="normalcolor">{{num[0].substring(start,3)}}</span>
+
+                <span class="importantcolor">{{num[0].substring(3,6)}}</span>
+
+                <span class="normalcolor">{{num[0].substring(6,end)}}</span>
+
+            </div>
+            <div style="font-size: 10px;color: #AFAEAE;">
+                <span>&yen;{{num[1]}}元，含&yen;{{num[1]}}元话费</span>
+            </div>
+
+        </li>
+
+    </ul>
+
+
+
+    <div class="clear"></div>
+
+</div>
+
+
+
+<div class="com_showmore" ng-if="type==0">
+
+    <a class="more_btn" href="javascript://" ng-click="event.listShowAdd()">点击加载更多</a>
+
+</div>
+
+<div class="com_showmore" ng-if="type==1">
+
+    <a class="more_btn" href="javascript://" ng-click="event.cbsShowAdd()">点击加载更多</a>
+
+</div>
+
+
+
+<script type="text/javascript" src="System/Base/scripts/passwd/core-min.js"></script>
+
+<script type="text/javascript" src="System/Base/scripts/passwd/enc-base64-min.js"></script>
+
+<script type="text/javascript" src="System/Base/scripts/passwd/sha1.js"></script>
+

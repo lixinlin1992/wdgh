@@ -1,0 +1,649 @@
+<input type="hidden" value="0" id="flag" data="0">
+<div id="iphoneHtml"></div>
+<script type="text/javascript">
+	$("#iphoneHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/iphone.html");
+</script>
+
+
+
+<!--进度条Begin-->
+<div class="com_progress">
+	<img src="ESale/FusionBusiness/images/amalg_4.png" alt="" />
+</div>
+<!--进度条End-
+
+<!-- 选择融合套餐资费begin-->
+<div class="layout_centent" id="tariff" style="display:block;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>选择融合套餐资费</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid" id="tariffDiv">
+		<div class="row com_selectbox">
+			<div class="col-md-12 col-xs-12 list">
+				<!--常用btn-->
+				<a class="com_selectbtnon" href="javascript://" id="fusionTariff">
+                    {{fusionTariff}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 选择融合套餐资费End-->
+
+<!-- 选择宽带速率begin-->
+<div class="layout_centent" id="broadbandSpeedDiv" style="display:block;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>选择宽带速率</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox">
+			<div class="col-md-4 col-xs-4 list" style="margin-bottom: 5px" ng-repeat="feel in feeSelectData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="feel{{$index}}" ng-click="onSpeedSelect('feel'+$index,feel.ID,feel.NAME)">
+                    {{feel.NAME}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 选择宽带速率End-->
+
+<!--选择互联网电视-->
+<div class="layout_centent" id="select_iptv" style="display:none;">
+	<div class="com_title first_title">
+		<span>选择互联网电视</span>
+	</div>
+	<!--选择按钮Begin-->
+	<!-- select_more标示该选择框为多选 -->
+	<div class="container-fluid select_more">
+		<div class="row com_selectbox">
+			<div class="col-md-12 col-xs-12 list" style="margin-bottom: 5px" ng-repeat="iptv in iptv_itemsData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="iptv{{$index}}" ng-click="onIPTVSelect('iptv'+$index,iptv.id,iptv.IPTV_FEE)">
+                    {{iptv.IPTV_FEE}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!--互联网电视属性（终端提供方式）-->
+<div class="layout_centent" id="select_iptvtype" style="display:none;">
+	<div class="com_title first_title">
+		<span>互联网电视属性（终端提供方式）</span>
+	</div>
+	<!--选择按钮Begin-->
+	<!-- select_more标示该选择框为多选 -->
+	<div class="container-fluid">
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="iptvType in iptvtypeData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="iptvType{{$index}}" ng-click="onIPTVTypeSelect('iptvType'+$index,iptvType.id,iptvType.name)">
+                    {{iptvType.name}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+
+<!--固话信息-->
+<div class="layout_centent" id="guhua_info" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>固话信息</span>
+	</div>
+	<!--标题一End-->
+	<!-- 列表展示begin-->
+	<div class="com_table">
+		<table>
+			<tbody>
+				<tr>
+					<td class="summarize">是否共线:</td>
+					<td><span class="orange_font rh_type" id="guhua_info1"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">固话套餐:</td>
+					<td><span class="orange_font rh_speed" id="guhua_info2"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">固话套餐资费:</td>
+					<td><span class="orange_font rh_jrlx" id="guhua_info3"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 列表展示End-->
+</div>
+
+<!-- 宽带信息begin-->
+<div class="layout_centent" id="kuandai_info" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>宽带信息</span>
+	</div>
+	<!--标题一End-->
+	<!-- 列表展示begin-->
+	<div class="com_table">
+		<table>
+			<tbody>
+				<tr>
+					<td class="summarize">套餐:</td>
+					<td><span class="orange_font rh_type" id="kuandai_info1"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">资费:</td>
+					<td><span class="orange_font rh_speed" id="kuandai_info2"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">接入类型:</td>
+					<td><span class="orange_font rh_jrlx" id="kuandai_info3"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">到期执行方式:</td>
+					<td><span class="orange_font rh_package" id="kuandai_info4"></span></td>
+				</tr>
+				<tr>
+					<td class="summarize">到期执行资费:</td>
+					<td><span class="orange_font rh_fee" id="kuandai_info5"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 列表展示End-->
+</div>
+<!-- 宽带信息End-->
+
+<!-- 宽带信息begin-->
+<div class="layout_centent" id="broadbandInfoDiv" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>宽带信息</span>
+	</div>
+	<!--标题一End-->
+	<div class="com_table">
+		<table>
+			<tbody>
+				<tr>
+					<td class="summarize">套餐:</td>
+					<td><span class="big_font orange_font" id="tabPackage">{{tabPackage}}</span></td>
+				</tr>
+				<tr>
+					<td class="summarize">资费:</td>
+					<td><span class="big_font orange_font" id="tabTariff">{{tabTariff}}</span></td>
+				</tr>
+				<tr>
+					<td class="summarize">接入类型:</td>
+					<td><span class="big_font orange_font" id="tabAccessType">{{tabAccessType}}</span></td>
+				</tr>
+				<tr>
+					<td class="summarize">到期执行方式:</td>
+					<td><span class="big_font orange_font" id="tabExecutiveMode">{{tabExecutiveMode}}</span></td>
+				</tr>
+				<tr>
+					<td class="summarize">到期执行资费:</td>
+					<td><span class="big_font orange_font" id="tabExecutiveTariff">{{tabExecutiveTariff}}</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- 宽带信息End-->
+
+<!-- 宽带属性（终端提供方式）begin-->
+<div class="layout_centent" id="select_kd_fs" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>宽带属性（终端提供方式）</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="Attr in broadbandAttrData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="attr{{$index}}" ng-click="onKDTypeSelect('attr'+$index,Attr.id,Attr.name)">
+                    {{Attr.name}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 宽带属性（终端提供方式）-->
+
+<!-- 宽带属性（终端类型）begin-->
+<div class="layout_centent" id="select_kd_type" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>宽带属性（终端类型）</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="terminal in terminalData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="terminal{{$index}}" ng-click="onModeSelect('terminal'+$index,terminal.id,terminal.name)">
+                    {{terminal.name}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 宽带属性（终端类型）end -->
+
+<!-- 宽固信息begin-->
+<!--<div class="layout_centent" id="newOrJoinInfo" style="display:none;">-->
+<!--&lt;!&ndash;标题一Begin&ndash;&gt;-->
+<!--<div class="com_title first_title">-->
+<!--<span>宽固信息</span>-->
+<!--</div>-->
+<!--&lt;!&ndash;标题一End&ndash;&gt;-->
+<!--&lt;!&ndash;选择按钮Begin&ndash;&gt;-->
+<!--<div class="container-fluid">-->
+<!--<div class="row com_selectbox">-->
+
+<!--<div class="formlist" style="float: left;margin-right: 10px">-->
+<!--<p class="form_title"><font color="red">*</font>宽带</p>-->
+<!--</div>-->
+
+<!--<div class="col-md-3 col-xs-3 list">-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--<a class="com_selectbtn" href="javascript://" id="newBroadband" ng-click="newOrJoinInfo('newBroadband','新装')">-->
+<!--新装-->
+<!--</a>-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="col-md-3 col-xs-3 list">-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--<a class="com_selectbtn" href="javascript://" id="joinBroadband" ng-click="newOrJoinInfo('joinBroadband','加入')">-->
+<!--加入-->
+<!--</a>-->
+<!--&lt;!&ndash;常用btn&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;选择按钮End&ndash;&gt;-->
+<!--<div class="formlist" style="background: #ffffff;display: none" id="broadbandPhoneNumDiv">-->
+<!--<div class="form_left">-->
+<!--<p class="form_title"><font color="red">*</font>宽带号码</p>-->
+<!--</div>-->
+<!--<div class="form_right">-->
+<!--<input type="text" class="input_normal" id="broadbandPhoneNum" ng-model="broadbandPhoneNum">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!-- 宽固信息 End -->
+<!-- 模块begin-->
+<div class="layout_centent" id="select_kg" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>宽固信息</span>
+	</div>
+	<!--标题一End-->
+	<!-- 单选按钮begin-->
+	<div class="container-fluid" id="select_kuandai">
+		<div class="row com_selectbox">
+			<div class="formlist" style="float: left;margin-right: 10px">
+				<p class="form_title"><font color="red">*</font>宽带</p>
+			</div>
+
+			<div class="col-md-3 col-xs-3 list">
+				<a class="com_selectbtn" href="javascript://" id="newNetWork" ng-click="networkChange('newNetWork', '新装')">新装</a>
+			</div>
+			<div class="col-md-3 col-xs-3 list">
+				<a class="com_selectbtn" href="javascript://" id="oldNetWork" ng-click="networkChange('oldNetWork', '加入')">加入</a>
+			</div>
+		</div>
+	</div>
+	<!-- 单选按钮end-->
+	<div class="formlist" style="background: #ffffff; display:none;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>宽带号码</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="kuan_num">
+		</div>
+	</div>
+	<!-- 占位模块begin-->
+	<div style="height:4px; display:none;" class="kuan_regex"></div>
+	<!-- 占位模块End-->
+	<div class="container-fluid kuan_regex" style="display:none;">
+		<div class="row">
+			<div class="col-md-12 col-xs-12 list">
+				<a class="com_btn gary_btn" href="javascript://" ng-click="check_wait()">校验</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 单选按钮begin-->
+	<div class="container-fluid" id="select_guhua">
+		<div class="row com_selectbox">
+			<div class="formlist" style="float: left;margin-right: 10px">
+				<p class="form_title">固话</p>
+			</div>
+
+			<div class="col-md-3 col-xs-3 list">
+				<a class="com_selectbtn" href="javascript://" id="newGuhuaChange" ng-click="guhuaChange('newGuhuaChange', '新装')">新装</a>
+			</div>
+			<div class="col-md-3 col-xs-3 list">
+				<a class="com_selectbtn" href="javascript://" id="oldGuhuaChange" ng-click="guhuaChange('oldGuhuaChange', '加入')">加入</a>
+			</div>
+		</div>
+	</div>
+	<!-- 单选按钮end-->
+	<div class="formlist" style="background: #ffffff; display:none;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>固话号码</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="guhua_num">
+		</div>
+	</div>
+	<!-- 单选按钮begin-->
+	<div class="container-fluid" id="select_iptvinfo" style="display:none;">
+		<div class="row com_selectbox">
+			<div class="formlist" style="float: left;margin-right: 10px">
+				<p class="form_title">互联网电视</p>
+			</div>
+			<div class="col-md-3 col-xs-3 list">
+				<a class="com_selectbtn" href="javascript://" id="iptvChange" ng-click="iptvChange('iptvChange', '加入')">加入</a>
+			</div>
+		</div>
+	</div>
+	<!-- 单选按钮end-->
+</div>
+<!-- 模块End-->
+
+<!-- 填写业务办理信息模块begin-->
+<div class="layout_centent" id="select_card" style="display: none">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>填写业务办理信息</span>
+	</div>
+	<!--标题一End-->
+	<!--正常外框Begin-->
+	<div class="com_normalbox">
+		<!--提示文字Begin-->
+		<div class="small_font gray_font" style="line-height: 30px; padding: 0px 5px;">
+			上传身份证正，反面
+		</div>
+		<!--提示文字End-->
+		<!--身份证图片列表Begin-->
+		<div class="container-fluid goods_show_list">
+			<div class="row">
+				<div class="col-xs-6 col-md-6 goods_box">
+					<div class="goods_img">
+						<span class="imgprice">身份证正面</span>
+						<img ng-src="{{IDCardPositive}}" alt="" style="height: 150px" id="IDCardPositive">
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-6 goods_box">
+					<div class="goods_img">
+						<span class="imgprice">身份证反面</span>
+						<img ng-src="{{IDCardOpposite}}" alt="" style="height: 150px" id="IDCardOpposite">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--身份证图片列表End-->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 list">
+					<!--常用btn-->
+					<a class="com_btn gary_btn" href="javascript://" ng-click="blueToothRead()" id="bluetooth_read_btn">
+                        蓝牙读取
+                    </a>
+					<!--常用btn-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--移网预存款begin -->
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>移网预存款</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="yw_fee">
+		</div>
+	</div>
+	<!--移网预存款end -->
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>宽带预存款</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="kd_fee">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>固话预存款</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="gh_fee">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff; display:none;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>电视预付款</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="iptv_terminal">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff; display:none;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>宽带预付款</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="kd_terminal">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>装机地址</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="detail_address">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>联系号码</p>
+		</div>
+		<div class="form_right">
+			<input type="tel" class="input_normal" id="contract_phone">
+		</div>
+	</div>
+</div>
+<!-- 填写业务办理信息 End -->
+
+<!-- 选择付费方式begin-->
+<div class="layout_centent" id="select_type" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>选择付费方式</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="pay in payTypeData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="pay{{$index}}" ng-click="onTypeSelect('pay'+$index,pay.id,pay.name)">
+                    {{pay.name}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 选择付费方式end -->
+
+<!--选择银行begin-->
+<div class="layout_centent" id="select_super" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>选择上级银行</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox" id="change_ele" style="display: block">
+			<input type="hidden" id="pageIndex" value="1" />
+
+			<div class="col-md-12 col-xs-12 list">
+				<!--常用btn-->
+				<a class="com_btn green_btn" href="javascript://" ng-click="changeBtn()">
+                    换一组
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="bank in bankSelectData">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="bank{{$index}}" ng-click="onSuperSelect('bank'+$index,bank.CODE,bank.NAME)">
+                    {{bank.NAME}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 选择银行end -->
+<!--选择银行begin-->
+<div class="layout_centent" id="select_bank" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>选择银行</span>
+	</div>
+	<!--标题一End-->
+	<!--选择按钮Begin-->
+	<div class="container-fluid">
+		<div class="row com_selectbox" id="change_ele2" style="display: block">
+			<input type="hidden" id="pageIndex2" value="1" />
+
+			<div class="col-md-12 col-xs-12 list">
+				<!--常用btn-->
+				<a class="com_btn green_btn" href="javascript://" ng-click="changeBtn2()">
+                    换一组
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+		<div class="formlist">
+			<div class="form_left">
+				<p class="form_title">银行名称：：</p>
+			</div>
+			<div class="form_last">
+				<!--常用btn-->
+				<a class="com_btn theme_btn" href="javascript://" ng-click="changeBtn2(true)">
+                    搜索
+                </a>
+				<!--常用btn-->
+			</div>
+			<div class="form_threeline_right">
+				<input type="text" class="input_normal" id="search_name2">
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="row com_selectbox">
+			<div class="col-md-6 col-xs-6 list" style="margin-bottom: 5px" ng-repeat="bank2 in bankSelectData2">
+				<!--常用btn-->
+				<a class="com_selectbtn" href="javascript://" id="bank2{{$index}}" ng-click="onBankSelect('bank2'+$index,bank2.CODE,bank2.BANK)">
+                    {{bank2.BANK}}
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+	<!--选择按钮End-->
+</div>
+<!-- 选择银行end -->
+
+<!-- 填写银行信息模块begin-->
+<div class="layout_centent" id="select_bankinfo" style="display:none;">
+	<!--标题一Begin-->
+	<div class="com_title first_title">
+		<span>填写银行信息</span>
+	</div>
+	<!--标题一End-->
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>银行账号</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="bank_acct_no">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>托收户名</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="bank_acct_name">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>协议编码</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="agreement_no">
+		</div>
+	</div>
+	<div class="formlist" style="background: #ffffff; display:none;">
+		<div class="form_left">
+			<p class="form_title"><font color="red">*</font>业务编码</p>
+		</div>
+		<div class="form_right">
+			<input type="text" class="input_normal" id="bank_busi_kind">
+		</div>
+	</div>
+</div>
+
+<!--提交订单begin-->
+<div class="com_normalbox" id="threePage" style="display: none;margin-bottom: 20px;margin-top: 20px">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 col-xs-12 list">
+				<!--常用btn-->
+				<a class="com_btn green_btn" href="" ng-click="order_submit()">
+                    提交订单
+                </a>
+				<!--常用btn-->
+			</div>
+		</div>
+	</div>
+</div>
+<!--提交订单end-->
+
+<div id="checkHtml"></div>
+<script src="ESale/FusionBusiness/scripts/fusionFourPage.js"></script>
+<script src="ESale/FusionBusiness/scripts/simCard.js"></script>
+<script src="ESale/FusionBusiness/scripts/fusionBase.js"></script>
+<script type="text/javascript">
+	$("#checkHtml").load("ESale/Business/VirtualService/Phone/SimCard/pages/bluetoothCheck.html");
+</script>

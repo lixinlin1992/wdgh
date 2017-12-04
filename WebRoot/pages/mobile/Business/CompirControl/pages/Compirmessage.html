@@ -1,0 +1,104 @@
+<!--主体部分-->
+<div class="appMain">
+	<div class="searchInput">
+		<div class="searchUnit">
+		<input type="text" class="form-control searchIpt" placeholder="基站编号/基站名称" id="PROPERTY_CODE_NAME"/>
+		<a href="Javascript:void(0);" class="searchBtn" ng-click="g_query()"></a>
+		</div>
+		<div class="searchUnit">
+			<input type="text" class="form-control searchIpt" placeholder="电表编号/电表名称" id="DEVICE_CODE_NAME"/>
+			<a href="Javascript:void(0);" class="searchBtn" ng-click="g_query()"></a>
+		</div>
+	</div>
+	<h4 class="mainTitle">基站信息</h4>
+	<!--基站信息列表-->
+	<div class="baseList">
+		<div class="baseUnit" ng-repeat="row in mylist">
+			<div class="baseItem">
+				<span>基站编码：</span>
+				<p>{{row.PROPERTY_CODE}}</p>
+			</div>
+			<div class="baseItem">
+				<span>基站名称：</span>
+				<p>{{row.PROPERTY_NAME}}</p>
+			</div>
+			<div class="baseItem">
+				<span>电表编码：</span>
+				<p>{{row.DEVICE_CODE}}</p>
+			</div>
+			<div class="baseItem">
+				<span>电表名称：</span>
+				<p>{{row.DEVICE_NAME}}</p>
+			</div>
+			<a href="javascript:void(0);" class="btn btnEdit" attr1="{{row.AMMETER_ID}}" attr="{{row.AMMETER_READING_ID}}" ng-click="g_edit($event)">修改</a>
+		</div>
+	</div>
+	<div class="bmLoad" id="g1" style="display:block">
+		<span class="bmLoadMore" ng-click=""><a href="javascript:void(0);" ng-click="getmoredata()">点击加载更多信息……</a></span>
+	</div>
+	<div class="bmLoad" id="g2" style="display:none">
+		<span class="bmLoading"><a href="javascript://">正在加载更多信息……</a></span>
+	</div>
+	<div class="bmLoad" id="g3" style="display:none">
+		<span>无更多信息</span>
+	</div>
+	<!--基站信息列表end-->
+</div>
+<!--主体部分end-->
+
+<!--		<div class="bmTitle">
+			<span>抄表管理</span>
+			<a href="javascript://" class="mtAddBtn" onclick="hrefJump('choosecell')">添加</a>
+		</div>
+		<div class="mtSearch">
+			<div class="container">
+				<div class="row">
+					<label class="col-xs-3">基站编号:</label>
+					<div class="col-xs-3"><input type="text" class="form-control" id="PROPERTY_CODE" /></div>
+					<label class="col-xs-3">基站名称:</label>
+					<div class="col-xs-3"><input type="text" class="form-control" id="PROPERTY_NAME"/></div>
+				</div>
+				<div class="row">
+					<label class="col-xs-3">电表编号:</label>
+					<div class="col-xs-3"><input type="text" class="form-control" id="DEVICE_CODE"/></div>
+					<label class="col-xs-3">电表名称:</label>
+					<div class="col-xs-3"><input type="text" class="form-control" id="DEVICE_NAME"/></div>
+				</div>
+				<div class="mtSearchBtn">
+					<button type="submit" class="bmBtnLg" ng-click="g_query()">搜索</button>
+				</div>
+			</div>
+		</div>
+		<div class="mtTable">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>操作</th>
+						<th>基站编码</th>
+						<th>基站名称</th>
+						<th>电表名称</th>
+						<th>电表编码</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in mylist">
+						<td>
+							<a href="javascript://" class="mtTableIcon mtCheck">查看</a>
+							<a href="javascript://" class="mtTableIcon mtChange">修改</a>
+						</td>
+						<td>{{row.PROPERTY_CODE}}</td>
+						<td>{{row.PROPERTY_NAME}}</td>
+						<td>{{row.DEVICE_NAME}}</td>
+						<td>{{row.DEVICE_CODE}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+<div class="bmLoad" id="g1" style="display:block">
+	<span class="bmLoadMore" ng-click=""><a href="javascript://" ng-click="getmoredata()">点击加载更多信息……</a></span>
+</div>
+<div class="bmLoad" id="g2" style="display:none">
+	<span class="bmLoading"><a href="javascript://">正在加载更多信息……</a></span>
+</div>-->
+<script src="Business/CompirControl/scripts/Compirmessage.js"></script>
+

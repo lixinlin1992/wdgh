@@ -1,0 +1,136 @@
+*{margin:0;padding:0;}
+/** 页面主体body样式 包括字体边框的调整**/
+body {font-family: Helvetica, Arial, sans-serif;font-size:12px; margin:0; padding:0;background:#F8F3F5;}
+/** 左边导航 宽高 背景颜色 边框等的调整**/
+p {line-height: 1.5em;}
+
+/** 去掉默认的 **/
+ul,li{list-style-type:none;}
+img{border:0px;}
+
+/** 设置表格,列表,段落,各种自定义标题的统一边框等样式**/
+form,ul,li,p,h1,h2,h3,h4,h5,h6{ margin:0px;padding:0px;}
+/** 设置文本框,下拉框 的统一字体大小以及对象的行高**/
+input,select{font-size:12px;line-height:16px;}
+
+/** 超链接的各种行为样式的统一调整**/
+a:link{font-size:12px;color:#000;text-decoration:none;}
+a:visited{font-size:12px;color:#FF0000;text-decoration:underline;}
+a:hover{font-size:12px;color:#FF0000;text-decoration:none;}
+a:active{font-size:12px;color:#000000;text-decoration:none;}
+
+/* 按钮 */
+/* 搜索按钮*/
+.btnquery_mouseout{ CURSOR: hand; COLOR:black;width:57px;height:23px; background:url(../images/common/sbtn1.jpg) no-repeat; border:0px;cursor:pointer;}
+.btnquery_mouseover{width:57px; CURSOR: hand;height:23px;border: 0;background-image:url(../images/common/sbtn2.jpg) ;cursor:pointer;}
+
+.errorClew{color:#FF0000;}/**少数地方用到 定义某种颜色**/
+
+/** 统一的按钮样式，2011-11-04 后所有按钮使用以下样式 ***/
+/*修改*/
+.btn_edit{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px 0px;}
+/*删除*/
+.btn_delete{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -18px;}
+/*提交*/
+.btn_commit{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -36px;}
+/*参数*/
+.btn_param{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -54px;}
+/*打包*/
+.btn_package{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -72px;}
+/*克隆*/
+.btn_copy{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -90px;}
+/*配置*/
+.btn_config{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -108px;}
+/*测试*/
+.btn_test{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -126px;}
+/*演示*/
+.btn_run{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -144px;}
+/*菜单*/
+.btn_menu{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -162px;}
+/*处理器*/
+.btn_processor{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -180px;}
+/*添加*/
+.btn_add{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -198px;}
+/*导出-Word*/
+.btn_exp_word{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -216px;}
+/*导出-Excel*/
+.btn_exp_excel{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -234px;}
+/*导出-PDF*/
+.btn_exp_pdf{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -252px;}
+/*向上*/
+.btn_arrow_up{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -270px;}
+/*向右*/
+.btn_arrow_right{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -288px;}
+/*向下*/
+.btn_arrow_down{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -306px;}
+/*向左*/
+.btn_arrow_left{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -324px;}
+/*帮助*/
+.btn_help{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -342px;}
+/*保存*/
+.btn_save{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -360px;}
+/*撤销*/
+.btn_undo{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -378px;}
+/*同步*/
+.btn_sync{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -396px;}
+/*查看*/
+.btn_view{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -414px;}
+/*恢复*/
+.btn_restore{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -432px;}
+/*授权*/
+.btn_auth{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -450px;}
+/*排除*/
+.btn_except{text-indent:16px;vertical-align:bottom;display:inline-block;height:16px;line-height:16px;min-width:16px;cursor:pointer;margin:0 3px;background:url(../images/common/buttons.png) no-repeat 0px -468px;}
+
+
+/*table 表格样式*/
+/* 文本框 图片元素 行内的对齐方式*/
+input,img{vertical-align:middle;} 
+/* 表格样式统一修改*/
+/* 表格的字体 宽度 边框 背景颜色 文本对齐方式等的修改*/
+table.content_List{font-size:12px; line-height:26px;width:100%;border-collapse:collapse;color:#000;background:#F8F3F5;text-align:left;}
+table.content_List td {border: 0px solid #CAD6E2;padding:0px 2px 0px 2px;}
+
+.barquerycontent{width:100%;margin-bottom:8px;margin-top:5px;border-top:2px solid #5F8FBF;border-right:1px solid #CAD9EA;border-left:1px solid #CAD9EA; border-bottom:1px solid #CAD9EA;}
+.barquerycontentadd{border-left:1px solid #DCDDDF;border-right:1px solid #DCDDDF;border-bottom:1px solid #DCDDDF;border-top:1px solid #D7E0E9;padding:10px; text-align:center;}
+.querytable{ margin-top:3px; height:2px; border-bottom:2px solid #2B6CBD;}
+/* 表格内文字所在td 所调用的样式*/
+.contenttd{background-color:#F8F3F5;text-align:right;}
+
+
+/**============================================================================
+ *
+ * 输入表单部分的样式
+ *
+ *=============================================================================*/
+.main{width:750px; margin:0 auto;}
+.formRow{clear:both;font-size:12px;}
+.formLabel{text-align:right;}
+.formField{text-align:left; padding-bottom:0px; overflow:hidden;}
+.formField input.type1{ border:1px #7f9cba solid; padding:0px;}
+.formClew{text-align:right;}
+*:lang(en) .main .formClew{padding-left:5px;}
+.main .radioBox{padding-top:1px;}
+.errorClew{color:#FF0000;}
+
+
+/*** tabs 按钮切换 ***/
+OL LI {MARGIN: 8px}
+#con {FONT-SIZE: 12px; MARGIN: 0px auto; WIDTH: 100%;padding-top:10px;}
+.tags {PADDING: 0px; MARGIN: 0px 0px 0px 10px; WIDTH: 99%;HEIGHT: 23px}
+.tags LI {BACKGROUND:url(../images/common/tagleft.gif) no-repeat left bottom; FLOAT: left; MARGIN-RIGHT: 1px; LIST-STYLE-TYPE: none; HEIGHT: 23px;}
+.tags LI A {PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND:url(../images/common/tagright.gif) no-repeat right bottom; FLOAT: left; PADDING-BOTTOM: 0px; COLOR: #000 !important;LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-DECORATION: none; text-decoration:none !important;}
+.tags LI.emptyTag {BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 4px;}
+.tags LI.selectTag {BACKGROUND-POSITION: left top; MARGIN-BOTTOM: -2px; POSITION: relative; HEIGHT: 25px;}
+.tags LI.selectTag A {BACKGROUND-POSITION: right top; COLOR: #000; LINE-HEIGHT: 25px; HEIGHT: 25px;}
+.tagContent {PADDING-RIGHT: 10px; DISPLAY: none; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; WIDTH:98%; COLOR: #474747; PADDING-TOP: 10px; ;}
+div.selectTag {display: block;}
+.errorfont{color:#FF0000;}/**红色字体**/
+
+
+
+/*扩展部分样式*/
+/*jqgrid表格单元格换行显示问题*/
+.jqgrow td{word-break:keep-all !important;white-space:nowrap !important;overflow:hidden !important;}
+/*表格中的按钮在鼠标移上去时加背景*/
+.grid_btn:hover{background-color: #5c9ccc;}

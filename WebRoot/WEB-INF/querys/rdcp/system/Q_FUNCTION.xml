@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+    <!--功能列表-->
+    <query id="Q_FUNCTION_TREE" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                    <#if id??>
+                    SELECT m.ID,1 AS TYPE,m.NAME,(COUNT(cm.ID)+COUNT(f.ID)) AS CHILDREN_COUNT,m.SYS_CODE
+                    FROM SYS_P_MODULE m
+                    LEFT JOIN SYS_P_MODULE cm ON cm.PARENT_ID=m.ID
+                    LEFT JOIN SYS_P_FUNCTION f ON f.MODULE_ID=m.ID
+                    WHERE 1=1
+                        <#if type=='0'>
+                    AND m.SYS_CODE=[id] AND m.PARENT_ID=0
+                        <#else>
+                    AND m.PARENT_ID=[id long]
+                        </#if>
+                    AND [RdcpSecurity(m.SYS_CODE,m.ID)]
+                    GROUP BY m.ID,m.NAME,m.SYS_CODE
+                        <#if type=="1">
+                    UNION ALL
+                    SELECT f.ID,2 AS TYPE,f.NAME,0 AS CHILDREN_COUNT,f.SYS_CODE
+                    FROM SYS_P_FUNCTION f
+                    WHERE f.MODULE_ID=[id long]
+                    AND [RdcpSecurity(f.SYS_CODE,f.MODULE_ID)]
+                        </#if>
+                    ORDER BY TYPE ASC,NAME ASC
+                    <#else>
+                    SELECT s.CODE AS ID,0 AS TYPE,s.NAME,COUNT(m.ID) AS CHILDREN_COUNT,s.CODE AS SYS_CODE
+                    FROM SYS_BI_SYSTEM s
+                    LEFT JOIN SYS_P_MODULE m ON m.SYS_CODE=s.CODE
+                    WHERE 1=1
+                        <#if sys_code??>
+                    AND s.CODE=[sys_code]
+                        </#if>
+                    AND [RdcpSecurity(s.CODE)]
+                    GROUP BY s.CODE,s.NAME
+                    ORDER BY s.NAME ASC
+                    </#if>
+                    ]]>
+        </stmt>
+        <param name="paging">false</param>
+        <param name="format">text</param>
+        <param name="ftl">template/rdcp/system/T_MODULE_TREE.ftl</param>
+    </query>
+
+    <!--功能查询列表-->
+    <query id="Q_FUNCTION_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                    SELECT f.*,m.NAME AS MODULE_NAME,s.NAME AS SYS_NAME,
+                    f1.NAME AS DEPEND_NAME
+                    FROM SYS_P_FUNCTION f
+                    LEFT JOIN SYS_P_MODULE m ON m.ID=f.MODULE_ID
+                    LEFT JOIN SYS_P_FUNCTION f1 ON f1.ID=f.DEPEND_ID
+                    LEFT JOIN SYS_BI_SYSTEM s ON s.CODE=f.SYS_CODE
+                    WHERE 1=1
+                    <#if func_name?exists>
+                    AND f.NAME [like(func_name)]
+                    </#if>
+                    <#if module_id?exists>
+                    AND f.MODULE_ID IN (
+                    SELECT ID FROM SYS_P_MODULE START WITH ID=[module_id] CONNECT BY PRIOR ID=PARENT_ID
+                    )
+                    </#if>
+                    <#if sys_code??>
+                    AND f.SYS_CODE=[sys_code]
+                    </#if>
+                    <#if id??>
+                    AND f.ID=[id long]
+                    </#if>
+                    AND [RdcpSecurity(f.SYS_CODE,f.MODULE_ID)]
+                    ORDER BY f.NAME ASC
+                    ]]>
+        </stmt>
+        <param name="id">id</param>
+        <param name="list-cols">id,module_name,name,code,type,access_rule,depend_name,sys_name</param>
+        <param name="exp-cols">id,module_name,name,code,type,access_rule,depend_func_name,sys_name,note</param>
+        <param name="exp-names">编号,模块,名称,功能码,类型,授权规则,依赖功能,业务系统,备注</param>
+    </query>
+
+    <!--查询功能信息-->
+    <query id="Q_FUNCTION_INFO" type="form_data" extends="Q_FUNCTION_LIST">
+    </query>
+
+
+    <!-- 添加/修改功能 -->
+    <query id="Q_FUNCTION_EDIT" type="auto-update" result="">
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">delete</param>
+        </processor>
+        <!-- 检查模块是否存在 -->
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql">SELECT COUNT(1) FROM SYS_P_MODULE WHERE ID=${module_id!-1}</param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[请确保选择的模块存在于系统中！]]></param>
+        </processor>
+        <!--同一模块下不能同名-->
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql">
+                <![CDATA[SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE NAME=[name] AND MODULE_ID=[module_id long] <#if id??>AND ID<>[id long]</#if>]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[相同模块下已经存在名称为 [${name}] 的功能，请使用其它名称！]]></param>
+        </processor>
+        <!-- 检查是否指定了依赖功能，且依赖功能是否存在，当授权类型为依赖授权的时候进行检查 -->
+        <processor name="check-count" type="before" seq="4" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                        <#if access_rule?exists>
+                            <#if access_rule=='2'>
+                                SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE ID=${depend_id!-1}
+                            <#else>
+                                SELECT 1 AS COUNT_A FROM DUAL
+                            </#if>
+                        <#else>
+                        SELECT 1 AS COUNT_A FROM DUAL
+                        </#if>
+                        ]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[依赖授权模式必需指定有效的依赖功能！]]></param>
+        </processor>
+        <param name="insert-tables"><![CDATA[<#if id??><#else>SYS_P_FUNCTION f</#if>]]></param>
+        <param name="update-tables"><![CDATA[<#if id??>SYS_P_FUNCTION f<#else></#if>]]></param>
+        <param name="col-vals"><![CDATA[<#if id??><#else>f.ID=SYS_P_FUNCTION_SEQ.NEXTVAL</#if>]]></param>
+        <param name="ex-cols"><![CDATA[<#if id??>f.SYS_CODE,f.ID</#if>]]></param>
+        <processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+        <!-- 开启事务 -->
+        <param name="trans">true</param>
+    </query>
+
+    <!--删除功能-->
+    <query id="Q_FUNCTION_DELETE" type="auto-update">
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM SYS_P_FUNCTION WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+        </processor>
+        <!--进行权限控制-->
+        <processor name="rdcp-security" type="before" seq="1" break="true">
+            <param name="sys-code-param">sys_code</param>
+            <param name="module-id-param">module_id</param>
+            <param name="type">delete</param>
+        </processor>
+        <!--如果功能被其它功能依赖，则不能删除-->
+        <processor name="check-count" type="before" seq="2" break="true">
+            <param name="count-sql">
+                <![CDATA[SELECT COUNT(1) FROM SYS_P_FUNCTION WHERE DEPEND_ID [in(id long)] AND ID NOT [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[您选中的功能中有被其它功能依赖的功能，不能删除！]]></param>
+        </processor>
+        <!--已经设置了菜单的功能不允许删除-->
+        <processor name="check-count" type="before" seq="3" break="true">
+            <param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MENU WHERE FUNCTION_ID [in(id long)]]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[您选中的功能中存在被菜单引用的功能，不能删除]]></param>
+        </processor>
+        <param name="delete-tables">SYS_P_FUNCTION f</param>
+        <param name="batch-tables">f=id</param>
+        <param name="trans">true</param>
+    </query>
+</query-config>

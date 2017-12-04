@@ -1,0 +1,32 @@
+<script src="ESale/Business/VirtualService/Phone/Operation/scripts/businessAcceptance.js"></script>
+<!-- 业务受理栏 -->
+<div class="layout_centent" style="padding-bottom: 0;">
+    <!--标题一Begin-->
+    <div class="com_title first_title">
+        <span>业务受理</span>
+    </div>
+    <!--标题一End-->
+    <!--选择按钮Begin-->
+    <div class="container-fluid">
+        <div class="row com_selectbox" style="margin-bottom:0;" id="acceptance_selectbtn">
+            <div class="col-md-3 col-xs-6 list" style="margin-bottom: 7px;" ng-repeat="row in rows">
+                <a class="com_selectbtn" href="javascript://" id="acceptance_select_id_{{$index}}" ng-click="acceptance_select($index,row.NAME,row.ID)"><span ng-bind="row.NAME"></span></a>
+            </div>
+        </div>
+    </div>
+    <!--选择按钮End-->
+</div>
+<!-- 加载按钮 -->
+<div class="com_showmore ng-scope">
+    <a class="more_btn" href="javascript://" ng-click="listShowAdd()">点击加载更多</a>
+</div>
+<!-- 下一步 -->
+<div class="com_normalbox ng-scope" id="prev_and_nextPage" style="display: block;margin-bottom: 20px">
+    <div class="container-fluid">
+        <!--常用btn-->
+        <a class="com_btn theme_btn" id="submit_btn" href="javascript://" ng-click="nextPage()" style="display:none">
+           下一步
+        </a>
+        <!--常用btn-->
+    </div>
+</div>

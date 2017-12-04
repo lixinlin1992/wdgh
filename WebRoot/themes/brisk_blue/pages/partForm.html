@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--该内容由框架统一定义，无需开发人员单独调用Begin-->
+<meta charset="utf-8">
+<link href="../css/commonbtn.css" rel="stylesheet" type="text/css" />
+<link href="../css/sunrise.css" rel="stylesheet" type="text/css"/>
+<!--该内容由框架统一定义，无需开发人员单独调用Begin-->
+<title>无标题文档</title>
+<script type="text/javascript" src="../js/jQuery.js"></script>
+<script type="text/javascript">
+
+//带有提示语言的输入框------------------------------------Begin
+ $(document).ready(function(){
+	 //对地址框进行操作
+	 $("#address").focus(function(){
+		 var text_value = $(this).val(); //获取文本框的值
+		 if (text_value=="请输入邮箱地址"){
+			 $(this).val("");
+			 }
+		 })
+	 $("#address").blur(function(){
+		 var text_value = $(this).val(); //获取文本框的值
+		 if (text_value==""){
+			 $(this).val("请输入邮箱地址");
+			 }
+		 })
+	 })
+//带有提示语言的输入框------------------------------------End
+
+</script>
+</head>
+
+<body>
+
+<!--
+css,代表该控件需要对应css才能正常工作
+js，代表该控件需要对应js才能正常工作
+-->
+
+<h3>1.单纯的输入框-CSS.</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--纯单行输入框Begin-->
+<input class="SR_pureInput" type="text">
+<!--纯单行输入框End-->
+
+
+<h3>2.带有提示语言的输入框-CSS-JS.</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--带有提示语言的输入框Begin-->
+<input class="SR_tipsInput" type="text" id="address" value="请输入邮箱地址">
+<!--带有提示语言的输入框End-->
+
+
+<h3>3.系统自带复选框</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--系统自带复选框Begin-->
+<input type="checkbox"/>111
+<input type="checkbox"/>111
+<input type="checkbox"/>111
+<!--系统自带复选框End-->
+
+<h3>4.系统自带单选框</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--系统自带单选框Begin-->
+<input type="radio" name="sex" value="female" /> Female
+<input type="radio" name="sex" value="male" /> Male
+<!--系统自带单选框End-->
+
+<h3>5.系统自带下拉菜单</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--下拉菜单Begin-->
+<select class="SR_select">
+	<option>1111</option>
+    <option>2222</option>
+    <option>3333</option>
+</select>
+<!--下拉菜单End-->
+
+<h3>6.系统自带多行文本框</h3>
+<hr/><!--hr在IE6,7默认产生margin-->
+<!--系统自带下拉菜单Begin-->
+<textarea >
+这里就是多行文本框了
+</textarea >
+<!--系统自带下拉菜单End-->
+
+</body>
+</html>

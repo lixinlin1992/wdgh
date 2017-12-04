@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <query id="Q_USER_TEST" type="pagelist" result="easyui">
+        <stmt><![CDATA[
+                SELECT * FROM SYS_P_USER
+                ]]></stmt>
+</query>
+</query-config>

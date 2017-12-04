@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_UPDATE_SCHOOL_CULTURE" type="update" result="">
+        <stmt>
+            <![CDATA[
+            update bi_school_culture set title=[title],type=[type],content=[content],
+            movie_type=[movie_type],play_time=to_date([play_time],'YYYY-MM-DD HH24:MI:SS'),
+            play_place=[play_place],actors=[actors],create_time=to_date([create_time],'YYYY-MM-DD HH24:MI:SS')
+            where id=[culture_id]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

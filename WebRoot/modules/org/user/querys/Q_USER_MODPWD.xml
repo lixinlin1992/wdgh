@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+
+    <!--修改用户密码-->
+    <query id="Q_USER_MODPWD" type="update" result="">
+        <stmt>
+            <![CDATA[
+                update sys_p_user set password=[encrypt(newPassword,MD5)] where id=[var(RU.CUR_USER.id)]
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                select count(*) from SYS_P_USER where password=[encrypt(oldPassword,MD5)] and id=[var(RU.CUR_USER.id)]
+                ]]>
+            </param>
+            <param name="exp-count">1</param>
+            <param name="break-message"><![CDATA[你输入旧密码不正确！]]></param>
+        </processor>
+    </query>
+</query-config>

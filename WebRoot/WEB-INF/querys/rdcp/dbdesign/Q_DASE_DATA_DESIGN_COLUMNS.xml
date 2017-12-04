@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+
+
+	<!-- 数据库字段展示列表 -->
+	<query id="Q_DES_TABLE_COLS_LIST" type="pagelist" result="json">
+		<stmt>
+		<![CDATA[ 
+		SELECT A.ID   AS ID,
+		       B.ID   AS TABLE_ID,
+		       C.NAME AS SYS_NAME,
+		       C.CODE AS SYS_CODE,
+		       B.NAME AS TABLE_NAME,
+		       B.CODE AS TABLE_CODE,
+		       A.NAME AS NAME,
+		       A.CODE AS CODE
+		  FROM RDC_DES_TABLE_COLUMN A, RDC_DES_TABLE B, SYS_BI_SYSTEM C
+		 WHERE A.TABLE_ID = B.ID
+		   AND B.SYS_CODE = C.CODE
+		   <#if id??>
+		   	 AND A.ID = [id] 
+		   </#if>
+		   
+		   <#if sysName4ser??>
+		   	 AND C.NAME [Like(sysName4ser)] 
+		   </#if>
+		   
+		   <#if sysCode4ser??>
+		   	 AND C.CODE [Like(sysCode4ser)]
+		   </#if>
+		   
+		   <#if tableName4ser??>
+			 AND B.NAME [Like(tableName4ser)]
+		   </#if>
+		   
+		   <#if tableCode4ser??>
+		     AND B.CODE [Like(tableCode4ser)]
+		   </#if>
+		   
+		   <#if colName4ser??>
+		     AND A.NAME [Like(colName4ser)]
+		   </#if>
+		   
+		   <#if colCode4ser??>
+		   	 AND A.CODE [Like(colCode4ser)]
+		   </#if>
+    	 ]]>
+		</stmt>
+		<param name="paging">true</param>
+	</query>
+	<!-- 根据表下列框拿到表名 -->
+	<query id="Q_GET_TABLE_NAME" type="pagelist" result="json">
+		<stmt>
+		<![CDATA[ 
+			SELECT name FROM Rdc_Des_Table WHERE STATUS = 0 
+				and ID = [table_id]
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>	
+	
+	
+   <!--业务系统表下拉框-->
+    <query id="Q_SYS_TABLE_SELECT" type="labelvalue" result="json">
+		<stmt>
+		<![CDATA[ 
+			SELECT ID,CODE FROM Rdc_Des_Table WHERE STATUS = 0 
+			<#if sys_code??>
+			and  sys_code = [sys_code]
+			</#if>
+    	 ]]>
+		</stmt>    
+		<param name="l-col">CODE</param>
+		<param name="v-col">ID</param>
+    </query>
+    
+    
+	<!-- 数据库表字段添加/修改 -->
+	<query id="Q_BASE_DATA_TABLE_COLUMNS_EDIT" type="auto-update">
+		<!-- 权限判断 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">edit</param>
+		</processor>		
+        <!--进行数据的校验-->
+        <processor name="check-count" type="before" break="true" seq="2">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM rdc_des_table_column WHERE NAME =[name]
+		  		AND TABLE_ID = [table_id]
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前表已存在相同的名字"${name}",请重命名!]]></param>
+        </processor>		
+		<param name="insert-tables"><![CDATA[<#if id??><#else>rdc_des_table_column s</#if>]]></param>	
+		<param name="update-tables"><![CDATA[<#if id??>rdc_des_table_column s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=rdc_des_table_column_seq.NEXTVAL</#if>]]></param>
+		<param name="trans">true</param>
+	</query>	
+	
+	 <!-- 删除数据库表字段 -->
+	<query id="Q_DATA_BASE_TABLE_COLUMNS_DELETE" type="auto-update">
+		<!-- 权限判断 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">delete</param>
+		</processor>
+		<param name="delete-tables">RDC_DES_TABLE_COLUMN s</param>
+		<param name="key-cols">s.id</param>
+	</query>		    
+</query-config>

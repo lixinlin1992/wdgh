@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 用户退会时所提交的个人信息 -->
+    <query id="Q_QUITED_USER_INFO" type="form_data" result="json">
+        <stmt><![CDATA[
+        select name,sex,card_no,tele_phone,dept_id,email
+        from bi_trade_info
+        where account=[account]
+		]]></stmt>
+    </query>
+</query-config>

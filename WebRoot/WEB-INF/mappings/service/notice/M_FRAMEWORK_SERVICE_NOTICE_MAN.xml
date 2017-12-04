@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 公告数据 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_MAN_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_MAN.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_MAN_LIST]]></url>
+		<file></file>
+	</ds>
+	<!-- 添加公告 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_MAN_ADD" type="url" func="">
+        <url>/framework_service_notice_upload.action?method=upload</url>
+   	</ds>	
+	<!-- 修改公告 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_MAN_EDIT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_MAN.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_MAN_EDIT]]></url>
+		<file></file>
+	</ds>  
+	<!-- 提交更新公告 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_MAN_UPDATE" type="url" func="">
+        <url>/framework_service_notice_upload.action?method=update</url>
+		<file></file>
+	</ds>
+	<!-- 删除公告 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_MAN_DEL" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_MAN.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_MAN_DEL]]></url>
+		<file></file>
+	</ds>		  
+</datasources>

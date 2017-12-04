@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query-config>
+	<!-- 系统菜单树 -->
+		<!-- 查询数据源树 -->
+	<query id="Q_SYSTEM_MENU_TREE" type="pagelist" result="ftl">
+		<stmt>
+			<![CDATA[
+            <#-- type在这里用来区分类型,0为业务系统,1为模块,2为数据源 -->
+            <#if type?exists && type!='3'>
+	            select * from(
+					SELECT TO_CHAR(CODE) AS ID,
+					       TO_CHAR(CODE) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR('0') AS TYPE,
+					       TO_CHAR('') AS PARENT_ID,
+					       TO_CHAR('true') AS ISPARENT
+					  FROM SYS_BI_SYSTEM
+					  where 1=1 
+					  and [RdcpSecurity(CODE)]
+					UNION
+					SELECT TO_CHAR(ID) AS ID,
+					       TO_CHAR(sys_code) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR(level_id) AS TYPE,
+					       TO_CHAR(sys_code) AS PARENT_ID,
+					       (CASE WHEN level_id = 3 THEN ''
+					       ELSE
+					          'true'
+					       END) ISPARENT
+					  FROM SYS_P_MENU 
+					   where parent_id = 0    
+					   and [RdcpSecurity(sys_code)]
+					UNION
+					SELECT TO_CHAR(ID) AS ID,
+					       TO_CHAR(sys_code) AS SYS,
+					       TO_CHAR(NAME) AS NAME,
+					       TO_CHAR(level_id) AS TYPE,
+					       TO_CHAR(parent_id) AS PARENT_ID,
+					       (CASE WHEN level_id = 3 THEN ''
+					       ELSE
+					          'true'
+					       END) ISPARENT
+					  FROM SYS_P_MENU    
+					  where parent_id <> 0   
+					   and [RdcpSecurity(sys_code)]
+		        )tt where tt.PARENT_ID = [id]
+		         <#-- 是否展示第三级菜单 -->
+		         <#if inx??>
+		         AND tt.type <> 3
+		         </#if>
+		         order by tt.type asc
+            <#else>
+	            SELECT CODE AS ID,
+                CODE AS SYS,
+       			NAME AS NAME,
+       			TO_CHAR('0') AS TYPE,
+       			TO_CHAR('') AS PARENT_ID,
+       			 to_char('true') as isParent
+ 	 			FROM SYS_BI_SYSTEM
+ 	 			where 1=1
+ 	 			and [RdcpSecurity(CODE)]
+             </#if>
+             ]]>
+		</stmt>
+		<param name="paging">false</param>
+		<param name="format">text</param>
+		<param name="ftl">
+			template/rdcp/datasource/T_RDCP_DATA_SOURCE.ftl
+		</param>
+	</query>
+	<!-- 菜单展示列表 -->
+ 	<query id="Q_SYSTEM_MENU_LIST" type="pagelist" result="json">
+		<stmt>
+			<![CDATA[  
+				select * from (
+					SELECT A.ID AS MENUID,
+					       A.NAME AS NAME,
+					       A.LEVEL_ID AS LEVEL_ID,
+					       A.ORDER_ID AS ORDER_ID,
+					       (CASE
+					         WHEN A.PARENT_ID = 0 THEN
+					          (SELECT NAME FROM SYS_BI_SYSTEM WHERE CODE = A.SYS_CODE)
+					         ELSE
+					          (SELECT NAME FROM SYS_P_MENU WHERE ID = A.PARENT_ID)
+					       END) AS PARENT_NAME,
+					       B.NAME AS GONGNENG,
+					       D.NAME AS SYS_NAME,
+					       A.NOTE AS NOTE,
+					       '' as cz,
+					       A.ID AS ID,
+					       A.level_id as type,
+					       B.ID AS FUNCTION_ID
+					  FROM SYS_P_MENU A,SYS_P_FUNCTION B,SYS_BI_SYSTEM D
+					  WHERE A.FUNCTION_ID = B.ID(+)
+					  AND A.SYS_CODE = D.CODE
+					  and [RdcpSecurity(A.SYS_CODE)]
+					  <#if sys??>
+					 	 AND A.sys_code = [sys] 
+					  </#if>
+					  <#if menuid??>
+					  	AND A.ID IN (SELECT ID FROM sys_p_menu connect by prior ID = parent_id start with ID = [menuid] )
+					  </#if>
+					)tt where 1=1 
+				  <#if sMenuName??>
+				  	and	tt.PARENT_NAME [Like(sMenuName)]
+				  </#if>
+				  <#if menuName??>
+				  	and tt.NAME [Like(menuName)]
+				  </#if>
+				  <#if gongNeng??>
+				  	and tt.GONGNENG  [Like(gongNeng)]
+				  </#if>
+				  order by  tt.id
+				 
+			]]>
+	</stmt>
+		<param name="paging">true</param>
+	</query>
+	<!-- 菜单添加/修改 -->
+	<query id="Q_SYS_MENU_EDIT" type="auto-update">
+		<!-- 权限判断 -->
+        <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+	        <param name="type">edit</param>
+		</processor>		
+        <!--进行数据的校验-->
+        <!-- kinz 2012年3月6日 去掉同名检测，允许同名
+        <processor name="check-count" type="before" break="true" seq="2">
+            <param name="count-sql">
+                <![CDATA[ 
+                SELECT  count(1) FROM sys_p_menu WHERE 
+		  		 SYS_CODE = [sys_code]
+		  		<#if id??>
+		  			AND ID<>[id long]
+		  		</#if>
+		  		AND NAME =[name]
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[当前系统已存在相同的菜单名称,请重命名!]]></param>
+        </processor>
+        -->
+		<param name="insert-tables"><![CDATA[<#if id??><#else>sys_p_menu s</#if>]]></param>	
+		<param name="update-tables"><![CDATA[<#if id??>sys_p_menu s</#if>]]></param>
+		<param name="col-vals"><![CDATA[<#if id??><#else>s.ID=Sys_p_Menu_Seq.NEXTVAL</#if>]]></param>
+ 		<processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+		<processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="3" break="false"/>		
+		<param name="trans">true</param>
+	</query>		
+	 <!-- 删除菜单 -->
+	<query id="Q_SYSTEM_MENU_DELETE" type="auto-update">
+	    <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">sys_code</param>
+            <param name="sql"><![CDATA[SELECT SYS_CODE FROM SYS_P_MENU WHERE ID [in(id long)]]]></param>
+            <param name="type">array</param>
+        </processor>	
+		<!-- 权限判断 -->
+	    <processor class="com.sunrise.rdcp.pro.RdcpSecurityProcessor" type="before" break="true" seq="1">
+		        <param name="type">delete</param>
+		</processor>		
+		<processor name="check-count" type="before" seq="2" break="true">
+			<param name="count-sql"><![CDATA[SELECT COUNT(1) FROM SYS_P_MENU WHERE parent_id=[id]]]></param>
+			<param name="exp-count">0</param>
+			<param name="break-message">该菜单还存在子菜单，不能删除</param>
+		</processor>
+		<param name="delete-tables">sys_p_menu s</param>
+		<param name="key-cols">s.id</param>
+		<processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+		<processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="3" break="false"/>		
+	</query>
+
+	<!-- 初始化菜单修改弹出框 -->
+	<query id="Q_SYSTEM_MENU_TEBLE_INIT" type="form_map" result="ftl">
+		<stmt>
+			<![CDATA[ 
+			SELECT A.SYS_CODE AS SYS_CODE,
+			       A.ID AS ID,
+			       A.PARENT_ID AS PARENT_ID,
+	             (case
+	               when A.LEVEL_ID = 1 then
+	                  D.NAME 
+	               else  
+	                  C.NAME   
+	             end) AS SNAME,
+			       A.LEVEL_ID AS LEVEL_ID,
+			       (CASE
+			         WHEN A.LEVEL_ID = 1 THEN
+			          TO_CHAR('一级菜单')
+			         WHEN A.LEVEL_ID = 2 THEN
+			          TO_CHAR('二级菜单')
+			         WHEN A.LEVEL_ID = 3 THEN
+			          TO_CHAR('三级菜单')
+			       END) AS LEVEL_NAME,
+			       A.NAME AS NAME,
+			       A.FUNCTION_ID AS FUNCTION_ID,
+			       B.NAME AS FUNCTION_NAME,
+			       A.ORDER_ID AS ORDER_ID,
+			       A.NOTE AS NOTE,
+			       A.STATUS AS SHOW_STATUS
+			  FROM SYS_P_MENU A, SYS_P_FUNCTION B, SYS_P_MENU C,sys_bi_system D
+			 WHERE A.FUNCTION_ID = B.ID(+)
+			   AND A.PARENT_ID = C.ID(+)
+			   AND A.ID = [id]		
+			   AND A.SYS_CODE = D.CODE				  
+    	 ]]>
+		</stmt>
+		<param name="paging">false</param>		
+		<param name="ftl">
+			template/rdcp/system/T_SYSTEM_MENU_TABLE.ftl
+		</param>		
+		<processor class="com.sunrise.service.security.pro.FunctionUpdateProcessor" type="after" seq="1" break="false"/>
+		<processor class="com.sunrise.service.security.pro.MenuUpdateProcessor" type="after" seq="3" break="false"/>	
+	</query>   		
+</query-config>

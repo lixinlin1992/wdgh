@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+
+    <!--当前用户所负责的业务系统-->
+    <ds name="DS_DEV_UL_SYS" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEV_UL_SYS]]></url>
+    </ds>
+
+    <!--开发人员-业务系统-权限列表-->
+    <ds name="DS_DEV_MANAGER_LIST" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEV_MANAGER_LIST]]></url>
+    </ds>
+
+    <!--添加开发人员-->
+    <ds name="DS_DEV_ADD" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEV_ADD]]></url>
+    </ds>
+
+    <!--移除开发人员-->
+    <ds name="DS_DEV_DEL" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEV_DEL]]></url>
+    </ds>
+
+    <!--批量移除开发人员-->
+    <ds name="DS_DEVS_DEL" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEVS_DEL]]></url>
+    </ds>
+
+    <!--开发人员授权-->
+    <ds name="DS_DEV_FUN_SIGN" type="url">
+        <url><![CDATA[/_commonQuery.action?_file=rdcp/system/Q_DEV_MANAGE.xml&_id=Q_DEV_FUN_SIGN]]></url>
+    </ds>
+
+</datasources>

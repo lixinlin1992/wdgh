@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>首页</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+		<!-- 手机端自定义样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="../js/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="../js/bootstrap.min.js"></script>
+
+		<!--鼠标点击特效需要引入-->
+		<script type="text/javascript" src="../js/ripple.js"></script>
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+
+		<!--对话框Begin-->
+		<div class="com_calendar" style="display:block;" id="monthChoose">
+			<div class="c_header">
+				2015.1.1
+			</div>
+			<div class="c_body">
+				<div class="year">
+					<h3>年</h3>
+					<div class="choice_block">
+						<div class="timeAdd">+</div>
+						<input type="text" />
+						<div class="timeMinus">-</div>
+					</div>
+				</div>
+				<div class="month">
+					<h3>月</h3>
+					<div class="choice_block">
+						<div class="timeAdd">+</div>
+						<input type="text" />
+						<div class="timeMinus">-</div>
+					</div>
+				</div>
+				<div class="day">
+					<h3>日</h3>
+					<div class="choice_block">
+						<div class="timeAdd">+</div>
+						<input type="text" />
+						<div class="timeMinus">-</div>
+					</div>
+				</div>
+			</div>
+			<input type="button" class="c_button" value="确定">
+		</div>
+		<!--对话框End-->
+
+		<!--遮罩层Begin-->
+		<div class="com_shade" style="display: block;">
+		</div>
+		<!--遮罩层End-->
+
+	</body>
+	<script>
+		$(function() {
+			var myDate = new Date();
+			$(".c_header").text(myDate.getFullYear() + "." + (myDate.getMonth() + 1) + "." + myDate.getDate());
+			$(".year input").val(myDate.getFullYear());
+			$(".month input").val((myDate.getMonth() + 1));
+			$(".day input").val(myDate.getDate());
+			
+			$(".c_body div input").mouseover(function(){
+				
+			})
+			
+			//--------判断这月份的天数
+			ifd = function(y, M) {
+					var monthDay;
+					switch (M) {
+						case 1:
+						case 3:
+						case 5:
+						case 7:
+						case 8:
+						case 10:
+						case 12:
+							monthDay = 31;
+							break;
+						case 2:
+							if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
+								monthDay = 29;
+								break;
+							} else {
+								monthDay = 28;
+								break;
+							}
+						case 4:
+						case 6:
+						case 9:
+						case 11:
+							monthDay = 30;
+							break;
+					}
+					return monthDay;
+				}
+				//************判断这月份的天数
+				//---------日  的加减
+			$(".day .timeAdd").click(function() {
+				var month = parseInt($(".month input").val());
+				var year = parseInt($(".year input").val());
+				var day = parseInt($(".day input").val());
+				if (day < ifd(year, month))
+					$(this).next().val(parseInt($(this).next().val()) + 1);
+			})
+			$(".day .timeMinus").click(function() {
+					var day = parseInt($(".day input").val());
+					if (day > 1)
+						$(this).prev().val(parseInt($(this).prev().val()) - 1);
+				})
+			$(".day input").blur(function(){
+				var month = parseInt($(".month input").val());
+				var year = parseInt($(".year input").val());
+				var day = parseInt($(".day input").val());
+				if (day > ifd(year, month) || day <1){
+					$(this).val("");
+					alert("这个月没有这天！");
+				}
+			})
+				//**********日  的加减
+				//---------月份  的加减
+			$(".month .timeAdd").click(function() {
+				var month = parseInt($(".month input").val());
+				var day = parseInt($(".day input").val());
+				if (month < 12)
+					$(this).next().val(parseInt($(this).next().val()) + 1);
+			})
+			$(".month .timeMinus").click(function() {
+					var month = parseInt($(".month input").val());
+					var day = parseInt($(".day input").val());
+					if (month > 1)
+						$(this).prev().val(parseInt($(this).prev().val()) - 1);
+				})
+			$(".month input").blur(function(){
+				var month = parseInt($(".month input").val());
+				if (month > 12 || month<1){
+					$(this).val("");
+					alert("请正确填写月份！");
+				}
+			})
+				//************月份  的加减
+				//-------------年份的加减
+				$(".year .timeAdd").click(function(){
+					$(".year input").val(parseInt($(".year input").val())+1);
+				})
+				$(".year .timeMinus").click(function(){
+					$(".year input").val(parseInt($(".year input").val())-1);
+				})
+				//**************年份的加减
+				//---------限制输入框只能输入数字
+			$.fn.onlyNum = function() {
+				$(this).keypress(function(event) {
+					var eventObj = event || e;
+					var keyCode = eventObj.keyCode || eventObj.which;
+					if ((keyCode >= 48 && keyCode <= 57))
+						return true;
+					else
+						return false;
+				}).focus(function() {
+					//禁用输入法
+					this.style.imeMode = 'disabled';
+				}).bind("paste", function() {
+					//获取剪切板的内容
+					var clipboard = window.clipboardData.getData("Text");
+					if (/^\d+$/.test(clipboard))
+						return true;
+					else
+						return false;
+				});
+			};
+			$(".c_body div input").onlyNum();
+			//*************限制输入框只能输入数字
+		})
+	</script>
+
+</html>

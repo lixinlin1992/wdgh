@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<!-- 审核列表 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_AUDIT_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_AUDIT.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_LIST]]></url>
+		<file></file>
+	</ds>  
+	<!-- 审核查询 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_AUDIT_EDIT" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_AUDIT.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_EDIT]]></url>
+		<file></file>
+	</ds>
+	<!-- 审核设置 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_AUDIT_UPDATE" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_AUDIT.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_UPDATE]]></url>
+		<file></file>
+	</ds>		
+	<!-- 查询浏览记录 -->
+	<ds name="DS_FRAMEWORK_SERVICE_NOTICE_AUDIT_LOOKBACK_LIST" type="url" func="">
+		<url><![CDATA[/_commonQuery.action?file=service/notice/Q_FRAMEWORK_SERVICE_NOTICE_AUDIT.xml&id=Q_FRAMEWORK_SERVICE_NOTICE_AUDIT_LOOKBACK_LIST]]></url>
+		<file></file>
+	</ds>		
+</datasources>

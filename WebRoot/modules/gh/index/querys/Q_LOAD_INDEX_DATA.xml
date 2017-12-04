@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_LOAD_INDEX_DATA" type="pagelist" result="easyui">
+		<stmt>
+		<![CDATA[
+		select * from (
+		with files as (
+		select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+		where (busi_id!='newsId' and busi_type!='newsType')
+        group by busi_type,busi_id)
+		select t.* from (
+		select 'BI_NOTICE' data_type,to_char(type) sub_type,id,substr(title,0,19)||'...' title,'' file_ids,'' file_names,
+		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from bi_notice
+		where type=1
+		order by create_time desc) t
+		where rownum<=5
+		union all
+		select t.* from (
+		select 'BI_POLICY_REGULATION' data_type,to_char(type) sub_type,id,substr(title,0,22)||'...' title,'' file_ids,'' file_names,
+		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from bi_policy_regulation order by create_time desc) t
+		where rownum<=7
+		union all
+		select 'TGSL',to_char('0'),cou,to_char(name),'','','','' from
+		(select * from (
+		select spd.name,count(1) cou from bi_manu bm
+		join sys_p_department spd on bm.dept_id=spd.id and spd.id<>1
+		group by spd.name) a
+		order by cou desc)
+		union all
+		select t.* from (
+		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		substr(title,0,17)||'...' title,f.file_ids,f.file_names,
+		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from bi_news_center b
+		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
+		where b.type=2
+		order by create_time desc) t
+		where rownum<=6
+		union all
+		select t.* from (
+		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		substr(title,0,25) title,f.file_ids,f.file_names,
+		to_char(SUBSTR(b.content_text,0,40)) content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from bi_news_center b
+		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
+		where b.type=3
+		order by create_time desc) t
+		where rownum<=1
+		union all
+		select t.* from (
+		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		substr(title,0,11)||'...' title,f.file_ids,f.file_names,
+		to_char(SUBSTR(b.content_text,0,25))||'...' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from bi_news_center b
+		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
+		where b.type=1
+		order by create_time desc) t
+		where rownum<=6
+		)
+		]]>
+		</stmt>
+		<param name="paging">false</param>
+	</query>
+</query-config>

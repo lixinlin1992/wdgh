@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--该内容由框架统一定义，无需开发人员单独调用Begin-->
+<meta charset="utf-8">
+<link href="../css/commonbtn.css" rel="stylesheet" type="text/css" />
+<link href="../css/sunrise.css" rel="stylesheet" type="text/css"/>
+<!--该内容由框架统一定义，无需开发人员单独调用Begin-->
+<title>无标题文档</title>
+<script src="../js/jQuery.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+$("#SR_navTitle1").click(function(){
+    $("#SR_navTitleContent1").slideToggle("slow");
+  });
+ $("#SR_navTitle2").click(function(){
+    $("#SR_navTitleContent2").slideToggle("slow");
+  });
+  $("#SR_navTitle3").click(function(){
+    $("#SR_navTitleContent3").slideToggle("slow");
+  });
+});
+
+</script>
+</head>
+<body class="leftBg">
+<!--左边可折叠式下拉菜单Start-->
+<div class="SR_mainLeftNav">
+	<ul>
+        <li>
+            <div class="SR_navTitle" id="SR_navTitle2"><a class="aNormal"  href="#">完整页面示例</a></div>
+            <div class="SR_navTitleContent" id="SR_navTitleContent2">
+                            <ul>
+                                <li class="SR_navSecondTitle"><a href="main.html" target="view_example">表格界面</a></li>
+                                <li class="SR_navSecondTitle"><a href="inputlist.html" target="view_example">输入表单界面</a></li>
+                            </ul>
+            </div>
+        </li>
+    	<li>
+        	<div class="SR_navTitle" id="SR_navTitle1"><a class="aNormal"  href="#">首页</a></div>
+            <div class="SR_navTitleContent" id="SR_navTitleContent1">
+            	        	<ul>
+                                <li class="SR_navSecondTitle"><a href="partBtn.html" target="view_example">按钮示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partControlbtn.html" target="view_example">功能按钮示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partForm.html" target="view_example">表单控件示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partHeader.html" target="view_example">头部示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partInputTable.html" target="view_example">输入表单示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partLeftnav.html" target="view_example">左边菜单示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partModule.html" target="view_example">标题示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partNavigation.html" target="view_example">导航示例示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partProjectButtom.html" target="view_example">快捷菜单按钮示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partSearchTable.html" target="view_example">搜索表单示例</a></li>
+                                <li class="SR_navSecondTitle"><a href="partTableConter.html" target="view_example">表格示例</a></li>
+                            </ul>
+            </div>
+        </li>
+        <li>
+            <div class="SR_navTitle" id="SR_navTitle3"><a class="aNormal"  href="#">独立控件示例</a></div>
+            <div class="SR_navTitleContent" id="SR_navTitleContent3">
+                            <ul>
+                                <li class="SR_navSecondTitle"><a href="../welcome/pages/welcome.html" target="view_example">欢迎界面</a></li>
+                            </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--左边可折叠式下拉菜单End-->
+</body>
+</html>

@@ -1,0 +1,24 @@
+@charset "utf-8";
+/*-=-=-=-=-=module模块Begin-=-=-=-=-=-=*/
+.SR_moduleBox{
+	height:31px;
+	border-bottom:#d6d4c7 solid 1px;
+	}
+.SR_moduleTitle{
+	height:31px;
+	overflow:hidden;
+	float:left;
+	background:#48980d;
+	line-height:31px;
+	padding:0px 10px;
+	color:#fff;
+	font-size:12px;
+	}
+.SR_moduleRight{
+	height:31px;
+	width:200px;
+	float:right;
+	background:#fcfcfc;
+	line-height:31px;
+	font-size:12px;
+	}

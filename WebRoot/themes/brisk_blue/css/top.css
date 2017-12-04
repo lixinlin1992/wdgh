@@ -1,0 +1,115 @@
+/* .SR_headerBox样式 ---------Begin*/
+.SR_headerBox {
+	height: 64px;
+	width: 100%;
+	min-width: 1003px;
+	background: url(../images/header/header_bg.png) repeat-x;
+}
+.SR_headerBox .SR_headerLeft {
+	float: left;
+	overflow: hidden;
+}
+.SR_headerBox .SR_headerLeft .SR_logo {
+	background: url(../images/header/logo.png) no-repeat ;
+	width: 500px;
+	height: 64px;
+}
+
+
+.SR_headerBox .SR_headerRight {
+	float: right;
+	font-size: 13px;
+	color: #666;
+	line-height: 64px;
+	margin-right: 5px;
+	text-align: left;
+}
+.SR_headerBox .SR_headerRight table {
+	float: right;
+	font-size: 13px;
+	color: #666;
+	line-height: 64px;
+	margin-right: 5px;
+	text-align: left;
+	overflow: hidden;
+}
+.SR_headerBox .SR_headerRight a {
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+.SR_headerBox .SR_headerRight table tr td .topLink1 {
+	background-image: url(../images/header/icon_top_1_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	display: block;
+	height: 64px;
+	padding-left: 30px;
+	padding-right: 10px;
+	color: #fff;
+	background-color:transparent;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink1:hover {
+	background-image: url(../images/header/icon_top_1_2.png);
+	background-repeat: no-repeat;
+	color: #FFF;
+	background-color: #08739a;
+	background-position: 5px center;
+}
+
+.SR_headerBox .SR_headerRight table tr td .topLink2 {
+	background-image: url(../images/header/icon_top_2_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	display: block;
+	height: 64px;
+	padding-left: 30px;
+	padding-right: 10px;
+	color: #fff;
+	background-color:transparent;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink2:hover {
+	background-image: url(../images/header/icon_top_2_2.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	color: #FFF;
+	background-color: #08739a;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink3 {
+	background-image: url(../images/header/icon_top_3_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	display: block;
+	height: 64px;
+	padding-left: 30px;
+	padding-right: 10px;
+	color: #fff;
+	background-color:transparent;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink3:hover {
+	background-image: url(../images/header/icon_top_3_2.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	color: #FFF;
+	background-color: #08739a;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink4 {
+	background-image: url(../images/header/icon_top_4_1.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	display: block;
+	height: 64px;
+	padding-left: 30px;
+	padding-right: 10px;
+	color: #fff;
+	background-color:transparent;
+}
+.SR_headerBox .SR_headerRight table tr td .topLink4:hover {
+	background-image: url(../images/header/icon_top_4_2.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	color: #FFF;
+	background-color: #08739a;
+}
+/* .SR_headerBox样式 ---------End*/

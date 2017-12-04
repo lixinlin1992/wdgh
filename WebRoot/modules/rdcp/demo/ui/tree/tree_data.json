@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "text": "广东省",
+        "state": "open",
+        "type": "1",
+        "children": [
+            {
+                "id": 2,
+                "text": "天河区",
+                "state": "closed",
+                "type": "2"
+            },
+            {
+                "id": 3,
+                "text": "白云区",
+                "state": "closed",
+                "type": "2"
+            },
+            {
+                "id": 4,
+                "text": "海珠区",
+                "state": "closed",
+                "type": "2"
+            },
+            {
+                "id": 5,
+                "text": "越秀区",
+                "state": "closed",
+                "type": "2"
+            }
+        ]
+    }
+]

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+	<!-- 任务流程列表 -->
+	<query id="Q_PROCESS_MONITOR_LIST" type="pagelist" result="json">
+		<stmt>
+            <![CDATA[
+            select bpi.procinst_id,
+                  bpi.proc_def_id,
+                  arp.name_ proc_name,
+                  spu.name apply_user_name,
+                  bpi.start_time,
+                  bpi.end_time,
+                  decode(revoked.status,1,1,0) status --1:可以撤销 0：不可以撤销
+                from BPM_PROC_INST bpi,
+                  SYS_P_USER spu,
+                  act_re_procdef arp,
+                  (select proc_inst_id_  from act_hi_taskinst where  assignee_ = [_CurrUser.id] group by  proc_inst_id_) aht_ass,
+                  (select t.proc_inst_id_,decode(t.end_time_, null, 1,0) status
+                   from (select proc_inst_id_,count(1) over(partition by proc_inst_id_ order by null ) num,act_type_,end_time_ from  ACT_HI_ACTINST) t
+                   where t.num = 2
+                         and t.act_type_ = 'userTask'
+                         and t.END_TIME_ is null) revoked
+                where 1=1
+                      and aht_ass.proc_inst_id_ = bpi.procinst_id
+                      and spu.id = bpi.start_user_id
+                      and bpi.procinst_status in (1,2)
+                      and bpi.procinst_id = revoked.PROC_INST_ID_(+)
+                      and bpi.proc_def_id = arp.id_
+                order by bpi.start_time desc
+			]]>
+		</stmt>
+	</query>
+
+    <!--流程环节监控-->
+    <query id="Q_PROCESS_DETAIL_MONITOR_LIST" type="pagelist" result="json">
+        <stmt>
+            <![CDATA[
+                select bha.id,
+                    bha.act_name,
+                    bha.act_id,
+                    bha.proc_def_id,
+                    bha.pro_inst_id,
+                    s.start_time,
+                    e.end_time,
+                    s.duration,
+                    level
+                from bpm_his_act bha,
+                  (select bhat.act_inst_id,min(aht.start_time_) start_time ,sum(aht.duration_) duration
+                   from bpm_his_act_task bhat,
+                     act_hi_taskinst aht
+                   where aht.id_ = bhat.TASK_ID
+                   group by bhat.ACT_INST_ID) s,
+                    (select bhat.act_inst_id,max(aht.end_time_) end_time
+                     from bpm_his_act_task bhat,
+                       act_hi_taskinst aht
+                     where aht.id_ = bhat.TASK_ID
+                     group by bhat.ACT_INST_ID) e
+                  where bha.id = s.ACT_INST_ID
+                  and bha.id = e.ACT_INST_ID
+                  and bha.pro_inst_id = [proInstId]
+                start with bha.parent_id is null
+                connect by prior bha.id=bha.parent_id
+			]]>
+        </stmt>
+    </query>
+
+    <!--流程任务监控-->
+    <query id="Q_PROCESS_TASK_MONITOR_LIST" type="pagelist" result="ftl">
+        <stmt>
+            <![CDATA[
+                select aht.id_,
+                  spu.name deal_user,
+                  aht.start_time_,
+                  aht.end_time_,
+                  aht.duration_,
+                  aht.delete_reason_
+
+                from bpm_his_act_task bhat,
+                  act_hi_taskinst aht,
+                  sys_p_user spu
+                where bhat.act_inst_id = [actInstId]
+                  and aht.id_ = bhat.task_id
+                  and spu.id = aht.assignee_
+			]]>
+        </stmt>
+        <param name="ftl">template/bpm/monitor/T_PROCESS_TASK_MONITOR.ftl</param>
+    </query>
+</query-config>
