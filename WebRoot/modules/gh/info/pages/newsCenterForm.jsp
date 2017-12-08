@@ -44,6 +44,7 @@
                 <form id="newsCenterForm" name="newsCenterForm">
                     <textarea style="display:none;" id="content" name="content"></textarea>
                     <textarea style="display:none;" id="content_text" name="content_text"></textarea>
+                    <input type="hidden" id="type" name="type"/>
                     <table border="0">
                         <tr>
                             <td class="SR_searchTitle" style="width: 100px;">标题:</td>
@@ -51,13 +52,7 @@
                                 <input type="text" name="title" id="title" class="SR_pureInput" style="width: 280px;"/>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">信息类别:</td>
-                            <td>
-                                <select id="type" name="type">
-                                    <option value="">--请选择--</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
+                            <td id="type_td">
                             </td>
                             <td>
                        <input type="hidden" name="news_id" id="news_id"/>
@@ -96,8 +91,18 @@
         <div class="SR_moduleTitle">信息内容</div>
     </div>
     <div id="myEditor"></div>
-    <textarea id="editor_id" name="body" style="width:700px;height:300px;">
-</textarea>
+    <textarea id="editor_id" name="body" style="width:700px;height:300px;"></textarea>
+    <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">附件列表</div>
+    </div>
+    <div align="center">
+        <div class="SR_searchTableBox">
+            <div id="uploadDlg2">
+                <div id="uploader2"></div>
+                <input type="hidden" id="fileUrl2"/>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
@@ -205,7 +210,11 @@
     //rdcp.JS初始化
     rdcp.ready(function () {
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
-        getParamsByPaCode("type", "BI_NEWS_CENTER", "TYPE", function () {
+        rdcp.request('!comm/~query/Q_LOAD_PARAMS_FROM_PACODE?code_table=BI_NEWS_CENTER&code_field=TYPE',{}, function(data){
+            for(var i=1;i<data.length;i++) {
+                var html = "<input type='checkbox' name='news_type' value='"+data[i].id+"'/>"+data[i].text + "&nbsp;";
+                $("#type_td").append(html);
+            }
             if (option == "add") {
               rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_news_center_seq"},function(data){
                 news_id = data.body.seq;
@@ -217,9 +226,20 @@
                 //如果option为edit，则加载表单
                 rdcp.form.load("newsCenterForm", "!gh/info/~query/Q_GET_NEWS_CENTER_INFO", 'news_id=' + news_id, function (data) {
                     editor.insertHtml(data.body.content);
+                    var types = data.body.type.split(",");
+                    for(var i=0;i<types.length;i++){
+                        var obj = $('input[name="news_type"][value="'+types[i]+'"]:checkbox');
+                        obj.attr("checked","true");
+                    }
                     initUpload();
-                    if(data.body.file_ids!="")
-                      loadFiles(data.body.file_ids,data.body.file_names);
+                    if (data.body.file_ids != "") {
+                        //加载首页图片
+                        loadFiles(data.body.file_ids, data.body.file_names, "index_img");
+                    }
+                    if(data.body.attach_ids != ""){
+                      //加载附件列表
+                      loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                    }
                 });
             }
         });
@@ -230,15 +250,25 @@
           onSuccess: function (file) {
           }
       });
+      rdcp.uploader("uploader2", {busiId: news_id, busiType: "BI_NEWS_CENTER_ATTACH"}, {
+         onSuccess: function (file) {
+         }
+      });
     }
-    function loadFiles(file_ids,file_names){
+    function loadFiles(file_ids,file_names,type){
       var ids = file_ids.split(",");
       var names = file_names.split(",");
       for(var i=0;i<ids.length;i++){
         var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
-        "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>" +
-        "<img src='!service/file/~java/Downloader.get?type=thumb&id="+ids[i]+"'/></div></li>";
-        $("#uploader").find(".SR_uploadFileList ul").append(html);
+        "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
+        if(type == "index_img") {
+            html += "<img src='!service/file/~java/Downloader.get?type=thumb&id=" + ids[i] + "'/></div></li>";
+            $("#uploader").find(".SR_uploadFileList ul").append(html);
+        }
+        else if(type == "attach") {
+            html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+            $("#uploader2").find(".SR_uploadFileList ul").append(html);
+        }
       }
     }
     //提交方法
@@ -250,11 +280,16 @@
         var text = editor.text();
         $("#content_text").val(text);
         $("#content").val(content);
+        var types = "";
+        $('input[name="news_type"]:checked').each(function(){
+            types += types!=""?","+this.value:this.value;
+        });
+        $("#type").val(types);
         if (title == "" || title == null) {
-            $.messager.alert('提示', '请输入校园文化标题！', 'info');
+            $.messager.alert('提示', '请输入新闻标题！', 'info');
             return false;
         }
-        if (type == "" || type == null) {
+        if (types == "" || type == null) {
             $.messager.alert('提示', '请选择信息类别！', 'info');
             return false;
         }

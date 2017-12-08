@@ -6,10 +6,14 @@
         <stmt><![CDATA[
         with a as (
         select wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
-where busi_type='BI_NEWS_CENTER' and busi_id=[news_id])
+where busi_type='BI_NEWS_CENTER' and busi_id=[news_id]),
+        b as (
+        select wm_concat(to_char(id)) attach_ids,wm_concat(to_char(name)) attach_names from sys_file
+where busi_type='BI_NEWS_CENTER_ATTACH' and busi_id=[news_id]
+        )
             select id,title,type,content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,
-            a.file_ids,a.file_names
-            from bi_news_center,a
+            a.file_ids,a.file_names,b.attach_ids,b.attach_names
+            from bi_news_center,a,b
             where id=[news_id]
 		]]></stmt>
     </query>
