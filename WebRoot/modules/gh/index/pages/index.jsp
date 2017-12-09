@@ -11,12 +11,12 @@
 				<!--<a class="arrow-left" href="#"></a>-->
 				<!--<a class="arrow-right" href="#"></a>-->
 				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide"><img src="!gh/index/~/images/banner04.jpg"alt="banner" title="banner"/></div>
-						<div class="swiper-slide"><img src="!gh/index/~/images/banner.jpg" alt="banner" title="banner"/></div>
-						<div class="swiper-slide"><img src="!gh/index/~/images/banner02.jpg" alt="banner" title="banner"/></div>
-						<div class="swiper-slide"><img src="!gh/index/~/images/banner04.jpg" alt="banner" title="banner"/></div>
-						<div class="swiper-slide"><img src="!gh/index/~/images/banner.jpg" alt="banner" title="banner"/></div>
+					<div class="swiper-wrapper"   id="swiper_banner">
+
+						<%--<div class="swiper-slide"><img src="!gh/index/~/images/banner.jpg" alt="banner" title="banner"/></div>--%>
+						<%--<div class="swiper-slide"><img src="!gh/index/~/images/banner02.jpg" alt="banner" title="banner"/></div>--%>
+						<%--<div class="swiper-slide"><img src="!gh/index/~/images/banner04.jpg" alt="banner" title="banner"/></div>--%>
+						<%--<div class="swiper-slide"><img src="!gh/index/~/images/banner.jpg" alt="banner" title="banner"/></div>--%>
 					</div>
 				</div>
 				<div class="pagination"></div>
@@ -174,6 +174,7 @@
 <script type="text/javascript">
 var index = 1;
 var index2=1;
+var index_banner=1;
 var INDEX_DATA;
 var mySwiper4;
 rdcp.ready(function(data){
@@ -190,6 +191,17 @@ function loadNotice(){
   for(var i=0;i<INDEX_DATA.length;i++){
     var html = "";
     var t= INDEX_DATA[i];
+
+
+      if(t.DATA_TYPE=="BANNER" && t.SUB_TYPE=="-1"&&index_banner<5){
+          var ids = t.FILE_IDS.split(",");
+          var html = "<div class=\"swiper-slide\"> <img  alt=\"banner\" title=\"banner\" src='!service/file/~java/Downloader.get?id="+ids[0]+" '/></div>";
+          $("#swiper_banner").append(html);
+          index_banner++;
+      }
+
+
+
     if(t.DATA_TYPE=="BI_NOTICE"&&index2<5){
 		index2++;
        html = "<div class='swiper-slide'><a target='_blank' href='"+getSubUrl(t.DATA_TYPE,t.SUB_TYPE,t.ID)+"'>"+t.TITLE+"</a></div>";
