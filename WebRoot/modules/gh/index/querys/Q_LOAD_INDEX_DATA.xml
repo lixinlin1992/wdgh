@@ -29,6 +29,7 @@
 		join sys_p_department spd on bm.dept_id=spd.id and spd.id<>1
 		group by spd.name) a
 		order by cou desc)
+
 		union all
 		select t.* from (
 		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
@@ -39,6 +40,7 @@
 		where b.type=2
 		order by create_time desc) t
 		where rownum<=6
+
 		union all
 		select t.* from (
 		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
@@ -59,7 +61,15 @@
 		where b.type=1
 		order by create_time desc) t
 		where rownum<=6
+
+		union all
+		select t.* from (
+		select 'BANNER' data_type,to_char('-1') sub_type,-1 ID,
+		'' title,id file_ids,name file_names,'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		from SYS_FILE where BUSI_ID='WEB' AND BUSI_TYPE='WEB_INDEX_IMG') t
+
 		)
+
 		]]>
 		</stmt>
 		<param name="paging">false</param>
