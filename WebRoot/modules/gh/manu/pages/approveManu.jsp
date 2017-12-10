@@ -89,6 +89,10 @@
                             <td>新闻类型：</td>
                             <td id="type_td"></td>
                         </tr>
+                        <tr>
+                            <td>发布时间：</td>
+                            <td><input type="text" name="create_time" id="create_time"  class="easyui-datetimebox"/></td>
+                        </tr>
                     </table>
                 </form>
             </div>

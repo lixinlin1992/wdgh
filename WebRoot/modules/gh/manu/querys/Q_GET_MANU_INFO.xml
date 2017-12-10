@@ -11,7 +11,8 @@
                 select wm_concat(to_char(id)) attach_ids,wm_concat(to_char(name)) attach_names from sys_file
         where busi_type='BI_MANU_ATTACH' and busi_id=[manu_id]
                 )
-            select bm.company, bm.author_one, bm.author_two, bm.author_three, bm.content,spu.name name,bm.create_time,bm.content_text,
+            select bm.company, bm.author_one, bm.author_two, bm.author_three, bm.content,spu.name name,
+            to_char(bm.create_time,'yyyy-mm-dd hh24:mi:ss') create_time,bm.content_text,
             a.file_ids,a.file_names,b.attach_ids,b.attach_names
             from bi_manu bm
             left join sys_p_user spu on bm.job_num=spu.id
@@ -19,5 +20,6 @@
             left join b on 1=1
             where bm.id=[manu_id]
 		]]></stmt>
+        <param name="trans">true</param>
     </query>
 </query-config>

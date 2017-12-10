@@ -78,6 +78,7 @@ function publish(manu_id){
     $("#manu_id2").val(manu_id);
     rdcp.request("!gh/manu/~query/Q_GET_MANU_INFO", {'manu_id':manu_id}, function (data) {
         $("#title").val(data.body.company);
+        $('#create_time').datetimebox('setValue', data.body.create_time);
         rdcp.dialog(publishDlgOpts);
     });
 
