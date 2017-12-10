@@ -4,17 +4,17 @@
 	<query id="Q_NEWS_CENTER_LIST" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-				select bsc.id,bsc.title,spc.name type,view_times,spu.name create_user,bsc.create_time
+				select bsc.id,bsc.title,replace(replace(replace(bsc.type,'1','综合新闻'),'2','基层动态'),'3','新闻头条') type,view_times,spu.name create_user,bsc.create_time
 				from bi_news_center bsc
-				left join sys_pa_code spc on bsc.type=spc.code_num and spc.code_table='BI_NEWS_CENTER' and spc.code_field='TYPE'
 				left join sys_p_user spu on bsc.create_user=spu.id
-				where 1=1 order by create_time desc
+				where 1=1
 				<#if title??>
 				  and bsc.title [like(title)]
 				</#if>
 				<#if content??>
 				  and dbms_lob.instr(bsc.content, [content], 1, 1) > 0
 				</#if>
+				 order by create_time desc
 		]]>
 		</stmt>
 <param name="paging">true</param>

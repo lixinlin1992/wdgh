@@ -289,8 +289,8 @@
             $.messager.alert('提示', '请输入新闻标题！', 'info');
             return false;
         }
-        if (types == "" || type == null) {
-            $.messager.alert('提示', '请选择信息类别！', 'info');
+        if (types == "" || types == null) {
+            $.messager.alert('提示', '请选择新闻类别！', 'info');
             return false;
         }
         if (content == "" || content == null) {
