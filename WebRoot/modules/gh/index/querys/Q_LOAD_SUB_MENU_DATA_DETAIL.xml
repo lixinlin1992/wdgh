@@ -4,11 +4,22 @@
 	<query id="Q_LOAD_SUB_MENU_DATA_DETAIL" type="form_data" result="easyui">
 		<stmt>
 		<![CDATA[
-		select t.title,spc.name type,t.content,t.view_times,spu.name user_name,
-		to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		with files as (
+		select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+where busi_type='${code_table}_ATTACH' and busi_id='${id}'
+group by busi_type,busi_id)
+		select t.title,
+		<#if code_table='BI_NEWS_CENTER'>
+		  replace(replace(replace(t.type,'1','综合新闻'),'2','基层动态'),'3','新闻头条') type,
+		<#else>
+		  spc.name type,
+		</#if>
+		t.content,t.view_times,spu.name user_name,
+		to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,files.file_ids,files.file_names
 		from ${code_table} t
 		left join sys_pa_code spc on spc.code_table=[code_table] and spc.code_field='TYPE' and t.type=spc.code_num
 		left join sys_p_user spu on t.create_user=spu.id
+		left join files on to_char(t.id)=files.busi_id
 		where t.id=[id]
 		]]>
 		</stmt>

@@ -191,17 +191,14 @@ function loadNotice(){
   for(var i=0;i<INDEX_DATA.length;i++){
     var html = "";
     var t= INDEX_DATA[i];
-
-
-      if(t.DATA_TYPE=="BANNER" && t.SUB_TYPE=="-1"&&index_banner<5){
-          var ids = t.FILE_IDS.split(",");
-          var html = "<div class=\"swiper-slide\"> <img  alt=\"banner\" title=\"banner\" src='!service/file/~java/Downloader.get?id="+ids[0]+" '/></div>";
-          $("#swiper_banner").append(html);
-          index_banner++;
-      }
-
-
-
+	//加载滚动图片
+	if(t.DATA_TYPE=="BANNER" && t.SUB_TYPE=="-1"&&index_banner<5){
+	   var ids = t.FILE_IDS.split(",");
+	   var html = "<div class=\"swiper-slide\"> <img  alt=\"banner\" title=\"banner\" src='!service/file/~java/Downloader.get?id="+ids[0]+" '/></div>";
+	   $("#swiper_banner").append(html);
+	   index_banner++;
+	}
+	//加载通知公告
     if(t.DATA_TYPE=="BI_NOTICE"&&index2<5){
 		index2++;
        html = "<div class='swiper-slide'><a target='_blank' href='"+getSubUrl(t.DATA_TYPE,t.SUB_TYPE,t.ID)+"'>"+t.TITLE+"</a></div>";

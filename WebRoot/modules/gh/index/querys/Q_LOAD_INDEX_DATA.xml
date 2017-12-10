@@ -7,8 +7,7 @@
 		select * from (
 		with files as (
 		select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
-		where (busi_id!='newsId' and busi_type!='newsType')
-        group by busi_type,busi_id)
+        group by busi_type,busi_id having count(1)<10)
 		select t.* from (
 		select 'BI_NOTICE' data_type,to_char(type) sub_type,id,substr(title,0,19)||'...' title,'' file_ids,'' file_names,
 		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
@@ -32,33 +31,33 @@
 
 		union all
 		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		select 'BI_NEWS_CENTER' data_type,'2' sub_type,id,
 		substr(title,0,17)||'...' title,f.file_ids,f.file_names,
 		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
 		from bi_news_center b
 		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type=2
+		where b.type like '%2%'
 		order by create_time desc) t
 		where rownum<=6
 
 		union all
 		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		select 'BI_NEWS_CENTER' data_type,'3' sub_type,id,
 		substr(title,0,25) title,f.file_ids,f.file_names,
 		to_char(SUBSTR(b.content_text,0,40)) content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
 		from bi_news_center b
 		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type=3
+		where b.type like '%3%'
 		order by create_time desc) t
 		where rownum<=1
 		union all
 		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,to_char(type) sub_type,id,
+		select 'BI_NEWS_CENTER' data_type,'1' sub_type,id,
 		substr(title,0,11)||'...' title,f.file_ids,f.file_names,
 		to_char(SUBSTR(b.content_text,0,25))||'...' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
 		from bi_news_center b
 		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type=1
+		where b.type like '%1%'
 		order by create_time desc) t
 		where rownum<=6
 

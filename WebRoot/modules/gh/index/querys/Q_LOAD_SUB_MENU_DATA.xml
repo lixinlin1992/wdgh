@@ -21,6 +21,12 @@
 		  left join sys_p_department spd on bgi.dept=spd.id
 		  where type=[code_num]
 		  order by create_time desc
+		  <#elseif code_table=="BI_NEWS_CENTER">
+
+		    select bgi.id,bgi.title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+		  from ${code_table} bgi
+		  where type [like(code_num)]
+		  order by create_time desc
 
 		  <#else>
 		    select bgi.id,bgi.title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time

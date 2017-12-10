@@ -203,25 +203,35 @@ function changeCodeNum(codeTable,codeNum){
 function showDetail(id){
   var url = getUrl("detail");
   rdcp.request("!gh/index/~query/Q_ADD_VIEW_TIMES",{"code_table":code_table,"id":id},function(data){
-    rdcp.request(url,{"code_table":code_table,"id":id},function(data){
+    rdcp.request(url,{"code_table":code_table,"id":id},function(data) {
         $("#data_list").hide();
         $("#main").html("<ul id='movie_list' class='movielist'></ul>");
         $("#pages").hide();
         $("#content").show();
         var obj = data.body;
         var html = "";
-		html +="<h1>"+obj.title+"</h1>";
-		//修改视频在线页面展示 xyj 2017/8/5
-		if(code_table=="BI_ELECTRONIC_PHOTO" && code_num=="2"){
-			html += "<p class='g-article-data'>类别:"+obj.type+"&nbsp;&nbsp;&nbsp;&nbsp;发布人:"+obj.user_name+
-					"&nbsp;&nbsp;&nbsp;&nbsp;浏览次数:"+obj.view_times+"次&nbsp;&nbsp;&nbsp;&nbsp;发布时间:"+obj.create_time+"</p>";
-			html += "<div class='g-article-content' style='text-align: center;'>"+obj.content+"</div>";
-		}
-        else{
-			html += "<p class='g-article-data'>类别:"+obj.type+"&nbsp;&nbsp;&nbsp;&nbsp;发布人:"+obj.user_name+
-					"&nbsp;&nbsp;&nbsp;&nbsp;浏览次数:"+obj.view_times+"次&nbsp;&nbsp;&nbsp;&nbsp;发布时间:"+obj.create_time+"</p>";
-			html += "<div class='g-article-content'>"+obj.content+"</div>";
-		}
+        html += "<h1>" + obj.title + "</h1>";
+        //修改视频在线页面展示 xyj 2017/8/5
+        if (code_table == "BI_ELECTRONIC_PHOTO" && code_num == "2") {
+            html += "<p class='g-article-data'>类别:" + obj.type + "&nbsp;&nbsp;&nbsp;&nbsp;发布人:" + obj.user_name +
+            "&nbsp;&nbsp;&nbsp;&nbsp;浏览次数:" + obj.view_times + "次&nbsp;&nbsp;&nbsp;&nbsp;发布时间:" + obj.create_time + "</p>";
+            html += "<div class='g-article-content' style='text-align: center;'>" + obj.content + "</div>";
+        }
+        else {
+            html += "<p class='g-article-data'>类别:" + obj.type + "&nbsp;&nbsp;&nbsp;&nbsp;发布人:" + obj.user_name +
+            "&nbsp;&nbsp;&nbsp;&nbsp;浏览次数:" + obj.view_times + "次&nbsp;&nbsp;&nbsp;&nbsp;发布时间:" + obj.create_time + "</p>";
+            html += "<div class='g-article-content'>" + obj.content + "</div>";
+        }
+        if (data.body.file_ids != "") {
+            var file_ids = data.body.file_ids.split(",");
+            var file_names = data.body.file_names.split(",");
+            html += "<h3>附件列表</h3><table>";
+
+            for(var i=0;i<file_ids.length;i++){
+                html += "<tr><td><a href='!service/file/~java/Downloader.get?id="+file_ids[i]+"' target='_blank' style='text-decoration:underline;'>"+file_names[i]+"</a></td></tr>"
+            }
+            html += "</table>";
+        }
         $("#content").html(html);
       });
   });
