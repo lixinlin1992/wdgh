@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_MANU_TO_NEWS" type="batch" result="">
+        <stmt>
+            <![CDATA[
+            insert into bi_news_center(id,title,type,content,view_times,create_user,create_time,content_text,manu_id)
+            select [news_id],[title],[type],content,0,create_user,create_time,content_text,id
+            from bi_manu where id=[manu_id2];
+            insert into sys_file(id,busi_id,busi_type,name,path,thumb_path,type,status,creator_id,create_time)
+            select sys_guid(),[news_id],'BI_NEWS_CENTER',name,path,thumb_path,type,status,creator_id,sysdate
+            from sys_file
+            where busi_id=[manu_id2] and busi_type='BI_MANU';
+
+            insert into sys_file(id,busi_id,busi_type,name,path,thumb_path,type,status,creator_id,create_time)
+            select sys_guid(),[news_id],'BI_NEWS_CENTER_ATTACH',name,path,thumb_path,type,status,creator_id,sysdate
+            from sys_file
+            where busi_id=[manu_id2] and busi_type='BI_MANU_ATTACH'
+            ]]>
+        </stmt>
+        <processor name="set-value" type="before" seq="1" break="true">
+            <param name="var">news_id</param>
+            <param name="sql">
+                <![CDATA[
+                select bi_news_center_seq.nextval from dual
+                ]]></param>
+        </processor>
+    </query>
+</query-config>

@@ -73,6 +73,28 @@
         </div>
     </div>
 </div>
+<div id="publishDlg" style="display: none">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="publishForm" id="publishForm" onsubmit="return false;">
+                    <input type="hidden" id="manu_id2" name="manu_id2"/>
+                    <input type="hidden" id="type" name="type"/>
+                    <table>
+                        <tr>
+                            <td>新闻标题：</td>
+                            <td><input type="text" id="title" name="title"/></td>
+                        </tr>
+                        <tr>
+                            <td>新闻类型：</td>
+                            <td id="type_td"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
     $("#comment").hide();

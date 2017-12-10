@@ -14,10 +14,14 @@ var params = {
                 width: 180,
                 formatter: function (cell, row, index) {
                     var re = '<a class="btn_view" href="javascript:void(0);"  onclick="viewManu(\'' + row.ID + '\');">预览</a>';
-                    if(row.STATE==2||row.STATE==4){
-                        re=re+ '<a class="btn_edit" href="javascript:void(0);"  onclick="editManu(\'' + row.ID + '\');">修改</a>'
+                    var submit = '<a class="btn_commit" href="javascript:void(0);"  onclick="submitManu(\'' + row.ID + '\');">提交审核</a>';
+                    var del = '<a class="btn_delete" href="javascript:void(0);"  onclick="delManu(\'' + row.ID + '\');">删除</a>';
+                    if(row.STATE==-1||row.STATE==2||row.STATE==4){
+                        re=re+"&nbsp;"+submit+ '&nbsp;<a class="btn_edit" href="javascript:void(0);"  onclick="editManu(\'' + row.ID + '\');">修改</a>'
                     }
-                    /*var del = '<a class="btn_delete" href="javascript:void(0);"  onclick="delManu(\'' + row.ID + '\');">删除</a>';*/
+                    if(row.STATE==-1) {
+                        re += "&nbsp"+del;
+                    }
                     return re;
                 }
             },
@@ -25,6 +29,9 @@ var params = {
             {field: 'DEPT_NAME', title: '单位', sortable: false, align: 'center', width: 90},
             {field: 'STATE', title: '状态', sortable: false, align: 'center', width: 80,
                 formatter: function(value, row, index){
+                    if (value == -1) {
+                        return "新建"
+                    }
                     if (value == 0) {
                         return "已提交"
                     }
@@ -114,3 +121,13 @@ function delManu(manu_id) {
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }
 
+function submitManu(manu_id){
+    rdcp.request("!gh/manu/~query/Q_EXAMINEMANU",{"state":0,"remarks":"","manu_id":manu_id},function(data){
+        if (data.header.code == 0) {
+            $.messager.alert('提示', '提交审核成功！', 'info');
+            rdcp.grid.reload("listdt");
+        } else {
+            $.messager.alert('提示', '提交审核失败！', 'error');
+        }
+    });
+}

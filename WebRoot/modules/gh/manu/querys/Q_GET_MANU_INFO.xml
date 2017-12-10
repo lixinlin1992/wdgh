@@ -4,9 +4,19 @@
     <!-- 查找,编辑组织机构 -->
     <query id="Q_GET_MANU_INFO" type="form_data" result="json">
         <stmt><![CDATA[
-            select bm.company, bm.author_one, bm.author_two, bm.author_three, bm.content,spu.name name,bm.create_time
+            with a as (
+        select wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+        where busi_type='BI_MANU' and busi_id=[manu_id]),
+                b as (
+                select wm_concat(to_char(id)) attach_ids,wm_concat(to_char(name)) attach_names from sys_file
+        where busi_type='BI_MANU_ATTACH' and busi_id=[manu_id]
+                )
+            select bm.company, bm.author_one, bm.author_two, bm.author_three, bm.content,spu.name name,bm.create_time,bm.content_text,
+            a.file_ids,a.file_names,b.attach_ids,b.attach_names
             from bi_manu bm
             left join sys_p_user spu on bm.job_num=spu.id
+            left join a on 1=1
+            left join b on 1=1
             where bm.id=[manu_id]
 		]]></stmt>
     </query>

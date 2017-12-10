@@ -5,7 +5,7 @@
 		<stmt>
 			<![CDATA[
 				select bm.id,bm.company title,spd.name dept_name,state,remarks,author_one,author_two,
-				author_three,spu.name name,create_time
+				author_three,spu.name name,bm.create_time
 				from bi_manu bm
 				left join sys_p_user spu on bm.job_num=spu.id
 				left join sys_p_department spd on bm.dept_id=spd.id
@@ -16,6 +16,7 @@
 				<#if company??>
 				  and bm.company [like(company)]
 				</#if>
+				order by bm.create_time desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>

@@ -13,8 +13,15 @@ var params = {
                 align: 'center',
                 width: 100,
                 formatter: function (cell, row, index) {
-                    var del = '<a class="btn_view" href="javascript:void(0);"  onclick="viewManu(\'' + row.ID + '\');">预览</a>'+'<a class="btn_edit" href="javascript:void(0);"  onclick="approveManu(\'' + row.ID + '\');">审批</a>';
-                    return del;
+                    var del = '<a class="btn_view" href="javascript:void(0);"  onclick="viewManu(\'' + row.ID + '\');">预览</a>';
+                    var audit = '<a class="btn_edit" href="javascript:void(0);"  onclick="approveManu(\'' + row.ID + '\');">审批</a>';
+                    var publish = '<a class="btn_edit" href="javascript:void(0);"  onclick="publish(\'' + row.ID + '\');">发布新闻</a>';
+                    var html = del;
+                    if(row["STATE"]==1)
+                      html += "&nbsp;"+audit;
+                    else if(row["STATE"]==3)
+                      html += "&nbsp;"+publish;
+                    return html;
                 }
             },
             {field: 'DEPT_NAME', title: '单位', sortable: false, align: 'center', width: 100},
@@ -54,13 +61,27 @@ var params = {
 rdcp.ready(function () {
     //生成表格rdcp.grid(tableId,url,formName,表格参数)
     rdcp.grid('listdt', '!gh/manu/~query/Q_APPROVEMANU_LIST', "searchForm", params);
-
+    rdcp.request('!comm/~query/Q_LOAD_PARAMS_FROM_PACODE?code_table=BI_NEWS_CENTER&code_field=TYPE',{}, function(data) {
+        for (var i = 1; i < data.length; i++) {
+            var html = "<input type='checkbox' name='news_type' value='" + data[i].id + "'/>" + data[i].text + "&nbsp;";
+            $("#type_td").append(html);
+        }
+    });
 });
 function approveManu(manu_id) {
     $("#manu_id").val(manu_id);
     rdcp.dialog(dlgOpts);
 }
+//发布新闻
+function publish(manu_id){
+    document.publishForm.reset();
+    $("#manu_id2").val(manu_id);
+    rdcp.request("!gh/manu/~query/Q_GET_MANU_INFO", {'manu_id':manu_id}, function (data) {
+        $("#title").val(data.body.company);
+        rdcp.dialog(publishDlgOpts);
+    });
 
+}
 var dlgOpts = {
     title: "稿件审批",
     id: "dialog",
@@ -105,4 +126,61 @@ var dlgOpts = {
         }
     ]
 };
+
+var publishDlgOpts = {
+    title: "发布新闻",
+    id: "publishDlg",
+    width: "450",
+    height: "200",
+    parentwidth: true,
+    modal: true,
+    buttons: [
+        {
+            text: '确定',
+            handler: function () {
+                var title = $("#title").val();
+                var types = "";
+                $('input[name="news_type"]:checked').each(function(){
+                    types += types!=""?","+this.value:this.value;
+                });
+                $("#type").val(types);
+                if (title == "" || title == null) {
+                    $.messager.alert('提示', '请输入新闻标题！', 'info');
+                    return false;
+                }
+                if (types == "" || types == null) {
+                    $.messager.alert('提示', '请选择新闻类别！', 'info');
+                    return false;
+                }
+                rdcp.form.submit("publishForm", {url: "!gh/manu/~query/Q_MANU_TO_NEWS",
+                    success: function (data) {
+                        if (data.header.code == 0) {
+                            $("#publishDlg").dialog("close");
+                            $.messager.alert('提示', '新闻发布成功！', 'info');
+                        } else {
+                            $.messager.alert('提示', '新闻发布失败！', 'error');
+                        }
+                    }
+                });
+            }
+        },
+        {
+            text: '取消',
+            handler: function () {
+                $("#publishDlg").dialog("close");
+            }
+        }
+    ]
+};
+
+function viewManu(manu_id) {
+    //标签页ID
+    var tabId = "viewManu";
+    //标签页TILE
+    var title = "预览信息";
+    //标签页url
+    var url = "!gh/manu/~/pages/viewManu.jsp?manu_id=" + manu_id;
+    OpenTab(tabId, title, url);
+    //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
+}
 

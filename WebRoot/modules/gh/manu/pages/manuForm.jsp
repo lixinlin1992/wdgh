@@ -41,6 +41,8 @@
             <div class="barquerycontent">
                 <form id="manuForm" name="manuForm">
                     <textarea style="display:none;" id="content" name="content"></textarea>
+                    <textarea style="display:none" id="content_text" name="content_text"></textarea>
+                    <input type="hidden" id="manu_id" name="manu_id"/>
                     <table border="0">
                         <tr>
                             <td class="SR_searchTitle" style="width: 80px;">标题: </td>
@@ -59,9 +61,6 @@
                             <td  style="width: 180px;">
                                 <input type="text" name="author_three" id="author_three" class="SR_pureInput"/>
                             </td>
-                            <td>
-                                <input type="hidden" name="manu_id" id="manu_id"/>
-                            </td>
                         </tr>
 <!--                        <tr>
                             <td class="SR_searchTitle" style="width: 100px;">作者三:</td>
@@ -79,13 +78,34 @@
         </div>
     </div>
     <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">首页图片</div>
+    </div>
+    <div align="center">
+        <div class="SR_searchTableBox">
+            <div id="uploadDlg">
+                <div id="uploader"></div>
+                <input type="hidden" id="fileUrl"/>
+            </div>
+        </div>
+    </div>
+    <div class="SR_moduleBox">
         <div class="SR_moduleTitle">信息内容</div>
         <div class="SR_moduleRight">
         </div>
     </div>
     <div id="myEditor"></div>
-    <textarea id="editor_id" name="body" style="width:700px;height:300px;">
-</textarea>
+    <textarea id="editor_id" name="body" style="width:700px;height:300px;"></textarea>
+    <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">附件列表</div>
+    </div>
+    <div align="center">
+        <div class="SR_searchTableBox">
+            <div id="uploadDlg2">
+                <div id="uploader2"></div>
+                <input type="hidden" id="fileUrl2"/>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
@@ -94,10 +114,6 @@
         <a class="btn_cancel" href="javascript:void(0);"
            onclick="cancel()" title="">取消</a>
     </div>
-</div>
-<div id="uploadDlg">
-    <div id="uploader"></div>
-    <input type="hidden" id="fileUrl"/>
 </div>
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
@@ -126,14 +142,29 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_MANU", "TYPE", function () {
             if (option == "add") {
+                rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_manu_seq"},function(data){
+                    manu_id = data.body.seq;
+                    $("#manu_id").val(manu_id);
+                    initUpload();
+                });
             }
             else if (option == "edit") {
                 //如果option为edit，则加载表单
                 rdcp.form.load("manuForm", "!gh/manu/~query/Q_GET_MANU_INFO", 'manu_id=' + manu_id, function (data) {
                     editor.insertHtml(data.body.content);
+                    initUpload();
+                    if (data.body.file_ids != "") {
+                        //加载首页图片
+                        loadFiles(data.body.file_ids, data.body.file_names, "index_img");
+                    }
+                    if(data.body.attach_ids != ""){
+                        //加载附件列表
+                        loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                    }
                 });
             }
         });
+
     });
     //提交方法
     function sureBtn() {
@@ -141,6 +172,8 @@
         var company = $("#company").val();
         var author_one = $("#author_one").val();
         var content = editor.html();
+        var text = editor.text();
+        $("#content_text").val(text);
         $("#content").val(content);
         if (company == "" || company == null) {
             $.messager.alert('提示', '请输入标题！', 'info');
@@ -185,6 +218,32 @@
             CloseTab("editManu", "修改信息");
         }
 
+    }
+    function initUpload(){
+        rdcp.uploader("uploader", {busiId: manu_id, busiType: "BI_MANU"}, {
+            onSuccess: function (file) {
+            }
+        });
+        rdcp.uploader("uploader2", {busiId: manu_id, busiType: "BI_MANU_ATTACH"}, {
+            onSuccess: function (file) {
+            }
+        });
+    }
+    function loadFiles(file_ids,file_names,type){
+        var ids = file_ids.split(",");
+        var names = file_names.split(",");
+        for(var i=0;i<ids.length;i++){
+            var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                    "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
+            if(type == "index_img") {
+                html += "<img src='!service/file/~java/Downloader.get?type=thumb&id=" + ids[i] + "'/></div></li>";
+                $("#uploader").find(".SR_uploadFileList ul").append(html);
+            }
+            else if(type == "attach") {
+                html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+                $("#uploader2").find(".SR_uploadFileList ul").append(html);
+            }
+        }
     }
 </script>
 </html>

@@ -9,6 +9,7 @@
 				left join sys_p_user spu on bm.job_num=spu.id
 				left join sys_p_department spd on bm.dept_id=spd.id
 			    where bm.state = 0
+			    order by bm.create_time desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>

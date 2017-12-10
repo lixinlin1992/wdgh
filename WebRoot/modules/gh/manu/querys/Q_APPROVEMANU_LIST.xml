@@ -10,7 +10,7 @@
 				left join sys_p_user s on b.create_user=s.id
 				left join sys_p_department spd on b.dept_id=spd.id
 				where b.job_num = s.id
-				and b.state = 1
+				and b.state >= 1
 			]]>
 		</stmt>
 		<param name="paging">true</param>
