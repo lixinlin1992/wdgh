@@ -23,6 +23,7 @@
 				left join sys_file sf on sf.busi_type='BI_NOTICE' and sf.busi_id=to_char(bsc.id)
 				where bsc.type=2
 			  </#if>
+			  order by bsc.create_time desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>
