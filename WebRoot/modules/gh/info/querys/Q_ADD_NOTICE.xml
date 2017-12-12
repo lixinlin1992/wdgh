@@ -11,7 +11,7 @@
             </#if>
             <#if info_type="download">
             insert into bi_notice(id,title,view_times,create_user,create_time,type)
-            values([notice_id],[title],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'),2)
+            values([notice_id],[title],0,[var(RU.CUR_USER.id)],sysdate,2)
             </#if>
             ]]>
         </stmt>
