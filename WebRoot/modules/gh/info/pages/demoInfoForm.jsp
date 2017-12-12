@@ -74,6 +74,14 @@
             </div>
         </div>
     </div>
+
+    <div id="publicUploadDlg" style="display:none;">
+        <input type="hidden" id="publicBusiId"/>
+        <input type="hidden" id="publicBusiType"/>
+        <input type="hidden" id="publicDivId"/>
+        <div id="publicUploader"></div>
+    </div>
+
     <div class="SR_moduleBox">
         <div class="SR_moduleTitle">信息内容</div>
         <div class="SR_moduleRight">
@@ -82,6 +90,22 @@
     <div id="myEditor"></div>
     <textarea id="editor_id" name="body" style="width:700px;height:300px;">
 </textarea>
+    <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">附件列表</div>
+    </div>
+    <div align="center">
+
+                <div id="uploader2">
+                    <div id="uploadDlg2" class="SR_uploaderContainer">
+                        <div class="SR_uploadHeader">
+                            <div class="SR_uploaderSelector fileinput-button">
+                                <input id="uploader2Selector" name="file[]" type="file" class="file">
+                            </div>
+                        </div>
+                <input type="hidden" id="fileUrl2"/>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
@@ -98,6 +122,77 @@
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
 <script type="text/javascript">
+    var uploadDlgOpt =
+        {
+            title: "上传文件",
+            id: "publicUploadDlg",
+            width: "550",
+            height: "320",
+            modal: true,
+            buttons: [
+                {
+                    text: '确定',
+                    handler: function () {
+                        var busiId = $("#publicBusiId").val();
+                        var busiType = $("#publicBusiType").val();
+                        var divId = $("#publicDivId").val();
+                        publicShowFiles(busiId, busiType, divId);
+                        $("#publicUploadDlg").dialog("close");
+                    }
+                },
+                {
+                    text: '返回',
+                    handler: function () {
+                        $("#publicUploadDlg").dialog("close");
+                    }
+                }]
+        };
+    function publicUploadFile(busiId, busiType, divId) {
+        $("#publicUploader").html("");
+        $("#publicBusiId").val(busiId);
+        $("#publicBusiType").val(busiType);
+        $("#publicDivId").val(divId);
+        rdcp.uploader("publicUploader", {busiId: busiId, busiType: busiType}, {
+            onSuccess: function (file) {
+            }
+        });
+        rdcp.dialog(uploadDlgOpt);
+    }
+    function publicShowFiles(busiId, busiType, div_id) {
+        rdcp.request("!service/file/~query/Q_FILE_GET_FILE_LIST", {
+            "busiId": busiId,
+            "busiType": busiType
+        }, function (data) {
+            var files = data.body.rows;
+            $("#" + div_id).html("");
+            for (var i = 0; i < files.length; i++) {
+                var name = files[i].cell[3];
+                var id = files[i].cell[0];
+                var $TR = $("<TR>");
+                $TR.append();
+                $TR.append("<td>" + name + "</td>");
+                var html = "<tr id='file_" + id + "'>";
+                html += "<td>" + name + "</td>";
+                html = "<td><a href=\"javascript:void(0);\" onclick=\"publicDownloadFile('" + id + "');\" class=\"btn_leading_out\">下载</a>";
+                html += "<a href=\"javascript:void(0);\" class=\"btn_delete\" onclick=\"publicDelFile('" + id + "');\">删除</a></td></tr>";
+                $TR.append(html);
+                $("#" + div_id).append($TR);
+            }
+        });
+    }
+
+    function publicDownloadFile(id) {
+        var url = "!service/file/~java/Downloader.get?id=" + id;
+        window.open(url);
+    }
+
+    function publicDelFile(id) {
+        if (confirm("确定要删除文件吗？"))
+            rdcp.request("!service/file/~java/Uploader.del?id=" + id, {}, function () {
+                $("#file_" + id).remove();
+            });
+    }
+
     //获取操作类型 add or edit
     var option = "<%=option%>";
     //获取history_id
@@ -127,10 +222,31 @@
                 //如果option为edit，则加载表单
                 rdcp.form.load("demoInfoForm", "!gh/info/~query/Q_GET_DEMO_INFO", 'info_id=' + info_id, function (data) {
                     editor.insertHtml(data.body.content);
+                    initUpload();
+                    if(data.body.attach_ids != ""){
+                        //加载附件列表
+                        loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                    }
                 });
             }
         });
     });
+    function initUpload(){
+        rdcp.uploader("uploader", {busiId: info_id, busiType: "BI_DEMO_INFO"}, {
+            onSuccess: function (file) {
+            }
+        });
+        rdcp.uploader("uploader2", {busiId: info_id, busiType: "BI_DEMO_INFO_ATTACH"}, {
+            onSuccess: function (file) {
+            }
+        });
+    }
+    function loadFiles(file_ids,file_names,type){
+        if(type == "attach") {
+            html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+            $("#uploader2").find(".SR_uploadFileList ul").append(html);
+        }
+    }
     //提交方法
     function sureBtn() {
         //获取编辑器内容
