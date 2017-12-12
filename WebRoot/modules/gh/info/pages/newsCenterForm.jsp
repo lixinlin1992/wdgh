@@ -96,12 +96,8 @@
         <div class="SR_moduleTitle">附件列表</div>
     </div>
     <div align="center">
-
-                <div id="uploader2"></div>
-                <input type="hidden" id="fileUrl2"/>
-            </div>
-        </div>
-
+        <div id="uploader2"></div>
+        <input type="hidden" id="fileUrl2"/>
     </div>
 </div>
 <div>
@@ -116,6 +112,7 @@
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
 <script type="text/javascript">
+    //kineditor上传图片弹出框参数
     var uploadDlgOpt =
     {
         title: "上传文件",
@@ -141,6 +138,7 @@
                 }
             }]
     };
+    //kineditor上传图片方法
     function publicUploadFile(busiId, busiType, divId) {
         $("#publicUploader").html("");
         $("#publicBusiId").val(busiId);
@@ -152,6 +150,7 @@
         });
         rdcp.dialog(uploadDlgOpt);
     }
+    //kineditor展示图片方法
     function publicShowFiles(busiId, busiType, div_id) {
         rdcp.request("!service/file/~query/Q_FILE_GET_FILE_LIST", {
             "busiId": busiId,
@@ -174,12 +173,12 @@
             }
         });
     }
-
+    //kineditor下载文件方法
     function publicDownloadFile(id) {
         var url = "!service/file/~java/Downloader.get?id=" + id;
         window.open(url);
     }
-
+    //kineditor删除图片方法
     function publicDelFile(id) {
         if (confirm("确定要删除文件吗？"))
         rdcp.request("!service/file/~java/Uploader.del?id=" + id, {}, function () {
@@ -211,14 +210,18 @@
     rdcp.ready(function () {
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         rdcp.request('!comm/~query/Q_LOAD_PARAMS_FROM_PACODE?code_table=BI_NEWS_CENTER&code_field=TYPE',{}, function(data){
+            //加载新闻类型复选框
             for(var i=1;i<data.length;i++) {
                 var html = "<input type='checkbox' name='news_type' value='"+data[i].id+"'/>"+data[i].text + "&nbsp;";
                 $("#type_td").append(html);
             }
+            //添加新闻
             if (option == "add") {
+              //获取新闻id
               rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_news_center_seq"},function(data){
                 news_id = data.body.seq;
                 $("#news_id").val(news_id);
+                //初始化上传控件
                 initUpload();
               });
             }
@@ -227,6 +230,7 @@
                 rdcp.form.load("newsCenterForm", "!gh/info/~query/Q_GET_NEWS_CENTER_INFO", 'news_id=' + news_id, function (data) {
                     editor.insertHtml(data.body.content);
                     var types = data.body.type.split(",");
+                    //初始化新闻类型复选框
                     for(var i=0;i<types.length;i++){
                         var obj = $('input[name="news_type"][value="'+types[i]+'"]:checkbox');
                         obj.attr("checked","true");
@@ -245,26 +249,32 @@
         });
 
     });
+    //初始化上传控件
     function initUpload(){
+      //首页图片上传控件
       rdcp.uploader("uploader", {busiId: news_id, busiType: "BI_NEWS_CENTER"}, {
           onSuccess: function (file) {
           }
       });
+      //附件列表上传控件
       rdcp.uploader("uploader2", {busiId: news_id, busiType: "BI_NEWS_CENTER_ATTACH"}, {
          onSuccess: function (file) {
          }
       });
     }
+    ///加载附件
     function loadFiles(file_ids,file_names,type){
       var ids = file_ids.split(",");
       var names = file_names.split(",");
       for(var i=0;i<ids.length;i++){
         var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
         "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
+        //加载首页图片
         if(type == "index_img") {
             html += "<img src='!service/file/~java/Downloader.get?type=thumb&id=" + ids[i] + "'/></div></li>";
             $("#uploader").find(".SR_uploadFileList ul").append(html);
         }
+        //加载附件列表
         else if(type == "attach") {
             html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
             $("#uploader2").find(".SR_uploadFileList ul").append(html);
@@ -281,6 +291,7 @@
         $("#content_text").val(text);
         $("#content").val(content);
         var types = "";
+        //获取新闻类型
         $('input[name="news_type"]:checked').each(function(){
             types += types!=""?","+this.value:this.value;
         });
