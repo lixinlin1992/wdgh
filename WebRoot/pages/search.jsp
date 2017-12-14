@@ -17,7 +17,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=GB2312">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>武汉大学工会</title>
-    <link rel="shortcut icon" href="!property/index/~/images/logo_16.ico" type="image/x-icon" />
     <base href="<%=basePath%>">
     <script type="text/javascript" src="!rdcp/script/lib/jquery/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="!rdcp/script/src/rdcp.js"></script>
