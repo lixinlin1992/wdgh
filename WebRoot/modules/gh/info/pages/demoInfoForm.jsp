@@ -96,15 +96,15 @@
     <div align="center">
 
                 <div id="uploader2">
-                    <div id="uploadDlg2" class="SR_uploaderContainer">
-                        <div class="SR_uploadHeader">
-                            <div class="SR_uploaderSelector fileinput-button">
-                                <input id="uploader2Selector" name="file[]" type="file" class="file">
-                            </div>
-                        </div>
-                <input type="hidden" id="fileUrl2"/>
-            </div>
-        </div>
+                    <%--<div id="uploadDlg2" class="SR_uploaderContainer">--%>
+                        <%--<div class="SR_uploadHeader">--%>
+                            <%--<div class="SR_uploaderSelector fileinput-button">--%>
+                                <%--<input id="uploader2Selector" name="file[]" type="file" class="file">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                <%--<input type="hidden" id="fileUrl2"/>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 </div>
 <div>
@@ -118,6 +118,7 @@
 <div id="uploadDlg">
     <div id="uploader"></div>
     <input type="hidden" id="fileUrl"/>
+</div>
 </div>
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
@@ -217,6 +218,7 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_DEMO_INFO", "TYPE", function () {
             if (option == "add") {
+                initUpload();
             }
             else if (option == "edit") {
                 //如果option为edit，则加载表单
@@ -232,16 +234,17 @@
         });
     });
     function initUpload(){
-        rdcp.uploader("uploader", {busiId: info_id, busiType: "BI_DEMO_INFO"}, {
-            onSuccess: function (file) {
-            }
-        });
         rdcp.uploader("uploader2", {busiId: info_id, busiType: "BI_DEMO_INFO_ATTACH"}, {
             onSuccess: function (file) {
             }
         });
     }
     function loadFiles(file_ids,file_names,type){
+        var ids = file_ids.split(",");
+        var names = file_names.split(",");
+        for(var i=0;i<ids.length;i++){
+            var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
         if(type == "attach") {
             html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
             $("#uploader2").find(".SR_uploadFileList ul").append(html);
@@ -253,6 +256,8 @@
         var title = $("#title").val();
         var type = $("#type").val();
         var content = editor.html();
+        var text = editor.text();
+        $("#content_text").val(text);
         $("#content").val(content);
         if (title == "" || title == null) {
             $.messager.alert('提示', '请输入民主管理标题！', 'info');
@@ -297,6 +302,6 @@
             CloseTab("editDemoInfo", "修改信息");
         }
 
-    }
+    }}
 </script>
 </html>
