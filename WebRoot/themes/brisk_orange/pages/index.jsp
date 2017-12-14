@@ -22,7 +22,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="pages/images/favicon.ico" media="screen" />
     <title><%=ApplicationManager.getSystemName() %>
     </title>
-    <link rel="shortcut icon" href="pages/images/logo_16.ico" type="image/x-icon" />
     <r:include resource="!rdcp/~/pages/base.jsp"/>
 <!--
     <link href="themes/fire/css/common.css" rel="stylesheet" type="text/css"/>
