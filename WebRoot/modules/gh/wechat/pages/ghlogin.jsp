@@ -56,9 +56,9 @@
 	<div class="id_bth inersest_bth animated bounceIn" style="margin-top: 2rem;">
 		<a href="javascript:void(0);" onclick="loginsys(nextPage);">登 录</a>
 	</div>
-	<%--<div class="regTxt">
-        <p> <a href="password.html" class="puff_right">忘记密码</a></p>
-    </div>--%>
+	<div class="regTxt">
+        <p> 因统一入口的问题，本应用需进行登录认证，为此给您造成的不便，敬请谅解！</p>
+    </div>
 	</div>
 	</div>
 	</div>
