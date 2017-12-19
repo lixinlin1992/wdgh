@@ -72,6 +72,14 @@
     <div id="myEditor"></div>
     <textarea id="editor_id" name="body" style="width:700px;height:300px;">
 </textarea>
+    <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">附件列表</div>
+    </div>
+    <div align="center">
+        <div id="uploader2">
+            <input type="hidden" id="fileUrl2"/>
+        </div>
+    </div>
 </div>
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
@@ -109,15 +117,41 @@
     });
     //rdcp.JS初始化
     rdcp.ready(function () {
-        if (option == "add") {
-        }
-        else if (option == "edit") {
-            //如果option为edit，则加载表单
-            rdcp.form.load("schoolCultureForm", "!gh/info/~query/Q_GET_NOTICE_INFO", 'id=' + id, function (data) {
-                editor.insertHtml(data.body.content);
-            });
-        }
+        //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
+        getParamsByPaCode("type", "BI_DEMO_INFO", "TYPE", function () {
+            if (option == "add") {
+                initUpload();
+            }
+            else if (option == "edit") {
+                //如果option为edit，则加载表单
+                rdcp.form.load("noticeForm", "!gh/info/~query/Q_GET_NOTICE_INFO", 'id=' + id, function (data) {
+                    editor.insertHtml(data.body.content);
+                    initUpload();
+                    if(data.body.attach_ids != ""){
+                        //加载附件列表
+                        loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                    }
+                });
+            }
+        });
     });
+    function initUpload(){
+        rdcp.uploader("uploader2", {busiId: id, busiType: "BI_NOTICE_ATTACH"}, {
+            onSuccess: function (file) {
+            }
+        });
+    }
+    function loadFiles(file_ids,file_names,type){
+        var ids = file_ids.split(",");
+        var names = file_names.split(",");
+        for(var i=0;i<ids.length;i++){
+            var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
+            if(type == "attach") {
+                html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+                $("#uploader2").find(".SR_uploadFileList ul").append(html);
+            }
+        }}
     //提交方法
     function sureBtn() {
         //获取编辑器内容
@@ -134,7 +168,7 @@
             return false;
         }
         if (option == "add") {
-            rdcp.form.submit("schoolCultureForm", {
+            rdcp.form.submit("noticeForm", {
                 url: "!gh/info/~query/Q_ADD_NOTICE",
                 success: function (data) {
                     $.messager.alert('提示', '通知公告信息发布成功！', 'info',function () {
@@ -144,7 +178,7 @@
             }, {"mask": true});
         }
         else if (option == "edit"){
-            rdcp.form.submit("schoolCultureForm", {
+            rdcp.form.submit("noticeForm", {
                 url: "!gh/info/~query/Q_UPDATE_NOTICE" ,
                 success: function (data) {
                     $.messager.alert('提示', '通知公告信息修改成功！', 'info',function () {
