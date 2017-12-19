@@ -5,7 +5,7 @@
     <query id="Q_UPDATE_STAFF_SERVICE" type="update" result="">
         <stmt>
             <![CDATA[
-            update bi_staff_service set title=[title],type=[type],content=[content],create_time=to_date([date2],'YYYY-MM-DD HH24:MI:SS')
+            update bi_staff_service set title=[title],type=[type],content=[content],create_time=to_date([create_time],'YYYY-MM-DD HH24:MI:SS')
             where id=[id]
             ]]>
         </stmt>
