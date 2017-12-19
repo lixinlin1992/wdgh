@@ -7,10 +7,10 @@
 		select * from (
 		select t.*,rownum rn from (
 		select bnc.id,bnc.title,to_char(SUBSTR(bnc.content_text,0,40)) content,sf.id file_id,
-		'BI_NEWS_CENTER' code_table,bnc.type code_num,to_char(bnc.create_time,'mm-dd') create_time
+		'BI_NEWS_CENTER' code_table,1 code_num,to_char(bnc.create_time,'mm-dd') create_time
 		from bi_news_center bnc
 		left join sys_file sf on sf.busi_type='BI_NEWS_CENTER' and sf.busi_id=to_char(bnc.id)
-		where bnc.type=1
+		where bnc.type like '%1%'
 		order by bnc.create_time desc,sf.id desc) t)
 		where rn<=5
 
@@ -38,10 +38,10 @@
 		select * from (
 		select t.*,rownum rn from (
 		select bnc.id,bnc.title,to_char(SUBSTR(bnc.content_text,0,40)) content,sf.id file_id,
-		'BI_NEWS_CENTER' code_table,bnc.type code_num,to_char(bnc.create_time,'mm-dd') create_time
+		'BI_NEWS_CENTER' code_table,2 code_num,to_char(bnc.create_time,'mm-dd') create_time
 		from bi_news_center bnc
 		left join sys_file sf on sf.busi_type='BI_NEWS_CENTER' and sf.busi_id=to_char(bnc.id)
-		where bnc.type=2
+		where bnc.type like '%2%'
 		order by bnc.create_time desc,sf.id desc) t)
 		where rn<=5
 
