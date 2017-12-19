@@ -4,7 +4,13 @@
     <!-- 查找,编辑组织机构 -->
     <query id="Q_GET_DEMO_INFO" type="form_data" result="json">
         <stmt><![CDATA[
-            select id,title,type,content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time from bi_demo_info
+        with b as(
+        select wm_concat(to_char(id)) attach_ids,wm_concat(to_char(name)) attach_names from sys_file
+where busi_type='BI_DEMO_INFO_ATTACH' and busi_id=[info_id]
+)
+           select id,title,type,content,view_times,create_user,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time,
+            b.attach_ids,b.attach_names
+            from bi_demo_info,b
             where id=[info_id]
 		]]></stmt>
     </query>
