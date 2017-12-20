@@ -55,11 +55,13 @@
     </style>
 </head>
 <script type="text/javascript">
-var userName = "<%=userName%>"
+var userName = "<%=userName%>";
 var userAccount = "<%=userAccount%>";
 var is_member = <%=is_member%>;
 rdcp.ready(function(){
-  if(is_member)
+  if(userName=="null"||userAccount=="null")
+      window.location.href="!gh/wechat/~/pages/dbjz/login.jsp";
+  else if(!is_member)
     autoLogin();
   else{
     $("#dbjz_name").html(userName);

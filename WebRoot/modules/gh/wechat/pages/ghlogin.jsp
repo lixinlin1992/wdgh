@@ -57,6 +57,9 @@
 		<a href="javascript:void(0);" onclick="loginsys(nextPage);">登 录</a>
 	</div>
 	<div class="regTxt">
+		<p> 初始化密码：888888</p>
+	</div>
+	<div class="regTxt">
         <p> 因统一入口的问题，本应用需进行登录认证，为此给您造成的不便，敬请谅解！</p>
     </div>
 	</div>
