@@ -96,17 +96,12 @@
         <div class="SR_moduleTitle">附件列表</div>
     </div>
     <div align="center">
-<<<<<<< HEAD
         <div class="SR_searchTableBox">
             <div id="uploadDlg2">
                 <div id="uploader2"></div>
                 <input type="hidden" id="fileUrl2"/>
             </div>
         </div>
-=======
-        <div id="uploader2"></div>
-        <input type="hidden" id="fileUrl2"/>
->>>>>>> 1943061bf485b1b57e608daf10b718a88e262fce
     </div>
 </div>
 <div>

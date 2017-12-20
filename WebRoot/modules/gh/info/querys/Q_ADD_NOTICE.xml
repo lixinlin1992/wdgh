@@ -6,8 +6,8 @@
         <stmt>
             <![CDATA[
             <#if info_type="notice">
-            insert into bi_notice(id,title,content,view_times,create_user,create_time)
-            values(bi_notice_seq.nextval,[title],[content],0,[var(RU.CUR_USER.id)],sysdate)
+            insert into bi_notice(id,title,content,view_times,create_user,create_time,type)
+            values(bi_notice_seq.nextval,[title],[content],0,[var(RU.CUR_USER.id)],sysdate,1)
             </#if>
             <#if info_type="download">
             insert into bi_notice(id,title,view_times,create_user,create_time,type)

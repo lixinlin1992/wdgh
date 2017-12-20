@@ -8,7 +8,7 @@
 				select bsc.id,bsc.title,view_times,spu.name create_user,bsc.create_time
 				from bi_notice bsc
 				left join sys_p_user spu on bsc.create_user=spu.id
-				where 1=1 and bsc.type=1 order by create_time desc
+				where 1=1 and bsc.type=1
 				<#if title??>
 				  and bsc.title [like(title)]
 				</#if>

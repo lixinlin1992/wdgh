@@ -6,7 +6,7 @@
         <stmt>
             <![CDATA[
             insert into bi_demo_info(id,title,type,content,view_times,create_user,create_time)
-            values(bi_demo_info_seq.nextval,[title],[type],[content],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'))
+            values(${info_id},[title],[type],[content],0,[var(RU.CUR_USER.id)],to_date([create_time],'YYYY-MM-DD HH24:MI:SS'))
             ]]>
         </stmt>
     </query>

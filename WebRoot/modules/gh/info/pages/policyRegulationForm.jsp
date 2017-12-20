@@ -80,8 +80,15 @@
         </div>
     </div>
     <div id="myEditor"></div>
-    <textarea id="editor_id" name="body" style="width:700px;height:300px;">
-</textarea>
+    <textarea id="editor_id" name="body" style="width:700px;height:300px;"></textarea>
+
+    <div class="SR_moduleBox">
+        <div class="SR_moduleTitle">附件列表</div>
+    </div>
+    <div align="center">
+        <div id="uploader2"></div>
+    </div>
+
 </div>
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
@@ -122,15 +129,44 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_POLICY_REGULATION", "TYPE", function () {
             if (option == "add") {
+                rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_policy_regulation_seq"},function(data){
+                    id = data.body.seq;
+                    $("#id").val(id);
+                    //初始化上传控件
+                    initUpload();
+                });
             }
             else if (option == "edit") {
                 //如果option为edit，则加载表单
                 rdcp.form.load("schoolCultureForm", "!gh/info/~query/Q_GET_POLICY_REGULATION_INFO", 'id=' + id, function (data) {
+                    initUpload();
                     editor.insertHtml(data.body.content);
+                    if(data.body.attach_ids != ""){
+                        //加载附件列表
+                        loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                    }
                 });
             }
         });
     });
+    function initUpload(){
+        rdcp.uploader("uploader2", {busiId: id, busiType: "BI_POLICY_REGULATION_ATTACH"}, {
+            onSuccess: function (file) {
+            }
+        });
+    }
+    function loadFiles(file_ids,file_names,type) {
+        var ids = file_ids.split(",");
+        var names = file_names.split(",");
+        for (var i = 0; i < ids.length; i++) {
+            var html = "<li id='file_" + ids[i] + "' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                    "<div class='SR_imgName'><h2>" + names[i] + "</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('" + ids[i] + "')\"></div><div class='SR_uploadImg'>";
+            if (type == "attach") {
+                html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+                $("#uploader2").find(".SR_uploadFileList ul").append(html);
+            }
+        }
+    }
     //提交方法
     function sureBtn() {
         //获取编辑器内容

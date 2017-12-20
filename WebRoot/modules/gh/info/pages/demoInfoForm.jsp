@@ -88,26 +88,15 @@
         </div>
     </div>
     <div id="myEditor"></div>
-    <textarea id="editor_id" name="body" style="width:700px;height:300px;">
-</textarea>
+    <textarea id="editor_id" name="body" style="width:700px;height:300px;"></textarea>
+
     <div class="SR_moduleBox">
         <div class="SR_moduleTitle">附件列表</div>
     </div>
     <div align="center">
-
-                <div id="uploader2">
-                    <%--<div id="uploadDlg2" class="SR_uploaderContainer">--%>
-                        <%--<div class="SR_uploadHeader">--%>
-                            <%--<div class="SR_uploaderSelector fileinput-button">--%>
-                                <%--<input id="uploader2Selector" name="file[]" type="file" class="file">--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                <%--<input type="hidden" id="fileUrl2"/>--%>
-            <%--</div>--%>
-        <%--</div>--%>
+        <div id="uploader2"></div>
     </div>
-</div>
-<div>
+
     <div class="floatSmallBtn" style="width: 500px;" align="center">
         <a class="btn_commit" href="javascript:void(0);"
            onclick="sureBtn();" title="">提交</a>
@@ -218,7 +207,12 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_DEMO_INFO", "TYPE", function () {
             if (option == "add") {
-                initUpload();
+                rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_demo_info_seq"},function(data){
+                    info_id = data.body.seq;
+                    $("#info_id").val(info_id);
+                    //初始化上传控件
+                    initUpload();
+                });
             }
             else if (option == "edit") {
                 //如果option为edit，则加载表单
@@ -239,15 +233,16 @@
             }
         });
     }
-    function loadFiles(file_ids,file_names,type){
+    function loadFiles(file_ids,file_names,type) {
         var ids = file_ids.split(",");
         var names = file_names.split(",");
-        for(var i=0;i<ids.length;i++){
-            var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
-                "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
-        if(type == "attach") {
-            html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
-            $("#uploader2").find(".SR_uploadFileList ul").append(html);
+        for (var i = 0; i < ids.length; i++) {
+            var html = "<li id='file_" + ids[i] + "' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                    "<div class='SR_imgName'><h2>" + names[i] + "</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('" + ids[i] + "')\"></div><div class='SR_uploadImg'>";
+            if (type == "attach") {
+                html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
+                $("#uploader2").find(".SR_uploadFileList ul").append(html);
+            }
         }
     }
     //提交方法
@@ -302,6 +297,6 @@
             CloseTab("editDemoInfo", "修改信息");
         }
 
-    }}
+    }
 </script>
 </html>

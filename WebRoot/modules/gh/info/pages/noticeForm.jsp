@@ -41,7 +41,7 @@
         <!-- 搜索标头开始-->
         <div class="SR_searchTableBox">
             <div class="barquerycontent">
-                <form id="schoolCultureForm" name="schoolCultureForm">
+                <form id="noticeForm" name="noticeForm">
                     <textarea style="display:none;" id="content" name="content"></textarea>
                     <input type="hidden" name="info_type" value="notice"/>
                     <table border="0">
@@ -120,7 +120,12 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_DEMO_INFO", "TYPE", function () {
             if (option == "add") {
-                initUpload();
+                rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_notice_seq"},function(data){
+                    id = data.body.seq;
+                    $("#id").val(id);
+                    //初始化上传控件
+                    initUpload();
+                });
             }
             else if (option == "edit") {
                 //如果option为edit，则加载表单
