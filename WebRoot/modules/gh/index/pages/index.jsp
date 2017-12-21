@@ -101,7 +101,7 @@
 				<li class="item"><i class="cg"></i><a href="http://sjygh.whu.edu.cn/login.jsp" target="_blank">缘分天空</a></li>
 			</ul>
 			<div class="index-contact">
-				<a href=""><img src="!gh/index/~/images/ad1.jpg" style=" margin: 0 auto" alt=""></a>
+				<img src="!gh/index/~/images/ad1.jpg" style=" margin: 0 auto" alt=""></a>
 			</div>
 		</div>
 		<div class="index-fun-article border ml10">

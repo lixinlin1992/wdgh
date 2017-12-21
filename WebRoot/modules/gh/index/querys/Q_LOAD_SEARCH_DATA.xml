@@ -3,33 +3,33 @@
 <query-config>
 	<query id="Q_LOAD_SEARCH_DATA" type="pagelist" result="easyui">
 		<stmt>
-		<![CDATA[
+			<![CDATA[
         select code_table,id,title,sub_type,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time from (
-		select 'BI_STAFF_SERVICE' code_table,id,title,type sub_type,create_time,content
+		select 'BI_STAFF_SERVICE' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_STAFF_SERVICE
 		union all
-		select 'BI_NOTICE' code_table,id,title,type sub_type,create_time,content
+		select 'BI_NOTICE' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_NOTICE
 		union all
-		select 'BI_ELECTRONIC_PHOTO' code_table,id,title,type sub_type,create_time,content
+		select 'BI_ELECTRONIC_PHOTO' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_ELECTRONIC_PHOTO
 		union all
-		select 'BI_SCHOOL_CULTURE' code_table,id,title,type sub_type,create_time,content
+		select 'BI_SCHOOL_CULTURE' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_SCHOOL_CULTURE
 		union all
-		select 'BI_DEMO_INFO' code_table,id,title,type sub_type,create_time,content
+		select 'BI_DEMO_INFO' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_DEMO_INFO
 		union all
-		select 'BI_GH_INFO' code_table,id,title,type sub_type,create_time,content
+		select 'BI_GH_INFO' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_GH_INFO
 		union all
-		select 'BI_POLICY_REGULATION' code_table,id,title,type sub_type,create_time,content
+		select 'BI_POLICY_REGULATION' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_POLICY_REGULATION
 		union all
-		select 'BI_ADVANCED_PEOPLE' code_table,id,title,type sub_type,create_time,content
+		select 'BI_ADVANCED_PEOPLE' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_ADVANCED_PEOPLE
 		union all
-		select 'BI_NEWS_CENTER' code_table,id,title,type sub_type,create_time,content
+		select 'BI_NEWS_CENTER' code_table,id,title,to_char(type) sub_type,create_time,content
 		from BI_NEWS_CENTER)
 		where title like [key] or dbms_lob.instr(content, [key], 1, 1) > 0
 		order by create_time desc
