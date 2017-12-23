@@ -3186,6 +3186,26 @@ _extend(KCmd, {
 	insertimage : function(url, title, width, height, border, align) {
 		title = _undef(title, '');
 		border = _undef(border, 0);
+		var html = '<p align="center"><img src="' + _escape(url) + '" data-ke-src="' + _escape(url) + '" ';
+		if (width) {
+			html += 'width="' + _escape(width) + '" ';
+		}
+		if (height) {
+			html += 'height="' + _escape(height) + '" ';
+		}
+		if (title) {
+			html += 'title="' + _escape(title) + '" ';
+		}
+		if (align) {
+			html += 'align="' + _escape(align) + '" ';
+		}
+		html += 'alt="' + _escape(title) + '" ';
+		html += '/></p>';
+		return this.inserthtml(html);
+	},
+	editimage : function(url, title, width, height, border, align) {
+		title = _undef(title, '');
+		border = _undef(border, 0);
 		var html = '<img src="' + _escape(url) + '" data-ke-src="' + _escape(url) + '" ';
 		if (width) {
 			html += 'width="' + _escape(width) + '" ';
