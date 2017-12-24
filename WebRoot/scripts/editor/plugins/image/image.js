@@ -22,7 +22,7 @@ KindEditor.plugin('image', function(K) {
 			var height = image.attr("height");
 			var $container = $("body");
 			var html = "<div id=\"K_uploadDlg\" style=\"display:block;\"><div id=\"K_uploader\"></div><input type=\"hidden\" id=\"K_fileUrl\"/>" +
-				"<table><tr><td>标题：</td><td colspan=\"3\"><input type=\"text\" id=\"K_title\" style=\"width:300px;\"/></td></tr><tr><td>宽度：</td><td><input type=\"text\" id=\"K_width\" value=\"400\"/></td><td>高度：</td><td><input type=\"text\" id=\"K_height\" value=\"400\"/></td></tr></table></div>";
+				"<table><tr><td>标题：</td><td colspan=\"3\"><input type=\"text\" id=\"K_title\" style=\"width:300px;\"/></td></tr><tr><td>宽度：</td><td><input type=\"text\" id=\"K_width\" value=\"650\"/></td><td>高度：</td><td><input type=\"text\" id=\"K_height\" value=\"450\"/></td></tr></table></div>";
 			$("div#K_uploadDlg").remove();
 			$container.append(html);
 			rdcp.uploader("K_uploader", {busiId: "newsId", busiType: "newsType"}, {
@@ -115,7 +115,7 @@ KindEditor.plugin('image', function(K) {
 	var imgDlg = function() {
 		var $container = $("body");
 		var html = "<div id=\"K_uploadDlg\" style=\"display:block;\"><div id=\"K_uploader\"></div><input type=\"hidden\" id=\"K_fileUrl\"/>" +
-			"<table><tr><td>标题：</td><td colspan=\"3\"><input type=\"text\" id=\"K_title\" style=\"width:300px;\"/></td></tr><tr><td>宽度：</td><td><input type=\"text\" id=\"K_width\" value=\"400\"/></td><td>高度：</td><td><input type=\"text\" id=\"K_height\" value=\"400\"/></td></tr></table></div>";
+			"<table><tr><td>标题：</td><td colspan=\"3\"><input type=\"text\" id=\"K_title\" style=\"width:300px;\"/></td></tr><tr><td>宽度：</td><td><input type=\"text\" id=\"K_width\" value=\"650\"/></td><td>高度：</td><td><input type=\"text\" id=\"K_height\" value=\"450\"/></td></tr></table></div>";
 		$("div#K_uploadDlg").remove();
 		$container.append(html);
 		rdcp.uploader("K_uploader", {busiId: "newsId", busiType: "newsType"}, {
