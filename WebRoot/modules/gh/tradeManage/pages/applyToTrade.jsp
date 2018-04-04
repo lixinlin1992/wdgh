@@ -111,7 +111,7 @@
                         <td>
                             <input type="text" id="duties" name="duties" class="SR_pureInput"/>
                         </td>
-                        <td align="right" class="SR_inputTitle">所属工会:</td>
+                        <td align="right" class="SR_inputTitle">所属单位:</td>
                         <td>
                             <select id="dept_id" name="dept_id">
                                <option value="-1">--请选择--</option>
