@@ -17,11 +17,12 @@ function modOrg() {
         return;
     }
 
-    $("#_Parent_Select_Btn").attr("disabled","disabled");
-
+    // $("#_Parent_Select_Btn").attr("disabled","disabled");
+    $("#_Parent_Select_Btn").attr("disabled",false);
     rdcp.form.load("editOrgForm", "!org/dept/~query/Q_DEPT_INFO", 'id=' + rdcp.tree.getSelected("treeDemo").id,function(){
         rdcp.dialog(dlgOpts_edit);
     });
+
 
   /*  CORE.loadForm("DS_DEPARTMENT_DETAIL", "editOrgForm", {ruleId : "editService",data:"id=" + serviceid,loadComplete:function(){
         $("#dialog_edit").dialog(dlgOpts_edit);
