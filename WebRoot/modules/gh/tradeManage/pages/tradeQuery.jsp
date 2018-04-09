@@ -134,6 +134,7 @@
         columns: [
             [
                 {field: 'DEPT_NAME', title: '所属工会', sortable: false, align: 'center', width: 100},
+                {field: 'DEPT_NAME_2', title: '所属单位', sortable: false, align: 'center', width: 100},
                 {field: 'ACCOUNT', title: '工号', sortable: false, align: 'center', width: 60},
                 {field: 'NAME', title: '姓名', sortable: false, align: 'center', width: 60},
                 {field: 'SEX', title: '性别', sortable: false, align: 'center', width: 80},
