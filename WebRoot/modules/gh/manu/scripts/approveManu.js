@@ -14,11 +14,12 @@ var params = {
                 width: 100,
                 formatter: function (cell, row, index) {
                     var del = '<a class="btn_view" href="javascript:void(0);"  onclick="viewManu(\'' + row.ID + '\');">预览</a>';
-                    var audit = '<a class="btn_edit" href="javascript:void(0);"  onclick="approveManu(\'' + row.ID + '\');">审批</a>';
+                    var edit='<a class="btn_edit" href="javascript:void(0);"  onclick="editManu(\'' + row.ID + '\');">修改</a>';
+                    var audit = '<a class="btn_commit" href="javascript:void(0);"  onclick="approveManu(\'' + row.ID + '\');">审批</a>';
                     var publish = '<a class="btn_edit" href="javascript:void(0);"  onclick="publish(\'' + row.ID + '\');">发布新闻</a>';
                     var html = del;
                     if(row["STATE"]==1)
-                      html += "&nbsp;"+audit;
+                      html += edit+audit;
                     else if(row["STATE"]==3)
                       html += "&nbsp;"+publish;
                     return html;
@@ -173,7 +174,7 @@ var publishDlgOpts = {
         }
     ]
 };
-
+//预览稿件
 function viewManu(manu_id) {
     //标签页ID
     var tabId = "viewManu";
@@ -181,6 +182,17 @@ function viewManu(manu_id) {
     var title = "预览信息";
     //标签页url
     var url = "!gh/manu/~/pages/viewManu.jsp?manu_id=" + manu_id;
+    OpenTab(tabId, title, url);
+    //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
+}
+//修改稿件管理
+function editManu(manu_id) {
+    //标签页ID
+    var tabId = "editManu";
+    //标签页TILE
+    var title = "修改信息";
+    //标签页url
+    var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id;
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }

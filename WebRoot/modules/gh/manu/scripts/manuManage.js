@@ -17,10 +17,10 @@ var params = {
                     var submit = '<a class="btn_commit" href="javascript:void(0);"  onclick="submitManu(\'' + row.ID + '\');">提交审核</a>';
                     var del = '<a class="btn_delete" href="javascript:void(0);"  onclick="delManu(\'' + row.ID + '\');">删除</a>';
                     if(row.STATE==-1||row.STATE==2||row.STATE==4){
-                        re=re+"&nbsp;"+submit+ '&nbsp;<a class="btn_edit" href="javascript:void(0);"  onclick="editManu(\'' + row.ID + '\');">修改</a>'
+                        re=re+submit+'<a class="btn_edit" href="javascript:void(0);"  onclick="editManu(\'' + row.ID + '\');">修改</a>'
                     }
                     if(row.STATE==-1) {
-                        re += "&nbsp"+del;
+                        re +=del;
                     }
                     return re;
                 }
