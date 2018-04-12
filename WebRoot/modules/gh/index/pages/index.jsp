@@ -194,7 +194,7 @@ function loadNotice(){
 	//加载滚动图片
 	if(t.DATA_TYPE=="BANNER" && t.SUB_TYPE=="-1"&&index_banner<5){
 	   var ids = t.FILE_IDS.split(",");
-	   var html = "<div class=\"swiper-slide\"> <img  alt=\"banner\" title=\"banner\" src='!service/file/~java/Downloader.get?id="+ids[0]+" '/></div>";
+	   var html = "<div class=\"swiper-slide\"> <img  alt=\"banner\"  src='!service/file/~java/Downloader.get?id="+ids[0]+" '/></div>";
 	   $("#swiper_banner").append(html);
 	   index_banner++;
 	}
