@@ -99,7 +99,7 @@ function loadTzgg(obj){
       <div class="col-sm-12">
         <p class="page-header bb1">
           综合新闻 <small class="text-green text-uppercase">headline</small>
-          <a href="!gh/mobile/~/pages/subMenu.jsp?code_table=BI_NEWS_CENTER&code_num=1" class="pull-right text-grey font14"><span class="icon icon-more"></span> 更多</a>
+          <a href="!gh/mobile/~/pages/subMenu_zhxw.jsp?code_table=BI_NEWS_CENTER&code_num=1" class="pull-right text-grey font14"><span class="icon icon-more"></span> 更多</a>
         </p>
       </div>
       <div class="col-sm-6 col-md-4">
@@ -115,7 +115,7 @@ function loadTzgg(obj){
       <div class="col-sm-4">
         <p class="page-header bb1">
           基层动态 <small class="text-green text-uppercase">dynamics</small>
-          <a href="!gh/mobile/~/pages/subMenu.jsp?code_table=BI_NEWS_CENTER&code_num=2" class="pull-right text-grey font14"><span class="icon icon-more"></span> 更多</a>
+          <a href="!gh/mobile/~/pages/subMenu_jcdt.jsp?code_table=BI_NEWS_CENTER&code_num=2" class="pull-right text-grey font14"><span class="icon icon-more"></span> 更多</a>
 
 
         </p>
