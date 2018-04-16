@@ -11,6 +11,7 @@
 #重要说明，该配置文件在旧模块URL下可能不能正常工作
 
 #资源路径                                 显示名称            控制类型                依赖资源路径
+~/pages/manuManage.jsp                   稿件管理            1
 ~/pages/examineManu.jsp                  稿件审核            1
 ~/pages/approveManu.jsp                  稿件审批            1
 ~/pages/manuCount.jsp                    稿件统计            1

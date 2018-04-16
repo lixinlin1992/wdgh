@@ -10,4 +10,17 @@
 #
 #重要说明，该配置文件在旧模块URL下可能不能正常工作
 
-#资源路径                                                                           显示名称            控制类型                依赖资源路径
+#资源路径                         显示名称            控制类型                依赖资源路径
+~/pages/ghInfo.jsp               工会概况            1
+~/pages/demoInfo.jsp             民主管理            1
+~/pages/schoolCulture.jsp        文体天地            1
+~/pages/electronicPhoto.jsp      电子相册            1
+~/pages/advancedPeople.jsp       先进人物            1
+~/pages/policyRegulation.jsp     政策法规            1
+~/pages/newsCenter.jsp           新闻中心            1
+~/pages/infoDiffusion.jsp        教工服务信息        1
+~/pages/legalAid.jsp             法律援助            1
+~/pages/noticeManage.jsp         通知公告             1
+~/pages/downloadCenter.jsp       下载中心             1
+~/pages/menuManage.jsp           首页菜单管理          1
+~/pages/indexImgManage.jsp       首页图片管理          1
