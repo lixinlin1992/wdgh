@@ -248,7 +248,7 @@
             $.messager.confirm('确认退出', '确定要退出系统吗？', function (r) {
                 if (r) {
                     rdcp.request("DS_USER_LOGOUT", "", function () {
-                        document.location.href = "pages/login.jsp";
+                        document.location.href = "";
                     });
                 }
             });
