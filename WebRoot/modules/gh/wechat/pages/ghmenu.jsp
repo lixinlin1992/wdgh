@@ -56,7 +56,7 @@ User: Larry
                 </a>
             </div>
             <div class="list fl">
-                   <a href="http://ghta.whu.edu.cn/loginWechat">
+                   <a href="http://tian.whu.edu.cn/loginWechat">
                     <img src="!gh/wechat/~/img/ylh-icon3.png"/>
                     <p class="tit">提案系统</p>
                 </a>
