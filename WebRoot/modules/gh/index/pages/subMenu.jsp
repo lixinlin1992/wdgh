@@ -89,31 +89,32 @@ function loadCommonData() {
 		all_page += data.body.total % rows > 0 ? 1 : 0;
 		if (list != null && code_table == "BI_GH_INFO" && code_num == "1") {
 			showDetail(list[0].ID);
-		} else if (code_table == "BI_ADVANCED_PEOPLE" && code_num == "1") { //先进人物全国劳模改展示页面效果 by xyj
-			var w = {};
-			for (var i = 0; i < list.length; i++) {
-				var t = list[i];
-				var html = "";
-				var deptName = t.DEPT_NAME;
-				var id = t.ID;
-				var personName = t.TITLE;
-				if (!(deptName in w)) {
-					w[deptName] = {};
-				}
-				w[deptName][id] = personName;
-			}
-			for (var deptName in w) {
-				var personList = w[deptName];
-				html += '<div class="yuanxi-item"><p class="tit">' + deptName + '</p>';
-				for (var key in personList) {
-					if (personList.hasOwnProperty(key)) {
-						html += '<ul class="yuanxilist"><li class="f-l"><a href="javascript:void(0);" onclick=\"showDetail('+key+');\">'+personList[key]+'</a></li>';				}
-					}
-				html += '<li class="clear"></li></ul></div></div>';
-				html += '<i class="clear"></i>';
-			}
-			$("#data_list").append(html);
-		}
+        }
+// else if (code_table == "BI_ADVANCED_PEOPLE" && code_num == "1") { //先进人物全国劳模改展示页面效果 by xyj
+//			var w = {};
+//			for (var i = 0; i < list.length; i++) {
+//				var t = list[i];
+//				var html = "";
+//				var deptName = t.DEPT_NAME;
+//				var id = t.ID;
+//				var personName = t.TITLE;
+//				if (!(deptName in w)) {
+//					w[deptName] = {};
+//				}
+//				w[deptName][id] = personName;
+//			}
+//			for (var deptName in w) {
+//				var personList = w[deptName];
+//				html += '<div class="yuanxi-item"><p class="tit">' + deptName + '</p>';
+//				for (var key in personList) {
+//					if (personList.hasOwnProperty(key)) {
+//						html += '<ul class="yuanxilist"><li class="f-l"><a href="javascript:void(0);" onclick=\"showDetail('+key+');\">'+personList[key]+'</a></li>';				}
+//					}
+//				html += '<li class="clear"></li></ul></div></div>';
+//				html += '<i class="clear"></i>';
+//			}
+//			$("#data_list").append(html);
+//		}
 		else {
 			for (var i = 0; i < list.length; i++) {
 				var t = list[i];

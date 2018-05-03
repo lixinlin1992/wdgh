@@ -45,7 +45,10 @@
                     <textarea style="display:none;" id="content" name="content"></textarea>
                     <table border="0">
                         <tr>
-
+                            <td class="SR_searchTitle" style="width: 100px;">标题:</td>
+                            <td  style="width: 300px;">
+                                <input type="text" name="title" id="title" class="SR_pureInput"  style="width: 280px;"/>
+                            </td>
                             <td class="SR_searchTitle" style="width: 100px;">信息类别:</td>
                             <td>
                                 <select id="type" name="type" onchange="changePeopleType()">
@@ -65,27 +68,29 @@
                                   <input type="text" name="create_time" id="create_time"  class="easyui-datetimebox"/>
 
                             </td>
+
+
                         </tr>
 
                         <%--全国劳模增加字段年份 by xyj--%>
-                        <tr id="people_tr">
-                            <td id="people_tr1" class="SR_searchTitle" style="width: 100px;display:none;">人物姓名:</td>
-                            <td id="people_tr2" class="SR_searchTitle" style="width: 100px;">标题:</td>
-                            <td style="width: 300px;">
-                                <input type="text" name="title" id="title" class="SR_pureInput"  style="width: 280px;"/>
-                            </td>
-                        </tr>
-                        <tr id="people_tr3" style="display:none;">
-                            <td class="SR_searchTitle" style="width: 100px;">
-                                单位:
-                            </td>
-                            <td>
-                                <select id="dept_id" name="dept">
-                                    <option value="">--请选择--</option>
-                                </select>
-                            </td>
+                        <%--<tr id="people_tr">--%>
+                            <%--<td id="people_tr1" class="SR_searchTitle" style="width: 100px;display:none;">人物姓名:</td>--%>
+                            <%--<td id="people_tr2" class="SR_searchTitle" style="width: 100px;">标题:</td>--%>
+                            <%--<td style="width: 300px;">--%>
+                                <%--<input type="text" name="title" id="title" class="SR_pureInput"  style="width: 280px;"/>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
+                        <%--<tr id="people_tr3" style="display:none;">--%>
+                            <%--<td class="SR_searchTitle" style="width: 100px;">--%>
+                                <%--单位:--%>
+                            <%--</td>--%>
+                            <%--<td>--%>
+                                <%--<select id="dept_id" name="dept">--%>
+                                    <%--<option value="">--请选择--</option>--%>
+                                <%--</select>--%>
+                            <%--</td>--%>
 
-                        </tr>
+                        <%--</tr>--%>
 
 
                     </table>
@@ -155,21 +160,21 @@
             else if (option == "edit") {
                 //如果option为edit，则加载表单
                 rdcp.form.load("advancedPeopleForm", "!gh/info/~query/Q_GET_ADVANCED_PEOPLE", 'info_id=' + info_id, function (data) {
-                    changePeopleType();
+//                    changePeopleType();
                     editor.insertHtml(data.body.content);
                 });
             }
         });
     });
 
-    function changePeopleType() {  //当为全国劳模时，改变展示页面
-        var type = $("#type").val();
-        if(type=="1"){  //全国劳模
-            $("#people_tr2").remove();
-            $("#people_tr1").show();
-            $("#people_tr3").show();
-        }
-    }
+//    function changePeopleType() {  //当为全国劳模时，改变展示页面
+//        var type = $("#type").val();
+//        if(type=="1"){  //全国劳模
+//            $("#people_tr2").remove();
+//            $("#people_tr1").show();
+//            $("#people_tr3").show();
+//        }
+//    }
 
     //提交方法
     function sureBtn() {
@@ -185,10 +190,10 @@
         }
 
         if(type=="1"){ //全国劳模
-            if(dept==""||dept==null){
-                $.messager.alert('提示', '请填写人物所在单位！', 'info');
-                return false;
-            }
+//            if(dept==""||dept==null){
+//                $.messager.alert('提示', '请填写人物所在单位！', 'info');
+//                return false;
+//            }
             if (title == "" || title == null) {
                 $.messager.alert('提示', '请输入全国劳模姓名！', 'info');
                 return false;
