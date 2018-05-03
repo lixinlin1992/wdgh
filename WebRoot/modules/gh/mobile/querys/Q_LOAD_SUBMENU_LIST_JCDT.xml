@@ -4,7 +4,7 @@
 	<query id="Q_LOAD_SUBMENU_LIST_JCDT" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-		select id,substr(title,0,20)||'....' title,type,[header_title] header_title from ${code_table}
+		select id,substr(title,0,20)||'....' title,type,[header_title] header_title from ${code_table} where type=[code_num]
 
 		]]>
 			<!--[header_title]应该是下面的这段sql语句-->
