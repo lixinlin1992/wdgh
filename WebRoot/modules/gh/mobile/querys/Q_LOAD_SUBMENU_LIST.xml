@@ -4,8 +4,8 @@
 	<query id="Q_LOAD_SUBMENU_LIST" type="pagelist" result="easyui">
 		<stmt>
 		<![CDATA[
-		select id,substr(title,0,20)||'....' title,type,[header_title] header_title from ${code_table}
-		where type=${code_num}
+		select id,substr(title,0,20)||'....' title,type,[header_title] header_title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time from ${code_table} where type=${code_num}
+order by create_time asc
 		]]>
 		</stmt>
 		<param name="paging">true</param>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <query-config>
 	<query id="Q_LOAD_SUBMENU_LIST_JCDT" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-		select id,substr(title,0,20)||'....' title,type,[header_title] header_title from ${code_table} where type=[code_num]
-
+		select id,substr(title,0,20)||'....' title,type,[header_title] header_title,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time from ${code_table} where type=[code_num]
+order by create_time asc
 		]]>
 			<!--[header_title]应该是下面的这段sql语句-->
 		</stmt>
