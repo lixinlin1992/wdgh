@@ -45,7 +45,7 @@
                   var html = "<li><div class='col-xs-12 col-sm-6 col-md-6'>";
                   html += "<a href='!gh/mobile/~/pages/detail.jsp?code_table="+code_table+"&detail_id="+list[i].ID+"' class='c46693'>"+list[i].TITLE+"</a>";
                   html += "</div></li>";
-                  $("#detail_list").prepend(html);
+                  $("#detail_list").append(html);
               }
               loadFooter();
           });
