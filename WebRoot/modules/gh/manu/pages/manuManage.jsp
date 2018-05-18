@@ -75,7 +75,7 @@ To change this template use File | Settings | File Templates.
 
     <!-- 电表查询列表 -->
     <div class="SR_tableContentBox">
-        <table id="listdt"></table>
+        <table id="menu_list"></table>
     </div>
 </div>
 </body>

@@ -192,6 +192,7 @@
                 url: "!gh/manu/~query/Q_ADD_MANU",
                 success: function (data) {
                     $.messager.alert('提示', '稿件信息发布成功！', 'info',function () {
+                        parent.refreshGrid();
                         cancel();
                     });
                 }
@@ -203,6 +204,7 @@
                 url: "!gh/manu/~query/Q_UPDATE_MANU" ,
                 success: function (data) {
                     $.messager.alert('提示', '稿件信息修改成功！', 'info',function () {
+                        parent.refreshGrid();
                         cancel();
                     });
                 }

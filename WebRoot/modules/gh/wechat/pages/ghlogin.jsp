@@ -33,6 +33,8 @@
 </head>
 <%
 	String nextPage = ((String)request.getParameter("page") == null)?"ghmenu":(String)request.getParameter("page") ;
+	session.setAttribute("nextPage",nextPage);
+	String nextPage = session.getAttribute("nextPage");
 %>
 
 <script type="text/javascript">
