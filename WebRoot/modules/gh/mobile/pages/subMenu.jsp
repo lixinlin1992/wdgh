@@ -25,20 +25,48 @@
     <script type="text/javascript">
       var code_table = "<%=code_table%>";
       var code_num = "<%=code_num%>";
-      var rows = 13;
-      var page = 1;
+      //总页数
+      var all_page;
+      //当前页
+      var this_page = 1;
+      //每页记录数
+      var rows = 15;
       rdcp.ready(function(){
-        rdcp.request("!gh/mobile/~query/Q_LOAD_SUBMENU_LIST",{"code_table":code_table,"code_num":code_num,"rows":rows,"page":page},function(data){
-          var rows = data.body.rows;
-          $("#header_title").append(rows[0].HEADER_TITLE);
-          for(var i=0;i<rows.length;i++){
-            var html = "<li><div class='col-xs-12 col-sm-6 col-md-6'>";
-            html += "<a href='!gh/mobile/~/pages/detail.jsp?code_table="+code_table+"&detail_id="+rows[i].ID+"' class='c46693'>"+rows[i].TITLE+"</a>";
-            html += "</div></li>";
-            $("#detail_list").prepend(html);
-          }
-        });
+          loadData();
       },rdcp.defaultLoadModules3);
+      function loadData(){
+          rdcp.request("!gh/mobile/~query/Q_LOAD_SUBMENU_LIST",{"code_table":code_table,"code_num":code_num,"rows":rows,"page":this_page},function(data){
+              var list = data.body.rows;
+              all_page = parseInt(data.body.total/rows);
+              all_page += data.body.total%rows>0?1:0;
+              $("#header_title").html(list[0].HEADER_TITLE);
+              $("#detail_list").html("");
+              for(var i=0;i<list.length;i++){
+                  var html = "<li><div class='col-xs-12 col-sm-6 col-md-6'>";
+                  html += "<a href='!gh/mobile/~/pages/detail.jsp?code_table="+code_table+"&detail_id="+list[i].ID+"' class='c46693'>"+list[i].TITLE+"</a>";
+                  html += "</div></li>";
+                  $("#detail_list").prepend(html);
+              }
+              loadFooter();
+          });
+      }
+      function loadFooter(){
+          var html = "";
+          html += "<a href='javascript:void(0);' onclick=\"toPage("+(this_page-1)+")\">上一页</a>"
+          for(var i=1;i<=all_page;i++){
+              html += "<a href='javascript:void(0);' onclick=\"toPage("+i+")\">"+i+"</a>";
+          }
+          html += "<a href='javascript:void(0);' onclick=\"toPage("+(this_page+1)+")\">下一页</a>";
+          html += "共<span class='red'>" + this_page+"/"+all_page + "</span>页";
+          $("#pages").html(html);
+      }
+      //跳转到某页
+      function toPage(page){
+          if(page<1 || page>all_page)
+              return;
+          this_page = page;
+          loadData();
+      }
     </script>
 </head>
 <body style="margin:0;padding:1">
@@ -53,6 +81,7 @@
              <div class="panel-body">
                 <ul class="article" id="detail_list">
                 </ul>
+                 <div class="g-page" id="pages"></div>
              </div>
            </div>
          </div>
