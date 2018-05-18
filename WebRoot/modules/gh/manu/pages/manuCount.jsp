@@ -26,8 +26,8 @@ To change this template use File | Settings | File Templates.
     <div class="SR_moduleBox">
         <div class="SR_moduleTitle">稿件统计</div>
         <div class="SR_moduleRight">
-            <a class="btn_exp_excel" href="javascript:void(0);"
-               onclick="exportExcel()" title="导出投稿情况为Excel文件">导出</a>
+            <a class="btn_exp_excel" href="javascript:void(0);" onclick="exportExcel1()" title="导出投稿统计为Excel文件">导出投稿统计</a>
+            <a class="btn_exp_excel" href="javascript:void(0);" onclick="exportExcel2()" title="导出投稿明细为Excel文件">导出投稿明细</a>
         </div>
     </div>
     <!--标题和一些页面功能的工具条End-->
@@ -49,31 +49,18 @@ To change this template use File | Settings | File Templates.
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
-                                年份:
+                                起始时间:
                             </td>
                             <td>
-                                <input type="text" id="urgency" name="urgency" onfocus="WdatePicker({dateFmt : 'yyyy'})"
-                                       class="Wdate" readonly="" style="height:18px;margin-top: 5px">
+                                <input type="text" id="start_date" name="start_date" onfocus="WdatePicker({dateFmt : 'yyyyMMdd'})"
+                                       class="Wdate" readonly="">
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
-                                月份:
+                                截止时间:
                             </td>
                             <td>
-                                <select id="month" name="month"  style="width: 180px;height:20px;margin-top: 5px" onchange="checkYear()" n>
-                                    <option value="">--请选择--</option>
-                                    <option value="01">01月</option>
-                                    <option value="02">02月</option>
-                                    <option value="03">03月</option>
-                                    <option value="04">04月</option>
-                                    <option value="05">05月</option>
-                                    <option value="06">06月</option>
-                                    <option value="07">07月</option>
-                                    <option value="08">08月</option>
-                                    <option value="09">09月</option>
-                                    <option value="10">10月</option>
-                                    <option value="11">11月</option>
-                                    <option value="12">12月</option>
-                                </select>
+                                <input type="text" id="end_date" name="end_date" onfocus="WdatePicker({dateFmt : 'yyyyMMdd'})"
+                                       class="Wdate" readonly="">
                                 <a class="SR_moduleSearch"
                                    onmouseover="this.className='SR_moduleSearchHover';"
                                    onMouseOut="this.className='SR_moduleSearch'"
@@ -106,20 +93,13 @@ function checkYear(){
     }
 }
 function queryCount(){
-    var month=$("#month").val();
-    if(month==null||month.length==0){
-        rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST2', "searchForm", params);
-    }else{
-        rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST', "searchForm", params);
-    }
+    rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST', "searchForm", params);
 }
-function exportExcel(){
-    var month=$("#month").val();
-    if(month==null||month.length==0){
-        rdcp.goto('!gh/manu/~query/Q_MANUCOUNT_LIST2',{params:'result=excel&fileName=投稿情况导出',form:'searchForm'});
-    }else{
-        rdcp.goto('!gh/manu/~query/Q_MANUCOUNT_LIST',{params:'result=excel&fileName=投稿情况导出',form:'searchForm'});
-    }
+function exportExcel1(){
+    rdcp.goto('!gh/manu/~query/Q_MANUCOUNT_LIST',{params:'result=excel&fileName=投稿统计导出',form:'searchForm'});
+}
+function exportExcel2(){
+    rdcp.goto('!gh/manu/~query/Q_MANUCOUNT_LIST2',{params:'result=excel&fileName=投稿明细导出',form:'searchForm'});
 }
 </script>
 </html>

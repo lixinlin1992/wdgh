@@ -3,23 +3,27 @@
 <query-config>
 	<query id="Q_MANUCOUNT_LIST2" type="pagelist" result="easyui">
 		<stmt>
-			<![CDATA[
-				SELECT spd.name company,TO_CHAR(create_time,'YYYY') month,COUNT(*) count
-				FROM bi_manu bm
-				left join sys_p_department spd on bm.dept_id=spd.id
-				where 1=1
-				<#if dept_id??>
-				  and spd.id = [dept_id]
-				</#if>
-				<#if urgency??>
-				  and TO_CHAR(create_time,'YYYY') = [urgency]
-				</#if>
-				group by spd.name, TO_CHAR(create_time,'YYYY')
-			]]>
+		<![CDATA[
+			select nvl(spd.name,'无单位') dept_name,bm.company,author_one,author_two,author_three,spu.name,spu.account,to_char(bm.create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+			from bi_manu bm
+			left join sys_p_department spd on bm.dept_id=spd.id
+			left join sys_p_user spu on bm.create_user=spu.id
+			where 1=1
+			<#if dept_id??>
+			  and bm.dept_id=[dept_id]
+			</#if>
+			<#if start_date??>
+			  and to_char(bm.create_time,'yyyymmdd')>=[start_date]
+			</#if>
+			<#if end_date??>
+			  and to_char(bm.create_time,'yyyymmdd')>=[end_date]
+			</#if>
+			order by bm.dept_id
+		]]>
 		</stmt>
 		<param name="paging">true</param>
-		<param name="exp-cols">company,month,count</param>
-		<param name="exp-names">单位,月份,投稿数</param>
-		<param name="exp-file">投稿情况</param>
+		<param name="exp-cols">dept_name,company,author_one,author_two,author_three,name,account,create_time</param>
+		<param name="exp-names">单位,稿件标题,作者一,作者二,作者三,投稿人姓名,投稿人工号,投稿时间</param>
+		<param name="exp-file">投稿明细</param>
 	</query>
 </query-config>
