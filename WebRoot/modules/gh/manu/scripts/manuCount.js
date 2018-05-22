@@ -6,7 +6,6 @@ var params = {
     columns: [
         [
             {field: 'COMPANY', title: '单位', sortable: false, align: 'center', width: 100},
-            {field: 'MONTH', title: '时间', sortable: false, align: 'center', width: 100},
             {field: 'COUNT', title: '投稿数', sortable: false, align: 'center', width: 80}
         ]
     ]
@@ -18,17 +17,12 @@ var params = {
 rdcp.ready(function () {
     //生成表格rdcp.grid(tableId,url,formName,表格参数)
     rdcp.request("!gh/manu/~query/Q_LOAD_DEPT_LIST",{},function(data) {
-     var p = data.body.rows;
-     for (var i = 0; i < data.body.rows.length; i++) {
-     var html = "<option value='" + data.body.rows[i].ID+ "'>" + data.body.rows[i].NAME+ "</option>";
-     $("#dept_id").append(html);
-     }
+         var p = data.body.rows;
+         for (var i = 0; i < data.body.rows.length; i++) {
+             var html = "<option value='" + data.body.rows[i].ID+ "'>" + data.body.rows[i].NAME+ "</option>";
+             $("#dept_id").append(html);
+         }
      });
-    var month=$("#month").val();
-    if(month==null||month.length==0){
-        rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST2', "searchForm", params);
-    }else{
-        rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST', "searchForm", params);
-    }
+    rdcp.grid('listdt', '!gh/manu/~query/Q_MANUCOUNT_LIST', "searchForm", params);
 });
 
