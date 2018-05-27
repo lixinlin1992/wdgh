@@ -193,7 +193,14 @@ function editManu(manu_id) {
     var title = "修改信息";
     //标签页url
     var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id;
+    $(document).on("click",".SR_uploaderDel",function(){
+        publicDelFile(manu_id);
+    })
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }
-
+function publicDelFile(id){
+    rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
+        $("#file_"+id).remove();
+    });
+}

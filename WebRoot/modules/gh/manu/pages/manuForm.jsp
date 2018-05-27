@@ -247,5 +247,10 @@
             }
         }
     }
+    function publicDelFile(id){
+        rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
+            $("#file_"+id).remove();
+        });
+    }
 </script>
 </html>
