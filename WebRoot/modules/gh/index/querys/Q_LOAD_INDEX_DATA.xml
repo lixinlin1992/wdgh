@@ -26,6 +26,8 @@
 		(select * from (
 		select spd.name,count(1) cou from bi_manu bm
 		join sys_p_department spd on bm.dept_id=spd.id and spd.id<>1
+		where to_char(bm.create_time,'yyyymm')>=to_char(add_months(sysdate,-12),'yyyymm')
+		and to_char(bm.create_time,'yyyymm')<=to_char(sysdate,'yyyymm')
 		group by spd.name) a
 		order by cou desc)
 

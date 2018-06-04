@@ -9,6 +9,7 @@
 		(select * from (
 		select spd.name,count(1) cou from bi_manu bm
 		left join sys_p_department spd on bm.dept_id=spd.id
+		where spd.id!=1 and spd.id is not null
 		group by spd.name) a
 		order by cou asc)
 

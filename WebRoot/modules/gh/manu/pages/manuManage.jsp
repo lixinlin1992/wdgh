@@ -60,10 +60,12 @@ To change this template use File | Settings | File Templates.
                                     <option value="3">通过审批</option>
                                     <option value="4">未通过审批</option>
                                 </select>
+                            </td>
+                            <td>
                                 <a class="SR_moduleSearch"
                                    onmouseover="this.className='SR_moduleSearchHover';"
                                    onMouseOut="this.className='SR_moduleSearch'"
-                                   onclick="rdcp.grid.reload('listdt');return false;"></a>
+                                   onclick="rdcp.grid.reload('menu_list');return false;"></a>
                             </td>
                         </tr>
                     </table>
@@ -71,11 +73,12 @@ To change this template use File | Settings | File Templates.
             </form>
         </div>
     </div>
+
     <!-- 搜索表头结束 -->
 
     <!-- 电表查询列表 -->
     <div class="SR_tableContentBox">
-        <table id="listdt"></table>
+        <table id="menu_list"></table>
     </div>
 </div>
 </body>

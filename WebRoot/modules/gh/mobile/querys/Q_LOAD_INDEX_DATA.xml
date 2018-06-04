@@ -11,7 +11,7 @@
 		from bi_news_center bnc
 		left join sys_file sf on sf.busi_type='BI_NEWS_CENTER' and sf.busi_id=to_char(bnc.id)
 		where bnc.type like '%1%'
-		order by bnc.create_time desc,sf.id desc) t)
+		order by bnc.create_time desc) t)
 		where rn<=5
 
 		union all
@@ -27,10 +27,10 @@
 		select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
         group by busi_type,busi_id)
 		select t.* from (
-		select id,substr(title,0,19)||'...' title,'' content,'' file_ids,'BI_NOTICE' code_table,-1,to_char(bi_notice.create_time,'mm-dd') create_time,rownum rn
-		from bi_notice
+		select id,substr(title,0,19)||'...' title,'' content,'' file_ids,'BI_NOTICE' code_table,-1,to_char(bn.create_time,'mm-dd') create_time,rownum rn
+		from bi_notice bn
 		where type=1
-		order by create_time desc) t
+		order by bn.create_time desc) t
 		where rownum<=5
 		)
 
@@ -50,6 +50,9 @@
 		(select * from (
 		select spd.name,count(1) cou from bi_manu bm
 		left join sys_p_department spd on bm.dept_id=spd.id
+		where to_char(bm.create_time,'yyyymm')>=to_char(add_months(sysdate,-12),'yyyymm')
+		and to_char(bm.create_time,'yyyymm')<=to_char(sysdate,'yyyymm')
+		and spd.id!=1 and spd.id is not null
 		group by spd.name) a
 		order by cou desc)
 		]]>

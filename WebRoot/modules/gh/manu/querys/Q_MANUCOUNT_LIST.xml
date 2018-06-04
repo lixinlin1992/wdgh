@@ -4,25 +4,25 @@
 	<query id="Q_MANUCOUNT_LIST" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-				SELECT spd.name company,TO_CHAR(create_time,'YYYY-MM') month,COUNT(*) count
+				SELECT nvl(spd.name,'无单位') company,COUNT(*) count
 				FROM bi_manu bm
 				left join sys_p_department spd on bm.dept_id=spd.id
 				where 1=1
 				<#if dept_id??>
 				  and spd.id = [dept_id]
 				</#if>
-				<#if urgency??>
-				  and TO_CHAR(create_time,'YYYY') = [urgency]
+				<#if start_date??>
+				  and TO_CHAR(create_time,'yyyymmdd') >= [start_date]
 				</#if>
-				<#if month??>
-				  and TO_CHAR(create_time,'MM') = [month]
+				<#if end_date??>
+				  and TO_CHAR(create_time,'yyyymmdd') <= [end_date]
 				</#if>
-				group by spd.name, TO_CHAR(create_time,'YYYY-MM')
+				group by nvl(spd.name,'无单位')
 			]]>
 		</stmt>
 		<param name="paging">true</param>
-		<param name="exp-cols">company,month,count</param>
-		<param name="exp-names">单位,月份,投稿数</param>
-		<param name="exp-file">投稿情况</param>
+		<param name="exp-cols">company,count</param>
+		<param name="exp-names">单位,投稿数</param>
+		<param name="exp-file">投稿统计</param>
 	</query>
 </query-config>

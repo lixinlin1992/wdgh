@@ -192,6 +192,7 @@
                 url: "!gh/manu/~query/Q_ADD_MANU",
                 success: function (data) {
                     $.messager.alert('提示', '稿件信息发布成功！', 'info',function () {
+                        parent.refreshGrid();
                         cancel();
                     });
                 }
@@ -203,6 +204,7 @@
                 url: "!gh/manu/~query/Q_UPDATE_MANU" ,
                 success: function (data) {
                     $.messager.alert('提示', '稿件信息修改成功！', 'info',function () {
+                        parent.refreshGrid();
                         cancel();
                     });
                 }
@@ -244,6 +246,11 @@
                 $("#uploader2").find(".SR_uploadFileList ul").append(html);
             }
         }
+    }
+    function publicDelFile(id){
+        rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
+            $("#file_"+id).remove();
+        });
     }
 </script>
 </html>

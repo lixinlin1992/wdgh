@@ -70,7 +70,7 @@ rdcp.ready(function () {
             $("#dept_id").append(html);
         }
     });*/
-    rdcp.grid('listdt', '!gh/manu/~query/Q_MANU_LIST', "searchForm", params);
+    rdcp.grid('menu_list', '!gh/manu/~query/Q_MANU_LIST', "searchForm", params);
 
 });
 //添加稿件管理方法
@@ -114,7 +114,7 @@ function delManu(manu_id) {
             if (yesBtn) {
                 rdcp.request("!gh/manu/~query/Q_DEL_MANU", "manu_id=" + manu_id, function (data) {
                     $.messager.alert('提示', "删除成功！", 'info');
-                    rdcp.grid.reload('listdt');
+                    rdcp.grid.reload('menu_list');
                 });
             }
         });
@@ -125,9 +125,13 @@ function submitManu(manu_id){
     rdcp.request("!gh/manu/~query/Q_EXAMINEMANU",{"state":0,"remarks":"","manu_id":manu_id},function(data){
         if (data.header.code == 0) {
             $.messager.alert('提示', '提交审核成功！', 'info');
-            rdcp.grid.reload("listdt");
+            rdcp.grid.reload("menu_list");
         } else {
             $.messager.alert('提示', '提交审核失败！', 'error');
         }
     });
+}
+
+parent.refreshGrid = function(){
+    rdcp.grid.reload("menu_list");
 }
