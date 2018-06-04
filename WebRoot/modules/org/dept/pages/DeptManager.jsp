@@ -21,6 +21,9 @@
             <div class="SR_moduleRight">
                 <a class="btn_add" href="javascript:void(0);" onclick="addOrgMan();" title="添加新的部门">添加</a>
                 <a class="btn_edit" href="javascript:void(0);" onclick="modOrg();" title="修改选中的部门">修改</a>
+                <a class="btn_edit" href="javascript:void(0);" onclick="delOrg();" title="修改选中的部门">删除</a>
+                <%--<a class="btn_edit" href="javascript:void(0);" onclick="delOrg();" title="删除选中的部门">删除</a>--%>
+
             </div>
         </div>
 

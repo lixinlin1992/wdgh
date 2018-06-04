@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!--修改部门-->
+    <query id="Q_DEPT_DELETE" type="update" result="">
+        <stmt>
+            <![CDATA[
+             <#if id?exists>
+                DELETE  FROM SYS_P_DEPARTMENT WHERE ID=[id long]
+                </#if>
+            ]]>
+        </stmt>
+        <processor name="check-count" type="before" seq="1" break="true">
+            <param name="count-sql">
+                <![CDATA[
+                SELECT COUNT(1) FROM SYS_P_USER u  where u.DEPT_ID=[id long]  and u.DEPT_ID in
+                    (select dep_tree.id from
+                         (select ia.id,ia.name,ia.dept_type from SYS_P_DEPARTMENT ia start with ia.id=1 connect by prior ia.id=ia.parent_id) dep_tree
+                     )
+
+                ]]></param>
+            <param name="exp-count">0</param>
+            <param name="break-message"><![CDATA[部门/公司 [${name}] 下尚有用户没有删除，请删除相关用户信息，再删除！]]></param>
+        </processor>
+        <param name="trans">true</param>
+    </query>
+</query-config>
