@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_AUDIT_APPLY_2" type="batch" result="easyui">
+        <stmt>
+            <![CDATA[
+            update bi_trade_apply set account=[account],name=[name],sex=[sex],birthday=to_date([birthday],'yyyy-mm-dd'),political_status=[political_status],nation=[nation],
+  email=[email],card_type=[card_type],card_no=[card_no],qualifications=[qualifications],degree=[degree],post=[post],duties=[duties],memo=[memo],dept_id=[dept_id],tele_phone=[tele_phone],
+  apply_time=sysdate,apply_user=${_CurrUser.id},apply_status=1,apply_type=[apply_type]
+  where apply_id=[apply_id];
+        ]]>
+        </stmt>
+
+
+
+    </query>
+</query-config>
