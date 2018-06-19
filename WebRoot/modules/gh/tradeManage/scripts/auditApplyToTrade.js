@@ -1,4 +1,7 @@
 //审核稿件列表参数--start
+
+
+
 var params = {
     fitColumns: true,
     rownumbers:true,
@@ -13,7 +16,9 @@ var params = {
                 align: 'center',
                 width: 100,
                 formatter: function (cell, row, index) {
-                    var del = '<a class="btn_view" href="javascript:void(0);"  onclick="view(\'' + row.APPLY_ID + '\');">预览</a>'+'<a class="btn_edit" href="javascript:void(0);"  onclick="examine(\'' + row.APPLY_ID + '\');">审核</a>';
+                    var del = '<a class="btn_view" href="javascript:void(0);"  onclick="view(\'' + row.APPLY_ID + '\');">预览</a>'
+                        +'<a class="btn_edit" href="javascript:void(0);"  onclick="examine(\'' + row.APPLY_ID + '\');">审核</a>'
+                    +'<a class="btn_edit" href="javascript:void(0);"  onclick="edit(\'' + row.APPLY_ID + '\');">修改</a>';
                     return del;
                 }
             },
@@ -35,6 +40,8 @@ var params = {
 rdcp.ready(function () {
     rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
         var p = data.body;
+        // var account = "<%=account%>";
+        // $("#account").text(p.account);  //add by ly
         var deptId=p.dept_id;
         $("#user_dept_id").val(p.dept_id);
         if(deptId==null||deptId.length==0){
@@ -56,6 +63,16 @@ function view(apply_id) {
     var url = "!gh/tradeManage/~/pages/userTradeInfo.jsp?option=viewAdd&apply_id=" + apply_id;
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
+}
+
+/*--modified by ly--*/
+function edit(apply_id) {
+
+    var tabId = "editTradeInfo";
+    var title = "修改入会申请";
+    var url = "!gh/tradeManage/~/pages/applyToTrade2.jsp?option=edit&apply_id=" + apply_id;
+    OpenTab(tabId, title, url);
+
 }
 function examine(apply_id) {
     $("#apply_id").val(apply_id);
