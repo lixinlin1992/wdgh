@@ -91,10 +91,17 @@
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
-                                会员类型:
+                                编制类型:
                             </td>
                             <td>
-                                <input type="text" name="leaguer_type" class="inputText"  style="width: 120px;"/>
+                                <select id="leaguer_type" name="leaguer_type" style="width: 120px;height:20px">
+                                    <option value="">--请选择--</option>
+                                    <option value="1">--编制人员--</option>
+                                    <option value="2">--非编制人员--</option>
+                                    <option value="3">--类型3--</option>
+                                    <option value="4">--类型4--</option>
+                                    <option value="5">--类型5--</option>
+                                </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
                             </td>
@@ -137,9 +144,9 @@
                 {field: 'DEPT_NAME_2', title: '所属单位', sortable: false, align: 'center', width: 100},
                 {field: 'ACCOUNT', title: '工号', sortable: false, align: 'center', width: 60},
                 {field: 'NAME', title: '姓名', sortable: false, align: 'center', width: 60},
-                {field: 'SEX', title: '性别', sortable: false, align: 'center', width: 80},
-                {field: 'CARD_NO', title: '证件号', sortable: false, align: 'center', width: 80},
-                {field: 'LEAGUER_TYPE', title: '会员类型', sortable: false, align: 'center', width: 50},
+                {field: 'SEX', title: '性别', sortable: false, align: 'center', width: 40},
+                {field: 'CARD_NO', title: '证件号', sortable: false, align: 'center', width: 100},
+                {field: 'LEAGUER_TYPE', title: '编制类型', sortable: false, align: 'center', width: 70},
                 {field: 'TRADE_STATUS', title: '会籍状态', sortable: false, align: 'center', width: 80},
                 {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
                 {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60}
