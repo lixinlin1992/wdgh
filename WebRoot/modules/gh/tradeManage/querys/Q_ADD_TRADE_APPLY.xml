@@ -6,10 +6,10 @@
         <stmt>
             <![CDATA[
         insert into bi_trade_apply(apply_id,account,name,sex,birthday,political_status,nation,email,card_type,card_no,
-        qualifications,degree,post,duties,memo,dept_id,tele_phone,apply_time,apply_user,apply_status,apply_type)
+        qualifications,degree,post,duties,memo,dept_id,tele_phone,apply_time,apply_user,apply_status,apply_type,leaguer_type)
         values([apply_id],[account],[name],[sex],to_date([birthday],'yyyy-mm-dd'),
         [political_status],[nation],[email],[card_type],[card_no],[qualifications],[degree],[post],
-        [duties],[memo],[dept_id],[tele_phone],sysdate,${_CurrUser.id},1,[apply_type]);
+        [duties],[memo],[dept_id],[tele_phone],sysdate,${_CurrUser.id},1,[apply_type],[leaguer_type]);
         insert into bi_audit_record(audit_id,flow_code,object_id,audit_time,audit_user)
         values(bi_audit_record_seq.nextval,'trade_apply',[apply_id],sysdate,${_CurrUser.id})
             ]]>

@@ -14,9 +14,9 @@
         <#if apply_status=='2'&&audit_result=='1'>
           <#if trade_status==-1>
             insert into bi_trade_info(account,name,sex,birthday,political_status,nation,email,card_type,card_no,
-            qualifications,degree,post,duties,memo,dept_id,tele_phone,trade_status,intrade_date)
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,trade_status,intrade_date,leaguer_type)
             select account,name,sex,birthday,political_status,nation,email,card_type,card_no,
-            qualifications,degree,post,duties,memo,dept_id,tele_phone,1,sysdate
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,1,sysdate,leaguer_type
             from bi_trade_apply where apply_id=[apply_id];
           <#elseif trade_status==0>
             update bi_trade_info set trade_status=1,intrade_date=sysdate where account=(select account from bi_trade_apply

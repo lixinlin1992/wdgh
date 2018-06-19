@@ -133,9 +133,16 @@
                         <td>
                             <input type="text" id="leaguer_no" name="leaguer_no" class="SR_pureInput" style="width:200px"/>
                         </td>
-                        <td align="right" class="SR_inputTitle" style="width:100px">会员类型:</td>
+                        <td align="right" class="SR_inputTitle" style="width:100px">编制类型:</td>
                         <td>
-                            <input type="text" id="leaguer_type" name="leaguer_type" class="SR_pureInput" style="width:200px"/>
+                            <select id="leaguer_type" name="leaguer_type" style="width: 200px">
+                                <option value="-1">--请选择--</option>
+                                <option value="1">--编制人员--</option>
+                                <option value="2">--非编制人员--</option>
+                                <option value="3">--类型3--</option>
+                                <option value="4">--类型4--</option>
+                                <option value="5">--类型5--</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

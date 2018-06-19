@@ -5,8 +5,8 @@
     <query id="Q_APPLY_QUIT_TRADE" type="batch" result="easyui">
         <stmt>
             <![CDATA[
-          insert into bi_trade_apply(apply_id,account,name,sex,card_no,tele_phone,dept_id,email,apply_time,apply_user,apply_status,apply_type,reason)
-          values([apply_id],[user_account],[user_name],[sex],[card_no],[tele_phone],[dept_id],[email],sysdate,${_CurrUser.id},1,2,[reason]);
+          insert into bi_trade_apply(apply_id,account,name,sex,card_no,tele_phone,dept_id,email,apply_time,apply_user,apply_status,apply_type,reason，leaguer_type)
+          values([apply_id],[user_account],[user_name],[sex],[card_no],[tele_phone],[dept_id],[email],sysdate,${_CurrUser.id},1,2,[reason],[leaguer_type]);
           insert into bi_audit_record(audit_id,flow_code,object_id,audit_time,audit_user)
           values(bi_audit_record_seq.nextval,'trade_apply',[apply_id],sysdate,${_CurrUser.id})
             ]]>

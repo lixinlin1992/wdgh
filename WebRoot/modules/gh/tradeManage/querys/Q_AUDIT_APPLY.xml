@@ -12,8 +12,8 @@
             update bi_trade_info set trade_status=1,intrade_date=sysdate
             where account=(select account from bi_trade_apply where apply_id=[apply_id]);
           <#elseif apply_type=='1'>
-            update bi_trade_info set(sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone)
-                            =(select sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone from bi_trade_apply bta where bta.apply_id=[apply_id])
+            update bi_trade_info set(sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone,leaguer_type)
+                            =(select sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone,leaguer_type from bi_trade_apply bta where bta.apply_id=[apply_id])
             where account=(select account from bi_trade_apply where apply_id=[apply_id])
           <#elseif apply_type=='2'>
             update bi_trade_info set trade_status=2
