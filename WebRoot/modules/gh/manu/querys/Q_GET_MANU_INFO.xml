@@ -12,7 +12,8 @@
         where busi_type='BI_MANU_ATTACH' and busi_id=[manu_id]
                 )
             select bm.company, bm.author_one, bm.author_two, bm.author_three, bm.content,spu.name name,
-            to_char(bm.create_time,'yyyy-mm-dd hh24:mi:ss') create_time,bm.content_text,
+            to_char(bm.create_time,'yyyy-mm-dd hh24:mi:ss') create_time,bm.content_text,bm.author_one_account,
+            bm.author_two_account,bm.author_three_account,
             a.file_ids,a.file_names,b.attach_ids,b.attach_names
             from bi_manu bm
             left join sys_p_user spu on bm.job_num=spu.id

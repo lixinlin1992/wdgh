@@ -6,7 +6,8 @@
         <stmt>
             <![CDATA[
             update bi_manu set company=[company],author_one=[author_one],author_two=[author_two],
-            author_three=[author_three],content=[content],remarks=null
+            author_three=[author_three],content=[content],author_one_account=[author_one_account],author_two_account=[author_two_account],
+            author_three_account=[author_three_account],remarks=null
             where id=[manu_id]
             ]]>
         </stmt>
