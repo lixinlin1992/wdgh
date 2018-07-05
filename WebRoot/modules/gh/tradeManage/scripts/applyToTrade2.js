@@ -54,12 +54,12 @@ function submit(){
     }else if(option=="edit"){
         $("#apply_type").val(0)
         $("#apply_id").val(apply_id)
-        alert(apply_id)
+        // alert(apply_id)
         rdcp.form.submit("trade_form", {
             url: "!gh/tradeManage/~query/Q_AUDIT_APPLY_2" ,
             success: function (data) {
                 $.messager.alert('提示', '修改入会申请信息提交成功，请等待审核结果！', 'info',function () {
-                    cancel();
+                    cancel2();
                 });
             }
         }, {"mask": true});
@@ -71,4 +71,12 @@ function cancel(){
         CloseTab("applyToTrade", "申请入会");
     else if(option=="edit")
         CloseTab("editTradeInfo", "编辑会籍信息");
+}
+
+function cancel2(){
+
+    if(option=="add")
+        CloseTab("applyToTrade", "申请入会");
+    else if(option=="edit")
+        CloseTab("editTradeInfo", "修改入会申请");
 }
