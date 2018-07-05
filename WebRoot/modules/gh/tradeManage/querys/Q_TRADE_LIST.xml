@@ -21,6 +21,9 @@
             left join SYS_PA_CODE spc4 on BTI.DEGREE =SPC4.CODE_NUM and spc4.CODE_TABLE='BI_TRADE_INFO' and SPC4.CODE_FIELD='DEGREE'
             left join (select spd1.id id,spd1.PARENT_ID PARENT_ID,spd2."NAME"  from sys_p_department spd1, sys_p_department spd2 where spd1.parent_id=spd2.id)spd_spd on bti.dept_id=spd_spd.id
 			where 1=1
+			<#if dept_id??>
+			  and bti.dept_id=[dept_id]
+			</#if>
 			<#if account??>
 			  and bti.account like([account])
 			</#if>
