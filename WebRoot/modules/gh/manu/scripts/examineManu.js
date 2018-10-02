@@ -62,7 +62,7 @@ rdcp.ready(function () {
 //预览稿件
 function viewManu(manu_id) {
     //标签页ID
-    var tabId = "viewManu";
+    var tabId = "viewManu"+manu_id;
     //标签页TILE
     var title = "预览信息";
     //标签页url
