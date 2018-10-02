@@ -24,7 +24,7 @@
 		union all
 		select 'TGSL',to_char('0'),cou,to_char(name),'','','','' from
 		(select * from (
-		select spd.TOP_PARENT_NAME name ,count(1) cou from bi_manu bm
+		select spd.TOP_PARENT_NAME name,count(1) cou from bi_manu bm
 		join sys_p_department_top spd on bm.dept_id=spd.id and spd.id<>1
 		where to_char(bm.create_time,'yyyymm')>=to_char(add_months(sysdate,-12),'yyyymm')
 		and to_char(bm.create_time,'yyyymm')<=to_char(sysdate,'yyyymm')
