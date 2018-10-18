@@ -5,71 +5,69 @@
 		<stmt>
 		<![CDATA[
 		select * from (
-		with files as (
-		select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+    with files as (
+    select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
         group by busi_type,busi_id having count(1)<10)
-		select t.* from (
-		select 'BI_NOTICE' data_type,to_char(type) sub_type,id,substr(title,0,19)||'...' title,'' file_ids,'' file_names,
-		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from bi_notice
-		where type=1
-		order by create_time desc) t
-		where rownum<=5
-		union all
-		select t.* from (
-		select 'BI_POLICY_REGULATION' data_type,to_char(type) sub_type,id,substr(title,0,22)||'...' title,'' file_ids,'' file_names,
-		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from bi_policy_regulation order by create_time desc) t
-		where rownum<=7
-		union all
-		select 'TGSL',to_char('0'),cou,to_char(name),'','','','' from
-		(select * from (
-		select spd.TOP_PARENT_NAME name,count(1) cou from bi_manu bm
-		join sys_p_department_top spd on bm.dept_id=spd.id and spd.id<>1
-		where to_char(bm.create_time,'yyyymm')>=to_char(add_months(sysdate,-12),'yyyymm')
-		and to_char(bm.create_time,'yyyymm')<=to_char(sysdate,'yyyymm')
-		group by spd.TOP_PARENT_NAME) a
-		order by cou desc)
-
-		union all
-		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,'2' sub_type,id,
-		substr(title,0,17)||'...' title,f.file_ids,f.file_names,
-		'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from bi_news_center b
-		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type like '%2%'
-		order by create_time desc) t
-		where rownum<=6
-
-		union all
-		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,'3' sub_type,id,
-		substr(title,0,25) title,f.file_ids,f.file_names,
-		to_char(SUBSTR(b.content_text,0,40)) content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from bi_news_center b
-		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type like '%3%'
-		order by create_time desc) t
-		where rownum<=1
-		union all
-		select t.* from (
-		select 'BI_NEWS_CENTER' data_type,'1' sub_type,id,
-		substr(title,0,11)||'...' title,f.file_ids,f.file_names,
-		to_char(SUBSTR(b.content_text,0,25))||'...' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from bi_news_center b
-		left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
-		where b.type like '%1%'
-		order by create_time desc) t
-		where rownum<=6
-
-		union all
-		select t.* from (
-		select 'BANNER' data_type,to_char('-1') sub_type,-1 ID,
-		'' title,id file_ids,name file_names,'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
-		from SYS_FILE where BUSI_ID='WEB' AND BUSI_TYPE='WEB_INDEX_IMG') t
-
-		)
+    select t.* from (
+    select 'BI_NOTICE' data_type,to_char(type) sub_type,id,substr(title,0,19)||'...' title,'' file_ids,'' file_names,
+    '' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from bi_notice
+    where type=1
+    order by create_time desc) t
+    where rownum<=5
+    union all
+    select t.* from (
+    select 'BI_POLICY_REGULATION' data_type,to_char(type) sub_type,id,substr(title,0,22)||'...' title,'' file_ids,'' file_names,
+    '' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from bi_policy_regulation order by create_time desc) t
+    where rownum<=7
+    union all
+    select 'TGSL',to_char('0'),cou,to_char(name),'','','','' from
+    (select * from (
+    select spd.name,count(1) cou from bi_manu bm
+    join sys_p_department spd on bm.dept_id=spd.id and spd.id<>1
+    where to_char(bm.create_time,'yyyymm')>=to_char(add_months(sysdate,-12),'yyyymm')
+    and to_char(bm.create_time,'yyyymm')<=to_char(sysdate,'yyyymm')
+    group by spd.name) a
+    order by cou desc)
+    union all
+    select t.* from (
+    select 'BI_NEWS_CENTER' data_type,'2' sub_type,id,
+    substr(title,0,17)||'...' title,f.file_ids,f.file_names,
+    '' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from bi_news_center b
+    left join files f on f.busi_type='BI_NEWS_CENTER' and f.busi_id=to_char(b.id)
+    where b.type like '%2%'
+    order by create_time desc) t
+    where rownum<=6
+    union all
+    select t.* from (
+    select 'BI_NEWS_CENTER' data_type,'3' sub_type,id,
+    substr(title,0,25) title,f1.file_ids,f1.file_names,
+    to_char(SUBSTR(b.content_text,0,40)) content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from bi_news_center b
+    left join (select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+        group by busi_type,busi_id having count(1)<10) f1 on f1.busi_type='BI_NEWS_CENTER' and f1.busi_id=to_char(b.id)
+    where b.type like '%3%'
+    order by create_time desc) t
+    where rownum<=1
+    union all
+    select t.* from (
+    select 'BI_NEWS_CENTER' data_type,'1' sub_type,id,
+    substr(title,0,11)||'...' title,f2.file_ids,f2.file_names,
+    to_char(SUBSTR(b.content_text,0,25))||'...' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from bi_news_center b
+    left join (select busi_type,busi_id,wm_concat(to_char(id)) file_ids,wm_concat(to_char(name)) file_names from sys_file
+        group by busi_type,busi_id having count(1)<10) f2 on f2.busi_type='BI_NEWS_CENTER' and f2.busi_id=to_char(b.id)
+    where b.type like '%1%'
+    order by create_time desc) t
+    where rownum<=6
+    union all
+    select t.* from (
+    select 'BANNER' data_type,to_char('-1') sub_type,-1 ID,
+    '' title,id file_ids,name file_names,'' content,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') create_time
+    from SYS_FILE where BUSI_ID='WEB' AND BUSI_TYPE='WEB_INDEX_IMG') t
+    )
 
 		]]>
 		</stmt>
