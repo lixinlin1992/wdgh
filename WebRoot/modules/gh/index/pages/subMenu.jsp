@@ -123,8 +123,13 @@ function loadCommonData() {
 					html += "<li><p class='f-l tit'><a href='!service/file/~java/Downloader.get?id=" + t.FILE_ID + "' target='_blank'>[" + t.TITLE + "]--" + t.CREATE_TIME + "</a></p>";
 					html += "<p class='f-r time'><a target='_blank' href='!service/file/~java/Downloader.get?id=" + t.FILE_ID + "'>[点击下载]</a></p></li>";
 				}
+				//解决基层动态点击更多后列表项的链接问题
+				else if(code_table=="BI_NEWS_CENTER"){
+                    html += "<li><a href='"+getSubUrl("BI_NEWS_CENTER","2",t.ID)+"' onclick=\"showDetail(" + t.ID + ");\"><p class='f-l tit'>" + t.TITLE + "</p>";
+                    html += "<p class='f-r time'>" + t.CREATE_TIME + "</p></a></li>";
+                }
 				else {
-					html += "<li><a href='javascript:void(0);' onclick=\"showDetail(" + t.ID + ");\"><p class='f-l tit'>" + t.TITLE + "</p>";
+					html += "<li><a href='javascript:void()' onclick=\"showDetail(" + t.ID + ");\"><p class='f-l tit'>" + t.TITLE + "</p>";
 					html += "<p class='f-r time'>" + t.CREATE_TIME + "</p></a></li>";
 				}
 				$("#data_list").append(html);
@@ -136,6 +141,18 @@ function loadCommonData() {
 		loadFooter();
 	});
 }
+
+function getSubUrl(code_table,code_num,detail_id){
+    var url = "pages/subMenu.jsp?";
+    if(code_table!=null && code_table!=undefined)
+        url += "code_table="+code_table;
+    if(code_num!=null && code_num!=undefined)
+        url += "&code_num="+code_num;
+    if(detail_id!=null && detail_id!=undefined)
+        url += "&detail_id="+detail_id;
+    return url;
+}
+
 function loadMovieData(){
   $("#main").html("<ul id='movie_list' class='movielist'></ul>");
   var url = getUrl("menu");
