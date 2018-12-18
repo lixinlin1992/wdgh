@@ -12,11 +12,13 @@ function modOrg() {
         return;
     }*/
 
+
+    //上级部门的选择按钮灰掉的问题
     if (rdcp.tree.getSelected("treeDemo") == null) {
         rdcp.tip("请先选中部门树中的一个节点再点击修改！");
         return;
     }
-
+//加载修改部门的框
     // $("#_Parent_Select_Btn").attr("disabled","disabled");
     $("#_Parent_Select_Btn").attr("disabled",false);
     rdcp.form.load("editOrgForm", "!org/dept/~query/Q_DEPT_INFO", 'id=' + rdcp.tree.getSelected("treeDemo").id,function(){
@@ -59,18 +61,55 @@ var dlgOpts_edit = {
     ]
 };
 
+function delOrg() {
+
+    //上级部门的选择按钮灰掉的问题
+    if (rdcp.tree.getSelected("treeDemo") == null) {
+        rdcp.tip("请先选中部门树中的一个节点再点击删除！");
+        return;
+    }
+//加载修改部门的框
+    // $("#_Parent_Select_Btn").attr("disabled","disabled");
+    $("#_Parent_Select_Btn").attr("disabled",false);
+    rdcp.form.load("editOrgForm", "!org/dept/~query/Q_DEPT_INFO", 'id=' + rdcp.tree.getSelected("treeDemo").id,function(){
+        rdcp.dialog(dlgOpts_del);
+    });
+
+}
+
+var dlgOpts_del = {
+    title : "删除部门",
+    id:"dialog_edit",
+    width : "370",
+    height : "370" ,
+    modal : true,
+    buttons :[
+        {
+            text: '确定',
+            handler: function () {
+
+                rdcp.form.submit("editOrgForm", {url: "!org/dept/~query/Q_DEPT_DELETE",
+                    success: function(data) {
+
+                        $("#dialog_edit").dialog("close");
+                        load_dept_tree();
+                        $.messager.alert('提示', '部门删除成功', 'info');
+                    }
+                });
+            }
+        },{
+            text: '取消',
+            handler: function () {
+                $("#dialog_edit").dialog("close");
+            }
+        }
+    ]
+};
+
+
 ///增加组织结构
 function addOrgMan() {
-   /* CORE.loadRules("editOrgForm", "add_orgStrMan_validation", false, function() {
-        document.editOrgForm.reset();
-        $("#_Parent_Select_Btn").removeAttr("disabled");
-        if (zTree1.getSelectedNode() != null) {
-            $("#_Parent_Id").val(zTree1.getSelectedNode().id);
-            $("#_Parent_Name").val(zTree1.getSelectedNode().name);
-        }
-        $("#dialog_edit").dialog(dlgOpts_add);
-    });
-*/
+
     document.editOrgForm.reset();
     $("#edit_id").val("");
     $("#_Parent_Select_Btn").removeAttr("disabled");

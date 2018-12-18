@@ -41,37 +41,52 @@
             <div class="barquerycontent">
                 <form id="manuForm" name="manuForm">
                     <textarea style="display:none;" id="content" name="content"></textarea>
-                    <textarea style="display:none" id="content_text" name="content_text"></textarea>
+                    <textarea style="display:none;" id="content_text" name="content_text"></textarea>
                     <input type="hidden" id="manu_id" name="manu_id"/>
                     <table border="0">
+                        <table>
                         <tr>
                             <td class="SR_searchTitle" style="width: 80px;">标题: </td>
-                            <td  style="width: 180px;">
-                                <input type="text" name="company" id="company" class="SR_pureInput"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">作者一: </td>
-                            <td  style="width: 180px;">
-                                <input type="text" name="author_one" id="author_one" class="SR_pureInput"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">作者二: </td>
-                            <td  style="width: 180px;">
-                                <input type="text" name="author_two" id="author_two" class="SR_pureInput"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">作者三: </td>
-                            <td  style="width: 180px;">
-                                <input type="text" name="author_three" id="author_three" class="SR_pureInput"/>
+                            <td>
+                                <input type="text" name="company" id="company" class="SR_pureInput" style="width: 400px;"/>
                             </td>
                         </tr>
-<!--                        <tr>
-                            <td class="SR_searchTitle" style="width: 100px;">作者三:</td>
-                            <td  style="width: 300px;">
-                                <input type="text" name="author_three" id="author_three" class="SR_pureInput"/>
+                        </table>
+                        <table>
+                        <tr>
+                            <td class="SR_searchTitle" style="width: 80px;">作者一: </td>
+                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
+                            <td>
+                                <input type="text" name="author_one_account" id="author_one_account" class="SR_pureInput" onChange="accountToName1(this.id)"/>
                             </td>
-                            <td class="SR_searchTitle" style="width: 100px;">备注:</td>
-                            <td  style="width: 300px;">
-                                <textarea id="remarks" name="remarks" rows="5" cols="30"></textarea>
+                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
+                            <td>
+                                <input type="text" name="author_one" id="author_one" class="SR_pureInput"/>
                             </td>
-                        </tr>-->
+                        </tr>
+                        <tr>
+                            <td class="SR_searchTitle" style="width: 80px;">作者二: </td>
+                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
+                            <td>
+                                <input type="text" name="author_two_account" id="author_two_account" class="SR_pureInput" style="width: 150px;" onChange="accountToName2(this.id)"/>
+                            </td>
+                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
+                            <td>
+                                <input type="text" name="author_two" id="author_two" class="SR_pureInput" style="width:150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="SR_searchTitle" style="width: 80px;">作者三: </td>
+                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
+                            <td>
+                                <input type="text" name="author_three_account" id="author_three_account" class="SR_pureInput" style="width: 150px;" onChange="accountToName3(this.id)"/>
+                            </td>
+                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
+                            <td>
+                                <input type="text" name="author_three" id="author_three" class="SR_pureInput" style="width:150px"/>
+                            </td>
+                        </tr>
+                        </table>
                     </table>
                 </form>
             </div>
@@ -137,6 +152,31 @@
             width : "100%"//宽度
         });
     });
+    //根据工号获取作者姓名
+    function accountToName1(author_one_account) {
+        var gonghao = document.getElementById("author_one_account").value;
+        rdcp.request("!gh/manu/~query/Q_ACCOUNT_TO_NAME", 'author_one_account=' + gonghao, function (data) {
+            author_one = data.body.author_one;
+            $("#author_one").val(author_one);
+        });
+    }
+
+    function accountToName2(author_two_account) {
+        var gongh= document.getElementById("author_two_account").value;
+        rdcp.request("!gh/manu/~query/Q_ACCOUNT_TO_NAME2", 'author_two_account=' + gongh, function (data) {
+            author_two = data.body.author_two;
+            $("#author_two").val(author_two);
+        });
+    }
+
+    function accountToName3(author_three_account) {
+        var ghao= document.getElementById("author_three_account").value;
+        rdcp.request("!gh/manu/~query/Q_ACCOUNT_TO_NAME3", 'author_three_account=' + ghao, function (data) {
+            author_three= data.body.author_three;
+            $("#author_three").val(author_three);
+        });
+    }
+
     //rdcp.JS初始化
     rdcp.ready(function () {
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
@@ -170,7 +210,7 @@
     function sureBtn() {
         //获取编辑器内容
         var company = $("#company").val();
-        var author_one = $("#author_one").val();
+        var author_one_account= $("#author_one_account").val();
         var content = editor.html();
         var text = editor.text();
         $("#content_text").val(text);
@@ -179,8 +219,12 @@
             $.messager.alert('提示', '请输入标题！', 'info');
             return false;
         }
-        if (author_one == "" || author_one == null){
-            $.messager.alert('提示', '请填写作者一！', 'info');
+        if (author_one_account == "" || author_one_account== null){
+            $.messager.alert('提示', '请填写作者一的工号！', 'info');
+            return false;
+        }
+        if(author_one_account.length<8){
+            $.messager.alert('提示','请正确填写作者一的工号！','info');
             return false;
         }
         if (content == "" || content == null) {
@@ -246,6 +290,11 @@
                 $("#uploader2").find(".SR_uploadFileList ul").append(html);
             }
         }
+    }
+    function publicDelFile(id){
+        rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
+            $("#file_"+id).remove();
+        });
     }
 </script>
 </html>

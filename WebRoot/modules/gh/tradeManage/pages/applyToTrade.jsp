@@ -111,7 +111,7 @@
                         <td>
                             <input type="text" id="duties" name="duties" class="SR_pureInput"/>
                         </td>
-                        <td align="right" class="SR_inputTitle">所属单位:</td>
+                        <td align="right" class="SR_inputTitle"><font color="red">*</font>所属单位:</td>
                         <td>
                             <select id="dept_id" name="dept_id">
                                <option value="-1">--请选择--</option>
@@ -120,6 +120,19 @@
                         <td align="right" class="SR_inputTitle">手机号:</td>
                         <td>
                             <input type="text" id="tele_phone" name="tele_phone" class="SR_pureInput"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="SR_inputTitle"><font color="red">*</font>编制类型:</td>
+                        <td>
+                            <select id="leaguer_type" name="leaguer_type">
+                                <option value="-1">--请选择--</option>
+                                <option value="1">--编制人员--</option>
+                                <option value="2">--非编制人员--</option>
+                                <option value="3">--类型3--</option>
+                                <option value="4">--类型4--</option>
+                                <option value="5">--类型5--</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

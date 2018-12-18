@@ -177,7 +177,7 @@ var publishDlgOpts = {
 //预览稿件
 function viewManu(manu_id) {
     //标签页ID
-    var tabId = "viewManu";
+    var tabId = "viewManu"+manu_id;
     //标签页TILE
     var title = "预览信息";
     //标签页url
@@ -193,7 +193,14 @@ function editManu(manu_id) {
     var title = "修改信息";
     //标签页url
     var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id;
+    $(document).on("click",".SR_uploaderDel",function(){
+        publicDelFile(manu_id);
+    })
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }
-
+function publicDelFile(id){
+    rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
+        $("#file_"+id).remove();
+    });
+}

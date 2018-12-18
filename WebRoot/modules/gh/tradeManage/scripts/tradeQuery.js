@@ -13,7 +13,7 @@ var params = {
             {field: 'NAME', title: '姓名', sortable: false, align: 'center', width: 60},
             {field: 'SEX', title: '性别', sortable: false, align: 'center', width: 80},
             {field: 'CARD_NO', title: '证件号', sortable: false, align: 'center', width: 80},
-            {field: 'LEAGUER_TYPE', title: '会员类型', sortable: false, align: 'center', width: 50},
+            {field: 'LEAGUER_TYPE', title: '编制类型', sortable: false, align: 'center', width: 50},
             {field: 'TRADE_STATUS', title: '会籍状态', sortable: false, align: 'center', width: 80},
             {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
             {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60}

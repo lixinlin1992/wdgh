@@ -6,9 +6,10 @@
         <stmt>
             <![CDATA[
             insert into bi_manu(id,company,job_num,content,state,create_user,create_time,author_one,
-            author_two,author_three,dept_id,content_text)
+            author_two,author_three,dept_id,content_text,author_one_account,author_two_account,author_three_account)
             select [manu_id],[company],[var(RU.CUR_USER.id)],[content],-1,[var(RU.CUR_USER.id)],
-            sysdate,[author_one],[author_two],[author_three],dept_id,[content_text]
+            sysdate,[author_one],[author_two],[author_three],dept_id,[content_text],[author_one_account],[author_two_account],
+            [author_three_account]
             from sys_p_user
             where id=[var(RU.CUR_USER.id)]
             ]]>

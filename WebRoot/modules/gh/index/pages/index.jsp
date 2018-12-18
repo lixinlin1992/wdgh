@@ -99,10 +99,12 @@
 				<li class="item"><i class="file"></i><a href="pages/login.jsp" target="_blank">会籍管理</a></li>
 				<li class="item"><i class="char"></i><a href="http://huzhu.whu.edu.cn/" target="_blank">大病救助</a></li>
 				<li class="item"><i class="cg"></i><a href="http://sjygh.whu.edu.cn/login.jsp" target="_blank">缘分天空</a></li>
+				<li class="item"><i class="people"></i><a href="http://cn.chinadaily.com.cn/2018npccppcc/" target="_blank">聚焦两会</a></li>
+				<li class="item"><i class="file"></i><a href="pages/subMenu.jsp?code_table=BI_POLICY_REGULATION&code_num=4" target="_blank">作风建设</a></li>
 			</ul>
-			<div class="index-contact">
-				<img src="!gh/index/~/images/ad1.jpg" style=" margin: 0 auto" alt=""></a>
-			</div>
+			<%--<div class="index-contact">--%>
+				<%--<img src="!gh/index/~/images/ad1.jpg" style=" margin: 0 auto" alt=""></a>--%>
+			<%--</div>--%>
 		</div>
 		<div class="index-fun-article border ml10">
 			<div class="fun-article-title">

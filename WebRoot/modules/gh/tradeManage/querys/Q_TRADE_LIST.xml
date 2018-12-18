@@ -4,8 +4,9 @@
 	<query id="Q_TRADE_LIST" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-			select bti.account,bti.name,spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
-			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status,bti.leaguer_no,bti.leaguer_type,
+			select bti.account,bti.name,spd.name dept_name_2,spd_spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
+			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会')trade_status,bti.leaguer_no,
+			decode(bti.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
 			decode(bti.sex,1,'男',0,'女')sex,bti.card_no,bti.nation,bti.email,bti.post,bti.duties,bti.memo,
             bti.tele_phone,bti.trade_memo,
             	spc1.NAME political_status,
@@ -18,28 +19,30 @@
             left join SYS_PA_CODE spc2 on BTI.CARD_TYPE =SPC2.CODE_NUM and spc2.CODE_TABLE='BI_TRADE_INFO' and SPC2.CODE_FIELD='CARD_TYPE'
             left join SYS_PA_CODE spc3 on BTI.QUALIFICATIONS =SPC3.CODE_NUM and spc3.CODE_TABLE='BI_TRADE_INFO' and SPC3.CODE_FIELD='QUALIFICATIONS'
             left join SYS_PA_CODE spc4 on BTI.DEGREE =SPC4.CODE_NUM and spc4.CODE_TABLE='BI_TRADE_INFO' and SPC4.CODE_FIELD='DEGREE'
+            left join (select spd1.id id,spd1.PARENT_ID PARENT_ID,spd2."NAME"  from sys_p_department spd1, sys_p_department spd2 where spd1.parent_id=spd2.id)spd_spd on bti.dept_id=spd_spd.id
 			where 1=1
 			<#if dept_id??>
-			  and bti.dept_id= [dept_id]
+			  and bti.dept_id=[dept_id]
 			</#if>
 			<#if account??>
-			  and bti.account [like(account)]
+			  and bti.account like([account])
 			</#if>
 			<#if name??>
-			  and bti.name [like(name)]
+			  and bti.name like([name])
 			</#if>
 			<#if card_no??>
-			  and bti.card_no [like(card_no)]
+			  and bti.card_no like([card_no])
 			</#if>
 			<#if leaguer_type??>
-			  and bti.leaguer_type [like(leaguer_type)]
+			  and bti.leaguer_type=[leaguer_type]
 			</#if>
 			<#if sex??>
-			  and bti.sex = [sex]
+			  and bti.sex=[sex]
 			</#if>
 			<#if trade_status??>
-			  and bti.trade_status = [trade_status]
+			  and bti.trade_status=[trade_status]
 			</#if>
+			order by bti.intrade_date desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>

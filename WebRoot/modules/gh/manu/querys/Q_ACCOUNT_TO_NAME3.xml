@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_ACCOUNT_TO_NAME3" type="form_data" result="">
+        <stmt>
+            <![CDATA[
+            select name author_three
+            from sys_p_user
+            where account=[author_three_account]
+            ]]>
+        </stmt>
+    </query>
+</query-config>

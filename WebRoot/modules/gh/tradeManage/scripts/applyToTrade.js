@@ -43,6 +43,8 @@ function submit(){
     if(isNull("degree","",-1)) total++;
     if(isNull("post","",0)) total++;
     if(isNull("duties","",0)) total++;
+    if(isNull("dept_id","",-1)) total++;
+    if(isNull("leaguer_type","",-1)) total++;
     if(total>0) return;
     var flag = $("#is_agree").attr("checked");
     if(flag!="checked"){

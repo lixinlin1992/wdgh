@@ -82,7 +82,7 @@
                         <td id="intrade_date" name="intrade_date" style="width: 200px;" ></td>
                         <td align="left" style="width: 60px;">会员编号:</td>
                         <td id="leaguer_no" name="leaguer_no" style="width: 200px;"></td>
-                        <td align="left" style="width: 60px;">会员类型:</td>
+                        <td align="left" style="width: 60px;">编制类型:</td>
                         <td id="leaguer_type" name="leaguer_type" style="width: 200px;"></td>
                     </tr>
                     <tr>
