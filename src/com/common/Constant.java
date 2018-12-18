@@ -2,7 +2,7 @@ package com.common;
 
 public class Constant {
 	//加密签名
-	public static String keyInner = "axinfu";
+	public static String keyInner = "5bd0974c873d23086c0daaf5debebfe2";
 	//接口访问地址
 	public static String url = "http://wxpc.zhihuianxin.net:8073/paycenter";
 	//支付接口名称
