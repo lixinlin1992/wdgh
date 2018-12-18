@@ -15,7 +15,7 @@ public class PayService {
          */
         System.out.println("json:"+json);
         System.out.println("sign:"+sign);
-        String url = Constant.url;
+        String url = Constant.url + "?json="+json+"&sign="+sign;
         ApplicationManager.getResponse().sendRedirect(url);
     }
 
