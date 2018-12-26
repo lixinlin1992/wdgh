@@ -153,7 +153,7 @@ function submitDonation(){
         <div class="box">
           <form id="donate_form" name="donate_form">
               <input type="hidden" name="business_channel" value="wd_jk" placeholder="支付业务渠道">
-              <input type="text" id="orderno" name="orderno" value="" placeholder="订单号">
+              <input type="hidden" id="orderno" name="orderno" value="" placeholder="订单号">
               <%--<input type="text" name="amt" value="0.1" placeholder="支付金额">--%>
               <input type="hidden" id="feename" name="feename" value="爱心捐款" placeholder="支付项目名称">
               <%--<input type="text" name="name" value="赵敏" placeholder="姓名">--%>
