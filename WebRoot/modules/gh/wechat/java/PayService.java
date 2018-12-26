@@ -1,12 +1,14 @@
+//package WebRoot.modules.gh.wechat.java;
+import com.alibaba.fastjson.JSONObject;
 import com.bean.GatewayDto;
+import com.bean.GatewayNotifyDto;
 import com.common.Constant;
 import com.sunrise.framework.core.ApplicationManager;
 import com.sunrise.foundation.utils.RequestWrapper;
 import com.util.JsonMapper;
 import com.util.SignatureUtil;
-import
 public class PayService {
-    public void pay(){
+    public JSONObject pay(){
         RequestWrapper req = ApplicationManager.getRequest();
         String json = getJsonStr(req);
         String sign = SignatureUtil.sign(json, Constant.keyInner);
@@ -15,8 +17,10 @@ public class PayService {
          */
         System.out.println("json:"+json);
         System.out.println("sign:"+sign);
-        String url = Constant.url + Constant.gateway_web_url + "?json="+json+"&sign="+sign;
-        ApplicationManager.getResponse().sendRedirect(url);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("json",json);
+        jsonObject.put("sign",sign);
+        return jsonObject;
     }
 
     public String getJsonStr(RequestWrapper req){
@@ -26,10 +30,12 @@ public class PayService {
         String feename = req.getParameter("feename");
         String back_notify_url = req.getParameter("back_notify_url");
         String front_notify_url = req.getParameter("front_notify_url");
-        return JsonMapper.getInstance().toJson(new GatewayDto(business_channel, orderno, amt, feename, back_notify_url, front_notify_url););
+
+        return JsonMapper.getInstance().toJson(new GatewayDto(business_channel, orderno, amt, feename, back_notify_url, front_notify_url));
     }
 
     public void receivePayStatus(){
+        try{
         RequestWrapper req = ApplicationManager.getRequest();
         //接收支付网关返回结果
         String json = req.getParameter("json");

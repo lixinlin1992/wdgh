@@ -32,7 +32,7 @@
 </head>
 <body style="background-color: #fff !important;">
 <form id="pay_form" action="gatewayWeb" method="post">
-	<input type="text" name="business_channel" value="yxsf" placeholder="支付业务渠道">
+	<input type="text" name="business_channel" value="wd_jk" placeholder="支付业务渠道">
 	<input type="text" name="orderno" value="L2017070713473921478" placeholder="订单号">
 	<input type="text" name="amt" value="0.1" placeholder="支付金额">
 	<input type="text" name="feename" value="赵敏正在缴费，缴费金额：0.1元" placeholder="支付项目名称">
@@ -43,14 +43,20 @@
 	<input type="text" name="front_notify_url" value="http://localhost/wdgh/!gh/wechat/~/pages/success.jsp" placeholder="前端支付成功返回地址">
 	<input type="button" onclick="submitPay();" value="提交">
 </form>
+<form name='payFrom' target="_blank" method='post' action='http://wxpc.zhihuianxin.net:8073/paycenter/gateway_web'>
+	<input type='input' id="json" name='json' value=''>
+	<input type='input' id="signature" name='signature' value=''>
+</form>
 <script type="text/javascript">
 rdcp.ready(function(){
 
 });
 function submitPay(){
 	rdcp.form.submit("pay_form", {url: "!gh/wechat/~java/PayService.pay" , success: function (data) {
-
-		}
+	    $("#json").val(data.json);
+	    $("#signature").val(data.sign);
+        $("form[name='payFrom']").submit();
+	}
 	}, {"mask": true});
 }
 </script>

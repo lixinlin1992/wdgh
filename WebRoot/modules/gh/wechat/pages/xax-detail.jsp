@@ -55,27 +55,47 @@ rdcp.ready(function(){
 function donation(){
   $(".wx_pay").addClass("sh");
 }
+//生成订单号
+function ordertime() {
+    var date=new Date();
+    var y = date.getFullYear().toString();
+    var m = ("0"+(date.getMonth() + 1).toString()).slice(-2);
+    var d = ("0"+date.getDate().toString()).slice(-2);
+    var hour = ("0"+ date.getHours().toString()).slice(-2);
+    var minutes = ("0"+ date.getMinutes().toString()).slice(-2);
+    var seconds = ("0"+ date.getSeconds().toString()).slice(-2);
+    return  y  + m + d + hour + minutes + seconds;
+}
+
 function submitDonation(){
-  var fee = $("#payTips .fix_input .label_checked .check_radio").val();
-  var moneyInput = $("#moneyInput").val();
-  var anonymous = $("#anonymous").attr("checked");
-  var is_anonymous = anonymous==undefined?"0":1;
-  fee = fee==undefined||fee==null?moneyInput:fee;
-  if(fee==undefined || fee==null || fee==""){
-    $.messager.alert("提示","请选择捐款金额!","info");
-    return;
-  }
-  $("#fee").val(fee);
-  $("#is_anonymous").val(is_anonymous);
-  rdcp.form.submit("donate_form",{url:"!gh/wechat/~query/I_ADD_DONATION_ORDER",
-      success: function(data) {
-         if(data.header.code=="0"){
-           $.messager.alert("提示","捐款成功，感谢您的爱心!","info",function(){
-             window.location.href=window.location.href;
-           });
-         }
-      }
-  });
+    var orderno = "G"+ordertime() + Math.floor(Math.random()*90000+10000);
+    var fee = $("#payTips .fix_input .label_checked .check_radio").val();
+    var moneyInput = $("#moneyInput").val();
+    var anonymous = $("#anonymous").attr("checked");
+    var is_anonymous = anonymous==undefined?"0":1;
+    fee = fee==undefined||fee==null?moneyInput:fee;
+    if(fee==undefined || fee==null || fee==""){
+      $.messager.alert("提示","请选择捐款金额!","info");
+      return;
+    }
+   $("#amt").val(fee);
+   $("#is_anonymous").val(is_anonymous);
+   $("#orderno").val(orderno);
+    rdcp.form.submit("donate_form", {url: "!gh/wechat/~java/PayService.pay" , success: function (data) {
+        $("#json").val(data.json);
+        $("#signature").val(data.sign);
+        $("form[name='payFrom']").submit();
+    }
+    }, {"mask": true});
+//  rdcp.form.submit("donate_form",{url:"!gh/wechat/~query/I_ADD_DONATION_ORDER",
+//      success: function(data) {
+//         if(data.header.code=="0"){
+//           $.messager.alert("提示","捐款成功，感谢您的爱心!","info",function(){
+//             window.location.href=window.location.href;
+//           });
+//         }
+//      }
+//  });
 }
 </script>
 </head>
@@ -83,7 +103,7 @@ function submitDonation(){
 <div class="warpe">
 
     <div class="head">
-        <a href="javascript:void(0);" class="return"><i class="icon-chevron-left"></i> 返回</a>
+        <a href="!gh/wechat/~/pages/ghmenu.jsp" class="return"><i class="icon-chevron-left"></i> 返回</a>
         献爱心详情
         <a href="javascript:void(0);" onclick="donation();" class="search animated fadeInRight" style="font-size: 1.4rem;">我要捐款</a>
     </div>
@@ -132,7 +152,14 @@ function submitDonation(){
         <div class="mask"></div>
         <div class="box">
           <form id="donate_form" name="donate_form">
-            <input type="hidden" id="fee" name="fee"/>
+              <input type="hidden" name="business_channel" value="wd_jk" placeholder="支付业务渠道">
+              <input type="text" id="orderno" name="orderno" value="" placeholder="订单号">
+              <%--<input type="text" name="amt" value="0.1" placeholder="支付金额">--%>
+              <input type="hidden" id="feename" name="feename" value="爱心捐款" placeholder="支付项目名称">
+              <%--<input type="text" name="name" value="赵敏" placeholder="姓名">--%>
+              <input type="hidden" name="back_notify_url" value="http://localhost/wdgh/!gh/wechat/~java/PayService.receivePayStatus" placeholder="后台通知地址">
+              <input type="hidden" name="front_notify_url" value="http://localhost:8080/!gh/wechat/~/pages/success.jsp" placeholder="前端支付成功返回地址">
+            <input type="hidden" id="amt" name="amt"/>
             <input type="hidden" id="is_anonymous" name="is_anonymous"/>
             <div class="tab_hd">
                 <h2>请填写捐赠信息</h2>
@@ -194,15 +221,17 @@ function submitDonation(){
                             <label for="anonymous"><input type="checkbox" value="1" id="anonymous"><i></i>匿名捐款</label>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" onclick="submitDonation();" class="btn_a" money="20">立即捐款</a><div class="prot t2"><label for="check"><input type="checkbox" name="proto2" value="1" id="check" checked=""><i></i>同意</label><a href="javascript:;">《武汉大学教育基金会法律声明》</a>
+                    <a href="javascript:void(0)" onclick="submitDonation()" class="btn_a" money="20">立即捐款</a><div class="prot t2"><label for="check"><input type="checkbox" name="proto2" value="1" id="check" checked=""><i></i>同意</label><a href="javascript:;">《武汉大学教育基金会法律声明》</a>
                 </div>
                 </div>
             </div>
           </form>
+            <form name='payFrom' method='post' action='http://wxpc.zhihuianxin.net:8073/paycenter/gateway_web'>
+                <input type='input' id="json" name='json' value=''>
+                <input type='input' id="signature" name='signature' value=''>
+            </form>
         </div>
     </div>
-
-
 </div>
 
 </body>
