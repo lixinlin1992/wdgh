@@ -16,6 +16,7 @@
     <r:include resource="!rdcp/pages/listBase.jsp"/>
     <script type="text/javascript" src="!rdcp/script/src/rdcp.js"></script>
     <script type="text/javascript" src="!rdcp/script/lib/jquery/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="!gh/manu/~/scripts/viewManu.js"></script>
     <link href="!service/file/~/css/editfile.css" rel="stylesheet" type="text/css">
     <title>预览稿件</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -31,8 +32,58 @@
     <div class="g-article-con" style="width:80%; margin:0 auto;" id="content">
     </div>
 </div>
+<div id="dialog" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="examineManuForm" id="examineManuForm" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td class="SR_inputTitle">
+                                审核结果：
+                            </td>
+                            <td>
+                                <select name="state" class="SR_pureInput" id="state"
+                                        style="width: 180px;" onchange="changeType()">
+                                    <option value="0">
+                                        --请选择--
+                                    </option>
+                                    <option value="1">
+                                        通过审核
+                                    </option>
+                                    <option value="2">
+                                        未通过审核
+                                    </option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="manu_id" id="manu_id">
+                        </tr>
+                        <tr  id="comment" name="comment">
+                            <td class="SR_inputTitle">
+                                审核意见：
+                            </td>
+                            <td>
+                                <textarea id="remarks" name="remarks" style="width: 240px;height:45px"></textarea>
+                            </td>&nbsp;
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <i class="clear"></i>
 <!--列表页内容区 End-->
+<div>
+    <div class="floatSmallBtn" style="width: 500px;" align="center">
+        <a class="btn_commit" href="javascript:void(0);"
+           onclick="editManu(manu_id);" title="">修改</a>
+        <a class="btn_cancel" href="javascript:void(0);"
+           onclick="examineManu(manu_id)" title="">审核</a>
+        <a class="btn_cancel" href="javascript:void(0);"
+           onclick="cancel()" title="">取消</a>
+    </div>
+</div>
 <div class="clearfix"></div>
 </body>
 <script type="text/javascript">
@@ -51,5 +102,13 @@
             $("#content").html(html);
         });
     });
+
+    function cancel()
+    {
+            CloseTab("viewManu"+manu_id, "预览信息");
+    }
+
+
 </script>
+
 </html>

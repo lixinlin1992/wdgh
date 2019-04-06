@@ -127,7 +127,51 @@
         <a class="btn_commit" href="javascript:void(0);"
            onclick="sureBtn();" title="">提交</a>
         <a class="btn_cancel" href="javascript:void(0);"
+           onclick="examineManu(manu_id)" title="">审核</a>
+        <a class="btn_cancel" href="javascript:void(0);"
            onclick="cancel()" title="">取消</a>
+
+    </div>
+</div>
+
+<div id="dialog" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="examineManuForm" id="examineManuForm" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td class="SR_inputTitle">
+                                审核结果：
+                            </td>
+                            <td>
+                                <select name="state" class="SR_pureInput" id="state"
+                                        style="width: 180px;" onchange="changeType()">
+                                    <option value="0">
+                                        --请选择--
+                                    </option>
+                                    <option value="1">
+                                        通过审核
+                                    </option>
+                                    <option value="2">
+                                        未通过审核
+                                    </option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="manu_id2" id="manu_id2">
+                        </tr>
+                        <tr  id="comment" name="comment">
+                            <td class="SR_inputTitle">
+                                审核意见：
+                            </td>
+                            <td>
+                                <textarea id="remarks" name="remarks" style="width: 240px;height:45px"></textarea>
+                            </td>&nbsp;
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <!--style给定宽度可以影响编辑器的最终宽度-->
@@ -185,6 +229,7 @@
                 rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_manu_seq"},function(data){
                     manu_id = data.body.seq;
                     $("#manu_id").val(manu_id);
+
                     initUpload();
                 });
             }
@@ -249,7 +294,7 @@
                 success: function (data) {
                     $.messager.alert('提示', '稿件信息修改成功！', 'info',function () {
                         parent.refreshGrid();
-                        cancel();
+//                        cancel();
                     });
                 }
             }, {"mask": true});
@@ -265,6 +310,57 @@
         }
 
     }
+
+    function examineManu(manu_id) {
+        $("#manu_id2").val(manu_id);
+        rdcp.dialog(dlgOpts);
+    }
+
+    var dlgOpts = {
+        title: "稿件审核",
+        id: "dialog",
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    var state = $("#state").val();
+                    var remarks=$("#remarks").val().trim();
+                    if (state == 0) {
+                        $.messager.alert('提示', '请输入审核结果！', 'info');
+                        return false;
+                    }else if(state==4&&(remarks.length==0||remarks==null)){
+                        $.messager.alert('提示', '请输入审核意见！', 'info');
+                        return false;
+                    }
+                    rdcp.form.submit("examineManuForm", {url: "!gh/manu/~query/Q_EXAMINEMANU_2",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#dialog").dialog("close");
+                                $.messager.alert('提示', '稿件审核成功！', 'info');
+                                $("#remarks").attr("value","");
+                                CloseTab("editManu", "修改信息");
+//                                window.location.href="!gh/manu/~/pages/manuManage.jsp";
+                            } else {
+                                $.messager.alert('提示', '稿件审核失败！', 'error');
+                            }
+                        }
+                    });
+
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#dialog").dialog("close");
+                    $("#remarks").attr("value","");
+                }
+            }
+        ]
+    };
     function initUpload(){
         rdcp.uploader("uploader", {busiId: manu_id, busiType: "BI_MANU"}, {
             onSuccess: function (file) {
@@ -296,5 +392,9 @@
             $("#file_"+id).remove();
         });
     }
+
+
+
+
 </script>
 </html>
