@@ -5,9 +5,11 @@
     <query id="Q_APPROVEMANU" type="update" result="">
         <stmt>
             <![CDATA[
-            update bi_manu set state=[state], remarks = [remarks]
+            update bi_manu set state=[state], remarks = [remarks],approve_time=sysdate
             where id=[manu_id]
+
             ]]>
         </stmt>
+
     </query>
 </query-config>
