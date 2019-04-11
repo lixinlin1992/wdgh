@@ -79,8 +79,8 @@
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
-                                会籍状态:
-                            </td>
+                            会籍状态:
+                        </td>
                             <td>
                                 <select id="trade_status" name="trade_status"  style="width: 120px;height:20px">
                                     <option value="">--请选择--</option>
@@ -88,6 +88,16 @@
                                     <option value="1">已入会</option>
                                     <option value="2">已退会</option>
                                     <option value="3">欠费被退会</option>
+                                </select>
+                            </td>
+                            <td class="SR_searchTitle" style="width: 100px;">
+                                人员状态:
+                            </td>
+                            <td>
+                                <select id="ryzt" name="ryzt"  style="width: 120px;height:20px">
+                                    <option value="">--请选择--</option>
+                                    <option value="0">在职</option>
+                                    <option value="1">报到中</option>
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
@@ -149,7 +159,8 @@
                 {field: 'LEAGUER_TYPE', title: '编制类型', sortable: false, align: 'center', width: 70},
                 {field: 'TRADE_STATUS', title: '会籍状态', sortable: false, align: 'center', width: 80},
                 {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
-                {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60}
+                {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60},
+                {field: 'RYZT', title: '人员状态', sortable: false, align: 'center', width: 60}
             ]
         ]
     };

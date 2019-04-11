@@ -7,6 +7,7 @@
 			select bti.account,bti.name,spd.name dept_name_2,spd_spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
 			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会')trade_status,bti.leaguer_no,
 			decode(bti.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
+			decode(spu.ryzt,0,'在职',1,'报到中')ryzt,
 			decode(bti.sex,1,'男',0,'女')sex,bti.card_no,bti.nation,bti.email,bti.post,bti.duties,bti.memo,
             bti.tele_phone,bti.trade_memo,
             	spc1.NAME political_status,
@@ -15,6 +16,7 @@
 				spc4.NAME degree
 			from bi_trade_info bti
 			left join sys_p_department spd on bti.dept_id=spd.id
+			left join sys_p_user spu on bti.account=spu.account
 			left join SYS_PA_CODE spc1 on BTI.POLITICAL_STATUS=SPC1.CODE_NUM and spc1.CODE_TABLE='BI_TRADE_INFO' and SPC1.CODE_FIELD='POLITICAL_STATUS'
             left join SYS_PA_CODE spc2 on BTI.CARD_TYPE =SPC2.CODE_NUM and spc2.CODE_TABLE='BI_TRADE_INFO' and SPC2.CODE_FIELD='CARD_TYPE'
             left join SYS_PA_CODE spc3 on BTI.QUALIFICATIONS =SPC3.CODE_NUM and spc3.CODE_TABLE='BI_TRADE_INFO' and SPC3.CODE_FIELD='QUALIFICATIONS'
@@ -36,6 +38,9 @@
 			<#if leaguer_type??>
 			  and bti.leaguer_type=[leaguer_type]
 			</#if>
+			<#if ryzt??>
+			  and spu.ryzt=[ryzt]
+			</#if>
 			<#if sex??>
 			  and bti.sex=[sex]
 			</#if>
@@ -47,7 +52,7 @@
 		</stmt>
 		<param name="paging">true</param>
 		<param name="exp-cols">dept_name,account,name,sex,birthday,card_type,card_no,political_status,nation,tele_phone,email,qualifications,degree,post,duties,trade_status,intrade_date,leaguer_type,leaguer_no,memo</param>
-		<param name="exp-names">单位,工号,姓名,性别,出生年月,证件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,会员编号,备注</param>
+		<param name="exp-names">单位,工号,姓名,性别,出生年月,证:s件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,会员编号,备注</param>
 		<param name="exp-file">投稿情况</param>
 	</query>
 </query-config>
