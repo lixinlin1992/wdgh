@@ -11,7 +11,8 @@
 				left join sys_p_department spd on b.dept_id=spd.id
 				where b.job_num = s.id
 				and b.state in (1,3)
-				order by b.approve_time desc
+				order by b.approve_time desc,b.create_time desc,b.rowid desc
+
 			]]>
 		</stmt>
 		<param name="paging">true</param>

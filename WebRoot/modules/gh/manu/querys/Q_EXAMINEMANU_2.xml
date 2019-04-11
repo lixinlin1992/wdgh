@@ -5,7 +5,7 @@
     <query id="Q_EXAMINEMANU_2" type="update" result="">
         <stmt>
             <![CDATA[
-            update bi_manu set state=[state], remarks = [remarks]
+            update bi_manu set state=[state], remarks = [remarks],approve_time=sysdate
             where id=[manu_id2]
             ]]>
         </stmt>
