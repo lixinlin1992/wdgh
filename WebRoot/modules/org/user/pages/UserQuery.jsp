@@ -73,6 +73,24 @@
                             </option>
                         </select>
                     </td>
+                    <td style="width: 60px;" align="right" class="SR_searchTitle">
+                        角&nbsp;&nbsp;色:
+                    </td>
+                    <td align="left">
+                        <select name="group_name" class="SR_pureInput" id="group_name"
+                                style="width: 152px;">
+                            <option value="">
+                                --请选择--
+                            </option>
+                            <option value="1">二级工会管理员</option>
+                            <option value="2">校工会管理员</option>
+                            <option value="3">普通用户</option>
+                            <option value="4">系统管理员</option>
+                            <option value="5">二级工会投稿人</option>
+                            <option value="6">校工会办公室管理员</option>
+                        </select>
+                    </td>
+
                     <td colspan="4">
                         <a class="SR_moduleSearch"
                            onmouseover="this.className='SR_moduleSearchHover';"

@@ -42,6 +42,9 @@
             <#if statusid??>
             AND u.status_id=[statusid]
             </#if>
+            <#if group_name??>
+            AND decode(ug.name,'二级工会管理员',1,'校工会管理员',2,'普通用户',3,'系统管理员',4,'二级工会投稿人',5,'校工会办公室管理员',6)=[group_name]
+            </#if>
             <#if dept_id??>
             AND u.DEPT_ID IN (SELECT ID FROM SYS_P_DEPARTMENT START WITH ID =[dept_id LONG] CONNECT BY PRIOR ID =PARENT_ID)
             </#if>
@@ -59,5 +62,7 @@
         <param name="exp-cols">ID,ACCOUNT,NAME,GROUP_NAME,MOBILE_PHONE,STATUS_ID,DEPT_NAME</param>
         <param name="exp-names">用户ID,帐号,姓名,角色,手机,状态,部门</param>
         <param name="exp-file">用户信息</param>
+
+
     </query>
 </query-config>
