@@ -6,7 +6,7 @@
         <stmt><![CDATA[
         select bta.account,bta.name,bta.sex,to_char(bta.birthday,'yyyy-mm-dd') birthday,bta.political_status,bta.nation,bta.email,
         bta.card_type,bta.card_no,bta.qualifications,bta.degree,bta.post,bta.duties,bta.memo,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,
-        bti.leaguer_no,bta.leaguer_type,bta.dept_id,bta.tele_phone,bta.reason,bta.apply_time,
+        bti.leaguer_no,bta.leaguer_type,(select name from sys_p_department where id=bta.dept_id) dept_id,bta.tele_phone,bta.reason,bta.apply_time,
         decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status
         from bi_trade_apply bta
         left join bi_trade_info bti on bta.account=bti.account
