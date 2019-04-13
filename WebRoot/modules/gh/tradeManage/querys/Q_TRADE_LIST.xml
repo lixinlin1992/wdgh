@@ -51,8 +51,8 @@
 			]]>
 		</stmt>
 		<param name="paging">true</param>
-		<param name="exp-cols">dept_name,account,name,sex,birthday,card_type,card_no,political_status,nation,tele_phone,email,qualifications,degree,post,duties,trade_status,intrade_date,leaguer_type,leaguer_no,memo</param>
-		<param name="exp-names">单位,工号,姓名,性别,出生年月,证:s件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,会员编号,备注</param>
+		<param name="exp-cols">dept_name,account,name,sex,birthday,card_type,card_no,political_status,nation,tele_phone,email,qualifications,degree,post,duties,trade_status,intrade_date,leaguer_type,leaguer_no,memo,ryzt</param>
+		<param name="exp-names">单位,工号,姓名,性别,出生年月,证:s件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,会员编号,备注,人员状态</param>
 		<param name="exp-file">投稿情况</param>
 	</query>
 </query-config>

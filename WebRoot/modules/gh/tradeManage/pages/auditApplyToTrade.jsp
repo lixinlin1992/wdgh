@@ -25,11 +25,17 @@
     <!--标题和一些页面功能的工具条Begin-->
     <div class="SR_moduleBox">
         <div class="SR_moduleTitle">入会审核</div>
+        <div class="SR_moduleRight">
+            <a class="btn_exp_excel" href="javascript:void(0);"
+               onclick="downExcel()" title="导出入会审核信息情况为Excel文件">导出</a>
+        </div>
     </div>
-
     <!-- 电表查询列表 -->
+
+
+
     <div class="SR_tableContentBox">
-        <form id="searchForm" style="display: none">
+        <form id="searchForm" name="searchForm" style="display: none">
             <input type="hidden" id="user_dept_id" name="user_dept_id">
             <input type="hidden" id="type" name="type" value="0">
             <input type="hidden" id="status" name="status" value="1">
@@ -91,5 +97,7 @@
             $("#comment").hide();
         }
     }
+
+
 </script>
 </html>

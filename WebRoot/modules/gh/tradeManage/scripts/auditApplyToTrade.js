@@ -1,7 +1,7 @@
 //审核稿件列表参数--start
 
 
-
+//listdt的属性
 var params = {
     fitColumns: true,
     rownumbers:true,
@@ -33,26 +33,42 @@ var params = {
         ]
     ]
 };
+
+
 //稿件管理列表参数--end
 /**
  * rdcp.JS框架初始化
  */
 rdcp.ready(function () {
-    rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
-        var p = data.body;
-        // var account = "<%=account%>";
-        // $("#account").text(p.account);  //add by ly
-        var deptId=p.dept_id;
-        $("#user_dept_id").val(p.dept_id);
-        if(deptId==null||deptId.length==0){
-            //生成空白表格
-            rdcp.grid('listdt', '', "", params);
-        }else{
-            rdcp.grid('listdt', '!gh/tradeManage/~query/Q_APPLY_TO_TRADE_LIST', "searchForm", params);
-        }
-    });
+        rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
+            var p = data.body;
+            // var account = "<%=account%>";
+            // $("#account").text(p.account);  //add by ly
+            var deptId=p.dept_id;
+            $("#user_dept_id").val(p.dept_id);
+            if(deptId==null||deptId.length==0){
+                //生成空白表格
+                rdcp.grid('listdt', '', "", params);
+            }else{
+                rdcp.grid('listdt', '!gh/tradeManage/~query/Q_APPLY_TO_TRADE_LIST', "searchForm", params);
+            }
+        });
+
 });
 
+function downExcel(){
+
+    rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
+        var p = data.body;
+
+
+        $("#user_dept_id").val(p.dept_id);
+
+    })
+
+    rdcp.goto('!gh/tradeManage/~query/Q_APPLY_TO_TRADE_LIST_2',{params:'result=excel&fileName=入会审核信息导出',form:'searchForm'});
+
+}
 //预览稿件
 function view(apply_id) {
     //标签页ID

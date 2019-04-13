@@ -39,6 +39,20 @@ rdcp.ready(function () {
 
 });
 
+
+function downExcel(){
+
+    rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
+        var p = data.body;
+
+
+        $("#user_dept_id").val(p.dept_id);
+
+    })
+
+    rdcp.goto('!gh/tradeManage/~query/Q_APPLY_TO_TRADE_LIST_2',{params:'result=excel&fileName=入会审批信息导出',form:'searchForm'});
+
+}
 //预览稿件
 function view(apply_id) {
     //标签页ID

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<query-config>
+	<query id="Q_APPLY_TO_TRADE_LIST_2" type="pagelist" result="easyui">
+		<stmt>
+			<![CDATA[
+			select bta.apply_id,bta.account,bta.name,spd.name dept_name,
+				decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status,
+				to_char(apply_time,'yyyy-mm-dd') apply_time,bta.card_no,bta.tele_phone,bta.email,bta.reason
+				from bi_trade_apply bta
+				left join sys_p_department spd on bta.dept_id=spd.id
+				left join bi_trade_info bti on bta.account=bti.account
+				where bta.apply_type=[type]
+				and bta.apply_status=[status]
+				<#if user_dept_id??>
+				and bta.dept_id=[user_dept_id]
+				</#if>
+			]]>
+		</stmt>
+		<param name="paging">true</param>
+		<param name="exp-cols">account,name,dept_name,trade_status,apply_time,card_no,tele_phone,email</param>
+		<param name="exp-names">工号,姓名,所在工会,会籍状态,申请时间,证件号,电话,邮箱</param>
+		<param name="exp-file">申请入会信息</param>
+	</query>
+</query-config>
+
+
+
+
