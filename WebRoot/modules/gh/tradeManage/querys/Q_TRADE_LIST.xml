@@ -7,7 +7,7 @@
 			select bti.account,bti.name,spd.name dept_name_2,spd_spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
 			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会')trade_status,bti.leaguer_no,
 			decode(bti.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
-			decode(spu.ryzt,'在职',0,'报到中',1,'离退休',2,'离校',3,'去世',4,'其他',5)ryzt,
+			decode(spu.ryzt,0,'在职',1,'报到中',2,'离退休',3,'离校',4,'去世',4,'其他')ryzt,
 			decode(bti.sex,1,'男',0,'女')sex,bti.card_no,bti.nation,bti.email,bti.post,bti.duties,bti.memo,
             bti.tele_phone,bti.trade_memo,
             	spc1.NAME political_status,
