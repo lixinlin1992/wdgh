@@ -98,6 +98,10 @@
                                     <option value="">--请选择--</option>
                                     <option value="0">在职</option>
                                     <option value="1">报到中</option>
+                                    <option value="2">离退休</option>
+                                    <option value="3">离校</option>
+                                    <option value="4">去世</option>
+                                    <option value="5">其他</option>
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
