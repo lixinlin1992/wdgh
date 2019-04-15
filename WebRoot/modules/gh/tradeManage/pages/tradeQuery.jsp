@@ -165,6 +165,7 @@
                 {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
                 {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60},
                 {field: 'RYZT', title: '人员状态', sortable: false, align: 'center', width: 60}
+
             ]
         ]
     };
