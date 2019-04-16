@@ -4,9 +4,12 @@
     <!-- 用户退会时所提交的个人信息 -->
     <query id="Q_QUITED_USER_INFO" type="form_data" result="json">
         <stmt><![CDATA[
-        select name,sex,card_no,tele_phone,dept_id,email
-        from bi_trade_info
-        where account=[account]
+          select bti.account,bti.name,bti.sex,
+			    bti.birthday,bti.political_status,bti.nation,bti.degree,bti.qualifications,bti.post,bti.duties,
+			   bti.leaguer_type leaguer_type,bti.dept_id,bti.tele_phone,bti.leaguer_no,bti.nation,bti.card_type,
+				to_char(birthday,'yyyy-mm-dd') birthday,bti.card_no,bti.tele_phone,bti.email
+				from bi_trade_info bti
+          where account=[account]
 		]]></stmt>
     </query>
 </query-config>

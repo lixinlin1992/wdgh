@@ -18,12 +18,12 @@
     </script>
 </head>
 <style>
-.tbBtn{
-  width: 60px;
-}
-.tbBtn1{
-    width: 200px;
-}
+    .tbBtn{
+        width: 60px;
+    }
+    .tbBtn1{
+        width: 200px;
+    }
 </style>
 <body style="padding: 0; margin: 0">
 
@@ -38,19 +38,19 @@
     <div align="center">
         <!-- 搜索标头开始-->
         <div class="SR_searchTableBox">
-                <div class="barquerycontent">
-                    <table>
-                        <tr>
-                            <td style="width: 60px;">
-                                会藉状态 :
-                            </td>
-                            <td id="status" name="trade_status" ></td>
-                            <td style="display: none;font-color:red" id="notice">
-                                <font color="red">提示:因超过六个月未缴纳会费导致被退会，请及时补交所欠会费！</font>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="barquerycontent">
+                <table>
+                    <tr>
+                        <td style="width: 60px;">
+                            会藉状态 :
+                        </td>
+                        <td id="status" name="trade_status" ></td>
+                        <td style="display: none;font-color:red" id="notice">
+                            <font color="red">提示:因超过六个月未缴纳会费导致被退会，请及时补交所欠会费！</font>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="SR_moduleBox" id="trade_info_title">
@@ -108,6 +108,24 @@
                     <form name="quitForm" id="quitForm" onsubmit="return false;">
                         <table>
                             <input type="hidden" name="user_account" id="user_account">
+                            <input  name="user_name" id="user_name">
+                            <input name="card_type" id="card_type">
+                            <input name="card_no" id="card_no">
+                            <input  name="user_tele_phone" id="user_tele_phone">
+                            <input  name="dept_id" id="dept_id">
+                            <input type="hidden" name="email" id="email">
+                            <input type="hidden" name="user_sex" id="user_sex">
+                            <input type="hidden" name="user_leaguer_type" id="user_leaguer_type">
+                            <input type="hidden" name="degree" id="degree">
+                            <input type="hidden" name="qualifications" id="qualifications">
+                            <input type="hidden" name="post" id="post">
+                            <input type="hidden" name="duties" id="duties">
+                            <input type="hidden" name="political_status" id="political_status">
+                            <input type="hidden" name="nation" id="nation">
+                            <input   name="birthday" id="birthday">
+
+
+
                             <tr>
                                 <td class="SR_inputTitle">
                                     退会原因：
@@ -124,164 +142,185 @@
     </div>
 </div>
 <script type="text/javascript">
-var account = "<%=account%>";
-$("#account1").val(account);
-$("#user_account").val(account);
-var params = {
-    fitColumns: true,
-    rownumbers:true,
-    // onClickRow: getFactorRow,
-    columns: [
-        [
-            {field: 'APPLY_TIME', title: '申请时间', sortable: false, align: 'center', width: 100},
-            {field: 'APPLY_TYPE', title: '申请类型', sortable: false, align: 'center', width: 80,
-                formatter: function(value, row, index){
-                    if (value == 0) {
-                        return "入会";
-                    }
-                    else if (value == 1) {
-                        return "会籍信息编辑";
-                    }
-                    else {
-                        return "退会";
-                    }
-                }},
-            {field: 'APPLY_STATUS', title: '申请状态', sortable: false, align: 'center', width: 80,
-                formatter: function(value, row, index){
-                    if (value == 0) {
-                        return "驳回";
-                    }
-                    else if (value == 3) {
-                        return "通过";
-                    }
-                    else {
-                        return "审核中";
-                    }
-                }},
-            {field: 'APPLY_REMARKS', title: '审核意见', sortable: false, align: 'center', width: 100}
-        ]
-    ]
-};
-rdcp.ready(function(){
-    rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_GET_USER_TRADE_INFO", {"account":account}, function (data) {
-        var p = data.body;
-        if(p.trade_status==0||p.trade_status==2){
-            $("#apply_to_quit").hide();
-            $("#trade_info_title").hide();
-            $("#trade_info_con").hide();
-        }else if(p.trade_status==1){
-            $("#apply_to_trade").hide();
-        }else if(p.trade_status==3){
-            $("#notice").css("display","");
-            $("#apply_to_trade").hide();
-            $("#apply_to_quit").hide();
-            $("#trade_info_title").hide();
-            $("#trade_info_con").hide();
-        }
-        $("#status").text(p.trade_status1);
-        $("#account").text(p.account);
-        $("#name").text(p.name);
-        $("#sex").text(p.sex);
-        $("#trade_status").text(p.trade_status1);
-        $("#dept_name").text(p.dept_name);
-        $("#intrade_date").text(p.intrade_date);
-        $("#leaguer_no").text(p.leaguer_no);
-        $("#leaguer_type").text(p.leaguer_type);
-        $("#user_name").val(p.name);
-        rdcp.grid('listdt', '!gh/tradeManage/~query/Q_USER_APPLY_LIST', "recordForm", params);
-  });
-    rdcp.form.load("trade_form","!gh/tradeManage/~query/Q_QUITED_USER_INFO", {"account":account}, function (data){
-        var p = data.body;
-        $("#card_no").val(p.card_no);
-        $("#tele_phone").val(p.tele_phone);
-        $("#dept_id").val(p.dept_id);
-        $("#email").val(p.email);
-    });
-});
-function cancel(){
-   CloseTab("viewLeaguer", "查看会员信息");
-}
-function applyToQuit(){
-    rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":2},function(data) {
-        var p = data.body;
-        if(p.num>0){
-            $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
-        }else{
-            rdcp.dialog(dlgOpts);
-        }
-    });
-}
-
-var dlgOpts = {
-    title: "申请退会",
-    id: "dialog",
-    width: "450",
-    height: "200",
-    parentwidth: true,
-    modal: true,
-    buttons: [
-        {
-            text: '确定',
-            handler: function () {
-                var reason = $("#reason").val().trim();
-                if (reason.length==0) {
-                    $.messager.alert('提示', '请输入退会原因！', 'info');
-                    return false;
-                }
-                rdcp.form.submit("quitForm", {url: "!gh/tradeManage/~query/Q_APPLY_QUIT_TRADE",
-                    success: function (data) {
-                        if (data.header.code == 0) {
-                            $("#dialog").dialog("close");
-                            $.messager.alert('提示', '提交成功！', 'info');
-                            rdcp.grid.reload("listdt");
-                        } else {
-                            $.messager.alert('提示', '提交失败！', 'error');
+    var account = "<%=account%>";
+    $("#account1").val(account);
+    $("#user_account").val(account);
+    //退会弹窗
+    var params = {
+        fitColumns: true,
+        rownumbers:true,
+        // onClickRow: getFactorRow,
+        columns: [
+            [
+                {field: 'APPLY_TIME', title: '申请时间', sortable: false, align: 'center', width: 100},
+                {field: 'APPLY_TYPE', title: '申请类型', sortable: false, align: 'center', width: 80,
+                    formatter: function(value, row, index){
+                        if (value == 0) {
+                            return "入会";
                         }
-                    }
-                });
+                        else if (value == 1) {
+                            return "会籍信息编辑";
+                        }
+                        else {
+                            return "退会";
+                        }
+                    }},
+                {field: 'APPLY_STATUS', title: '申请状态', sortable: false, align: 'center', width: 80,
+                    formatter: function(value, row, index){
+                        if (value == 0) {
+                            return "驳回";
+                        }
+                        else if (value == 3) {
+                            return "通过";
+                        }
+                        else {
+                            return "审核中";
+                        }
+                    }},
+                {field: 'APPLY_REMARKS', title: '审核意见', sortable: false, align: 'center', width: 100}
+            ]
+        ]
+    };
+    rdcp.ready(function(){
+        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_GET_USER_TRADE_INFO", {"account":account}, function (data) {
+            var p = data.body;
+            if(p.trade_status==0||p.trade_status==2){
+                $("#apply_to_quit").hide();
+                $("#trade_info_title").hide();
+                $("#trade_info_con").hide();
+            }else if(p.trade_status==1){
+                $("#apply_to_trade").hide();
+            }else if(p.trade_status==3){
+                $("#notice").css("display","");
+                $("#apply_to_trade").hide();
+                $("#apply_to_quit").hide();
+                $("#trade_info_title").hide();
+                $("#trade_info_con").hide();
+            }
+            $("#status").text(p.trade_status1);
+            $("#account").text(p.account);
+            $("#name").text(p.name);
+            $("#sex").text(p.sex);
+            $("#trade_status").text(p.trade_status1);
+            $("#dept_name").text(p.dept_name);
+            $("#intrade_date").text(p.intrade_date);
+            $("#leaguer_no").text(p.leaguer_no);
+            $("#leaguer_type").text(p.leaguer_type);
+            $("#user_name").val(p.name);
 
-            }
-        },
-        {
-            text: '取消',
-            handler: function () {
-                $("#dialog").dialog("close");
-            }
-        }
-    ]
-};
-function applyToTrade(){
-    rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":0},function(data) {
-        var p = data.body;
-        if(p.num>0){
-            $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
-        }else{
-            var tabId = "applyToTrade";
-            var title = "申请入会";
-            var url = "!gh/tradeManage/~/pages/applyToTrade.jsp?option=add";
-            OpenTab(tabId, title, url);
-        }
+            //recordForm 携带的参数
+            //params 定义生成的表格lisdt
+            rdcp.grid('listdt', '!gh/tradeManage/~query/Q_USER_APPLY_LIST', "recordForm", params);
+        });
+        //退会时提交的信息
+        rdcp.form.load("quitForm","!gh/tradeManage/~query/Q_QUITED_USER_INFO", {"account":account}, function (data){
+            var p = data.body;
+            $("#card_no").val(p.card_no);
+            $("#card_type").val(p.card_type);
+            $("#user_sex").val(p.sex);
+            $("#user_name").val(p.name);
+            $("#user_tele_phone").val(p.tele_phone);
+            $("#dept_id").val(p.dept_id);
+            $("#user_leaguer_type").val(p.leaguer_type);
+            $("#email").val(p.email);
+            $("#political_status").val(p.political_status);
+            $("#nation").val(p.nation);
+            $("#degree").val(p.degree);
+            $("#qualifications").val(p.qualifications);
+            $("#post").val(p.post);
+            $("#duties").val(p.duties);
+            $("#birthday").val(p.birthday);
+
+
+        });
     });
+    function cancel(){
+        CloseTab("viewLeaguer", "查看会员信息");
     }
-function editTradeInfo(){
-    rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":1},function(data) {
-        var p = data.body;
-        if(p.num>0){
-            $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
-        }else{
-            var tabId = "editTradeInfo";
-            var title = "编辑会籍信息";
-            var url = "!gh/tradeManage/~/pages/applyToTrade.jsp?option=edit";
-            OpenTab(tabId, title, url);
-        }
-    });
-}
-function viewTradeInfo(){
-    var tabId = "userTradeInfo";
-    var title = "会籍信息";
-    var url = "!gh/tradeManage/~/pages/userTradeInfo.jsp?option=view";
-    OpenTab(tabId, title, url);
-}
+    function applyToQuit(){
+        rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":2},function(data) {
+            var p = data.body;
+            if(p.num>0){
+                $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
+            }else{
+
+                $("#tele_phone").val(p.tele_phone);
+
+                rdcp.dialog(dlgOpts);
+            }
+        });
+    }
+
+    var dlgOpts = {
+        title: "申请退会",
+        id: "dialog",
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    var reason = $("#reason").val().trim();
+                    if (reason.length==0) {
+                        $.messager.alert('提示', '请输入退会原因！', 'info');
+                        return false;
+                    }
+                    rdcp.form.submit("quitForm", {url: "!gh/tradeManage/~query/Q_APPLY_QUIT_TRADE",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#dialog").dialog("close");
+                                $.messager.alert('提示', '提交成功！', 'info');
+                                rdcp.grid.reload("listdt");
+                            } else {
+                                $.messager.alert('提示', '提交失败！', 'error');
+                            }
+                        }
+                    });
+
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#dialog").dialog("close");
+                }
+            }
+        ]
+    };
+    function applyToTrade(){
+        rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":0},function(data) {
+            var p = data.body;
+            if(p.num>0){
+                $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
+            }else{
+                var tabId = "applyToTrade";
+                var title = "申请入会";
+                var url = "!gh/tradeManage/~/pages/applyToTrade.jsp?option=add";
+                OpenTab(tabId, title, url);
+            }
+        });
+    }
+    function editTradeInfo(){
+        rdcp.request("!gh/tradeManage/~query/Q_GET_APPLY_NUM",{"account":account,"type":1},function(data) {
+            var p = data.body;
+            if(p.num>0){
+                $.messager.alert("提示","用户已申请，请耐心等待结果！","info");
+            }else{
+                var tabId = "editTradeInfo";
+                var title = "编辑会籍信息";
+                var url = "!gh/tradeManage/~/pages/applyToTrade.jsp?option=edit";
+                OpenTab(tabId, title, url);
+            }
+        });
+    }
+    function viewTradeInfo(){
+        var tabId = "userTradeInfo";
+        var title = "会籍信息";
+        var url = "!gh/tradeManage/~/pages/userTradeInfo.jsp?option=view";
+        OpenTab(tabId, title, url);
+    }
 </script>
 </body>
 </html>

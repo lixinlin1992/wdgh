@@ -209,6 +209,7 @@ rdcp.ready(function(){
 
         });
     }else if(option=="viewQuit"){
+//        退会申请预览
         rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
 
         });

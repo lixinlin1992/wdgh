@@ -4,9 +4,12 @@
 	<query id="Q_APPLY_TO_TRADE_LIST_2" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-			select bta.apply_id,bta.account,bta.name,bta.sex,spd.name dept_name,
-			    bta.birthday,bta.political_status,bta.nation,bta.degree,bta.qualifications,bta.post,bta.duties,
+			select bta.apply_id,bta.account,bta.name,spd.name dept_name,
+			    bta.birthday,bta.political_status,bta.nation,bta.post,bta.duties,
 			    decode(bta.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
+			    decode(bta.degree,1,'学士',2,'硕士'，3,'博士')degree,
+			    decode(bta.sex,1,'男',0,'女')sex,
+			    decode(bta.qualifications,1,'博士研究生',2,'硕士研究生',3,'本科',4,'大专',5,'中专',6,'高中及以下')qualifications,
 				to_char(apply_time,'yyyy-mm-dd') apply_time,bta.card_no,bta.tele_phone,bta.email,bta.reason
 				from bi_trade_apply bta
 				left join sys_p_department spd on bta.dept_id=spd.id

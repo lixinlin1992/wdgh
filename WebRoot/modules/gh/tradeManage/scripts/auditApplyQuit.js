@@ -37,7 +37,7 @@ rdcp.ready(function () {
             rdcp.grid('listdt', '!gh/tradeManage/~query/Q_APPLY_TO_TRADE_LIST', "searchForm", params);
 });
 
-//预览稿件
+//预览退会申请";
 function view(apply_id) {
     //标签页ID
     var tabId = "viewQuit";
