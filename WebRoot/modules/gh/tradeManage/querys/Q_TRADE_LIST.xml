@@ -24,7 +24,7 @@
             left join (select spd1.id id,spd1.PARENT_ID PARENT_ID,spd2."NAME"  from sys_p_department spd1, sys_p_department spd2 where spd1.parent_id=spd2.id)spd_spd on bti.dept_id=spd_spd.id
 			where 1=1
 			<#if dept_id??>
-			  and bti.dept_id=[dept_id]
+			  and bti.dept_id=(select id from sys_p_department where name=[dept_id])
 			</#if>
 			<#if account??>
 			  and bti.account like([account])
@@ -47,12 +47,18 @@
 			<#if trade_status??>
 			  and bti.trade_status=[trade_status]
 			</#if>
+			<#if start_date??>
+			   and TO_CHAR(bti.intrade_date,'yyyy-mm-dd') >= [start_date]
+			</#if>
+			<#if end_date??>
+			   and TO_CHAR(bti.intrade_date,'yyyy-mm-dd') <= [end_date]
+			</#if>
 			order by bti.intrade_date desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>
-		<param name="exp-cols">dept_name,account,name,sex,birthday,card_type,card_no,political_status,nation,tele_phone,email,qualifications,degree,post,duties,trade_status,intrade_date,leaguer_type,leaguer_no,memo,ryzt</param>
-		<param name="exp-names">单位,工号,姓名,性别,出生年月,证件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,会员编号,备注,人员状态</param>
+		<param name="exp-cols">dept_name,account,name,sex,birthday,card_type,card_no,political_status,nation,tele_phone,email,qualifications,degree,post,duties,trade_status,intrade_date,leaguer_type,memo,ryzt</param>
+		<param name="exp-names">单位,工号,姓名,性别,出生年月,证:s件类型,证件号,政治面貌,民族,电话,邮箱,学历,学位,岗位,职务职称,会籍状态,入会时间,会员类型,备注,人员状态</param>
 		<param name="exp-file">投稿情况</param>
 	</query>
 </query-config>

@@ -42,9 +42,12 @@
                                 单位:
                             </td>
                             <td id="dept_se">
-                                <select id="dept_id" name="dept_id"  style="width: 120px;height:20px">
-                                    <option value="">--请选择--</option>
-                                </select>
+                                <%--<select id="dept_id" name="dept_id"  style="width: 120px;height:20px">--%>
+                                <%--<option value="">--请选择--</option>--%>
+                                <%--</select>--%>
+                                <input type="text" list="dept_name" id="dept_id" name="dept_id"  class="SR_pureInput"/>
+                                <datalist id="dept_name">
+                                </datalist>
                             </td>
 
                             <td class="SR_searchTitle" style="width: 100px;">
@@ -79,8 +82,8 @@
                                 </select>
                             </td>
                             <td class="SR_searchTitle" style="width: 100px;">
-                            会籍状态:
-                        </td>
+                                会籍状态:
+                            </td>
                             <td>
                                 <select id="trade_status" name="trade_status"  style="width: 120px;height:20px">
                                     <option value="">--请选择--</option>
@@ -110,21 +113,32 @@
                             <td>
                                 <select id="leaguer_type" name="leaguer_type" style="width: 120px;height:20px">
                                     <option value="">--请选择--</option>
-                                    <option value="1">--编制人员--</option>
-                                    <option value="2">--非编制人员--</option>
-                                    <option value="3">--类型3--</option>
-                                    <option value="4">--类型4--</option>
-                                    <option value="5">--类型5--</option>
+                                    <option value="1">编制人员</option>
+                                    <option value="2">非编制人员</option>
                                 </select>
                             </td>
+                        <tr>
                             <td class="SR_searchTitle" style="width: 100px;">
+                                起始时间:
                             </td>
-                            <td class="SR_searchTitle" style="width: 120px;">
+                            <td>
+                                <input type="text" id="start_date" name="start_date" onfocus="WdatePicker({dateFmt : 'yyyy-MM-dd'})"
+                                       class="Wdate" readonly="">
+                            </td>
+                            <td class="SR_searchTitle" style="width: 100px;">
+                                截止时间:
+                            </td>
+                            <td>
+                                <input type="text" id="end_date" name="end_date" onfocus="WdatePicker({dateFmt : 'yyyy-MM-dd'})"
+                                       class="Wdate" readonly="">
+                            </td>
+                            <td style="right: inherit">
                                 <a class="SR_moduleSearch"
                                    onmouseover="this.className='SR_moduleSearchHover';"
                                    onMouseOut="this.className='SR_moduleSearch'"
                                    onclick="tableReLoad()"></a>
                             </td>
+                        </tr>
                         </tr>
                     </table>
                 </div>
@@ -136,14 +150,35 @@
     <div class="SR_tableContentBox">
         <table id="listdt"></table>
     </div>
-    <div id="delTradeDlg" style="display:none;">
-      <input type="hidden" id="account" name="account"/>
-      <table>
-        <tr>
-          <td>退会理由:</td>
-          <td><textarea id="trade_memo" name="trade_memo" rows="8" cols="40"></textarea>
-        </tr>
-      </table>
+    <%--<div id="delTradeDlg" style="display:none;">--%>
+    <%--<input type="hidden" id="account" name="account"/>--%>
+    <%--<table>--%>
+    <%--<tr>--%>
+    <%--<td>退会理由:</td>--%>
+    <%--<td><textarea id="trade_memo" name="trade_memo" rows="8" cols="40"></textarea>--%>
+    <%--</tr>--%>
+    <%--</table>--%>
+    <%--</div>--%>
+</div>
+<div id="editDlg" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="dateEdit" id="dateEdit" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td align="right" class="SR_inputTitle">入会时间:</td>
+                            <td>
+                                <input type="text" id="intrade_date" name="intrade_date" type="text" name="urgency" onfocus="WdatePicker({dateFmt : 'yyyy-MM-dd'})" class="Wdate" readonly=""/>
+                            </td>
+                            <input type="hidden" name="APPLY_ID" id="apply_id">
+                            <input type="hidden" name="account" id="account">
+                            <input type="hidden" name="apply_type" id="apply_type" value="0">
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -151,22 +186,75 @@
     var params = {
         fitColumns: true,
         rownumbers:true,
-        // onClickRow: getFactorRow,
         columns: [
             [
-                {field: 'DEPT_NAME', title: '所属工会', sortable: false, align: 'center', width: 100},
-                {field: 'DEPT_NAME_2', title: '所属单位', sortable: false, align: 'center', width: 100},
+                //{field: 'DEPT_NAME', title: '所属工会', sortable: false, align: 'center', width: 100},
+                {field: 'ID', title: 'ID', hidden: true, sortable: false, align: 'center', width: 0},
+                {field: 'DEPT_NAME_2', title: '所属工会', sortable: false, align: 'center', width: 100},
                 {field: 'ACCOUNT', title: '工号', sortable: false, align: 'center', width: 60},
                 {field: 'NAME', title: '姓名', sortable: false, align: 'center', width: 60},
                 {field: 'SEX', title: '性别', sortable: false, align: 'center', width: 40},
                 {field: 'CARD_NO', title: '证件号', sortable: false, align: 'center', width: 100},
                 {field: 'LEAGUER_TYPE', title: '编制类型', sortable: false, align: 'center', width: 70},
                 {field: 'TRADE_STATUS', title: '会籍状态', sortable: false, align: 'center', width: 80},
+                {field: 'RYZT', title: '人员状态', sortable: false, align: 'center', width: 60},
                 {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
-                {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60},
-                {field: 'RYZT', title: '人员状态', sortable: false, align: 'center', width: 60}
 
+                // {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60}
+                {
+                    field: 'OPT',
+                    title: '修改入会时间',
+                    sortable: false,
+                    align: 'center',
+                    width: 100,
+                    formatter: function (cell, row, index) {
+                        var btn = '<a class="btn_edit" href="javascript:void(0);"  onclick="edit_time(\'' + row.ACCOUNT + '\');">修改入会时间</a>';
+                        return btn;
+                    }
+                }
             ]
+        ]
+    };
+
+    //入会时间的修改-2019/01/05
+    function edit_time(account){
+        document.dateEdit.reset();
+        $("#account").val(account);
+        $("#apply_id").val(account);
+        rdcp.dialog(editDlgOpts);
+    }
+
+    var editDlgOpts = {
+        title: "修改入会时间",
+        id: "editDlg",
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    rdcp.form.submit("dateEdit", {url: "!gh/tradeManage/~query/Q_INTRADE_DATE_UPDATE",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#editDlg").dialog("close");
+                                $.messager.alert('提示', '修改入会时间成功！', 'info');
+                                rdcp.grid.reload("listdt");
+                            }
+                            else {
+                                $.messager.alert('提示', '修改入会时间失败！', 'error');
+                            }
+                        }
+                    });
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#editDlg").dialog("close");
+                }
+            }
         ]
     };
     //校园文化列表参数--end
@@ -178,40 +266,42 @@
         rdcp.request("!gh/manu/~query/Q_LOAD_DEPT_LIST",{},function(data) {
             var p = data.body.rows;
             for (var i = 0; i < data.body.rows.length; i++) {
-                var html = "<option value='" + data.body.rows[i].ID+ "'>" + data.body.rows[i].NAME+ "</option>";
-                $("#dept_id").append(html);
+                var html = "<option value='" + data.body.rows[i].NAME+ "'>" + data.body.rows[i].NAME+ "</option>";
+                $("#dept_name").append(html);
             }
 
             rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
-
-            //查询用户角色和所在单位
-//            rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
-//                var p = data.body;
-//                var deptId=p.dept_id;
-//                $("#user_dept_id").val(p.dept_id);
-//                if(deptId==null||deptId.length==0){
-//                    //生成空白表格
-//
-//                    rdcp.grid('listdt', '', "", params);
-//                }else if(deptId!=1){
-////                    $("#dept_se").css("display","none");
-////                    $("#dept_btn").css("display","none");
-//                    var options=document.getElementById("dept_id").options;
-//                    //var options=$("#dept_id").options;
-//                    for(var i=0;i<options.length;i++){
-//                        if(options[i].value==deptId){
-//                            options[i].selected=true;
-//                            break;
-//                        }
-//                    }
-//                    //生成表格rdcp.grid(tableId,url,formName,表格参数)
-//                    rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
-//                }else{
-//                    rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
-//                }
-//            });
         });
     });
+
+    //查询用户角色和所在单位
+    //            rdcp.request("!gh/tradeManage/~query/Q_GET_USER_INFO",{},function(data) {
+    //                var p = data.body;
+    //                var deptId=p.dept_id;
+    //                $("#user_dept_id").val(p.dept_id);
+    //                if(deptId==null||deptId.length==0){
+    //                    //生成空白表格
+    //
+    //                    rdcp.grid('listdt', '', "", params);
+    //                }else if(deptId!=1){
+    ////                    $("#dept_se").css("display","none");
+    ////                    $("#dept_btn").css("display","none");
+    //                    var options=document.getElementById("dept_id").options;
+    //                    //var options=$("#dept_id").options;
+    //                    for(var i=0;i<options.length;i++){
+    //                        if(options[i].value==deptId){
+    //                            options[i].selected=true;
+    //                            break;
+    //                        }
+    //                    }
+    //                    //生成表格rdcp.grid(tableId,url,formName,表格参数)
+    //                    rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
+    //                }else{
+    //                    rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
+    //                }
+    //            });
+
+
     function viewLeaguer(account){
         var tabId = "viewLeaguer";
         var title = "查看会员信息";
@@ -221,9 +311,7 @@
     }
 
     function tableReLoad(){
-
         rdcp.grid('listdt', '!gh/tradeManage/~query/Q_TRADE_LIST', "searchForm", params);
-
     }
 
     function downExcel(){
