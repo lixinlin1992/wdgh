@@ -108,11 +108,11 @@
                     <form name="quitForm" id="quitForm" onsubmit="return false;">
                         <table>
                             <input type="hidden" name="user_account" id="user_account">
-                            <input  name="user_name" id="user_name">
-                            <input name="card_type" id="card_type">
-                            <input name="card_no" id="card_no">
-                            <input  name="user_tele_phone" id="user_tele_phone">
-                            <input  name="dept_id" id="dept_id">
+                            <input  type="hidden" name="user_name" id="user_name">
+                            <input  type="hidden" name="card_type" id="card_type">
+                            <input type="hidden" name="card_no" id="card_no">
+                            <input  type="hidden" name="user_tele_phone" id="user_tele_phone">
+                            <input  type="hidden" name="dept_id" id="dept_id">
                             <input type="hidden" name="email" id="email">
                             <input type="hidden" name="user_sex" id="user_sex">
                             <input type="hidden" name="user_leaguer_type" id="user_leaguer_type">
@@ -122,7 +122,7 @@
                             <input type="hidden" name="duties" id="duties">
                             <input type="hidden" name="political_status" id="political_status">
                             <input type="hidden" name="nation" id="nation">
-                            <input   name="birthday" id="birthday">
+                            <input   type="hidden" name="birthday" id="birthday">
 
 
 

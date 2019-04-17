@@ -48,9 +48,9 @@
                         <td align="right" class="SR_inputTitle" style="width:100px">性别:</td>
                         <td>
                             <select id="sex" name="sex" style="width:200px">
-                              <option value="-1">--请选择--</option>
-                              <option value="1">男</option>
-                              <option value="0">女</option>
+                                <option value="-1">--请选择--</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
                             </select>
                         </td>
                     </tr>
@@ -62,7 +62,7 @@
                         <td align="right" class="SR_inputTitle" style="width:100px">政治面貌:</td>
                         <td>
                             <select id="political_status" name="political_status" style="width:200px">
-                               <option value="-1">--请选择--</option>
+                                <option value="-1">--请选择--</option>
                             </select>
                         </td>
                         <td align="right" class="SR_inputTitle" style="width:100px">民族:</td>
@@ -78,9 +78,9 @@
                         <td align="right" class="SR_inputTitle" style="width:100px">证件类型:</td>
                         <td>
                             <select id="card_type" name="card_type" style="width:200px">
-                               <option value="-1">--请选择--</option>
-                               <option value="1">身份证</option>
-                               <option value="2">一卡通</option>
+                                <option value="-1">--请选择--</option>
+                                <option value="1">身份证</option>
+                                <option value="2">一卡通</option>
                             </select>
                         </td>
                         <td align="right" class="SR_inputTitle" style="width:100px">证件号:</td>
@@ -92,7 +92,7 @@
                         <td align="right" class="SR_inputTitle" style="width:100px">学历:</td>
                         <td>
                             <select id="qualifications" name="qualifications" style="width:200px">
-                               <option value="-1">--请选择--</option>
+                                <option value="-1">--请选择--</option>
                             </select>
                         </td>
                         <td align="right" class="SR_inputTitle" style="width:100px">学位:</td>
@@ -149,7 +149,7 @@
                         <td align="right" class="SR_inputTitle" style="width:100px">所属工会:</td>
                         <td>
                             <select id="dept_id" name="dept_id" style="width:200px">
-                               <option value="-1">--请选择--</option>
+                                <option value="-1">--请选择--</option>
                             </select>
                         </td>
                         <td align="right" class="SR_inputTitle" style="width:100px" id="intrade_date_btn">入会时间:</td>
@@ -180,49 +180,49 @@
     </div>
 </div>
 <script type="text/javascript">
-var account = "<%=account%>";
-rdcp.ready(function(){
-  rdcp.request("!gh/tradeManage/~query/Q_LOAD_TRADE_PARAM_CODE",{},function(data){
-    var p = data.body.rows;
-    for(var i=0;i<p.length;i++){
-       var html = "<option value='"+p[i].CODE_NUM+"'>"+p[i].NAME+"</option>";
-       $("#"+p[i].CODE).append(html);
-    }
-    if(option=="view"){
-        $("#apply_info").hide();
-        $("#apply_info_table").hide();
-        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_TRADE_INFO", {"account":account}, function (data) {
+    var account = "<%=account%>";
+    rdcp.ready(function(){
+        rdcp.request("!gh/tradeManage/~query/Q_LOAD_TRADE_PARAM_CODE",{},function(data){
+            var p = data.body.rows;
+            for(var i=0;i<p.length;i++){
+                var html = "<option value='"+p[i].CODE_NUM+"'>"+p[i].NAME+"</option>";
+                $("#"+p[i].CODE).append(html);
+            }
+            if(option=="view"){
+                $("#apply_info").hide();
+                $("#apply_info_table").hide();
+                rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_TRADE_INFO", {"account":account}, function (data) {
 
-        });
-    }else if(option=="viewAdd"){
-        $("#intrade_date_btn").hide();
-        $("#intrade_date").hide();
-        $("#reason_td").hide();
-        $("#reason_btn").hide();
-        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
+                });
+            }else if(option=="viewAdd"){
+                $("#intrade_date_btn").hide();
+                $("#intrade_date").hide();
+                $("#reason_td").hide();
+                $("#reason_btn").hide();
+                rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
 
-        });
-    }else if(option=="viewEdit"){
-        $("#reason_btn").hide();
-        $("#reason_td").hide();
-        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
+                });
+            }else if(option=="viewEdit"){
+                $("#reason_btn").hide();
+                $("#reason_td").hide();
+                rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
 
-        });
-    }else if(option=="viewQuit"){
+                });
+            }else if(option=="viewQuit"){
 //        退会申请预览
-        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
+                rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_APPLY_INFO", {"apply_id":apply_id}, function (data) {
 
-        });
-    }
-    else if(option=="viewInfo"){
-        $("#apply_info").hide();
-        $("#apply_info_table").hide();
-        rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_TRADE_INFO", {"account":user_account}, function (data) {
+                });
+            }
+            else if(option=="viewInfo"){
+                $("#apply_info").hide();
+                $("#apply_info_table").hide();
+                rdcp.form.load("trade_form", "!gh/tradeManage/~query/Q_LOAD_USER_TRADE_INFO", {"account":user_account}, function (data) {
 
+                });
+            }
         });
-    }
-  });
-});
+    });
 </script>
 </body>
 </html>
