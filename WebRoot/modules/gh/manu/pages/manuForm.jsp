@@ -1,4 +1,5 @@
 <%@ page language="java" import="com.sunrise.framework.core.LoginUserSession" pageEncoding="UTF-8" %>
+<%@ page import="com.sunrise.framework.var.Var" %>
 <%@ taglib prefix="r" uri="http://www.sunrisetech.com/rdcp/" %>
 <%
     String path = request.getContextPath();
@@ -173,7 +174,9 @@
             </div>
         </div>
     </div>
+
 </div>
+<input type="hidden" id="CUR_USER_ID"  name="CUR_USER_ID"  value="<%=Var.get("RU.CUR_USER.id")%>" >
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
 <script type="text/javascript">
@@ -181,6 +184,7 @@
     var option = "<%=option%>";
     //获取history_id
     var manu_id = "<%=manu_id%>";
+
     //获取服务器根路径
     var serverBasePath = "<%=basePath%>";
     //定义编辑器
@@ -255,7 +259,12 @@
     function sureBtn() {
         //获取编辑器内容
         var company = $("#company").val();
+        var author_one= $("#author_one").val();
+        var author_two= $("#author_two").val();
+        var author_three= $("#author_three").val();
         var author_one_account= $("#author_one_account").val();
+        var author_two_account= $("#author_two_account").val();
+        var author_three_account= $("#author_three_account").val();
         var content = editor.html();
         var text = editor.text();
         $("#content_text").val(text);
@@ -277,15 +286,27 @@
             return false;
         }
         if (option == "add") {
-            rdcp.form.submit("manuForm", {
-                url: "!gh/manu/~query/Q_ADD_MANU",
-                success: function (data) {
-                    $.messager.alert('提示', '稿件信息发布成功！', 'info',function () {
-                        parent.refreshGrid();
+//            rdcp.form.submit("manuForm", {
+//                url: "!gh/manu/~query/Q_ADD_MANU",
+//                success: function (data) {
+//                    $.messager.alert('提示', '稿件信息发布成功！', 'info',function () {
+//                        parent.refreshGrid();
+//                        cancel();
+//                    });
+//                }
+//            }, {"mask": true});
+            var CUR_USER_ID= $("#CUR_USER_ID").val();
+//            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text,"author_one_account":author_one_account,"author_two_account":author_two_account,"author_three_account":author_three_account},function(data){
+            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"CUR_USER_ID":CUR_USER_ID,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text},function(data){
+                if(data.header.code == 0)
+                {
+                    $.messager.alert("提示","插入成功！","info",function () {
                         cancel();
+
                     });
                 }
-            }, {"mask": true});
+            });
+
         }
         else if (option == "edit"){
             $("#manu_id").val(manu_id);
