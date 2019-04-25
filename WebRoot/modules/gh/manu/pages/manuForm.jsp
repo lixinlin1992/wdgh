@@ -296,8 +296,7 @@
 //                }
 //            }, {"mask": true});
             var CUR_USER_ID= $("#CUR_USER_ID").val();
-//            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text,"author_one_account":author_one_account,"author_two_account":author_two_account,"author_three_account":author_three_account},function(data){
-            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"CUR_USER_ID":CUR_USER_ID,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text},function(data){
+            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"CUR_USER_ID":CUR_USER_ID,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text,"author_one_account":author_one_account,"author_two_account":author_two_account,"author_three_account":author_three_account},function(data){
                 if(data.header.code == 0)
                 {
                     $.messager.alert("提示","插入成功！","info",function () {
