@@ -2,10 +2,12 @@
 
 <query-config>
 	<query id="Q_APPLY_TO_TRADE_LIST_2" type="pagelist" result="easyui">
+		<!--审批信息导出-->
 		<stmt>
 			<![CDATA[
 			select bta.apply_id,bta.account,bta.name,spd.name dept_name,
-			    bta.birthday,bta.political_status,bta.nation,bta.post,bta.duties,
+			    bta.birthday,bta.nation,bta.post,bta.duties,
+			    decode(bta.political_status,1,'群众',2,'共青团员',3,'中共预备党员',4,'中共党员',5,'民主党派')political_status,
 			    decode(bta.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
 			    decode(bta.degree,1,'学士',2,'硕士'，3,'博士')degree,
 			    decode(bta.sex,1,'男',0,'女')sex,
