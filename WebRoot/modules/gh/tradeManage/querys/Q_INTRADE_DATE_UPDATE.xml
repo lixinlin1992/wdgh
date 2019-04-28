@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_INTRADE_DATE_UPDATE" type="update" result="">
+        <stmt>
+            <![CDATA[
+          update bi_trade_info set intrade_date=to_date([intrade_date], 'YYYY-MM-DD HH24:MI:SS')
+          where account=[apply_id]
+        ]]>
+        </stmt>
+    </query>
+</query-config>

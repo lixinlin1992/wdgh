@@ -181,6 +181,33 @@
         </div>
     </div>
 </div>
+
+<div id="editDlg2" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="LeaguerEdit" id="LeaguerEdit" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td align="right" class="SR_inputTitle">编制类型:</td>
+                            <td>
+                                <select id="leaguer_type2" name="leaguer_type2" style="width: 120px;height:20px">
+                                    <option value="">--请选择--</option>
+                                    <option value="1">编制人员</option>
+                                    <option value="2">非编制人员</option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="APPLY_ID" id="apply_id2">
+                            <input type="hidden" name="account" id="account2">
+                            <input type="hidden" name="apply_type" id="apply_type2" value="0">
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script type="text/javascript">
     var params = {
@@ -211,7 +238,19 @@
                         var btn = '<a class="btn_edit" href="javascript:void(0);"  onclick="edit_time(\'' + row.ACCOUNT + '\');">修改入会时间</a>';
                         return btn;
                     }
+                },
+                {
+                    field: 'OPT2',
+                    title: '修改编制类型',
+                    sortable: false,
+                    align: 'center',
+                    width: 100,
+                    formatter: function (cell, row, index) {
+                        var btn = '<a class="btn_edit" href="javascript:void(0);"  onclick="edit_leaguer_type(\'' + row.ACCOUNT + '\');">修改编制类型</a>';
+                        return btn;
+                    }
                 }
+
             ]
         ]
     };
@@ -222,6 +261,13 @@
         $("#account").val(account);
         $("#apply_id").val(account);
         rdcp.dialog(editDlgOpts);
+    }
+
+    function edit_leaguer_type(account){
+        document.LeaguerEdit.reset(); //调用LeaguerEdit元素
+        $("#account2").val(account);
+        $("#apply_id2").val(account);  //这个地方要用id
+        rdcp.dialog(editDlgOpts2);
     }
 
     var editDlgOpts = {
@@ -253,6 +299,40 @@
                 text: '取消',
                 handler: function () {
                     $("#editDlg").dialog("close");
+                }
+            }
+        ]
+    };
+
+    var editDlgOpts2 = {
+        title: "修改编制类型",
+        id: "editDlg2", //修改编制类型对话框
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    rdcp.form.submit("LeaguerEdit", {url: "!gh/tradeManage/~query/Q_LEAGUER_TYPE_UPDATE",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#editDlg2").dialog("close");
+                                $.messager.alert('提示', '修改编制类型成功！', 'info');
+                                rdcp.grid.reload("listdt");
+                            }
+                            else {
+                                $.messager.alert('提示', '修改编制类型失败！', 'error');
+                            }
+                        }
+                    });
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#editDlg2").dialog("close");
                 }
             }
         ]
@@ -320,3 +400,4 @@
     }
 </script>
 </html>
+

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_LEAGUER_TYPE_UPDATE" type="update" result="">
+        <stmt>
+            <![CDATA[
+          update bi_trade_info set LEAGUER_TYPE=[leaguer_type2]
+          where account=[account]
+        ]]>
+        </stmt>
+    </query>
+</query-config>
