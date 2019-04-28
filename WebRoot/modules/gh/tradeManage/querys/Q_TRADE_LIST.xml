@@ -53,7 +53,7 @@
 			<#if end_date??>
 			   and TO_CHAR(bti.intrade_date,'yyyy-mm-dd') <= [end_date]
 			</#if>
-			order by bti.intrade_date desc
+			order by bti.intrade_date desc,bti.rowid desc
 			]]>
 		</stmt>
 		<param name="paging">true</param>
