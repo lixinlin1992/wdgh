@@ -4,9 +4,9 @@
     <!-- 查找,编辑组织机构 -->
     <query id="Q_LOAD_USER_TRADE_INFO" type="form_data" result="json">
         <stmt><![CDATA[
-     select spu.account,spu.name,spu.sex,to_char(bti.birthday,'yyyy-mm-dd') birthday,bti.political_status,bti.nation,bti.email,
+     select spu.account,spu.name,bti.sex,to_char(bti.birthday,'yyyy-mm-dd') birthday,bti.political_status,bti.nation,bti.email,
         bti.card_type,bti.card_no,bti.qualifications,bti.degree,bti.post,bti.duties,bti.memo,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,
-        bti.leaguer_no,bti.leaguer_type,(select name from sys_p_department where id =spu.dept_id) dept_id,bti.tele_phone,bti.trade_memo,
+        bti.leaguer_no,bti.leaguer_type,(select name from sys_p_department where id =bti.dept_id) dept_id,bti.tele_phone,bti.trade_memo,
         decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status
         from sys_p_user spu left join bi_trade_info  bti on  spu.account=bti.account
         where spu.account=[account]
