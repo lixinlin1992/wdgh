@@ -63,13 +63,13 @@ var params = {
  */
 rdcp.ready(function () {
     //生成表格rdcp.grid(tableId,url,formName,表格参数)
-/*    rdcp.request("!gh/manu/~query/Q_LOAD_DEPT_LIST",{},function(data) {
-        var p = data.body.rows;
-        for (var i = 0; i < data.body.rows.length; i++) {
-            var html = "<option value='" + data.body.rows[i].ID+ "'>" + data.body.rows[i].NAME+ "</option>";
-            $("#dept_id").append(html);
-        }
-    });*/
+    /*    rdcp.request("!gh/manu/~query/Q_LOAD_DEPT_LIST",{},function(data) {
+            var p = data.body.rows;
+            for (var i = 0; i < data.body.rows.length; i++) {
+                var html = "<option value='" + data.body.rows[i].ID+ "'>" + data.body.rows[i].NAME+ "</option>";
+                $("#dept_id").append(html);
+            }
+        });*/
     rdcp.grid('menu_list', '!gh/manu/~query/Q_MANU_LIST', "searchForm", params);
 
 });
@@ -102,7 +102,7 @@ function viewManu(manu_id) {
     //标签页TILE
     var title = "预览信息";
     //标签页url
-    var url = "!gh/manu/~/pages/viewManu.jsp?manu_id=" + manu_id;
+    var url = "!gh/manu/~/pages/viewManu.jsp?tag=1&&manu_id=" + manu_id;
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }

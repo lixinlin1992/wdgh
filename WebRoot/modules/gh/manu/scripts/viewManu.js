@@ -15,19 +15,21 @@
 //     });
 // });
 
-function editManu(manu_id) {
+function editManu(manu_id,tag) {
     //标签页ID
     var tabId = "editManu";
     //标签页TILE
     var title = "修改信息";
+
     //标签页url
-    var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id;
+    var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id+"&tag=" +tag;
     $(document).on("click",".SR_uploaderDel",function(){
         publicDelFile(manu_id);
     })
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }
+//审核
 function examineManu(manu_id) {
     $("#manu_id").val(manu_id);
     rdcp.dialog(dlgOpts);
@@ -79,3 +81,54 @@ var dlgOpts = {
     ]
 };
 
+
+//审批
+function approveManu(manu_id) {
+    $("#manu_id2").val(manu_id);
+    rdcp.dialog(dlgOpts2);
+}
+
+var dlgOpts2 = {
+    title: "稿件审批",
+    id: "dialog2",
+    width: "450",
+    height: "200",
+    parentwidth: true,
+    modal: true,
+    buttons: [
+        {
+            text: '确定',
+            handler: function () {
+                var state = $("#state2").val();
+                var remarks=$("#remarks2").val().trim();
+                if (state == 0) {
+                    $.messager.alert('提示', '请输入审批结果！', 'info');
+                    return false;
+                }else if(state==4&&(remarks.length==0||remarks==null)){
+                    $.messager.alert('提示', '请输入审批意见！', 'info');
+                    return false;
+                }
+                rdcp.form.submit("approveManuForm", {url: "!gh/manu/~query/Q_APPROVEMANU",
+                    success: function (data) {
+                        if (data.header.code == 0) {
+                            $("#dialog2").dialog("close");
+                            $.messager.alert('提示', '稿件审批成功！', 'info');
+                            $("#remarks2").attr("value","");
+                            CloseTab("viewManu"+manu_id, "预览信息");
+                        } else {
+                            $.messager.alert('提示', '稿件审批失败！', 'error');
+                        }
+                    }
+                });
+
+            }
+        },
+        {
+            text: '取消',
+            handler: function () {
+                $("#dialog2").dialog2("close");
+                $("#remarks").attr("value","");
+            }
+        }
+    ]
+};

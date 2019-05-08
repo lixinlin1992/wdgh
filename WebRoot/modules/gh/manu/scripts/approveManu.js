@@ -181,7 +181,7 @@ function viewManu(manu_id) {
     //标签页TILE
     var title = "预览信息";
     //标签页url
-    var url = "!gh/manu/~/pages/viewManu.jsp?manu_id=" + manu_id;
+    var url = "!gh/manu/~/pages/viewManu.jsp?tag=2&&manu_id=" + manu_id;
     OpenTab(tabId, title, url);
     //window.open("!property/culturePropaganda/~/pages/addHistory.jsp?option=edit&history_id=" + history_id);
 }
@@ -192,7 +192,7 @@ function editManu(manu_id) {
     //标签页TILE
     var title = "修改信息";
     //标签页url
-    var url = "!gh/manu/~/pages/manuForm.jsp?option=edit&manu_id=" + manu_id;
+    var url = "!gh/manu/~/pages/manuForm.jsp?tag=2&option=edit&manu_id=" + manu_id;
     $(document).on("click",".SR_uploaderDel",function(){
         publicDelFile(manu_id);
     })

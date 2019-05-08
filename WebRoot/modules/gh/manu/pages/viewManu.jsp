@@ -25,6 +25,7 @@
     <link href="!gh/index/~/css/list.css" rel="stylesheet" />
     <%
         String manu_id = request.getParameter("manu_id");
+        String tag = request.getParameter("tag");
     %>
 </head>
 <body>
@@ -72,14 +73,56 @@
         </div>
     </div>
 </div>
+<div id="dialog2" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="approveManuForm" id="approveManuForm" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td class="SR_inputTitle">
+                                审批结果：
+                            </td>
+                            <td>
+                                <select name="state" class="SR_pureInput" id="state2"
+                                        style="width: 180px;" onchange="changeType()">
+                                    <option value="0">
+                                        --请选择--
+                                    </option>
+                                    <option value="3">
+                                        通过审批
+                                    </option>
+                                    <option value="4">
+                                        未通过审批
+                                    </option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="manu_id" id="manu_id2">
+                        </tr>
+                        <tr  id="comment2" name="comment">
+                            <td class="SR_inputTitle">
+                                审批意见：
+                            </td>
+                            <td>
+                                <textarea id="remarks2" name="remarks" style="width: 240px;height:45px"></textarea>
+                            </td>&nbsp;
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <i class="clear"></i>
 <!--列表页内容区 End-->
 <div>
     <div class="floatSmallBtn" style="width: 500px;" align="center">
         <a class="btn_commit" href="javascript:void(0);"
-           onclick="editManu(manu_id);" title="">修改</a>
-        <a class="btn_cancel" href="javascript:void(0);"
+           onclick="editManu(manu_id,tag);" title="">修改</a>
+        <a id="shenhe" name="shenhe" class="btn_cancel" href="javascript:void(0);"
            onclick="examineManu(manu_id)" title="">审核</a>
+        <a id="shenpi" name="shenpi" class="btn_cancel" href="javascript:void(0);"
+           onclick="approveManu(manu_id)" title="">审批</a>
         <a class="btn_cancel" href="javascript:void(0);"
            onclick="cancel()" title="">取消</a>
     </div>
@@ -89,6 +132,7 @@
 <script type="text/javascript">
     //获取history_id
     var manu_id = "<%=manu_id%>";
+    var tag = "<%=tag%>";
     //获取服务器根路径
     var serverBasePath = "<%=basePath%>";
     rdcp.ready(function () {
@@ -100,6 +144,18 @@
                 +obj.author_two+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者三:"+obj.author_three+"</p>";
             html += "<div class='g-article-content'>"+obj.content+"</div>";
             $("#content").html(html);
+            if(tag==1)  //tag=1 表示从管理稿件界面过来的
+            {
+                $("#shenpi").hide();
+                $("#shenhe").hide();
+            }else if(tag==2)////tag=1 表示从审批界面过来的
+            {
+                $("#shenhe").hide();
+
+            }else  {
+                $("#shenpi").hide(); //表示从审核界面过来
+
+            }
         });
     });
 

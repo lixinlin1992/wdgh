@@ -28,6 +28,7 @@
     <link href="!service/file/~/css/editfile.css" rel="stylesheet" type="text/css"/>
     <%
         String option = request.getParameter("option");
+        String tag = request.getParameter("tag");
         String manu_id = request.getParameter("manu_id");
     %>
 </head>
@@ -127,8 +128,10 @@
     <div class="floatSmallBtn" style="width: 500px;" align="center">
         <a class="btn_commit" href="javascript:void(0);"
            onclick="sureBtn();" title="">提交</a>
-        <a class="btn_cancel" href="javascript:void(0);"
+        <a  name="shenhe" id="shenhe" class="btn_cancel" href="javascript:void(0);"
            onclick="examineManu(manu_id)" title="">审核</a>
+        <a  name="shen" id="shenpi" class="btn_cancel" href="javascript:void(0);"
+            onclick="approveManu(manu_id)" title="">审批</a>
         <a class="btn_cancel" href="javascript:void(0);"
            onclick="cancel()" title="">取消</a>
 
@@ -176,12 +179,55 @@
     </div>
 
 </div>
+<div id="dialog2" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="approveManuForm" id="approveManuForm" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td class="SR_inputTitle">
+                                审批结果：
+                            </td>
+                            <td>
+                                <select name="state" class="SR_pureInput" id="state2"
+                                        style="width: 180px;" onchange="changeType()">
+                                    <option value="0">
+                                        --请选择--
+                                    </option>
+                                    <option value="3">
+                                        通过审批
+                                    </option>
+                                    <option value="4">
+                                        未通过审批
+                                    </option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="manu_id" id="manu_id3">
+                        </tr>
+                        <tr  id="comment2" name="comment">
+                            <td class="SR_inputTitle">
+                                审批意见：
+                            </td>
+                            <td>
+                                <textarea id="remarks2" name="remarks" style="width: 240px;height:45px"></textarea>
+                            </td>&nbsp;
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <input type="hidden" id="CUR_USER_ID"  name="CUR_USER_ID"  value="<%=Var.get("RU.CUR_USER.id")%>" >
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
 <script type="text/javascript">
     //获取操作类型 add or edit
     var option = "<%=option%>";
+    var tag = "<%=tag%>";
     //获取history_id
     var manu_id = "<%=manu_id%>";
 
@@ -233,6 +279,8 @@
                 rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_manu_seq"},function(data){
                     manu_id = data.body.seq;
                     $("#manu_id").val(manu_id);
+                    $("#shenhe").hide();
+                    $("#shenpi").hide();
 
                     initUpload();
                 });
@@ -250,6 +298,15 @@
                         //加载附件列表
                         loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
                     }
+                    if(tag==2)
+                    {  $("#shenhe").hide();
+                    }
+                    else{
+                        $("#shenpi").hide();
+                    }
+
+
+
                 });
             }
         });
@@ -331,6 +388,7 @@
 
     }
 
+    //审核
     function examineManu(manu_id) {
         $("#manu_id2").val(manu_id);
         rdcp.dialog(dlgOpts);
@@ -381,6 +439,62 @@
             }
         ]
     };
+
+
+
+    //审批
+    function approveManu(manu_id) {
+        $("#manu_id3").val(manu_id);
+        rdcp.dialog(dlgOpts2);
+    }
+
+    var dlgOpts2 = {
+        title: "稿件审批",
+        id: "dialog2",
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    var state = $("#state2").val();
+                    var remarks=$("#remarks2").val().trim();
+                    if (state == 0) {
+                        $.messager.alert('提示', '请输入审批结果！', 'info');
+                        return false;
+                    }else if(state==4&&(remarks.length==0||remarks==null)){
+                        $.messager.alert('提示', '请输入审批意见！', 'info');
+                        return false;
+                    }
+                    rdcp.form.submit("approveManuForm", {url: "!gh/manu/~query/Q_APPROVEMANU",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#dialog2").dialog("close");
+                                $.messager.alert('提示', '稿件审批成功！', 'info');
+                                $("#remarks2").attr("value","");
+                                CloseTab("viewManu"+manu_id, "预览信息");
+                            } else {
+                                $.messager.alert('提示', '稿件审批失败！', 'error');
+                            }
+                        }
+                    });
+
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#dialog2").dialog2("close");
+                    $("#remarks").attr("value","");
+                }
+            }
+        ]
+    };
+
+
+
     function initUpload(){
         rdcp.uploader("uploader", {busiId: manu_id, busiType: "BI_MANU"}, {
             onSuccess: function (file) {
