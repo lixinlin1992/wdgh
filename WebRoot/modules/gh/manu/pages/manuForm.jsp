@@ -306,6 +306,19 @@
                     }
 
 
+                    if(data.body.state>=1)
+                    {
+                        $("#shenhe").hide();
+
+                    }
+
+                    if(data.body.state>=3)
+                    {
+                        $("#shenpi").hide();
+
+                    }
+
+
 
                 });
             }

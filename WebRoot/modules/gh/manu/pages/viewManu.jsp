@@ -156,6 +156,20 @@
                 $("#shenpi").hide(); //表示从审核界面过来
 
             }
+
+            if(obj.state>=1)
+            {
+                $("#shenhe").hide();
+
+            }
+
+            if(obj.state>=3)
+            {
+                $("#shenpi").hide();
+
+            }
+
+
         });
     });
 
