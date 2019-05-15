@@ -51,7 +51,38 @@
             openMenuMark(221);
             rdcp.menu.openPage(221, "首页", "pages/welcome.jsp", false);
             rdcp.request("!sys/menu/~java/UserMenu", {time: new Date().getTime()}, buildNavBar);
+
+
+           var dlgOpts = {
+                title: "武汉大学工会系统",
+                id: "dialog",
+                width: "450",
+                height: "200",
+                parentwidth: true,
+                modal: true,
+                buttons: [
+                    {
+                        text: '我知道了',
+                        handler: function () {
+                            $("#dialog").dialog("close");
+                            $("#remarks").attr("value","");
+                        }
+
+                    },
+                    {
+                        text: '关闭',
+                        handler: function () {
+                            $("#dialog").dialog("close");
+                            $("#remarks").attr("value","");
+                        }
+                    }
+                ]
+            };
+            rdcp.dialog(dlgOpts);
+
+
         });
+
 
         function buildNavBar(data) {
             var $container = rdcp.id("navi");
@@ -258,7 +289,21 @@
 </head>
 
 <body class="easyui-layout" style="border: 0px;">
-
+<div id="dialog" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div>
+            <div class="SR_inputTableContent" style="font-size: 24px;text-align: center;line-height: 300%">
+                <form name="examineManuForm" id="examineManuForm" onsubmit="return false;">
+                    <table>
+                        <tr>
+                                涉密不上网，上网不涉密！
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div data-options="region:'north'" style="border:0px;min-height:100px;overflow:hidden">
     <div class="SR_headerBox">
         <div class="SR_headerLeft">
