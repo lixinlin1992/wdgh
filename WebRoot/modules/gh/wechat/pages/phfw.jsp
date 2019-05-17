@@ -98,7 +98,18 @@
         </a>
     </ul>
   </div>
-
+  <div class="interest_list" style="border-bottom: 1rem #ededed solid;">
+    <ul>
+      <li class="animated bounceInLeft clear_border">
+        <a href="http://hqfwdt.whu.edu.cn/rsp">
+          <img src="!gh/wechat/img/phfw_icon01.png">
+          <div class="list_r">
+            <p><span>工会福利平台</span></p>
+            <p class="g-phfw-img"><img src="!gh/wechat/img/phfw_img01.jpg" alt=""></p>
+          </div>
+        </a>
+    </ul>
+  </div>
 </div>
 <script type="text/javascript">
    var userId = "<%=userId%>";

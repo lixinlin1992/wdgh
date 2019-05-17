@@ -84,7 +84,7 @@ User: Larry
         </div>
         <div class="mui-top clearfloat">
             <div class="list fl">
-                <a href="http://www.ceat.edu.cn/">
+                <a href="https://www.xuexi.cn/">
                     <img src="!gh/wechat/~/img/ylh-icon7.png"/>
                     <p class="tit">宣教课堂</p>
                 </a>

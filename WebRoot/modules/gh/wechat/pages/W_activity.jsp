@@ -42,9 +42,9 @@ To change this template use File | Settings | File Templates.
         文体活动
     </div>
     <div class="tabs my_tab4">
+        <a href="!gh/wechat/~/pages/W_movie.jsp" hidefocus="true">电影消息</a>
         <a href="!gh/wechat/~/pages/W_activity.jsp" hidefocus="true" class="active">文体活动</a>
         <a href="!gh/wechat/~/pages/W_organizationDevelop.jsp" hidefocus="true">社团建设</a>
-        <a href="!gh/wechat/~/pages/W_movie.jsp" hidefocus="true">电影消息</a>
         <a href="!gh/wechat/~/pages/W_suzhituozhan.jsp" hidefocus="true" >素质拓展</a>
     </div>
     <div class="swiper-container">
