@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<query-config>
+    <!-- 修改用户信息-->
+    <query id="Q_TRADE_STATUS_EDIT" type="update" result="">
+        <stmt>
+            <![CDATA[
+          update bi_trade_info set TRADE_STATUS=[trade_status2]
+          where account=[account]
+        ]]>
+        </stmt>
+    </query>
+</query-config>

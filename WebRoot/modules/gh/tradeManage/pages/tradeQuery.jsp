@@ -208,6 +208,35 @@
     </div>
 </div>
 
+//修改会籍状态的对话框
+<div id="editDlg3" style="display: none;padding:0px !important;">
+    <div class="SR_Space">
+        <div class="SR_inputTable">
+            <div class="SR_inputTableContent">
+                <form name="TradestatusEdit" id="TradestatusEdit" onsubmit="return false;">
+                    <table>
+                        <tr>
+                            <td align="right" class="SR_inputTitle">会籍状态:</td>
+                            <td>
+                                <select id="trade_status2" name="trade_status2"  style="width: 120px;height:20px">
+                                    <option value="">--请选择--</option>
+                                    <option value="0">未入会</option>
+                                    <option value="1">已入会</option>
+                                    <option value="2">已退会</option>
+                                    <option value="3">欠费被退会</option>
+                                </select>
+                            </td>
+                            <input type="hidden" name="account" id="account3">
+
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 <script type="text/javascript">
     var params = {
@@ -228,6 +257,18 @@
                 {field: 'INTRADE_DATE', title: '入会时间', sortable: false, align: 'center', width: 60},
 
                 // {field: 'LEAGUER_NO', title: '会员编号', sortable: false, align: 'center', width: 60}
+
+                {
+                    field: 'OPT3',
+                    title: '修改会籍状态',
+                    sortable: false,
+                    align: 'center',
+                    width: 100,
+                    formatter: function (cell, row, index) {
+                        var btn = '<a class="btn_edit" href="javascript:void(0);"  onclick="edit_trade_status(\'' + row.ACCOUNT + '\');">修改会籍状态</a>';
+                        return btn;
+                    }
+                },
                 {
                     field: 'OPT',
                     title: '修改入会时间',
@@ -268,6 +309,12 @@
         $("#account2").val(account);
         $("#apply_id2").val(account);  //这个地方要用id
         rdcp.dialog(editDlgOpts2);
+    }
+
+    function edit_trade_status(account){
+        document.LeaguerEdit.reset(); //调用LeaguerEdit元素
+        $("#account3").val(account);
+        rdcp.dialog(editDlgOpts3);
     }
 
     var editDlgOpts = {
@@ -337,6 +384,41 @@
             }
         ]
     };
+    var editDlgOpts3 = {
+        title: "修改会籍状态",
+        id: "editDlg3", //修改会籍状态
+        width: "450",
+        height: "200",
+        parentwidth: true,
+        modal: true,
+        buttons: [
+            {
+                text: '确定',
+                handler: function () {
+                    rdcp.form.submit("TradestatusEdit", {url: "!gh/tradeManage/~query/Q_TRADE_STATUS_EDIT",
+                        success: function (data) {
+                            if (data.header.code == 0) {
+                                $("#editDlg3").dialog("close");
+                                $.messager.alert('提示', '修改会籍状态成功！', 'info');
+                                rdcp.grid.reload("listdt");
+                            }
+                            else {
+                                $.messager.alert('提示', '修改会籍状态失败！', 'error');
+                            }
+                        }
+                    });
+                }
+            },
+            {
+                text: '取消',
+                handler: function () {
+                    $("#editDlg3").dialog("close");
+                }
+            }
+        ]
+    };
+
+
     //校园文化列表参数--end
     /**
      * rdcp.JS框架初始化
