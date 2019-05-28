@@ -13,7 +13,8 @@
 				where bta.apply_type=[type]
 				and bta.apply_status=[status]
 				<#if user_dept_id??>
-				and bta.dept_id=[user_dept_id]
+				and bta.dept_id in (with tmp as( select a.*, level leaf from SYS_P_DEPARTMENT a START with   a.id=[user_dept_id] connect by prior a.parent_id = a.id )
+                select TMP.id from tmp where leaf = 2 or  leaf = 3 or  leaf = 1)
 				</#if>
 			]]>
 		</stmt>
