@@ -4,7 +4,7 @@
 	<query id="Q_APPLY_TO_TRADE_LIST" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-				select bta.apply_id,bta.account,bta.name,spd.name dept_name,
+				select bta.apply_id,bta.account,bta.name,spd.name dept_name,spd.parent_id parent_id,
 				decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会') trade_status,
 				to_char(apply_time,'yyyy-mm-dd') apply_time,bta.card_no,bta.tele_phone,bta.email,bta.reason
 				from bi_trade_apply bta

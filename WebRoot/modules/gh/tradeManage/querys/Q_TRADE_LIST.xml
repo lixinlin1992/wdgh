@@ -4,7 +4,7 @@
 	<query id="Q_TRADE_LIST" type="pagelist" result="easyui">
 		<stmt>
 			<![CDATA[
-			select bti.account,bti.name,spd.name dept_name_2,spd_spd.name dept_name,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
+			select bti.account,bti.name,ttt.name3 dept_name_2,to_char(bti.intrade_date,'yyyy-mm-dd') intrade_date,bti.birthday,
 			decode(bti.trade_status,0,'未入会',1,'已入会',2,'已退会',3,'欠费被退会')trade_status,bti.leaguer_no,
 			decode(bti.leaguer_type,1,'编制人员',2,'非编制人员',3,'类型3',4,'类型4',5,'类型5')leaguer_type,
 			decode(spu.ryzt,0,'在职',1,'报到中',2,'离退休',3,'离校',4,'去世',4,'其他')ryzt,
@@ -15,7 +15,31 @@
 				spc3.NAME qualifications,
 				spc4.NAME degree
 			from bi_trade_info bti
-			left join sys_p_department spd on bti.dept_id=spd.id
+			left join
+			(select tt1.id id,tt1.name name1,
+			case
+			when tt1.PARENT_ID is null then tt1.id
+			else tt1.PARENT_ID
+			end PARENT1,
+			case
+			when tt2.name is null then tt1.name
+			else tt2.name
+			end name2,
+			case
+			when tt2.PARENT_ID is null and tt1.PARENT_ID is null  then tt1.id
+			when tt2.PARENT_ID is null and tt1.PARENT_ID is not null  then tt1.PARENT_ID
+			else tt2.PARENT_ID
+			end parent3,
+			case
+			when tt3.name is null and tt2.name is null then tt1.name
+			when tt3.name is null and tt2.name is not null then tt2.name
+			else tt3.name
+			end name3
+			from SYS_P_DEPARTMENT tt1
+			left join  SYS_P_DEPARTMENT tt2 on tt1.PARENT_ID=tt2.id
+			left join  SYS_P_DEPARTMENT tt3 on tt2.PARENT_ID=tt3.id
+			)ttt on bti.dept_id=ttt.id
+				left join sys_p_department spd on bti.dept_id=spd.id
 			left join sys_p_user spu on bti.account=spu.account
 			left join SYS_PA_CODE spc1 on BTI.POLITICAL_STATUS=SPC1.CODE_NUM and spc1.CODE_TABLE='BI_TRADE_INFO' and SPC1.CODE_FIELD='POLITICAL_STATUS'
             left join SYS_PA_CODE spc2 on BTI.CARD_TYPE =SPC2.CODE_NUM and spc2.CODE_TABLE='BI_TRADE_INFO' and SPC2.CODE_FIELD='CARD_TYPE'
