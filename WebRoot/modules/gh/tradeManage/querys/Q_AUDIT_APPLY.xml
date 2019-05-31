@@ -2,6 +2,10 @@
 
 <query-config>
     <!-- 修改用户信息-->
+<!--入会申请审批-->
+    <!--apply_type，0：入会申请，1：编辑申请，2：退会申请-->
+    <!--申请状态，0-驳回,1-二级工会审核,2-校管理员审核,3-审核通过-->
+    <!--<#if state=='3'> 审核通过-->
     <query id="Q_AUDIT_APPLY" type="batch" result="easyui">
         <stmt>
             <![CDATA[
@@ -9,9 +13,17 @@
             where apply_id=[apply_id];
           <#if state=='3'>
           <#if apply_type=='0'>
+          <#if trade_status==-1>
+            insert into bi_trade_info(account,name,sex,birthday,political_status,nation,email,card_type,card_no,
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,trade_status,intrade_date,leaguer_type)
+            select account,name,sex,birthday,political_status,nation,email,card_type,card_no,
+            qualifications,degree,post,duties,memo,dept_id,tele_phone,1,sysdate,leaguer_type
+            from bi_trade_apply where apply_id=[apply_id];
+            </#if>
             update bi_trade_info set trade_status=1,intrade_date=sysdate
             where account=(select account from bi_trade_apply where apply_id=[apply_id]);
           <#elseif apply_type=='1'>
+          <!--这里要加入一个是否存在判断-->
             update bi_trade_info set(sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone,leaguer_type)
                             =(select sex,birthday,political_status,nation,email,card_type,card_no,qualifications,degree,post,duties,memo,dept_id,tele_phone,leaguer_type from bi_trade_apply bta where bta.apply_id=[apply_id])
             where account=(select account from bi_trade_apply where apply_id=[apply_id])
@@ -22,5 +34,18 @@
            </#if>
         ]]>
     </stmt>
+
+        <processor name="set-value" type="before" seq="0" break="false">
+            <param name="var">trade_status</param>
+            <param name="sql">
+                <![CDATA[
+					select nvl(trade_status,-1)
+                    from bi_trade_apply bta
+                    left join bi_trade_info bti on bta.account=bti.account
+                    where bta.apply_id=[apply_id]
+				]]>
+            </param>
+        </processor>
+
     </query>
 </query-config>
