@@ -47,47 +47,55 @@
                     <input type="hidden" id="manu_id" name="manu_id"/>
                     <table border="0">
                         <table>
-                        <tr>
-                            <td class="SR_searchTitle" style="width: 80px;">标题: </td>
-                            <td>
-                                <input type="text" name="company" id="company" class="SR_pureInput" style="width: 400px;"/>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="SR_searchTitle" style="width: 80px;">标题:</td>
+                                <td>
+                                    <input type="text" name="company" id="company" class="SR_pureInput"
+                                           style="width: 400px;"/>
+                                </td>
+                            </tr>
                         </table>
                         <table>
-                        <tr>
-                            <td class="SR_searchTitle" style="width: 80px;">作者一: </td>
-                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
-                            <td>
-                                <input type="text" name="author_one_account" id="author_one_account" class="SR_pureInput" onChange="accountToName1(this.id)"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
-                            <td>
-                                <input type="text" name="author_one" id="author_one" class="SR_pureInput"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="SR_searchTitle" style="width: 80px;">作者二: </td>
-                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
-                            <td>
-                                <input type="text" name="author_two_account" id="author_two_account" class="SR_pureInput" style="width: 150px;" onChange="accountToName2(this.id)"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
-                            <td>
-                                <input type="text" name="author_two" id="author_two" class="SR_pureInput" style="width:150px"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="SR_searchTitle" style="width: 80px;">作者三: </td>
-                            <td class="SR_searchTitle" style="width: 80px;">工号: </td>
-                            <td>
-                                <input type="text" name="author_three_account" id="author_three_account" class="SR_pureInput" style="width: 150px;" onChange="accountToName3(this.id)"/>
-                            </td>
-                            <td class="SR_searchTitle" style="width: 80px;">姓名: </td>
-                            <td>
-                                <input type="text" name="author_three" id="author_three" class="SR_pureInput" style="width:150px"/>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="SR_searchTitle" style="width: 80px;">作者一:</td>
+                                <td class="SR_searchTitle" style="width: 80px;">工号:</td>
+                                <td>
+                                    <input type="text" name="author_one_account" id="author_one_account"
+                                           class="SR_pureInput" onChange="accountToName1(this.id)"/>
+                                </td>
+                                <td class="SR_searchTitle" style="width: 80px;">姓名:</td>
+                                <td>
+                                    <input type="text" name="author_one" id="author_one" class="SR_pureInput"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="SR_searchTitle" style="width: 80px;">作者二:</td>
+                                <td class="SR_searchTitle" style="width: 80px;">工号:</td>
+                                <td>
+                                    <input type="text" name="author_two_account" id="author_two_account"
+                                           class="SR_pureInput" style="width: 150px;"
+                                           onChange="accountToName2(this.id)"/>
+                                </td>
+                                <td class="SR_searchTitle" style="width: 80px;">姓名:</td>
+                                <td>
+                                    <input type="text" name="author_two" id="author_two" class="SR_pureInput"
+                                           style="width:150px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="SR_searchTitle" style="width: 80px;">作者三:</td>
+                                <td class="SR_searchTitle" style="width: 80px;">工号:</td>
+                                <td>
+                                    <input type="text" name="author_three_account" id="author_three_account"
+                                           class="SR_pureInput" style="width: 150px;"
+                                           onChange="accountToName3(this.id)"/>
+                                </td>
+                                <td class="SR_searchTitle" style="width: 80px;">姓名:</td>
+                                <td>
+                                    <input type="text" name="author_three" id="author_three" class="SR_pureInput"
+                                           style="width:150px"/>
+                                </td>
+                            </tr>
                         </table>
                     </table>
                 </form>
@@ -128,10 +136,10 @@
     <div class="floatSmallBtn" style="width: 500px;" align="center">
         <a class="btn_commit" href="javascript:void(0);"
            onclick="sureBtn();" title="">提交</a>
-        <a  name="shenhe" id="shenhe" class="btn_cancel" href="javascript:void(0);"
+        <a name="shenhe" id="shenhe" class="btn_cancel" href="javascript:void(0);"
            onclick="examineManu(manu_id)" title="">审核</a>
-        <a  name="shen" id="shenpi" class="btn_cancel" href="javascript:void(0);"
-            onclick="approveManu(manu_id)" title="">审批</a>
+        <a name="shen" id="shenpi" class="btn_cancel" href="javascript:void(0);"
+           onclick="approveManu(manu_id)" title="">审批</a>
         <a class="btn_cancel" href="javascript:void(0);"
            onclick="cancel()" title="">取消</a>
 
@@ -164,7 +172,7 @@
                             </td>
                             <input type="hidden" name="manu_id2" id="manu_id2">
                         </tr>
-                        <tr  id="comment" name="comment">
+                        <tr id="comment" name="comment">
                             <td class="SR_inputTitle">
                                 审核意见：
                             </td>
@@ -205,7 +213,7 @@
                             </td>
                             <input type="hidden" name="manu_id" id="manu_id3">
                         </tr>
-                        <tr  id="comment2" name="comment">
+                        <tr id="comment2" name="comment">
                             <td class="SR_inputTitle">
                                 审批意见：
                             </td>
@@ -221,7 +229,7 @@
 </div>
 
 
-<input type="hidden" id="CUR_USER_ID"  name="CUR_USER_ID"  value="<%=Var.get("RU.CUR_USER.id")%>" >
+<input type="hidden" id="CUR_USER_ID" name="CUR_USER_ID" value="<%=Var.get("RU.CUR_USER.id")%>">
 <!--style给定宽度可以影响编辑器的最终宽度-->
 </body>
 <script type="text/javascript">
@@ -236,16 +244,17 @@
     //定义编辑器
     var editor;
     //初始化编辑器
-    KindEditor.ready(function(K) {
+    KindEditor.ready(function (K) {
         //创建一个编辑器
         editor = K.create('textarea[id="editor_id"]', {
-            allowFileManager : true,//是否打开文件管理功能
-            allowImageRemote : false,//是否允许上传网络图片
-            pasteType : 2,//粘贴类型为HTML粘贴
-            height : "400",//高度
-            width : "100%"//宽度
+            allowFileManager: true,//是否打开文件管理功能
+            allowImageRemote: false,//是否允许上传网络图片
+            pasteType: 2,//粘贴类型为HTML粘贴
+            height: "400",//高度
+            width: "100%"//宽度
         });
     });
+
     //根据工号获取作者姓名
     function accountToName1(author_one_account) {
         var gonghao = document.getElementById("author_one_account").value;
@@ -256,7 +265,7 @@
     }
 
     function accountToName2(author_two_account) {
-        var gongh= document.getElementById("author_two_account").value;
+        var gongh = document.getElementById("author_two_account").value;
         rdcp.request("!gh/manu/~query/Q_ACCOUNT_TO_NAME2", 'author_two_account=' + gongh, function (data) {
             author_two = data.body.author_two;
             $("#author_two").val(author_two);
@@ -264,9 +273,9 @@
     }
 
     function accountToName3(author_three_account) {
-        var ghao= document.getElementById("author_three_account").value;
+        var ghao = document.getElementById("author_three_account").value;
         rdcp.request("!gh/manu/~query/Q_ACCOUNT_TO_NAME3", 'author_three_account=' + ghao, function (data) {
-            author_three= data.body.author_three;
+            author_three = data.body.author_three;
             $("#author_three").val(author_three);
         });
     }
@@ -276,7 +285,7 @@
         //填充历史文化类型下拉列表getParamsByPaCode(id,code_table,code_fields,callback)
         getParamsByPaCode("type", "BI_MANU", "TYPE", function () {
             if (option == "add") {
-                rdcp.request("!gh/info/~query/Q_GET_INFO_ID",{"seq":"bi_manu_seq"},function(data){
+                rdcp.request("!gh/info/~query/Q_GET_INFO_ID", {"seq": "bi_manu_seq"}, function (data) {
                     manu_id = data.body.seq;
                     $("#manu_id").val(manu_id);
                     $("#shenhe").hide();
@@ -294,30 +303,27 @@
                         //加载首页图片
                         loadFiles(data.body.file_ids, data.body.file_names, "index_img");
                     }
-                    if(data.body.attach_ids != ""){
+                    if (data.body.attach_ids != "") {
                         //加载附件列表
-                        loadFiles(data.body.attach_ids, data.body.attach_names,"attach");
+                        loadFiles(data.body.attach_ids, data.body.attach_names, "attach");
                     }
-                    if(tag==2)
-                    {  $("#shenhe").hide();
+                    if (tag == 2) {
+                        $("#shenhe").hide();
                     }
-                    else{
+                    else {
                         $("#shenpi").hide();
                     }
 
 
-                    if(data.body.state>=1)
-                    {
+                    if (data.body.state >= 1) {
                         $("#shenhe").hide();
 
                     }
 
-                    if(data.body.state>=3)
-                    {
+                    if (data.body.state >= 3) {
                         $("#shenpi").hide();
 
                     }
-
 
 
                 });
@@ -325,16 +331,17 @@
         });
 
     });
+
     //提交方法
     function sureBtn() {
         //获取编辑器内容
         var company = $("#company").val();
-        var author_one= $("#author_one").val();
-        var author_two= $("#author_two").val();
-        var author_three= $("#author_three").val();
-        var author_one_account= $("#author_one_account").val();
-        var author_two_account= $("#author_two_account").val();
-        var author_three_account= $("#author_three_account").val();
+        var author_one = $("#author_one").val();
+        var author_two = $("#author_two").val();
+        var author_three = $("#author_three").val();
+        var author_one_account = $("#author_one_account").val();
+        var author_two_account = $("#author_two_account").val();
+        var author_three_account = $("#author_three_account").val();
         var content = editor.html();
         var text = editor.text();
         $("#content_text").val(text);
@@ -343,12 +350,12 @@
             $.messager.alert('提示', '请输入标题！', 'info');
             return false;
         }
-        if (author_one_account == "" || author_one_account== null){
+        if (author_one_account == "" || author_one_account == null) {
             $.messager.alert('提示', '请填写作者一的工号！', 'info');
             return false;
         }
-        if(author_one_account.length<8){
-            $.messager.alert('提示','请正确填写作者一的工号！','info');
+        if (author_one_account.length < 8) {
+            $.messager.alert('提示', '请正确填写作者一的工号！', 'info');
             return false;
         }
         if (content == "" || content == null) {
@@ -365,11 +372,25 @@
 //                    });
 //                }
 //            }, {"mask": true});
-            var CUR_USER_ID= $("#CUR_USER_ID").val();
-            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply",{"manu_id":manu_id,"company":company,"CUR_USER_ID":CUR_USER_ID,"content":content,"author_one":author_one,"author_two":author_two,"author_three":author_three,"content_text":text,"author_one_account":author_one_account,"author_two_account":author_two_account,"author_three_account":author_three_account},function(data){
-                if(data.header.code == 0)
-                {
-                    $.messager.alert("提示","插入成功！","info",function () {
+            var CUR_USER_ID = $("#CUR_USER_ID").val();
+            rdcp.request("!gh/manu/~java/Dbjz_manu.dbjzApply", {
+                "manu_id": manu_id,
+                "company": company,
+                "CUR_USER_ID": CUR_USER_ID,
+                "content": content,
+                "author_one": author_one,
+                "author_two": author_two,
+                "author_three": author_three,
+                "content_text": text,
+                "author_one_account": author_one_account,
+                "author_two_account": author_two_account,
+                "author_three_account": author_three_account
+            }, function (data) {
+                if (data.header.code == 0) {
+                    $.messager.alert("提示", "插入成功！", "info", function () {
+
+                        //刷新稿件管理页面
+                        parent.parent.document.tab_iframe_47312952021431649297024731295202143164929702473129520214316492970247.location.reload()
                         cancel();
 
                     });
@@ -377,25 +398,27 @@
             });
 
         }
-        else if (option == "edit"){
+        else if (option == "edit") {
             $("#manu_id").val(manu_id);
             rdcp.form.submit("manuForm", {
-                url: "!gh/manu/~query/Q_UPDATE_MANU" ,
+                url: "!gh/manu/~query/Q_UPDATE_MANU",
                 success: function (data) {
-                    $.messager.alert('提示', '稿件信息修改成功！', 'info',function () {
+                    $.messager.alert('提示', '稿件信息修改成功！', 'info', function () {
                         parent.refreshGrid();
 //                        cancel();
                     });
                 }
             }, {"mask": true});
         }
+
+
     }
-    function cancel()
-    {
+
+    function cancel() {
         if (option == "add") {
             CloseTab("addManu", "发布信息");
         }
-        else if (option == "edit"){
+        else if (option == "edit") {
             CloseTab("editManu", "修改信息");
         }
 
@@ -419,20 +442,21 @@
                 text: '确定',
                 handler: function () {
                     var state = $("#state").val();
-                    var remarks=$("#remarks").val().trim();
+                    var remarks = $("#remarks").val().trim();
                     if (state == 0) {
                         $.messager.alert('提示', '请输入审核结果！', 'info');
                         return false;
-                    }else if(state==4&&(remarks.length==0||remarks==null)){
+                    } else if (state == 4 && (remarks.length == 0 || remarks == null)) {
                         $.messager.alert('提示', '请输入审核意见！', 'info');
                         return false;
                     }
-                    rdcp.form.submit("examineManuForm", {url: "!gh/manu/~query/Q_EXAMINEMANU_2",
+                    rdcp.form.submit("examineManuForm", {
+                        url: "!gh/manu/~query/Q_EXAMINEMANU_2",
                         success: function (data) {
                             if (data.header.code == 0) {
                                 $("#dialog").dialog("close");
                                 $.messager.alert('提示', '稿件审核成功！', 'info');
-                                $("#remarks").attr("value","");
+                                $("#remarks").attr("value", "");
                                 CloseTab("editManu", "修改信息");
 //                                window.location.href="!gh/manu/~/pages/manuManage.jsp";
                             } else {
@@ -447,12 +471,11 @@
                 text: '取消',
                 handler: function () {
                     $("#dialog").dialog("close");
-                    $("#remarks").attr("value","");
+                    $("#remarks").attr("value", "");
                 }
             }
         ]
     };
-
 
 
     //审批
@@ -473,21 +496,22 @@
                 text: '确定',
                 handler: function () {
                     var state = $("#state2").val();
-                    var remarks=$("#remarks2").val().trim();
+                    var remarks = $("#remarks2").val().trim();
                     if (state == 0) {
                         $.messager.alert('提示', '请输入审批结果！', 'info');
                         return false;
-                    }else if(state==4&&(remarks.length==0||remarks==null)){
+                    } else if (state == 4 && (remarks.length == 0 || remarks == null)) {
                         $.messager.alert('提示', '请输入审批意见！', 'info');
                         return false;
                     }
-                    rdcp.form.submit("approveManuForm", {url: "!gh/manu/~query/Q_APPROVEMANU",
+                    rdcp.form.submit("approveManuForm", {
+                        url: "!gh/manu/~query/Q_APPROVEMANU",
                         success: function (data) {
                             if (data.header.code == 0) {
                                 $("#dialog2").dialog("close");
                                 $.messager.alert('提示', '稿件审批成功！', 'info');
-                                $("#remarks2").attr("value","");
-                                CloseTab("viewManu"+manu_id, "预览信息");
+                                $("#remarks2").attr("value", "");
+                                CloseTab("viewManu" + manu_id, "预览信息");
                             } else {
                                 $.messager.alert('提示', '稿件审批失败！', 'error');
                             }
@@ -500,15 +524,14 @@
                 text: '取消',
                 handler: function () {
                     $("#dialog2").dialog2("close");
-                    $("#remarks").attr("value","");
+                    $("#remarks").attr("value", "");
                 }
             }
         ]
     };
 
 
-
-    function initUpload(){
+    function initUpload() {
         rdcp.uploader("uploader", {busiId: manu_id, busiType: "BI_MANU"}, {
             onSuccess: function (file) {
             }
@@ -518,29 +541,29 @@
             }
         });
     }
-    function loadFiles(file_ids,file_names,type){
+
+    function loadFiles(file_ids, file_names, type) {
         var ids = file_ids.split(",");
         var names = file_names.split(",");
-        for(var i=0;i<ids.length;i++){
-            var html = "<li id='file_"+ids[i]+"' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
-                    "<div class='SR_imgName'><h2>"+names[i]+"</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('"+ids[i]+"')\"></div><div class='SR_uploadImg'>";
-            if(type == "index_img") {
+        for (var i = 0; i < ids.length; i++) {
+            var html = "<li id='file_" + ids[i] + "' class='SR_uploadFileBox'><div class='SR_uploadFileBoxBtn'>" +
+                "<div class='SR_imgName'><h2>" + names[i] + "</h2></div><input class='SR_uploaderDel' type='button' onclick=\"publicDelFile('" + ids[i] + "')\"></div><div class='SR_uploadImg'>";
+            if (type == "index_img") {
                 html += "<img src='!service/file/~java/Downloader.get?type=thumb&id=" + ids[i] + "'/></div></li>";
                 $("#uploader").find(".SR_uploadFileList ul").append(html);
             }
-            else if(type == "attach") {
+            else if (type == "attach") {
                 html += "<img src='!service/file/~/images/defaults.png'/></div></li>";
                 $("#uploader2").find(".SR_uploadFileList ul").append(html);
             }
         }
     }
-    function publicDelFile(id){
-        rdcp.request("!service/file/~java/Uploader.del?id="+id, {}, function () {
-            $("#file_"+id).remove();
+
+    function publicDelFile(id) {
+        rdcp.request("!service/file/~java/Uploader.del?id=" + id, {}, function () {
+            $("#file_" + id).remove();
         });
     }
-
-
 
 
 </script>
